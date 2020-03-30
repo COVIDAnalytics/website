@@ -1,0 +1,24 @@
+h1 {
+    height: 60px;
+    line-height: 60px;
+    border-bottom: thin lightgrey solid;
+    color: deeppink
+}
+
+h2 {
+    height: 40px;
+    line-height: 60px;
+    color: white;
+    margin-bottom: 40px;
+}
+
+h5 {
+    height: 20px;
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+P {
+    color: white;
+}
