@@ -5,6 +5,7 @@ from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
 from interactive import App,build_graph
 from homepage import Homepage
+from insights import Graphs
 from dash.dependencies import Input, Output, State, ClientsideFunction
 from datetime import datetime as dt
 
