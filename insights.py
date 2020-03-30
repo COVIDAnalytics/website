@@ -7,21 +7,6 @@ from navbar import Navbar
 
 nav = Navbar()
 
-figure={"data": [{"x": [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "y": [1, 4, 9, 20, 50, 100, 220, 500, 550, 550, 550, 400, 330, 300, 250]}]}
-
-figure={"data":
-        [
-            {
-                "x": [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],
-                "y": [1, 4, 9, 20, 50, 100, 220, 500, 550, 550, 550, 400, 330, 300, 250]
-            }
-        ],
-        "layout": {
-            "title": "My Graph",
-            "height": 700,  # px
-        },
-        }
-
 body = dbc.Container(
     [
       dbc.Row(
@@ -50,7 +35,8 @@ body = dbc.Container(
                                       "title": "My Graph",
                                       "height": 300,
                                       'paper_bgcolor': 'gray',
-                                      'plot_bgcolor': 'gray'
+                                      'plot_bgcolor': 'gray',
+                                      'margin-top': 10
                                   },
                                   }
                              ),

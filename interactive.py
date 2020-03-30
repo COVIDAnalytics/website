@@ -22,12 +22,20 @@ nav = Navbar()
 
 body = dbc.Container(
     [
+        dbc.Row(
+          [
+            dbc.Col(
+              [
+              html.H1("COVID-19"),
+              html.H2("Interactive Graphs")
+              ]
+            ),
+          ],
+          ),
        dbc.Row(
            [
                dbc.Col(
                   [
-                     html.H1("COVID-19"),
-                     html.H2("Interactive Graphs"),
                      html.H5('Select the Country'),
                      html.Div(dcc.Dropdown(
                          id = 'country_pop_dropdown',
@@ -70,11 +78,9 @@ body = dbc.Container(
                     id = 'interactive_graph',
                     children = [],
                     style={
-                        'margin-top':'10%',
                         'width': '100%',
                         'display': 'inline-block',
-                        'font-color': 'gray',
-                        'background-color': 'black'},
+                        }
                     ),
                 ]
              ),
