@@ -2,33 +2,33 @@ h1 {
     height: 60px;
     line-height: 60px;
     border-bottom: thin lightgrey solid;
-    color: deeppink
+    color: #1E74F0
 }
 
 h2 {
     height: 40px;
     line-height: 60px;
-    color: white;
+    color: black;
     margin-bottom: 40px;
 }
 
 h4 {
     height: 30px;
-    color: white;
+    color: black;
 }
 
 h5 {
     height: 20px;
-    color: white;
+    color: black;
     margin-top: 20px;
     margin-bottom: 20px;
 }
 h6 {
      height: 15px;
      margin-top: 5px;
-     color: white;
+     color: black;
 }
 
 P {
-    color: white;
+    color: black;
 }

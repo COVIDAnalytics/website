@@ -107,7 +107,7 @@ body = dbc.Container(
                             id = 'survivors',
                             options=[{'label': x, 'value': x} for x in survivor_options],
                             value=['Non-Survivors only', 'Survivors only'],
-                            labelStyle={'color': 'white'},
+                            labelStyle={'color': 'black'},
                             style={'width': '50%'})
             		),
                    ],
