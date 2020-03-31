@@ -18,6 +18,11 @@ h5 {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+h6 {
+     height: 15px;
+     margin-top: 5px;
+     color: white;
+}
 
 P {
     color: white;

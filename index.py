@@ -3,7 +3,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-from interactive import App,build_graph
+from interactive import App,build_graph,all_options
 from homepage import Homepage
 from insights import Graphs
 from dash.dependencies import Input, Output, State, ClientsideFunction
@@ -31,30 +31,33 @@ def display_page(pathname):
 
 @app.callback(
     Output('interactive_graph', 'children'),
-    [Input('country_pop_dropdown', 'value')]
+    [Input('y_axis_dropdown', 'value'),
+    Input('x_axis_dropdown', 'value')]
 )
-def update_graph(city):
-    graph = build_graph(city)
+def update_graph(y,x):
+    graph = build_graph(y,x)
     return graph
 
 @app.callback(
-    dash.dependencies.Output('output-container-date-picker-range', 'children'),
-    [dash.dependencies.Input('my-date-picker-range', 'start_date'),
-     dash.dependencies.Input('my-date-picker-range', 'end_date')])
-def update_output(start_date, end_date):
-    string_prefix = 'You have selected: '
-    if start_date is not None:
-        start_date = dt.strptime(start_date.split('T')[0], '%Y-%m-%d')
-        start_date_string = start_date.strftime('%B %d, %Y')
-        string_prefix = string_prefix + 'Start Date: ' + start_date_string + ' | '
-    if end_date is not None:
-        end_date = dt.strptime(end_date.split('T')[0], '%Y-%m-%d')
-        end_date_string = end_date.strftime('%B %d, %Y')
-        string_prefix = string_prefix + 'End Date: ' + end_date_string
-    if len(string_prefix) == len('You have selected: '):
-        return 'Select a date to see it displayed here'
-    else:
-        return string_prefix
+    Output('y_axis_dropdown', 'options'),
+    [Input('categories_dropdown', 'value')])
+def set_y_options(selected_category):
+    return [{'label': i, 'value': i} for i in all_options[selected_category]]
+
+@app.callback(
+    Output('y_axis_dropdown', 'value'),
+    [Input('categories_dropdown', 'options')])
+def set_y_value(available_options):
+    return available_options[0]['value']
+
+
+@app.callback(
+    Output('display-selected-values', 'children'),
+    [Input('categories_dropdown', 'value')])
+def set_display_children(selected_category):
+    mapping = {"Comorbidities": "Comorbidity", "Treatment": "Treatment", "Sypmptoms": "Symptom"}
+    return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)

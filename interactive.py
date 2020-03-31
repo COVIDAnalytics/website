@@ -13,12 +13,49 @@ from dash.dependencies import Output, Input
 # Navbar
 from navbar import Navbar
 
-
 df = pd.read_csv('data/0327.csv')
-df = df.loc[:,["Country","Median Age","Mortality"]]
-df = df.dropna()
 
 nav = Navbar()
+
+categories = ["Comorbidities","Symptoms","Treatment"]
+all_options = {
+    'Comorbidities': ["Current Smoker"
+                          ,"Any Comorbidity"
+                          ,"Hypertension"
+                          ,"Diabetes"
+                          ,"Coronary.heart.disease"
+                          ,"Chronic.obstructive.lung"
+                          ,"Cancer..Any."
+                          ,"Chronic.kidney.renal.disease"
+                          ,"Other"
+                     ],
+    'Symptoms': ["Fever,temperature > 37.3 C"
+                 ,"Average temperature (C)"
+                 ,"Cough"
+                 ,"Shortness of Breath (Dyspnoea)"
+                 ,"Headache"
+                 ,"Sputum"
+                 ,"Muscle.Pain (Myalgia)"
+                 ,"Fatigue"
+                 ,"Diarrhoea"
+                 ,"Nausea/Vomiting"
+                 ,"Loss of Appetite"
+                 ,"Sore Throat/Stuffy Nose"
+                ],
+    'Treatment': ["Antibiotic",
+                "Antiviral",
+                "Corticosteroid",
+                "Intravenous Immunoglobin",
+                "Nasal Cannula",
+                "High flow nasal cannula oxygen therapy",
+                "Noninvasive mechanical ventilation",
+                "Invasive mechanical ventilation",
+                "ECMO",
+                "Glucocorticoid",
+                "Renal replacement therapy"],
+}
+
+demographics = ["Median Age", "Gender"]
 
 body = dbc.Container(
     [
@@ -36,39 +73,31 @@ body = dbc.Container(
            [
                dbc.Col(
                   [
-                     html.H5('Select the Country'),
+                     html.H5('What would you like to compare?'),
                      html.Div(dcc.Dropdown(
-                         id = 'country_pop_dropdown',
-                         options = [{'label': x, 'value': x} for x in set(df.Country.values)],
-                         value = 'China'
-                     )),
-                     html.H5('Select Age Range'),
+                         id = 'categories_dropdown',
+                         options = [{'label': x, 'value': x} for x in categories],
+                         value = 'Comorbidities',
+                         style={'width': '80%', 'display' : 'inline-block'}),
+                     ),
+                     html.Div(
+                        id='display-selected-values',
+                        style={'width': '100%', 'display': 'inline-block','color': 'white'}),
                      html.Div([
                          html.Div(dcc.Dropdown(
-                             id = 'age1_pop_dropdown',
-                             options = [{'label': x, 'value': x} for x in range(0,120)],
-                             value = '20',
-                             style={'width': '40%', 'display': 'inline-block'}
+                             id = 'y_axis_dropdown',
+                             value = 'Current Smoker',
+                             style={'width': '80%', 'display': 'inline-block'}
                              ),
-                         ),
-                         html.Div(dcc.Dropdown(
-                             id = 'age2_pop_dropdown',
-                             options = [{'label': x, 'value': x} for x in range(0,120)],
-                             value = '90',
-                             style={'width': '40%', 'display': 'inline-block'}),
-                         ),
+                         )
                      ]),
-                     html.H5('Select Start and End Date'),
-                     html.Div([
-                        dcc.DatePickerRange(
-                            id='my-date-picker-range',
-                            min_date_allowed=dt(2020, 1, 1),
-                            max_date_allowed=dt(2020, 4, 1),
-                            initial_visible_month=dt(2020, 1, 1),
-                            end_date=dt(2020, 4, 1).date()
-                        ),
-                        html.Div(id='output-container-date-picker-range')
-                    ]),
+                     html.H6('Select the Demographic (Horizontal Axis)'),
+                     html.Div(dcc.Dropdown(
+                         id = 'x_axis_dropdown',
+                         options = [{'label': x, 'value': x} for x in demographics],
+                         value = 'Gender',
+                         style={'width': '80%', 'display' : 'inline-block'}),
+                     ),
                    ],
                   md=4,
                ),
@@ -98,21 +127,42 @@ def App():
     ])
     return layout
 
-def build_graph(country):
-    data = [go.Scatter(x = df.loc[df.Country == country]["Median Age"],
-                            y = df.loc[df.Country == country]["Mortality"],
-                            marker = {'color': 'orange'})]
-    graph = dcc.Graph(
-               figure = {
-                   'data': data,
-                   'layout': go.Layout(
-                        title = '{} Median Age vs Mortality'.format(country),
-                        yaxis = {'title': 'Mortality Percentage'},
-                        hovermode = 'closest',
-                        font={'color': '#FFFFFF'},
-                        paper_bgcolor='gray',
-                        plot_bgcolor='gray'
-                        )
-                    },
-                 )
-    return graph
+
+def build_graph(y_title,x_title):
+    global df
+    cols = [x_title,y_title] + ["PopSize","Survivors"]
+    if y_title not in df.columns or x_title not in df.columns:
+        return None
+    df = df[cols]
+    df = df.dropna()
+
+    data = [
+    #TODO: DO and outer for for 3 ranges of population, each time changing size of point
+        go.Scatter(
+            x=df[df['Survivors'] == i][x_title],
+            y=df[df['Survivors'] == i][y_title],
+            text=df[df['Survivors'] == i]['Survivors'],
+            mode='markers',
+            opacity=0.8,
+            marker={
+                'size': 15,
+                'line': {'width': 0.5, 'color': 'black'}
+            },
+            name=i
+        ) for i in df.Survivors.unique()
+    ]
+
+    graph2 = dcc.Graph(
+        id='life-exp-vs-gdp',
+        figure={
+            'data': data,
+            'layout': go.Layout(
+                xaxis={'title': x_title},
+                yaxis={'title': y_title},
+                margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
+                legend={'x': 0, 'y': 1},
+                hovermode='closest'
+            )
+        }
+    )
+    return graph2
