@@ -182,7 +182,12 @@ def build_graph(y_title,x_title,survivor_vals):
     fig.update_layout(
                 height=550,
                 width=730,
-                title_text='<b> {} vs {} </b>'.format(x_title,y_title),
+                title={
+                    'text': '<b> {} vs {} </b>'.format(x_title,y_title),
+                    'y':0.97,
+                    'x':0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top'},
                 title_font_size=25,
                 xaxis={'title': x_title},
                 yaxis={'title': y_title},
