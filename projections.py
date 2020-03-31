@@ -24,7 +24,6 @@ df_projections_3['State'] = 'Connecticut'
 df_projections = pd.concat([df_projections_1,df_projections_2,df_projections_3])
 today = pd.Timestamp('today')
 df_projections = df_projections[df_projections['Day']>=today]
-print(df_projections.State.unique())
 
 body = dbc.Container(
     [
@@ -94,7 +93,7 @@ def build_state_projection(state):
     ]
 
     for i,val in enumerate(df_projections_sub.columns):
-        if val != 'Day':
+        if val != 'Day' and val != 'State':
             fig.add_trace(go.Scatter(
                 x=df_projections_sub['Day'],
                 y=df_projections_sub[val].values,
