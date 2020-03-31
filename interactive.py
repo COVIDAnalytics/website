@@ -13,41 +13,41 @@ from dash.dependencies import Output, Input
 # Navbar
 from navbar import Navbar
 
-df = pd.read_csv('data/0327.csv')
+df = pd.read_csv('data/0331.csv')
 
 nav = Navbar()
 
 categories = ["Comorbidities","Symptoms","Treatment"]
 all_options = {
-    'Comorbidities': ["Current Smoker"
+    'Comorbidities': ["Current smoker"
                           ,"Any Comorbidity"
                           ,"Hypertension"
                           ,"Diabetes"
-                          ,"Coronary.heart.disease"
-                          ,"Chronic.obstructive.lung"
-                          ,"Cancer..Any."
-                          ,"Chronic.kidney.renal.disease"
+                          ,"Coronary heart disease"
+                          ,"Chronic obstructive lung"
+                          ,"Cancer"
+                          ,"Chronic kidney/renal disease"
                           ,"Other"
                      ],
     'Symptoms': ["Fever,temperature > 37.3 C"
                  ,"Average temperature (C)"
                  ,"Cough"
-                 ,"Shortness of Breath (Dyspnoea)"
+                 ,"Shortness of breath (dyspnoea)"
                  ,"Headache"
                  ,"Sputum"
-                 ,"Muscle.Pain (Myalgia)"
+                 ,"Muscle pain (Myalgia)"
                  ,"Fatigue"
                  ,"Diarrhoea"
-                 ,"Nausea/Vomiting"
+                 ,"Nausea or vomiting"
                  ,"Loss of Appetite"
                  ,"Sore Throat/Stuffy Nose"
                 ],
     'Treatment': ["Antibiotic",
                 "Antiviral",
                 "Corticosteroid",
-                "Intravenous Immunoglobin",
+                "Intravenous immunoglobin",
                 "Nasal Cannula",
-                "High flow nasal cannula oxygen therapy",
+                "High-flow nasal cannula oxygen therapy",
                 "Noninvasive mechanical ventilation",
                 "Invasive mechanical ventilation",
                 "ECMO",
@@ -55,7 +55,7 @@ all_options = {
                 "Renal replacement therapy"],
 }
 
-demographics = ["Median Age", "Gender"]
+demographics = ["Median Age", "Male Percentage"]
 
 body = dbc.Container(
     [
@@ -86,7 +86,7 @@ body = dbc.Container(
                      html.Div([
                          html.Div(dcc.Dropdown(
                              id = 'y_axis_dropdown',
-                             value = 'Current Smoker',
+                             value = 'Current smoker',
                              style={'width': '80%', 'display': 'inline-block'}
                              ),
                          )
@@ -95,7 +95,7 @@ body = dbc.Container(
                      html.Div(dcc.Dropdown(
                          id = 'x_axis_dropdown',
                          options = [{'label': x, 'value': x} for x in demographics],
-                         value = 'Gender',
+                         value = 'Male Percentage',
                          style={'width': '80%', 'display' : 'inline-block'}),
                      ),
                    ],
@@ -136,7 +136,6 @@ def build_graph(y_title,x_title):
     post_cols = cols + ["Population"]
     sub_df = df[pre_cols]
     sub_df = sub_df.dropna()
-    sub_df["PopSize"] = sub_df.PopSize.apply(lambda x: x.replace(',',''))
     sub_df["Population"] = sub_df.PopSize.apply(lambda x: int(x) if int(x) % 1000 == 0 else int(x) + 1000 - int(x) % 1000)
     sub_df = sub_df[post_cols]
 

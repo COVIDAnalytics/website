@@ -55,7 +55,7 @@ def set_y_value(available_options):
     Output('display-selected-values', 'children'),
     [Input('categories_dropdown', 'value')])
 def set_display_children(selected_category):
-    mapping = {"Comorbidities": "Comorbidity", "Treatment": "Treatment", "Sypmptoms": "Symptom"}
+    mapping = {"Comorbidities": "Comorbidity", "Treatment": "Treatment", "Symptoms": "Symptom"}
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
 
