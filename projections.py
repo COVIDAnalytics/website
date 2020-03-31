@@ -93,7 +93,7 @@ def build_state_projection(state):
     ]
 
     for i,val in enumerate(df_projections_sub.columns):
-        if val != 'Day' and val != 'State':
+        if val != 'Day' and val != 'State' and val != 'Total Detected':
             fig.add_trace(go.Scatter(
                 x=df_projections_sub['Day'],
                 y=df_projections_sub[val].values,
