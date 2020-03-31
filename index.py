@@ -3,12 +3,14 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
-from interactive import App,build_graph,all_options
-from homepage import Homepage
-from insights import Graphs
 from dash.dependencies import Input, Output, State, ClientsideFunction
+
 from datetime import datetime as dt
 
+from interactive import InteractiveGraph, build_graph, all_options
+from homepage import Homepage
+from insights import Graphs
+from projections import ProjectState, build_state_projection
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
@@ -23,12 +25,15 @@ app.layout = html.Div([
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/interactive-graph':
-        return App()
+        return InteractiveGraph()
     if pathname == '/insights':
         return Graphs()
+    if pathname == '/projections':
+        return ProjectState()
     else:
         return Homepage()
 
+#Callbacks for interactive
 @app.callback(
     Output('interactive_graph', 'children'),
     [Input('y_axis_dropdown', 'value'),
@@ -36,8 +41,7 @@ def display_page(pathname):
     Input('survivors', 'value'),]
 )
 def update_graph(y,x,survivor_vals):
-    graph = build_graph(y,x,survivor_vals)
-    return graph
+    return build_graph(y,x,survivor_vals)
 
 @app.callback(
     Output('y_axis_dropdown', 'options'),
@@ -51,7 +55,6 @@ def set_y_options(selected_category):
 def set_y_value(available_options):
     return available_options[0]['value']
 
-
 @app.callback(
     Output('display-selected-values', 'children'),
     [Input('categories_dropdown', 'value')])
@@ -59,6 +62,12 @@ def set_display_children(selected_category):
     mapping = {"Comorbidities": "Comorbidity", "Treatment": "Treatment", "Symptoms": "Symptom"}
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
-
+#Callbacks for projections
+@app.callback(
+    Output('state_projection_graph', 'children'),
+    [Input('state_dropdown', 'value'),]
+)
+def update_projection(state):
+    return build_state_projection(state)
 if __name__ == '__main__':
     app.run_server(debug=True)

@@ -131,7 +131,7 @@ body = dbc.Container(
 className="mt-4",
 )
 
-def App():
+def InteractiveGraph():
     layout = html.Div(
     [
         nav,
