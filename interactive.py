@@ -127,42 +127,60 @@ def App():
     ])
     return layout
 
-
 def build_graph(y_title,x_title):
     global df
-    cols = [x_title,y_title] + ["PopSize","Survivors"]
     if y_title not in df.columns or x_title not in df.columns:
         return None
-    df = df[cols]
-    df = df.dropna()
+    cols = [x_title,y_title] + ["Survivors"]
+    pre_cols = cols + ["PopSize"]
+    post_cols = cols + ["Population"]
+    sub_df = df[pre_cols]
+    sub_df = sub_df.dropna()
+    sub_df["PopSize"] = sub_df.PopSize.apply(lambda x: x.replace(',',''))
+    sub_df["Population"] = sub_df.PopSize.apply(lambda x: int(x) if int(x) % 1000 == 0 else int(x) + 1000 - int(x) % 1000)
+    sub_df = sub_df[post_cols]
 
-    data = [
-    #TODO: DO and outer for for 3 ranges of population, each time changing size of point
-        go.Scatter(
-            x=df[df['Survivors'] == i][x_title],
-            y=df[df['Survivors'] == i][y_title],
-            text=df[df['Survivors'] == i]['Survivors'],
-            mode='markers',
-            opacity=0.8,
-            marker={
-                'size': 15,
-                'line': {'width': 0.5, 'color': 'black'}
-            },
-            name=i
-        ) for i in df.Survivors.unique()
+    fig = go.Figure()
+    c = 0
+    colors = [
+    '#1f77b4',  # muted blue
+    '#9467bd',  # muted purple
+    '#e377c2',  # raspberry yogurt pink
+    '#2ca02c',  # cooked asparagus green
+    '#ff7f0e',  # safety orange
+    '#bcbd22',  # curry yellow-green
+    '#17becf'   # blue-teal
     ]
+    sizes = [10,20,30,40,50,60]
 
-    graph2 = dcc.Graph(
-        id='life-exp-vs-gdp',
-        figure={
-            'data': data,
-            'layout': go.Layout(
+    for i in sub_df.Survivors.unique():
+        s = 0
+        for j in sub_df.Population.unique():
+            fig.add_trace(go.Scatter(
+                x=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][x_title],
+                y=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][y_title],
+                legendgroup=i,
+                name=i+'-'+str(j),
+                mode="markers",
+                marker=dict(color=colors[c], size=sizes[s])
+            ))
+            s+=1
+        c+=1
+
+    fig.update_layout(
+                height=550,
+                width=730,
+                title_text='<b> {} vs {} </b>'.format(x_title,y_title),
+                title_font_size=25,
                 xaxis={'title': x_title},
                 yaxis={'title': y_title},
-                margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-                legend={'x': 0, 'y': 1},
-                hovermode='closest'
-            )
-        }
+                legend_title='<b> Survivors-Population </b>',
+                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
+                hovermode='closest')
+
+
+    graph = dcc.Graph(
+        id='interactive-graph',
+        figure=fig
     )
-    return graph2
+    return graph
