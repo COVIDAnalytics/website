@@ -57,6 +57,9 @@ all_options = {
 
 demographics = ["Median Age", "Male Percentage"]
 
+survivor_options = df.Survivors.unique()
+survivor_options = [x for x in survivor_options if str(x) != 'nan']
+
 body = dbc.Container(
     [
         dbc.Row(
@@ -98,6 +101,15 @@ body = dbc.Container(
                          value = 'Male Percentage',
                          style={'width': '80%', 'display' : 'inline-block'}),
                      ),
+                     html.H6('Select the Population Type:'),
+                     html.Div(
+            			dcc.Checklist(
+                            id = 'survivors',
+                            options=[{'label': x, 'value': x} for x in survivor_options],
+                            value=['Non-Survivors only', 'Survivors only'],
+                            labelStyle={'color': 'white'},
+                            style={'width': '50%'})
+            		),
                    ],
                   md=4,
                ),
@@ -127,7 +139,7 @@ def App():
     ])
     return layout
 
-def build_graph(y_title,x_title):
+def build_graph(y_title,x_title,survivor_vals):
     global df
     if y_title not in df.columns or x_title not in df.columns:
         return None
@@ -138,6 +150,7 @@ def build_graph(y_title,x_title):
     sub_df = sub_df.dropna()
     sub_df["Population"] = sub_df.PopSize.apply(lambda x: int(x) if int(x) % 1000 == 0 else int(x) + 1000 - int(x) % 1000)
     sub_df = sub_df[post_cols]
+    sub_df = sub_df[sub_df['Survivors'].isin(survivor_vals)]
 
     fig = go.Figure()
     c = 0

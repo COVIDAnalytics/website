@@ -32,10 +32,11 @@ def display_page(pathname):
 @app.callback(
     Output('interactive_graph', 'children'),
     [Input('y_axis_dropdown', 'value'),
-    Input('x_axis_dropdown', 'value')]
+    Input('x_axis_dropdown', 'value'),
+    Input('survivors', 'value'),]
 )
-def update_graph(y,x):
-    graph = build_graph(y,x)
+def update_graph(y,x,survivor_vals):
+    graph = build_graph(y,x,survivor_vals)
     return graph
 
 @app.callback(
