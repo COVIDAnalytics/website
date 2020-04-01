@@ -22,6 +22,7 @@ app.layout = html.Div([
     html.Div(id = 'page-content')
 ])
 
+# redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/interactive-graph':

@@ -14,7 +14,7 @@ from navbar import Navbar
 
 nav = Navbar()
 
-# all into one csv should be done offline
+#df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
 df_projections_1 = pd.read_csv('data/predicted/Prediction_NewYork.csv', sep=",", parse_dates = ['Day'])
 df_projections_2 = pd.read_csv('data/predicted/Prediction_Massachusetts.csv', sep=",", parse_dates = ['Day'])
 df_projections_3 = pd.read_csv('data/predicted/Prediction_Connecticut.csv', sep=",", parse_dates = ['Day'])
