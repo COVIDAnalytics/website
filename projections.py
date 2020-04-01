@@ -22,7 +22,10 @@ oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
 df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
 df_projections = df_projections.loc[df_projections['Day']>=today]
 
-cols = ['Current Active','Current Hospitalized','Totale Active','Total Detected Deaths']
+cols = ['Current Active','Current Hospitalized','Total Detected','Total Hospitalized','Total Detected Deaths']
+
+def remove_words(w):
+    return w.replace('Current ','')
 
 body = dbc.Container(
     [
@@ -40,17 +43,27 @@ body = dbc.Container(
           [
             dbc.Col(
               [
-                  html.Div(
+              html.H6('Date:'),
+              html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range',
                         min_date_allowed=min(df_projections.Day.values),
                         max_date_allowed=max(df_projections.Day.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
+                        style={'margin-bottom':10}
                     )
+                ),
+                html.H6('Predicted Value:'),
+                    html.Div(dcc.Dropdown(
+                        id = 'us_map_dropdown',
+                        options = [{'label': x, 'value': x} for x in cols],
+                        value = 'Current Active',
+                        style={'width': '100%','margin-bottom':10,'height':20}
+                    ),
                 )
               ],
-              width=2
+              width=3
               ),
               dbc.Col(
                 [
@@ -67,7 +80,7 @@ body = dbc.Container(
              dbc.Col(html.H4('State:'), width=1),
              dbc.Col(html.Div(dcc.Dropdown(
                  id = 'state_dropdown',
-                 options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
+                 options = [{'label': x, 'value': remove_words(x)} for x in df_projections.State.unique()],
                  value = 'New York',
                  style={'width': '50%', 'display' : 'inline-block','margin':0, 'textAlign': 'left'})
                ))
@@ -101,7 +114,7 @@ def ProjectState():
     ])
     return layout
 
-def build_us_map(map_date):
+def build_us_map(map_date,val='Current Active'):
 
     global df_projections
 
@@ -124,17 +137,17 @@ def build_us_map(map_date):
 
     fig = go.Figure(data=go.Choropleth(
             locations=df_map['code'],
-            z=df_map['Current Active'].astype(float),
+            z=df_map[val].astype(float),
             locationmode='USA-states',
             colorscale='Inferno_r',
             autocolorscale=False,
             text=df_map['text'], # hover text
             marker_line_color='white', # line markers between states
-            colorbar_title='{} Predicted Active'.format(map_date.strftime('%b %d'))
+            colorbar_title='{}'.format(remove_words(val))
         ))
 
     fig.update_layout(
-            title_text='{} Predictions of COVID-19 Cases'.format(map_date.strftime('%b %d,%Y')),
+            title_text='{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), remove_words(val)),
             geo = dict(
                 scope='usa',
                 projection=go.layout.geo.Projection(type = 'albers usa'),

@@ -73,9 +73,10 @@ def update_projection(state):
 
 @app.callback(
     dash.dependencies.Output('us_map_projections', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
-def update_us_map(chosen_date):
-    return build_us_map(chosen_date)
+    [dash.dependencies.Input('us-map-date-picker-range', 'date'),
+     dash.dependencies.Input('us_map_dropdown', 'value')])
+def update_us_map(chosen_date,val):
+    return build_us_map(chosen_date,val)
 
 
 if __name__ == '__main__':
