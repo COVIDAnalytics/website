@@ -7,16 +7,16 @@ def Navbar():
              dbc.NavbarToggler(id="navbar-toggler"),
              dbc.NavItem(dbc.NavLink("Projections", href="/projections")),
              dbc.NavItem(dbc.NavLink("Interactive Graphs", href="/interactive-graph")),
-             dbc.NavItem(dbc.NavLink("Insights", href="/insights")),
+             #dbc.NavItem(dbc.NavLink("Insights", href="/insights")),
              dbc.NavItem(dbc.NavLink("Dataset", href="/dataset")),
              dbc.DropdownMenu(
                 nav=True,
                 in_navbar=True,
                 label="About Us",
                 children=[
-                   dbc.DropdownMenuItem("The Team"),
+                   dbc.DropdownMenuItem("The Team", href="/team"),
                    dbc.DropdownMenuItem(divider=True),
-                   dbc.DropdownMenuItem("Contact Us"),
+                   dbc.DropdownMenuItem("Contact Us", href="/contact"),
                          ],
                      ),
              html.A(

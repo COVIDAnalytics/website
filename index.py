@@ -11,11 +11,13 @@ from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
 from insights import Graphs
 from projections import ProjectState, build_state_projection, build_us_map
+from team import Team
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
 app.title = "MIT_ORC_COVID19"
 app.config.suppress_callback_exceptions = True
+external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 app.layout = html.Div([
     dcc.Location(id = 'url', refresh = False),
@@ -27,10 +29,12 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    if pathname == '/insights':
-        return Graphs()
+    # if pathname == '/insights':
+    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
+    if pathname == '/team':
+        return Team()
     else:
         return Homepage()
 
