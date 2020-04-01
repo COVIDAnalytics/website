@@ -46,7 +46,6 @@ body = dbc.Container(
                         min_date_allowed=min(df_projections.Day.values),
                         max_date_allowed=max(df_projections.Day.values),
                         date=oneWeekFromNow,
-                        #display_format='MMM Do, YY',
                         initial_visible_month=oneWeekFromNow,
                     )
                 )
