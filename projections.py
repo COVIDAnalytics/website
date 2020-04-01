@@ -18,54 +18,11 @@ nav = Navbar()
 
 df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
 today = pd.Timestamp('today')
+oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
 df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
 df_projections = df_projections.loc[df_projections['Day']>=today]
 
 cols = ['Current Active','Current Hospitalized','Totale Active','Total Detected Deaths']
-
-def build_us_map():
-
-    global df_projections
-    tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-    df_map = df_projections.loc[df_projections['Day']==tomorrow]
-    df_map = df_map.applymap(str)
-
-    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
-
-    fig = go.Figure()
-
-    df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
-                'Total Detected ' + df_map['Total Detected'] + '<br>' + \
-                'Current Active ' + df_map['Current Active'] + '<br>' + \
-                'Current Hospitalized ' + df_map['Current Hospitalized'] + '<br>' + \
-                'Total Hospitalized ' + df_map['Total Hospitalized'] + '<br>' + \
-                'Total Detected Deaths ' + df_map['Total Detected Deaths']
-
-    fig = go.Figure(data=go.Choropleth(
-            locations=df_map['code'],
-            z=df_map['Current Active'].astype(float),
-            locationmode='USA-states',
-            colorscale='Reds',
-            autocolorscale=False,
-            text=df_map['text'], # hover text
-            marker_line_color='white', # line markers between states
-            colorbar_title='Tomorrow\'s Predictioned Active Counts'
-        ))
-
-    fig.update_layout(
-            title_text='Tomorrow\'s Predictions of COVID-19 Cases',
-            geo = dict(
-                scope='usa',
-                projection=go.layout.geo.Projection(type = 'albers usa'),
-                showlakes=True, # lakes
-                lakecolor='rgb(255, 255, 255)'),
-        )
-
-    graph = dcc.Graph(
-        id='projection-map',
-        figure=fig
-    )
-    return graph
 
 body = dbc.Container(
     [
@@ -81,11 +38,26 @@ body = dbc.Container(
         ),
         dbc.Row(
           [
+            dbc.Col(
+              [
+                  html.Div(
+                    dcc.DatePickerSingle(
+                        id='us-map-date-picker-range',
+                        min_date_allowed=min(df_projections.Day.values),
+                        max_date_allowed=max(df_projections.Day.values),
+                        date=oneWeekFromNow,
+                        #display_format='MMM Do, YY',
+                        initial_visible_month=oneWeekFromNow,
+                    )
+                )
+              ],
+              width=2
+              ),
               dbc.Col(
                 [
                     html.Div(
-                    id = 'us_map',
-                    children = build_us_map(),
+                    id = 'us_map_projections',
+                    children = [],
                     ),
                 ]
                 )
@@ -129,6 +101,54 @@ def ProjectState():
         body
     ])
     return layout
+
+def build_us_map(map_date):
+
+    global df_projections
+
+    if isinstance(map_date, str):
+        map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
+
+    df_map = df_projections.loc[df_projections['Day']==map_date]
+    df_map = df_map.applymap(str)
+
+    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
+
+    fig = go.Figure()
+
+    df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
+                'Total Detected ' + df_map['Total Detected'] + '<br>' + \
+                'Current Active ' + df_map['Current Active'] + '<br>' + \
+                'Current Hospitalized ' + df_map['Current Hospitalized'] + '<br>' + \
+                'Total Hospitalized ' + df_map['Total Hospitalized'] + '<br>' + \
+                'Total Detected Deaths ' + df_map['Total Detected Deaths']
+
+    fig = go.Figure(data=go.Choropleth(
+            locations=df_map['code'],
+            z=df_map['Current Active'].astype(float),
+            locationmode='USA-states',
+            colorscale='Reds',
+            autocolorscale=False,
+            text=df_map['text'], # hover text
+            marker_line_color='white', # line markers between states
+            colorbar_title='{} Predicted Active'.format(map_date.strftime('%b %d'))
+        ))
+
+    fig.update_layout(
+            title_text='{} Predictions of COVID-19 Cases'.format(map_date.strftime('%b %d,%Y')),
+            geo = dict(
+                scope='usa',
+                projection=go.layout.geo.Projection(type = 'albers usa'),
+                showlakes=True, # lakes
+                lakecolor='rgb(255, 255, 255)'),
+        )
+
+    graph = dcc.Graph(
+        id='projection-map',
+        figure=fig
+    )
+    return graph
+
 
 def build_state_projection(state):
     global df_projections
