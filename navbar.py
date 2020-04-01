@@ -17,9 +17,9 @@ def Navbar():
                 in_navbar=True,
                 label="About Us",
                 children=[
-                   dbc.DropdownMenuItem("The Team"),
+                   dbc.DropdownMenuItem("The Team", href="/team"),
                    dbc.DropdownMenuItem(divider=True),
-                   dbc.DropdownMenuItem("Contact Us"),
+                   dbc.DropdownMenuItem("Contact Us", href="/contact"),
                          ],
                      ),
              html.A(
