@@ -20,7 +20,7 @@ df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_date
 today = pd.Timestamp('today')
 oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
 df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
-# df_projections = df_projections.loc[df_projections['Day']>=today]
+df_projections = df_projections.loc[df_projections['Day']>=today]
 
 cols = ['Current Active','Current Hospitalized','Total Detected','Total Hospitalized','Total Detected Deaths']
 

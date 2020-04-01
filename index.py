@@ -10,7 +10,7 @@ from datetime import datetime as dt
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
 from insights import Graphs
-from projections import ProjectState, build_state_projection
+from projections import ProjectState, build_state_projection, build_us_map
 from team import Team
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
@@ -34,7 +34,7 @@ def display_page(pathname):
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/team':
-        return Team()    
+        return Team()
     else:
         return Homepage()
 
