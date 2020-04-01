@@ -24,7 +24,7 @@ def Navbar():
                 dbc.Row(
                     [
                         dbc.Col(html.Img(src="assets/mit.png", height="40px")),
-                        dbc.Col(html.Img(src="assets/orc_image.png", height="40px")),
+                        dbc.Col(html.Img(src="assets/orc.png", height="40px")),
                     ],
                     align="left",
                     no_gutters=True,
