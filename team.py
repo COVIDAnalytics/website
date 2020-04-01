@@ -38,7 +38,7 @@ body = dbc.Container(
             							block=True,
             							id="button",
             							className="mb-3",
-            							href="https://sites.google.com/view/leonardboussioux/"
+            							href=""
         					)],style = {'display': 'inline-block', 'width': '100%'})]
                	),
                	dbc.Col(

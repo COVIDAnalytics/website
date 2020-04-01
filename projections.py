@@ -19,7 +19,7 @@ nav = Navbar()
 df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
 today = pd.Timestamp('today')
 df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
-df_projections = df_projections.loc[df_projections['Day']>=today]
+# df_projections = df_projections.loc[df_projections['Day']>=today]
 
 cols = ['Current Active','Current Hospitalized','Totale Active','Total Detected Deaths']
 
