@@ -64,9 +64,13 @@ body = dbc.Container(
                         id = 'us_map_dropdown',
                         options = [{'label': x, 'value': x} for x in cols],
                         value = 'Current Active',
-                        style={'width': '100%','margin-bottom':10,'height':20}
+                        style={'width': '100%','margin-bottom':10}
                     ),
-                )
+                ),
+                html.P('* Gray states correspond to no projection as the number \
+                of cases so far is too low for a sound estimation',
+                style={'color':'gray'}
+                ),
               ],
               width=3
               ),
@@ -184,7 +188,7 @@ def build_state_projection(state):
     ]
 
     for i,val in enumerate(df_projections_sub.columns):
-        if val in cols:
+        if val in cols and val != 'Total Detected':
             fig.add_trace(go.Scatter(
                 x=df_projections_sub['Day'],
                 y=df_projections_sub[val].values,
