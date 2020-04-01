@@ -67,8 +67,9 @@ body = dbc.Container(
                         style={'width': '100%','margin-bottom':10}
                     ),
                 ),
-                html.P('* Gray states correspond to no projection as the number \
-                of cases so far is too low for a sound estimation',
+                html.P('* Gray states correspond to no projection as their number \
+                of confirmed cases so far is too low for a reliable estimation.\
+		We will update on a daily basis.',
                 style={'color':'gray'}
                 ),
               ],
