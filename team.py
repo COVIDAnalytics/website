@@ -21,7 +21,7 @@ body = dbc.Container(
           dbc.Col(
             [
             html.H1("COVID-19"),
-            html.H5("Our Team comprises of passionate researchers in Analytics!")
+            html.H5("Our Team comprises of passionate researchers in Operations Research and Analytics!")
             ]
           ),
         ],
