@@ -70,5 +70,7 @@ def set_display_children(selected_category):
 )
 def update_projection(state):
     return build_state_projection(state)
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
