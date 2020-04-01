@@ -127,7 +127,7 @@ def build_us_map(map_date):
             locations=df_map['code'],
             z=df_map['Current Active'].astype(float),
             locationmode='USA-states',
-            colorscale='Reds',
+            colorscale='Inferno_r',
             autocolorscale=False,
             text=df_map['text'], # hover text
             marker_line_color='white', # line markers between states
