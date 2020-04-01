@@ -85,11 +85,11 @@ body = dbc.Container(
                      ),
                      html.Div(
                         id='display-selected-values',
-                        style={'width': '100%', 'display': 'inline-block','color': 'white'}),
+                        style={'width': '100%', 'display': 'inline-block','color': 'black'}),
                      html.Div([
                          html.Div(dcc.Dropdown(
                              id = 'y_axis_dropdown',
-                             value = 'Current smoker',
+                             value = 'Hypertension',
                              style={'width': '80%', 'display': 'inline-block'}
                              ),
                          )

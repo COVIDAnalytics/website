@@ -75,6 +75,13 @@ def set_display_children(selected_category):
 def update_projection(state):
     return build_state_projection(state)
 
+@app.callback(
+    dash.dependencies.Output('us_map_projections', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date'),
+     dash.dependencies.Input('us_map_dropdown', 'value')])
+def update_us_map(chosen_date,val):
+    return build_us_map(chosen_date,val)
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
