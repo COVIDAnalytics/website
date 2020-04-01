@@ -143,7 +143,7 @@ def build_graph(y_title,x_title,survivor_vals):
     global df
     if y_title not in df.columns or x_title not in df.columns:
         return None
-    cols = [x_title,y_title] + ["Survivors"]
+    cols = [x_title,y_title] + ["Survivors","Country"]
     pre_cols = cols + ["PopSize"]
     post_cols = cols + ["Population"]
     sub_df = df[pre_cols]
@@ -174,7 +174,8 @@ def build_graph(y_title,x_title,survivor_vals):
                 legendgroup=i,
                 name=i+'-'+str(j),
                 mode="markers",
-                marker=dict(color=colors[c], size=sizes[s])
+                marker=dict(color=colors[c], size=sizes[s]),
+                text=sub_df['Country'],
             ))
             s+=1
         c+=1
