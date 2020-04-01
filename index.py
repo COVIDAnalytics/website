@@ -29,8 +29,8 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    if pathname == '/insights':
-        return Graphs()
+    # if pathname == '/insights':
+    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/team':
