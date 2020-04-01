@@ -27,6 +27,11 @@ cols = ['Current Active','Current Hospitalized','Total Detected','Total Hospital
 def remove_words(w):
     return w.replace('Current ','')
 
+def add_cases(w):
+    if 'Deaths' not in w:
+        w += ' Cases'
+    return w
+
 body = dbc.Container(
     [
         dbc.Row(
@@ -147,7 +152,7 @@ def build_us_map(map_date,val='Current Active'):
         ))
 
     fig.update_layout(
-            title_text='{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), remove_words(val)),
+            title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), remove_words(val))),
             geo = dict(
                 scope='usa',
                 projection=go.layout.geo.Projection(type = 'albers usa'),
