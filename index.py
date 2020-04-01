@@ -24,6 +24,7 @@ app.layout = html.Div([
     html.Div(id = 'page-content')
 ])
 
+# redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/interactive-graph':
@@ -73,5 +74,7 @@ def set_display_children(selected_category):
 )
 def update_projection(state):
     return build_state_projection(state)
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
