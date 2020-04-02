@@ -11,164 +11,33 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 # Navbar
 from navbar import Navbar
+import yaml
 
 nav = Navbar()
 
-body = dbc.Container(
-    [
-      dbc.Row(
-        [
-          dbc.Col(
-            [
-            html.H1("COVID-19"),
-            html.H5("Our Team comprises of passionate researchers in Operations Research and Analytics!")
-            ]
-          ),
-        ],
-        ),
-       dbc.Row(
-               [dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Boussioux_Leonard.jpg',
-               	  					  id='Boussioux_Leonard',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Boussioux Leonard",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-            							href=""
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-               	dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Cory_Wright_Ryan.jpg',
-               	  					  id='Cory_Wright_Ryan',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Cory Wright Ryan",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-            							href="https://ryancorywright.github.io/"
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-               	dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Delarue_Arthur.jpg',
-               	  					  id='Digalakis_Vasileios',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Digalakis Vasileios",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-               dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Digalakis_Vasileios.jpg',
-               	  					  id='Digalakis_Vasileios',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Digalakis Vasileios",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-               dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Gilmour_Samuel.jpg',
-               	  					  id='Gilmour_Samuel',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Gilmour Samuel",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
 
-			    ]),
-        dbc.Row(
-            [
-            dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Graham_Justin.jpg',
-               	  					  id='Graham_Justin',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Graham Justin",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-            dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Kim_Adam.jpg',
-               	  					  id='Kim_Adam',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Kim Adam",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-            dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Lahlou_Kitane_Driss.jpg',
-               	  					  id='Lahlou_Kitane_Driss',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Lahlou Kitane Driss",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-            dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Stellato_Bartolomeo.jpg',
-               	  					  id='Stellato_Bartolomeo',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Stellato Bartolomeo",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-            dbc.Col(
-               	  [html.Div([
-               	    html.Img(src='assets/team_members/Wiberg_Holly.jpg',
-               	  					  id='Wiberg_Holly',
-               	  					  alt='Image Missing',
-               	  					  width='100%'),
-               	    dbc.Button("Wiberg Holly",
-            							color="info",
-            							block=True,
-            							id="button",
-            							className="mb-3",
-        					)],style = {'display': 'inline-block', 'width': '100%'})]
-               	),
-	    		]),
-
-       ],
-)
+# Load team members
+with open("assets/team_members/team.yml") as f:
+    members = yaml.load(f, Loader=yaml.FullLoader)
+num_members = len(members)
+members_per_row = 4
 
 
+# Single member pic
+def member_pic(member):
+    return dbc.Col([html.Div([html.Img(src='assets/team_members/photos/%s' % member['photo']),
+                            dbc.Button(member['name'], color="info", block=True, className="mb-3", href=member['website'])],
+                           style={'display': 'inline-block'})])
+
+# Table rows
+member_rows = [dbc.Row([member_pic(m) for m in members[i*members_per_row:(i+1)*members_per_row]])
+               for i in range(num_members//members_per_row)] + \
+              [dbc.Row([member_pic(m) for m in members[num_members - (num_members % members_per_row):]])]
+
+
+body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19"),
+                                        html.H5("Our Team comprises of passionate researchers in Operations Research and Analytics!")])])] +
+                     member_rows)
 
 def Team():
     layout = html.Div(
