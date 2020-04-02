@@ -26,8 +26,10 @@ members_per_row = 4
 # Single member pic
 def member_pic(member):
     return dbc.Col([html.Div([html.Img(src='assets/team_members/photos/%s' % member['photo']),
-                            dbc.Button(member['name'], color="info", block=True, className="mb-3", href=member['website'])],
-                           style={'display': 'inline-block'})])
+                              dbc.Button(member['name'], color="info", block=True,
+                                         className="mb-3", href=member['website'])],
+                                         style={'display': 'inline-block'})],
+                   width=3)
 
 # Table rows
 member_rows = [dbc.Row([member_pic(m) for m in members[i*members_per_row:(i+1)*members_per_row]])
