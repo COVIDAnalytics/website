@@ -23,7 +23,7 @@ mailing_list="covidanalytics@mit.edu"
 nav = Navbar()
 name_input = dbc.FormGroup(
     [
-        dbc.Col(html.Label("Name", htmlFor="name-row"), width=1),
+        dbc.Col(html.Label("Topic", htmlFor="name-row"), width=1),
         dbc.Col(
             dcc.Input(
                 type="text",
