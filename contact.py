@@ -78,7 +78,7 @@ form = html.Form([name_input, email_input, text_input, submit_button],
                  action=formspree_url,
                  method="POST")
 
-body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19"),
+body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19 Analytics"),
                                         html.P("We are happy to collaborate and help you take our research one step further." +
                                                "Feel free to send us an email using that the following form."),
                                         html.P(["You can also reach out to us by sending an email to ", html.A(
