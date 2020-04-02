@@ -35,21 +35,21 @@ def add_cases(w):
 body = dbc.Container(
     [
         dbc.Row(
-          [
+        [
             dbc.Col(
-              [
-              html.H1("COVID-19"),
-              html.H2("Projections")
-              ]
+            [
+                html.H1("COVID-19 Analytics"),
+                html.H2("Projections")
+            ]
             ),
-          ],
+        ],
         ),
         dbc.Row(
-          [
+        [
             dbc.Col(
-              [
-              html.H6('Date:'),
-              html.Div(
+            [
+                html.H6('Date:'),
+                html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range',
                         min_date_allowed=min(df_projections.Day.values),
@@ -68,52 +68,56 @@ body = dbc.Container(
                     ),
                 ),
                 html.P('* Gray states correspond to no projection as their number \
-                of confirmed cases so far is too low for a reliable estimation.\
-		We will update on a daily basis.',
-                style={'color':'gray'}
+                        of confirmed cases so far is too low for a reliable estimation.\
+        		        We will update on a daily basis.',
+                        style={'color':'gray'}
                 ),
               ],
               width=3
               ),
               dbc.Col(
-                [
+              [
                     html.Div(
                     id = 'us_map_projections',
                     children = [],
                     ),
+              ]
+              )
+           ],
+           ),
+        dbc.Row(
+        [
+             dbc.Col(html.H4('State:'), width=1),
+             dbc.Col(
+                html.Div(
+                    dcc.Dropdown(
+                        id = 'state_dropdown',
+                        options = [{'label': x, 'value': remove_words(x)} for x in df_projections.State.unique()],
+                        value = 'US',
+                        style={'width': '50%', 'display' : 'inline-block','margin':0, 'textAlign': 'left'}
+                    )
+               )
+             )
+             ],
+         ),
+         dbc.Row(
+         [
+               dbc.Col(
+               [
+                     html.Div(
+                         id = 'state_projection_graph',
+                         children = [],
+                         style={
+                             'width': '100%',
+                             'display': 'inline-block',
+                             }
+                     ),
                 ]
                 )
-           ],
-       ),
-        dbc.Row(
-           [
-             dbc.Col(html.H4('State:'), width=1),
-             dbc.Col(html.Div(dcc.Dropdown(
-                 id = 'state_dropdown',
-                 options = [{'label': x, 'value': remove_words(x)} for x in df_projections.State.unique()],
-                 value = 'US',
-                 style={'width': '50%', 'display' : 'inline-block','margin':0, 'textAlign': 'left'})
-               ))
-            ],
-        ),
-         dbc.Row(
-           [
-               dbc.Col(
-                 [
-                     html.Div(
-                     id = 'state_projection_graph',
-                     children = [],
-                     style={
-                         'width': '100%',
-                         'display': 'inline-block',
-                         }
-                     ),
-                 ]
-                 )
-            ],
-        ),
+          ],
+          ),
    ],
-className="projections-body",
+   className="projections-body",
 )
 
 def ProjectState():

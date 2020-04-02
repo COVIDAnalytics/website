@@ -25,7 +25,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H1("COVID-19"),
+                html.H1("COVID-19 Analytics"),
                 html.H2("Predictive Tools"),
                 html.P(
                      """\
