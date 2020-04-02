@@ -66,8 +66,25 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H1("COVID-19"),
+              html.H1("COVID-19 Analytics"),
               html.H2("Interactive Graphs")
+            ]
+            ),
+        ],
+        ),
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                html.Div(
+                [
+                    dcc.Markdown(
+                         """\
+                         Effective decision making needs data. We interactively visualize a new [dataset](/dataset) that aggregates data from over 100 published clinical studies and preprints released between December 2019 and March 2020 on COVID-19. We hope that by summarizing the results of multiple studies, we can get a clearer picture on the virus. Below you will find a series of options to create descriptive graphs relating to patient demographic characteristics, symptoms, treatments, comorbidities, lab results, and outcomes. Each data point corresponds to a different study that comprises multiple patients. We hope that you can easily derive your own insights and discover the interesting implications of the disease.
+                         """
+                    )
+                ]
+                )
             ]
             ),
         ],
