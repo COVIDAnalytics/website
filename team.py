@@ -37,7 +37,7 @@ member_rows = [dbc.Row([member_pic(m) for m in members[i*members_per_row:(i+1)*m
               [dbc.Row([member_pic(m) for m in members[num_members - (num_members % members_per_row):]])]
 
 
-body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19"),
+body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19 Analytics"),
                                         html.H5("Our Team comprises of passionate researchers in Operations Research and Analytics!")])])] +
                      member_rows)
 

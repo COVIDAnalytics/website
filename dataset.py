@@ -17,44 +17,6 @@ from navbar import Navbar
 
 df = pd.read_csv('data/0332.csv')
 
-categories = ["Comorbidities","Symptoms","Treatment"]
-all_options = {
-    'Comorbidities': ["Current smoker"
-                          ,"Any Comorbidity"
-                          ,"Hypertension"
-                          ,"Diabetes"
-                          ,"Coronary heart disease"
-                          ,"Chronic obstructive lung"
-                          ,"Cancer"
-                          ,"Chronic kidney/renal disease"
-                          ,"Other"
-                     ],
-    'Symptoms': ["Fever,temperature > 37.3 C"
-                 ,"Average temperature (C)"
-                 ,"Cough"
-                 ,"Shortness of breath (dyspnoea)"
-                 ,"Headache"
-                 ,"Sputum"
-                 ,"Muscle pain (Myalgia)"
-                 ,"Fatigue"
-                 ,"Diarrhoea"
-                 ,"Nausea or vomiting"
-                 ,"Loss of Appetite"
-                 ,"Sore Throat/Stuffy Nose"
-                ],
-    'Treatment': ["Antibiotic",
-                "Antiviral",
-                "Corticosteroid",
-                "Intravenous immunoglobin",
-                "Nasal Cannula",
-                "High-flow nasal cannula oxygen therapy",
-                "Noninvasive mechanical ventilation",
-                "Invasive mechanical ventilation",
-                "ECMO",
-                "Glucocorticoid",
-                "Renal replacement therapy"],
-}
-
 demographics = ["Median Age", "Male Percentage"]
 
 nav = Navbar()
@@ -64,7 +26,7 @@ table = dbc.Table.from_dataframe(df, striped=True, bordered=True, hover=True, re
 
 body = dbc.Container([
 	dbc.Row(
-        [dbc.Col([html.H1("COVID-19"),
+        [dbc.Col([html.H1("COVID-19 Analytics"),
             	  html.H2("Dataset"),]),],),
 	dbc.Row(
            [
