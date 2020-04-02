@@ -91,7 +91,7 @@ body = dbc.Container(
              dbc.Col(html.Div(dcc.Dropdown(
                  id = 'state_dropdown',
                  options = [{'label': x, 'value': remove_words(x)} for x in df_projections.State.unique()],
-                 value = 'New York',
+                 value = 'US',
                  style={'width': '50%', 'display' : 'inline-block','margin':0, 'textAlign': 'left'})
                ))
             ],
