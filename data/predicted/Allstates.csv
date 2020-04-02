@@ -1,4 +1,4 @@
-"State","Day","Total Detected","Current Active","Current Hospitalized","Total Hospitalized","Total Detected Deaths"
+"State","Day","Total Detected","Active","Active Hospitalized","Cumulative Hospitalized","Total Detected Deaths","Active Ventilated"
 "Alabama","2020-04-02",1207,674,134,181,20,30
 "Alabama","2020-04-03",1299,696,141,195,23,31
 "Alabama","2020-04-04",1387,712,147,208,26,32
