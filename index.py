@@ -1,4 +1,5 @@
 import dash
+import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
@@ -13,6 +14,7 @@ from homepage import Homepage
 from insights import Graphs
 from projections import ProjectState, build_state_projection, build_us_map
 from team import Team
+from dataset import Dataset
 from contact import Contact
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
@@ -39,6 +41,8 @@ def display_page(pathname):
         return Team()
     if pathname == '/contact':
         return Contact()
+    if pathname == '/dataset':
+        return Dataset()
     else:
         return Homepage()
 
