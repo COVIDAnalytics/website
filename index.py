@@ -10,7 +10,7 @@ from datetime import datetime as dt
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
 from insights import Graphs
-from projections import ProjectState, build_state_projection
+from projections import ProjectState, build_state_projection, build_us_map
 from team import Team
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
@@ -29,12 +29,12 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    if pathname == '/insights':
-        return Graphs()
+    # if pathname == '/insights':
+    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/team':
-        return Team()    
+        return Team()
     else:
         return Homepage()
 
@@ -74,6 +74,13 @@ def set_display_children(selected_category):
 )
 def update_projection(state):
     return build_state_projection(state)
+
+@app.callback(
+    dash.dependencies.Output('us_map_projections', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date'),
+     dash.dependencies.Input('us_map_dropdown', 'value')])
+def update_us_map(chosen_date,val):
+    return build_us_map(chosen_date,val)
 
 
 if __name__ == '__main__':
