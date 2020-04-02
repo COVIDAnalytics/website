@@ -63,59 +63,61 @@ survivor_options = [x for x in survivor_options if str(x) != 'nan']
 body = dbc.Container(
     [
         dbc.Row(
-          [
+        [
             dbc.Col(
-              [
+            [
               html.H1("COVID-19"),
               html.H2("Interactive Graphs")
-              ]
+            ]
             ),
-          ],
-          ),
-       dbc.Row(
-           [
-               dbc.Col(
-                  [
-                     html.H5('What would you like to compare?'),
-                     html.Div(dcc.Dropdown(
-                         id = 'categories_dropdown',
-                         options = [{'label': x, 'value': x} for x in categories],
-                         value = 'Comorbidities',
-                         style={'width': '80%', 'display' : 'inline-block'}),
-                     ),
-                     html.Div(
-                        id='display-selected-values',
-                        style={'width': '100%', 'display': 'inline-block','color': 'black'}),
-                     html.Div([
-                         html.Div(dcc.Dropdown(
-                             id = 'y_axis_dropdown',
-                             value = 'Hypertension',
-                             style={'width': '80%', 'display': 'inline-block'}
-                             ),
-                         )
-                     ]),
-                     html.H6('Select the Demographic (Horizontal Axis)'),
-                     html.Div(dcc.Dropdown(
-                         id = 'x_axis_dropdown',
-                         options = [{'label': x, 'value': x} for x in demographics],
-                         value = 'Male Percentage',
-                         style={'width': '80%', 'display' : 'inline-block'}),
-                     ),
-                     html.H6('Select the Population Type:'),
-                     html.Div(
-            			dcc.Checklist(
-                            id = 'survivors',
-                            options=[{'label': x, 'value': x} for x in survivor_options],
-                            value=['Non-Survivors only', 'Survivors only'],
-                            labelStyle={'color': 'black'},
-                            style={'width': '50%'})
-            		),
-                   ],
-                  md=4,
-               ),
-              dbc.Col(
-                [
+        ],
+        ),
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                html.H5('What would you like to compare?'),
+                html.Div(dcc.Dropdown(
+                    id = 'categories_dropdown',
+                    options = [{'label': x, 'value': x} for x in categories],
+                    value = 'Comorbidities',
+                    style={'width': '80%', 'display' : 'inline-block'}),
+                ),
+                html.Div(
+                    id='display-selected-values',
+                    style={'width': '100%', 'display': 'inline-block','color': 'black'}),
+                html.Div([
                     html.Div(
+                        dcc.Dropdown(
+                            id = 'y_axis_dropdown',
+                            value = 'Hypertension',
+                            style={'width': '80%', 'display': 'inline-block'}
+                        ),
+                    )
+                ]
+                ),
+                html.H6('Select the Demographic (Horizontal Axis)'),
+                html.Div(dcc.Dropdown(
+                    id = 'x_axis_dropdown',
+                    options = [{'label': x, 'value': x} for x in demographics],
+                    value = 'Male Percentage',
+                    style={'width': '80%', 'display' : 'inline-block'}),
+                ),
+                html.H6('Select the Population Type:'),
+                html.Div(
+                dcc.Checklist(
+                    id = 'survivors',
+                    options=[{'label': x, 'value': x} for x in survivor_options],
+                    value=['Non-Survivors only', 'Survivors only'],
+                    labelStyle={'color': 'black'},
+                    style={'width': '50%'})
+                ),
+            ],
+            md=4,
+            ),
+            dbc.Col(
+            [
+                html.Div(
                     id = 'interactive_graph',
                     children = [],
                     style={
@@ -123,20 +125,16 @@ body = dbc.Container(
                         'display': 'inline-block',
                         }
                     ),
-                ]
-             ),
-            ],
+            ]
+            ),
+        ],
         ),
    ],
-className="mt-4",
+   className="mt-4",
 )
 
 def InteractiveGraph():
-    layout = html.Div(
-    [
-        nav,
-        body
-    ])
+    layout = html.Div([nav,body])
     return layout
 
 def build_graph(y_title,x_title,survivor_vals):
