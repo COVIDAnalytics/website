@@ -22,7 +22,7 @@ def Navbar():
                    in_navbar=True,
                    label="Dataset",
                    children=[
-                      dbc.DropdownMenuItem("Overview", href="/dataset"),
+                      dbc.DropdownMenuItem("Data Access", href="/dataset"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
                     ],
