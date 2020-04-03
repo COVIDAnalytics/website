@@ -3867,10 +3867,14 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: white;
+  color: lightgrey;
   font-size: 20px
 }
-.nav-link:hover, .nav-link:focus {
+.nav-link:hover{
+  color: white;
+}
+
+.nav-link:focus {
   text-decoration: none;
 }
 .nav-link.disabled {
@@ -3995,6 +3999,7 @@ input[type=button].btn-block {
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
+  height: 40px
 }
 
 .navbar-toggler {

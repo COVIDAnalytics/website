@@ -84,7 +84,7 @@ def Navbar():
             html.A(
                 dbc.Row(
                     [
-                        dbc.Col(html.Img(src="assets/logo_black.png", height="80px")),
+                        dbc.Col(html.Img(src="assets/logo_black.png", height="60px")),
                     ],
                     align="center",
                 ),
