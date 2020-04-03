@@ -62,6 +62,20 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
+            html.Div(
+                id='us-stats-title',
+                style={
+                    'width': '100%',
+                    'color': 'black',
+                    'text-align': 'center',
+                    'font-size': 30,
+                    'font-weight':'bold'
+                    }
+            ),
+        ],
+        ),
+        dbc.Row(
+        [
             dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
             dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
             dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
