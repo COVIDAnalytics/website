@@ -31,6 +31,11 @@ app.layout = html.Div([
     html.Div(id = 'page-content')
 ])
 
+@app.server.route('/favicon.ico')
+def favicon():
+    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
+                                     'favicon.ico', mimetype='image/x-icon')
+
 # redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
