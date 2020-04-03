@@ -23,17 +23,6 @@ df = pd.read_csv(dataset)
 nav = Navbar()
 footer = Footer()
 
-# table = dbc.Table.from_dataframe(
-# 			df,
-# 			id="data-table",
-# 			striped=True,
-# 			bordered=True,
-# 			hover=True,
-# 			responsive=True,
-# 			style_table={
-# 		        'overflowY': 'scroll'
-# 		    }
-# 		)
 
 table = dash_table.DataTable(
 			id="data-table",
