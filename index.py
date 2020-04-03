@@ -85,36 +85,42 @@ def update_projection(state):
     return build_state_projection(state)
 
 @app.callback(
-    dash.dependencies.Output('us_map_projections', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date'),
-     dash.dependencies.Input('us_map_dropdown', 'value')])
+    Output('us_map_projections', 'children'),
+    [Input('us-map-date-picker-range', 'date'),
+     Input('us_map_dropdown', 'value')])
 def update_us_map(chosen_date,val):
     return build_us_map(chosen_date,val)
 
 @app.callback(
-    dash.dependencies.Output('us_tot_det', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+    Output('us_tot_det', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
 def update_us_tot_det(chosen_date):
     return get_us_stat(chosen_date,'Total Detected')
 
 @app.callback(
-    dash.dependencies.Output('us_active', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+    Output('us_active', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
 def update_us_tot_det(chosen_date):
     return get_us_stat(chosen_date,'Active')
 
 @app.callback(
-    dash.dependencies.Output('us_active_hosp', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+    Output('us_active_hosp', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
 def update_us_tot_det(chosen_date):
     return get_us_stat(chosen_date,'Active Hospitalized')
 
 @app.callback(
-    dash.dependencies.Output('us_tot_death', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+    Output('us_tot_death', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
 def update_us_tot_det(chosen_date):
     return get_us_stat(chosen_date,'Total Detected Deaths')
 
+@app.callback(
+    Output('us-stats-title', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
+def display_US_stats_title(d):
+    d = dt.strptime(d, '%Y-%m-%d').date()
+    return u'{} Predicted USA Counts'.format(d.strftime('%b %d,%Y'))
 
 if __name__ == '__main__':
     app.run_server(debug=True)
