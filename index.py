@@ -12,7 +12,6 @@ from datetime import datetime as dt
 
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
-from insights import Graphs
 from projections import ProjectState, build_state_projection, build_us_map, get_us_stat
 from team import Team
 from dataset import Dataset
@@ -35,8 +34,6 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    # if pathname == '/insights':
-    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/team':
@@ -121,7 +118,7 @@ def update_us_tot_det(chosen_date):
     [Input('us-map-date-picker-range', 'date')])
 def display_US_stats_title(d):
     d = dt.strptime(d, '%Y-%m-%d').date()
-    return u'{} Predicted USA Counts'.format(d.strftime('%b %d,%Y'))
+    return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
 
 if __name__ == '__main__':
     app.run_server(debug=True)

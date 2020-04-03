@@ -4,6 +4,7 @@ import pickle
 import datetime
 ### Graphing
 import plotly.graph_objects as go
+import plotly.express as px
 ### Dash
 import dash
 import dash_core_components as dcc
@@ -12,7 +13,7 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 # Navbar
 from navbar import Navbar
-from assets.colMapping import states
+from assets.mappings import states, colors
 
 nav = Navbar()
 
@@ -42,9 +43,9 @@ body = dbc.Container(
                        """),
                 dcc.Markdown('''
                   1. Susceptible: The general population that has not been infected and is not immune.
-                  2. Exposed: People who are currently infected, but are not contagious and lie within the incubation period. 
-                  3. Infected: People who are currently infected and are contagious. 
-                  4. Recovered: People who recovered and are immune. 
+                  2. Exposed: People who are currently infected, but are not contagious and lie within the incubation period.
+                  3. Infected: People who are currently infected and are contagious.
+                  4. Recovered: People who recovered and are immune.
                 '''),
                 html.P("""\
                         The SEIR model is then, using various parameters, able to produce the dynamics of a pandemic as people move between these states. This base model is then greatly expanded and adjusted for many factors important in the current COVID-19 pandemic, including under-detection, hospitalization, and societal counteracting measures. The  parameter values are taken from the meta-analysis from the papers that the group curated. Important parameters are varied across different states:
@@ -70,11 +71,12 @@ body = dbc.Container(
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
                         style={'margin-bottom':20}
-                    )
-                )
+                    ),
+                    id="date-projections-picker-div"
+                ),
             ],
             ),
-        ],
+        ]
         ),
         dbc.Row(
         [
@@ -92,11 +94,11 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
-            dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width="auto"),
-            dbc.Col(dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width="auto"),
-            dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width="auto"),
-            dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width="auto"),
-        ]
+            dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="start"),
+            dbc.Col(dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="center"),
+            dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="center"),
+            dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="end"),
+        ],
         ),
         dbc.Row(
         [
@@ -226,17 +228,8 @@ def build_state_projection(state):
     df_projections_sub = df_projections.loc[df_projections.State == state]
     fig = go.Figure()
 
-    colors = [
-    '#1f77b4',  # muted blue
-    '#9467bd',  # muted purple
-    '#e377c2',  # raspberry yogurt pink
-    '#2ca02c',  # cooked asparagus green
-    '#ff7f0e',  # safety orange
-    '#bcbd22',  # curry yellow-green
-    '#17becf'   # blue-teal
-    ]
-
-    for i,val in enumerate(df_projections_sub.columns):
+    i = 0
+    for val in df_projections_sub.columns:
         if val in cols and val != 'Total Detected':
             fig.add_trace(go.Scatter(
                 x=df_projections_sub['Day'],
@@ -247,6 +240,7 @@ def build_state_projection(state):
                 marker=dict(color=colors[i]),
                 line=dict(color=colors[i])
             ))
+            i+=1
 
     fig.update_layout(
                 height=550,
@@ -261,7 +255,10 @@ def build_state_projection(state):
                 yaxis={'title': "Count"},
                 legend_title='<b> Values Predicted </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest')
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
 
     graph = dcc.Graph(
         id='projection-graph',

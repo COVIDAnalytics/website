@@ -10,8 +10,9 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
+
 from navbar import Navbar
+from assets.mappings import colors
 
 df = pd.read_csv('data/0331.csv')
 
@@ -116,17 +117,19 @@ body = dbc.Container(
                     id = 'categories_dropdown',
                     options = [{'label': x, 'value': x} for x in categories],
                     value = 'Comorbidities',
-                    style={'width': '80%', 'display' : 'inline-block'}),
+                    #style={'width': '80%', 'display' : 'inline-block'}
+                    ),
                 ),
                 html.Div(
                     id='display-selected-values',
-                    style={'width': '100%', 'display': 'inline-block','color': 'black'}),
+                    #style={'width': '100%', 'display': 'inline-block','color': 'black'}
+                    ),
                 html.Div([
                     html.Div(
                         dcc.Dropdown(
                             id = 'y_axis_dropdown',
                             value = 'Hypertension',
-                            style={'width': '80%', 'display': 'inline-block'}
+                            #style={'width': '80%', 'display': 'inline-block'}
                         ),
                     )
                 ]
@@ -136,7 +139,8 @@ body = dbc.Container(
                     id = 'x_axis_dropdown',
                     options = [{'label': x, 'value': x} for x in demographics],
                     value = 'Male Percentage',
-                    style={'width': '80%', 'display' : 'inline-block'}),
+                    #style={'width': '80%', 'display' : 'inline-block'}
+                    ),
                 ),
                 html.H6('Select the Population Type:'),
                 html.Div(
@@ -145,20 +149,21 @@ body = dbc.Container(
                     options=[{'label': x, 'value': x} for x in survivor_options],
                     value=['Non-Survivors only', 'Survivors only'],
                     labelStyle={'color': 'black'},
-                    style={'width': '50%'})
+                    style={'width': '50%'}
+                    )
                 ),
             ],
-            md=4,
+            width="True"
             ),
             dbc.Col(
             [
                 html.Div(
                     id = 'interactive_graph',
                     children = [],
-                    style={
-                        'width': '100%',
-                        'display': 'inline-block',
-                        }
+                    # style={
+                    #     'width': '100%',
+                    #     'display': 'inline-block',
+                    #     }
                     ),
             ]
             ),
@@ -187,17 +192,9 @@ def build_graph(y_title,x_title,survivor_vals):
 
     fig = go.Figure()
     c = 0
-    colors = [
-    '#1f77b4',  # muted blue
-    '#9467bd',  # muted purple
-    '#e377c2',  # raspberry yogurt pink
-    '#2ca02c',  # cooked asparagus green
-    '#ff7f0e',  # safety orange
-    '#bcbd22',  # curry yellow-green
-    '#17becf'   # blue-teal
-    ]
-    sizes = [10,20,30,40,50,60]
 
+    sizes = [10,20,30,40,50,60]
+    symbols = ["circle","square","diamond","triangle"]
     for i in sub_df.Survivors.unique():
         s = 0
         for j in sub_df.Population.unique():
@@ -207,7 +204,7 @@ def build_graph(y_title,x_title,survivor_vals):
                 legendgroup=i,
                 name=i+'-'+str(j),
                 mode="markers",
-                marker=dict(color=colors[c], size=sizes[s]),
+                marker=dict(color=colors[c], symbol=symbols[s],size=10),
                 text=sub_df['Country'],
             ))
             s+=1
@@ -226,7 +223,10 @@ def build_graph(y_title,x_title,survivor_vals):
                 yaxis={'title': y_title},
                 legend_title='<b> Survivors-Population </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest')
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
 
 
     graph = dcc.Graph(
