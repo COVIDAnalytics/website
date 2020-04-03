@@ -7,8 +7,6 @@ def Navbar():
              dbc.NavbarToggler(id="navbar-toggler"),
              dbc.NavItem(dbc.NavLink("Projections", href="/projections")),
              dbc.NavItem(dbc.NavLink("Interactive Graphs", href="/interactive-graph")),
-             #dbc.NavItem(dbc.NavLink("Insights", href="/insights")),
-             # dbc.NavItem(dbc.NavLink("Dataset", href="/dataset")),
              dbc.DropdownMenu(
                 nav=True,
                 in_navbar=True,
