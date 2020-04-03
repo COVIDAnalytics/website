@@ -17,6 +17,8 @@ from team import Team
 from dataset import Dataset
 from contact import Contact
 from dataset_documentation import Dataset_documentation
+from projections_documentation import Projections_documentation
+
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
@@ -42,6 +44,10 @@ def display_page(pathname):
         return Contact()
     if pathname == '/dataset':
         return Dataset()
+    if pathname == '/projections_documentation':
+        return Projections_documentation()
+    if pathname == '/dataset_documentation':
+        return Dataset_documentation()
     else:
         return Homepage()
 
