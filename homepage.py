@@ -41,7 +41,6 @@ body = dbc.Container(
                   5. Because the peak of the infection for different states occurs at different times, we have also developed an optimization model based on the epidemiological model that shows how different states can send ventilators to materially decrease the deficit over time. This idea can also be used at different hospitals within the same state.
                 ''')
             ],
-            width=3.5
             ),
             dbc.Col(
             [
