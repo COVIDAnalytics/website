@@ -117,19 +117,16 @@ body = dbc.Container(
                     id = 'categories_dropdown',
                     options = [{'label': x, 'value': x} for x in categories],
                     value = 'Comorbidities',
-                    #style={'width': '80%', 'display' : 'inline-block'}
                     ),
                 ),
                 html.Div(
                     id='display-selected-values',
-                    #style={'width': '100%', 'display': 'inline-block','color': 'black'}
                     ),
                 html.Div([
                     html.Div(
                         dcc.Dropdown(
                             id = 'y_axis_dropdown',
                             value = 'Hypertension',
-                            #style={'width': '80%', 'display': 'inline-block'}
                         ),
                     )
                 ]
@@ -139,7 +136,6 @@ body = dbc.Container(
                     id = 'x_axis_dropdown',
                     options = [{'label': x, 'value': x} for x in demographics],
                     value = 'Male Percentage',
-                    #style={'width': '80%', 'display' : 'inline-block'}
                     ),
                 ),
                 html.H6('Select the Population Type:'),
@@ -160,10 +156,6 @@ body = dbc.Container(
                 html.Div(
                     id = 'interactive_graph',
                     children = [],
-                    # style={
-                    #     'width': '100%',
-                    #     'display': 'inline-block',
-                    #     }
                     ),
             ]
             ),
