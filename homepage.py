@@ -40,14 +40,13 @@ body = dbc.Container(
                 ),
                 html.H5("In our website you will find the following:"),
                 dcc.Markdown('''
-                  1. Data from over 130 scientific papers published in March 2020 \
-                  about COVID-19 incidents in hospitals around the world. \
-                  These data were curated and verified by the team [Dataset](/dataset).
-                  2. Descriptive analytics from these papers that provide insights on a \
-                  variety of aspects related to COVID-19 patients [Interactive Graphs](/interactive-graph).
-                  3. Predictions of COVID-19 infections, hospitalizations, and deaths in \
+                  1. [Data](/dataset) from over 130 scientific papers published in March 2020 \
+                  about COVID-19 incidents in hospitals around the world. These data were curated and verified by the team.
+                  2. [Descriptive analytics](/interactive-graph) from these papers that provide insights on a \
+                  variety of aspects related to COVID-19 patients.
+                  3. [Predictions](/projections) of COVID-19 infections, hospitalizations, and deaths in \
                   all states of the United States. It is based on a new epidemiological \
-                  model that was specifically built for COVID-19 [Projections](projections).
+                  model that was specifically built for COVID-19.
                   4. We are in the process of developing a personalized prediction calculator \
                   that assesses the probability of length of stay at the ICU and mortality risk \
                   using the aggregate data the group has curated as well patients level data we \
