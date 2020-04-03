@@ -29,14 +29,14 @@ body = dbc.Container(
             dbc.Col(
             [
                 html.H1("COVID-19 Analytics"),
-                html.P(
-                     """\
+                dcc.Markdown(
+                     '''
                      This website represents the effort of a group of about 20 graduate \
-                     students in the Operations Research Center at MIT under the guidance \
-                     of Professor Bertsimas. Our overarching objective is to rapidly develop, \
-                     vet, and deliver tools for use by hospitals, government officials, \
+                     students in the [Operations Research Center](https://orc.mit.edu/) at [MIT](http://mit.edu/) under the guidance \
+                     of [Professor Bertsimas](https://www.mit.edu/~dbertsim/). Our overarching objective is to rapidly develop, \
+                     and deliver tools for use by hospitals, government officials, \
                      and healthcare institutions in the United States to combat the spread of COVID-19.
-                     """
+                     '''
                 ),
                 html.H5("In our website you will find the following:"),
                 dcc.Markdown('''
