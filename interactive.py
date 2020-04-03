@@ -69,7 +69,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H1("COVID-19 Analytics"),
+              html.H2(""),
               html.H2("Interactive Graphs")
             ]
             ),

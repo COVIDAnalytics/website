@@ -24,7 +24,7 @@ body = dbc.Container([
 	dbc.Row(
         [
 			dbc.Col([
-				html.H1("COVID-19 Analytics"),
+              html.H2(""),
             	html.H2("Epidemiological Model Documentation"),
                 html.P("""\
                         This page provides insights on a new epidemiological model for COVID-19 infections, hospitalizations, and deaths in all states of the United States. The model is based on the widely successful SEIR (Susceptible-Exposed-Infected-Recovered) model, which allocates every person to one of four states:

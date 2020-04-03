@@ -24,7 +24,7 @@ body = dbc.Container([
 	dbc.Row(
         [
 			dbc.Col([
-				html.H1("COVID-19 Analytics"),
+				html.H2(""),
             	html.H2("Covid-19 Aggregated Clinical Dataset Documentation"),
                 html.P('In the fog of war of the Covid-19 pandemic, a critical factor inhibiting effective decision making at regional, national, and global levels is a lack of relevant data on patient outcomes. We hope to partially alleviate this problem by sharing the following dataset, which aggregates data from over 100 published clinical studies and preprints released between December 2019 and March 2020. For each paper, a MIT researcher read the paper and gathered relevant numerical data from tables and from the text into a standard format.'),
                 html.P('We would like to remind the reader that the raw data in this dataset should not be used to estimate trends in the general population such as mortality rates. Indeed, this dataset is largely derived from studies run in hospitals and nations affected with SARS-COV-2 generally only admit seriously affected patients to hospitals. However, it should be possible to derive reasonably accurate estimates of these quantities by (a) accounting for the prevalence of asymptomatic patients, and (b) only including sufficiently representative studies.'),
