@@ -2,7 +2,8 @@ h1 {
     height: 60px;
     line-height: 60px;
     border-bottom: thin lightgrey solid;
-    color: #1E74F0
+    color: #1E74F0;
+    margin-top: 30px;
 }
 
 h2 {
