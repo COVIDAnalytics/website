@@ -4,6 +4,7 @@ import pickle
 import datetime
 ### Graphing
 import plotly.graph_objects as go
+import plotly.express as px
 ### Dash
 import dash
 import dash_core_components as dcc
@@ -12,7 +13,7 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 # Navbar
 from navbar import Navbar
-from assets.colMapping import states
+from assets.mappings import states, colors
 
 nav = Navbar()
 
@@ -227,17 +228,8 @@ def build_state_projection(state):
     df_projections_sub = df_projections.loc[df_projections.State == state]
     fig = go.Figure()
 
-    colors = [
-    '#1f77b4',  # muted blue
-    '#9467bd',  # muted purple
-    '#e377c2',  # raspberry yogurt pink
-    '#2ca02c',  # cooked asparagus green
-    '#ff7f0e',  # safety orange
-    '#bcbd22',  # curry yellow-green
-    '#17becf'   # blue-teal
-    ]
-
-    for i,val in enumerate(df_projections_sub.columns):
+    i = 0
+    for val in df_projections_sub.columns:
         if val in cols and val != 'Total Detected':
             fig.add_trace(go.Scatter(
                 x=df_projections_sub['Day'],
@@ -248,6 +240,7 @@ def build_state_projection(state):
                 marker=dict(color=colors[i]),
                 line=dict(color=colors[i])
             ))
+            i+=1
 
     fig.update_layout(
                 height=550,

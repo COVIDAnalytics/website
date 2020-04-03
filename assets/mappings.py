@@ -179,3 +179,10 @@ states = {
     'Utah': 'UT', 'Virginia': 'VA', 'Virgin Islands': 'VI', 'Vermont': 'VT',
     'Washington': 'WA', 'Wisconsin': 'WI', 'West Virginia': 'WV', 'Wyoming': 'WY'
     }
+
+colors =[
+            '#0d0887',
+            '#9c179e',
+            '#d8576b',
+            '#fdca26',
+        ]
