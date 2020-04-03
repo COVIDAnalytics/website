@@ -27,7 +27,7 @@ body = dbc.Container([
 				html.H1("COVID-19 Analytics"),
             	html.H2("Epidemiological Model Documentation"),
                 html.P("""\
-                        This page presents the predictions of a new epidemiological model for COVID-19 infections, hospitalizations, and deaths in all states of the United States. The model is based on the widely successful SEIR (Susceptible-Exposed-Infected-Recovered) model, which allocates every person to one of four states:
+                        This page provides insights on a new epidemiological model for COVID-19 infections, hospitalizations, and deaths in all states of the United States. The model is based on the widely successful SEIR (Susceptible-Exposed-Infected-Recovered) model, which allocates every person to one of four states:
                        """),
                 dcc.Markdown('''
                   1. Susceptible: The general population that has not been infected and is not immune.
@@ -53,4 +53,4 @@ def Projections_documentation():
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
 app.layout = Projections_documentation()
-app.title = "MIT_ORC_COVID19"
+app.title = "COVIDAnalytics"

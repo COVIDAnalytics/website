@@ -118,4 +118,4 @@ def Dataset():
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
 app.layout = Dataset()
-app.title = "MIT_ORC_COVID19"
+app.title = "COVIDAnalytics"
