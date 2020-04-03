@@ -1,35 +1,49 @@
 import dash
+import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 import dash_bootstrap_components as dbc
+import flask
 from dash.dependencies import Input, Output, State, ClientsideFunction
+from flask import session
 
 from datetime import datetime as dt
 
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
 from insights import Graphs
-from projections import ProjectState, build_state_projection
+from projections import ProjectState, build_state_projection, build_us_map
+from team import Team
+from dataset import Dataset
+from contact import Contact
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
 app.title = "MIT_ORC_COVID19"
 app.config.suppress_callback_exceptions = True
+external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 app.layout = html.Div([
     dcc.Location(id = 'url', refresh = False),
     html.Div(id = 'page-content')
 ])
 
+# redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    if pathname == '/insights':
-        return Graphs()
+    # if pathname == '/insights':
+    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
+    if pathname == '/team':
+        return Team()
+    if pathname == '/contact':
+        return Contact()
+    if pathname == '/dataset':
+        return Dataset()
     else:
         return Homepage()
 
@@ -69,5 +83,14 @@ def set_display_children(selected_category):
 )
 def update_projection(state):
     return build_state_projection(state)
+
+@app.callback(
+    dash.dependencies.Output('us_map_projections', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date'),
+     dash.dependencies.Input('us_map_dropdown', 'value')])
+def update_us_map(chosen_date,val):
+    return build_us_map(chosen_date,val)
+
+
 if __name__ == '__main__':
     app.run_server(debug=True)
