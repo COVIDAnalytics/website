@@ -215,7 +215,6 @@ def build_graph(y_title,x_title,survivor_vals):
 
     fig.update_layout(
                 height=550,
-                width=730,
                 title={
                     'text': '<b> {} vs {} </b>'.format(x_title,y_title),
                     'y':0.97,
