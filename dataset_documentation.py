@@ -16,27 +16,14 @@ from dash.dependencies import Output, Input
 from navbar import Navbar
 from interactive import demographics
 
-dataset = 'data/covid_analytics.csv'
-df = pd.read_csv(dataset)
-
 nav = Navbar()
-
-table = dbc.Table.from_dataframe(
-			df,
-			id="data-table",
-			striped=True,
-			bordered=True,
-			hover=True,
-			responsive=True,
-		)
-
 
 body = dbc.Container([
 	dbc.Row(
         [
 			dbc.Col([
 				html.H1("COVID-19 Analytics"),
-            	html.H2("Dataset"),
+            	html.H2("Dataset Documentation"),
                 html.P('In the fog of war of the Covid-19 pandemic, a critical factor inhibiting \
 				 effective decision making at regional, national, and global levels is a lack of \
 				 relevant data on patient outcomes. We hope to partially alleviate this problem by\
@@ -57,40 +44,9 @@ body = dbc.Container([
 				 ])
 		 ]
 	 ),
-    dbc.Row(
-			dbc.Col(
-				html.A(
-					"Download the Dataset",
-					id="download-link",
-					download=dataset,
-					href="",
-        			target="_blank"
-				),
-			),
-			# dbc.Col(
-			# 	html.A(
-			# 		"Download the Dataset",
-			# 		id="download-link",
-			# 		href="/dataset_documentation",
-   #      			target="_blank"
-			# 	),
-			# ),
-
-			),
-	dbc.Row(
-           [
-              dbc.Col(
-                [
-                   dbc.Col([table,]) ,
-                ],
-				width=12
-             ),
-            ],
-        ),
-
 ])
 
-def Dataset():
+def Dataset_documentation():
     layout = html.Div([
                     nav,
                     body
@@ -98,5 +54,5 @@ def Dataset():
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
-app.layout = Dataset()
+app.layout = Dataset_documentation()
 app.title = "MIT_ORC_COVID19"
