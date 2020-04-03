@@ -9,12 +9,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
+
 from navbar import Navbar
+from footer import Footer
 import yaml
 
 nav = Navbar()
-
+footer = Footer()
 
 # Load team members
 with open("assets/team_members/team.yml") as f:
@@ -42,11 +43,7 @@ body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19 Analytics"),
                      member_rows)
 
 def Team():
-    layout = html.Div(
-    [
-        nav,
-        body
-    ])
+    layout = html.Div([nav, body, footer])
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])

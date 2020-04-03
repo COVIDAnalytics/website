@@ -11,10 +11,12 @@ import dash_core_components as dcc
 import dash_html_components as html
 
 from navbar import Navbar
+from footer import Footer
 from projections import build_us_map
 from assets.mappings import states
 
 nav = Navbar()
+footer = Footer()
 
 def build_tom_us_map():
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
@@ -78,5 +80,5 @@ body = dbc.Container(
 )
 
 def Homepage():
-    layout = html.Div([nav, body])
+    layout = html.Div([nav, body, footer])
     return layout

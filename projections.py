@@ -11,11 +11,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
+
 from navbar import Navbar
+from footer import Footer
 from assets.mappings import states, colors
 
 nav = Navbar()
+footer = Footer()
 
 df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
 today = pd.Timestamp('today')
@@ -166,11 +168,7 @@ body = dbc.Container(
 )
 
 def ProjectState():
-    layout = html.Div(
-    [
-        nav,
-        body
-    ])
+    layout = html.Div([nav, body, footer])
     return layout
 
 def build_us_map(map_date,val='Active'):

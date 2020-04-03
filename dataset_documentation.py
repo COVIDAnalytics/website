@@ -12,11 +12,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
+
 from navbar import Navbar
+from footer import Footer
 from interactive import demographics
 
 nav = Navbar()
+footer = Footer()
 
 body = dbc.Container([
 	dbc.Row(
@@ -47,10 +49,7 @@ body = dbc.Container([
 ])
 
 def Dataset_documentation():
-    layout = html.Div([
-                    nav,
-                    body
-                    ])
+    layout = html.Div([nav, body, footer])
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])

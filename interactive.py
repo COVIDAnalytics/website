@@ -12,11 +12,13 @@ import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
 
 from navbar import Navbar
+from footer import Footer
 from assets.mappings import colors
 
 df = pd.read_csv('data/0331.csv')
 
 nav = Navbar()
+footer = Footer()
 
 categories = ["Comorbidities","Symptoms","Treatment"]
 all_options = {
@@ -166,7 +168,7 @@ body = dbc.Container(
 )
 
 def InteractiveGraph():
-    layout = html.Div([nav,body])
+    layout = html.Div([nav, body, footer])
     return layout
 
 def build_graph(y_title,x_title,survivor_vals):
