@@ -22,7 +22,7 @@ from projections_documentation import Projections_documentation
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
-app.title = "MIT_ORC_COVID19"
+app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
 external_stylesheets=[dbc.themes.BOOTSTRAP]
 
