@@ -57,7 +57,7 @@
   website: "http://oskali.mit.edu/"
 - name: "Matthew Sobiesk"
   photo: "Sobiesk_Matthew.jpg"
-  website: "" 
+  website: ""
 - name: "Bartolomeo Stellato"
   photo: "bartolomeo_stellato.jpg"
   website: "https://stellato.io"
@@ -66,12 +66,10 @@
   website: ""
 - name: "Yuchen Wang"
   photo: "Wang_Yuchen.jpg"
-  website: "http://wyc.ai/" 
-- name: "Holly Wilberg"
+  website: "http://wyc.ai/"
+- name: "Holly Wiberg"
   photo: "holly_wilberg.jpg"
   website: "https://hwiberg.github.io/"
 - name: "Cynthia Zeng"
   photo: "Cynthia_Zeng.jpg"
   website: "https://cynthiazeng.github.io/"
-
-

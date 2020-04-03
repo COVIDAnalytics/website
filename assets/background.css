@@ -1,4 +1,13 @@
-html, body {height: 100%; }
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    height: 100%;
+    margin: 0 0 100px;
+    /* bottom = footer height */
+}
 
 #footer {
   background-color: black;
@@ -6,4 +15,10 @@ html, body {height: 100%; }
   text-align: center;
   color: white;
   width:100%;
+  position: absolute;
+  bottom: 0;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+  margin-top: 20px;
 }
