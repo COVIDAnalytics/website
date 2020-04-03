@@ -59,16 +59,18 @@ body = dbc.Container([
 	 ),
     dbc.Row(
 			dbc.Col(
-				html.A(
-					"Download the Dataset",
-					id="download-link",
-					download=dataset,
-					href="",
-        			target="_blank"
-				),
-			),
-
-			),
+				html.Div(
+					html.A(
+						"Download the Dataset",
+						id="download-link",
+						download=dataset,
+						href="",
+	        			target="_blank"
+					),
+					 style={'text-align':"center"}
+				)
+			)
+	),
 	dbc.Row(
            [
               dbc.Col(
