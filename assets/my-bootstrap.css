@@ -3867,6 +3867,8 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  color: white;
+  font-size: 20px
 }
 .nav-link:hover, .nav-link:focus {
   text-decoration: none;
@@ -3981,12 +3983,12 @@ input[type=button].btn-block {
 .navbar-nav .dropdown-menu {
   position: static;
   float: none;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .navbar-text {
-  display: inline-block;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  display: inline-block
 }
 
 .navbar-collapse {
@@ -12901,6 +12903,7 @@ input[type=button].btn-block {
 .dropdown-menu-right {
   right: 0;
   left: auto;
+  bottom: 1
 }
 
 @media (min-width: 576px) {
@@ -13888,6 +13891,7 @@ input[type=button].btn-block {
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
+  margin-bottom: 0;
 }
 
 .navbar-toggler {
