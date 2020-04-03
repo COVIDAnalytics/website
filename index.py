@@ -17,6 +17,7 @@ from projections import ProjectState, build_state_projection, build_us_map, get_
 from team import Team
 from dataset import Dataset
 from contact import Contact
+from dataset_documentation import Dataset_documentation
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
