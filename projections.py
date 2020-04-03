@@ -45,7 +45,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H6('Date:'),
+                html.H6('Date:',id="date-projections"),
                 html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range',
@@ -53,9 +53,25 @@ body = dbc.Container(
                         max_date_allowed=max(df_projections.Day.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
-                        style={'margin-bottom':10}
+                        style={'margin-bottom':20}
                     )
-                ),
+                )
+            ],
+            ),
+        ],
+        ),
+        dbc.Row(
+        [
+            dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
+            dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
+            dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
+            dbc.Col(dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),width=3),
+        ]
+        ),
+        dbc.Row(
+        [
+            dbc.Col(
+            [
                 html.H6('Predicted Value:'),
                     html.Div(dcc.Dropdown(
                         id = 'us_map_dropdown',
@@ -69,19 +85,19 @@ body = dbc.Container(
         		        We will update on a daily basis.',
                         style={'color':'gray'}
                 ),
-              ],
-              width=3
-              ),
-              dbc.Col(
-              [
-                    html.Div(
+            ],
+            width=3
+            ),
+            dbc.Col(
+            [
+                html.Div(
                     id = 'us_map_projections',
                     children = [],
-                    ),
-              ]
-              )
-           ],
-           ),
+                ),
+            ]
+            )
+        ],
+        ),
         dbc.Row(
         [
              dbc.Col(html.H4('State:'), width=1),
@@ -223,3 +239,24 @@ def build_state_projection(state):
         figure=fig
     )
     return graph
+
+def get_us_stat(d, val):
+    global df_projections
+
+    if isinstance(d, str):
+        d = datetime.datetime.strptime(d, '%Y-%m-%d').date()
+
+    us_date = df_projections.loc[(df_projections['Day']==d) & (df_projections['State']=='US')].reset_index()
+
+    card_content = [
+        dbc.CardHeader(
+            f'{us_date.iloc[0][val]:,}',
+            style={"text-align":"center","font-size":30,"font-weight": "bold","color":"#1E74F0"}
+        ),
+        dbc.CardBody(
+            [
+                html.H5(val,id='us-stats-cards'),
+            ]
+        ),
+    ]
+    return card_content

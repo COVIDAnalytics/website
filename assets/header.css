@@ -42,3 +42,14 @@ P {
 #data-table {
   margin-top: 20px;
 }
+
+#date-projections{
+  margin-top: 10px;
+}
+
+#us-stats-cards{
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}

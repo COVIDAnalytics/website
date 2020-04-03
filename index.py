@@ -13,7 +13,7 @@ from datetime import datetime as dt
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
 from insights import Graphs
-from projections import ProjectState, build_state_projection, build_us_map
+from projections import ProjectState, build_state_projection, build_us_map, get_us_stat
 from team import Team
 from dataset import Dataset
 from contact import Contact
@@ -90,6 +90,30 @@ def update_projection(state):
      dash.dependencies.Input('us_map_dropdown', 'value')])
 def update_us_map(chosen_date,val):
     return build_us_map(chosen_date,val)
+
+@app.callback(
+    dash.dependencies.Output('us_tot_det', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Total Detected')
+
+@app.callback(
+    dash.dependencies.Output('us_active', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Active')
+
+@app.callback(
+    dash.dependencies.Output('us_active_hosp', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Active Hospitalized')
+
+@app.callback(
+    dash.dependencies.Output('us_tot_death', 'children'),
+    [dash.dependencies.Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Total Detected Deaths')
 
 
 if __name__ == '__main__':
