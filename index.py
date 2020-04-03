@@ -12,7 +12,6 @@ from datetime import datetime as dt
 
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
-from insights import Graphs
 from projections import ProjectState, build_state_projection, build_us_map, get_us_stat
 from team import Team
 from dataset import Dataset
@@ -35,8 +34,6 @@ app.layout = html.Div([
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    # if pathname == '/insights':
-    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/team':
