@@ -165,7 +165,7 @@ body = dbc.Container(
         ],
         ),
    ],
-   className="mt-4",
+   className="interactive-body",
 )
 
 def InteractiveGraph():
