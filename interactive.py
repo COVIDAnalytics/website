@@ -223,7 +223,10 @@ def build_graph(y_title,x_title,survivor_vals):
                 yaxis={'title': y_title},
                 legend_title='<b> Survivors-Population </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest')
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
 
 
     graph = dcc.Graph(

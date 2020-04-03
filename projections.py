@@ -255,7 +255,10 @@ def build_state_projection(state):
                 yaxis={'title': "Count"},
                 legend_title='<b> Values Predicted </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest')
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
 
     graph = dcc.Graph(
         id='projection-graph',

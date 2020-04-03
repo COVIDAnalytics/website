@@ -121,7 +121,7 @@ def update_us_tot_det(chosen_date):
     [Input('us-map-date-picker-range', 'date')])
 def display_US_stats_title(d):
     d = dt.strptime(d, '%Y-%m-%d').date()
-    return u'{} Predicted USA Counts'.format(d.strftime('%b %d,%Y'))
+    return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
 
 if __name__ == '__main__':
     app.run_server(debug=True)
