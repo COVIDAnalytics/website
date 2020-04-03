@@ -42,9 +42,9 @@ body = dbc.Container(
                        """),
                 dcc.Markdown('''
                   1. Susceptible: The general population that has not been infected and is not immune.
-                  2. Exposed: People who are currently infected, but are not contagious and lie within the incubation period. 
-                  3. Infected: People who are currently infected and are contagious. 
-                  4. Recovered: People who recovered and are immune. 
+                  2. Exposed: People who are currently infected, but are not contagious and lie within the incubation period.
+                  3. Infected: People who are currently infected and are contagious.
+                  4. Recovered: People who recovered and are immune.
                 '''),
                 html.P("""\
                         The SEIR model is then, using various parameters, able to produce the dynamics of a pandemic as people move between these states. This base model is then greatly expanded and adjusted for many factors important in the current COVID-19 pandemic, including under-detection, hospitalization, and societal counteracting measures. The  parameter values are taken from the meta-analysis from the papers that the group curated. Important parameters are varied across different states:
@@ -70,11 +70,12 @@ body = dbc.Container(
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
                         style={'margin-bottom':20}
-                    )
-                )
+                    ),
+                    id="date-projections-picker-div"
+                ),
             ],
             ),
-        ],
+        ]
         ),
         dbc.Row(
         [
