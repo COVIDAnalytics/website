@@ -40,6 +40,11 @@ P {
 
 #date-projections{
   margin-top: 10px;
+  text-align: center;
+}
+
+#date-projections-picker-div{
+  text-align: center;
 }
 
 #us-stats-cards{
