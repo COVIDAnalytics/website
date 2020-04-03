@@ -23,15 +23,52 @@ df = pd.read_csv(dataset)
 nav = Navbar()
 footer = Footer()
 
-table = dbc.Table.from_dataframe(
-			df,
-			id="data-table",
-			striped=True,
-			bordered=True,
-			hover=True,
-			responsive=True,
-		)
+# table = dbc.Table.from_dataframe(
+# 			df,
+# 			id="data-table",
+# 			striped=True,
+# 			bordered=True,
+# 			hover=True,
+# 			responsive=True,
+# 			style_table={
+# 		        'overflowY': 'scroll'
+# 		    }
+# 		)
 
+table = dash_table.DataTable(
+			id="data-table",
+		    data=df.to_dict('records'),
+		    columns=[{'id': c, 'name': c} for c in df.columns],
+			style_data={
+		        'whiteSpace': 'normal',
+		        'height': 'auto',
+		    },
+			style_table={
+				'overflowX': 'scroll',
+				'maxHeight': '300px',
+				'overflowY': 'scroll',
+				'border': 'thin lightgrey solid',
+			},
+			style_cell={
+		        'height': 'auto',
+		        'minWidth': '0px',
+				'maxWidth': '180px',
+		        'whiteSpace': 'normal',
+				'textAlign': 'center',
+				'font_size': '14px',
+				'font-family': 'arial',
+		    },
+			style_data_conditional=[
+		        {
+		            'if': {'row_index': 'odd'},
+		            'backgroundColor': 'rgb(248, 248, 248)'
+		        }
+		    ],
+		    style_header={
+		        'backgroundColor': 'rgb(230, 230, 230)',
+		        'fontWeight': 'bold'
+		    }
+		)
 
 body = dbc.Container([
 	dbc.Row(
