@@ -187,7 +187,6 @@ def build_graph(y_title,x_title,survivor_vals):
     fig = go.Figure()
     c = 0
 
-    sizes = [10,20,30,40,50,60]
     symbols = ["circle","square","diamond","triangle"]
     for i in sub_df.Survivors.unique():
         s = 0
@@ -213,8 +212,8 @@ def build_graph(y_title,x_title,survivor_vals):
                     'xanchor': 'center',
                     'yanchor': 'top'},
                 title_font_size=25,
-                xaxis={'title': x_title},
-                yaxis={'title': y_title},
+                xaxis={'title': x_title,'linecolor': 'lightgrey'},
+                yaxis={'title': "Percentage with " + y_title,'linecolor': 'lightgrey'},
                 legend_title='<b> Survivors-Population </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',

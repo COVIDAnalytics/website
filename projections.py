@@ -210,7 +210,8 @@ def build_us_map(map_date,val='Active'):
                 scope='usa',
                 projection=go.layout.geo.Projection(type = 'albers usa'),
                 showlakes=True, # lakes
-                lakecolor='rgb(255, 255, 255)'),
+                lakecolor='rgb(255, 255, 255)'
+            ),
         )
 
     graph = dcc.Graph(
@@ -249,8 +250,8 @@ def build_state_projection(state):
                     'xanchor': 'center',
                     'yanchor': 'top'},
                 title_font_size=25,
-                xaxis={'title': "Date"},
-                yaxis={'title': "Count"},
+                xaxis={'title': "Date",'linecolor': 'lightgrey'},
+                yaxis={'title': "Count",'linecolor': 'lightgrey'},
                 legend_title='<b> Values Predicted </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
