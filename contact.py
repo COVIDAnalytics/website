@@ -9,18 +9,18 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
-from navbar import Navbar
-import yaml
 
+from navbar import Navbar
+from footer import Footer
+import yaml
 
 # Form details
 formspree_url="https://formspree.io/xqkdkggg"
 mailing_list="covidanalytics@mit.edu"
 
-
-
 nav = Navbar()
+footer = Footer()
+
 name_input = dbc.FormGroup(
     [
         dbc.Col(html.Label("Topic", htmlFor="name-row"), width=1),
@@ -87,7 +87,7 @@ body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19 Analytics"),
                                         ])])])
 
 def Contact():
-    layout = html.Div( [nav, body])
+    layout = html.Div([nav, body, footer])
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
