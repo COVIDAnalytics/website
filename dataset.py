@@ -44,7 +44,7 @@ body = dbc.Container([
 				 clinical studies and preprints released between December 2019 and March 2020. '),
 				html.P('We would like to remind the reader that the raw data in this dataset should not \
 				 be used to estimate trends in the general population such as mortality rates. \
-				 Indeed, this dataset is largely derived from studies ran in hospitals and nations\
+				 Indeed, this dataset is largely derived from studies run in hospitals and nations\
 				 affected with SARS-COV-2 generally only admit seriously affected patients to \
 				 hospitals. However, it should be possible to derive reasonably accurate estimates\
 				 of these quantities by (a) accounting for the prevalence of asymptomatic \
