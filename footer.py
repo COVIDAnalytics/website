@@ -11,13 +11,26 @@ def Footer():
                             ],
                         ),
                         dbc.Col(
+                            html.A(
+                                    dbc.Row(
+                                        [
+                                            dbc.Col(html.Img(src="assets/mit.png", height="60px")),
+                                            dbc.Col(html.Img(src="assets/orc.png", height="60px")),
+                                        ],
+                                        align="left",
+                                        no_gutters=True,
+                                    ),
+                                    href="https://orc.mit.edu/",
+                                 ),
+                        ),
+                        dbc.Col(
                             [
                                 dbc.NavLink("Team", href="/team", style={"font-size":15,"margin-right":10}),
                                 dbc.NavLink("Contact Us", href="/contact", style={"font-size":15,"margin-bottom":0}),
                             ],
                         ),
                     ],
-                    align="between",
+                    align="center",
                 ),
                 id="footer",
             )
