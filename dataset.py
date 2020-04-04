@@ -16,6 +16,7 @@ from dash.dependencies import Output, Input
 from navbar import Navbar
 from footer import Footer
 from interactive import demographics
+from assets.mappings import data_cols
 
 dataset = 'data/clinical_outcomes_database.csv'
 df = pd.read_csv(dataset)
@@ -23,7 +24,7 @@ df = pd.read_csv(dataset)
 nav = Navbar()
 footer = Footer()
 
-
+df = df.loc[:,data_cols]
 table = dash_table.DataTable(
 			id="data-table",
 		    data=df.to_dict('records'),
@@ -41,6 +42,7 @@ table = dash_table.DataTable(
 			style_cell={
 		        'height': 'auto',
 		        'minWidth': '0px',
+				'width': '150px',
 				'maxWidth': '180px',
 		        'whiteSpace': 'normal',
 				'textAlign': 'center',
@@ -56,7 +58,8 @@ table = dash_table.DataTable(
 		    style_header={
 		        'backgroundColor': 'rgb(230, 230, 230)',
 		        'fontWeight': 'bold'
-		    }
+		    },
+			fixed_rows={ 'headers': True, 'data': 0 },
 		)
 
 body = dbc.Container([
