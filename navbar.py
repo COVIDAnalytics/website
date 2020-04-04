@@ -60,6 +60,7 @@ def Navbar():
             dbc.NavbarToggler(id="navbar-toggler"),
             dbc.Collapse(links, id="navbar-collapse", navbar=True),
         ],
+        id="navbar",
         color="black",
         dark=True,
     )
