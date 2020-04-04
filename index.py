@@ -12,15 +12,17 @@ from datetime import datetime as dt
 
 from interactive import InteractiveGraph, build_graph, all_options
 from homepage import Homepage
-from insights import Graphs
-from projections import ProjectState, build_state_projection, build_us_map
+from projections import ProjectState, build_state_projection, build_us_map, get_us_stat
 from team import Team
 from dataset import Dataset
 from contact import Contact
+from dataset_documentation import Dataset_documentation
+from projections_documentation import Projections_documentation
+
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server
-app.title = "MIT_ORC_COVID19"
+app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
 external_stylesheets=[dbc.themes.BOOTSTRAP]
 
@@ -29,13 +31,16 @@ app.layout = html.Div([
     html.Div(id = 'page-content')
 ])
 
+@app.server.route('/favicon.ico')
+def favicon():
+    return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
+                                     'favicon.ico', mimetype='image/x-icon')
+
 # redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
     if pathname == '/interactive-graph':
         return InteractiveGraph()
-    # if pathname == '/insights':
-    #     return Graphs()
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/team':
@@ -44,6 +49,10 @@ def display_page(pathname):
         return Contact()
     if pathname == '/dataset':
         return Dataset()
+    if pathname == '/projections_documentation':
+        return Projections_documentation()
+    if pathname == '/dataset_documentation':
+        return Dataset_documentation()
     else:
         return Homepage()
 
@@ -85,12 +94,53 @@ def update_projection(state):
     return build_state_projection(state)
 
 @app.callback(
-    dash.dependencies.Output('us_map_projections', 'children'),
-    [dash.dependencies.Input('us-map-date-picker-range', 'date'),
-     dash.dependencies.Input('us_map_dropdown', 'value')])
+    Output('us_map_projections', 'children'),
+    [Input('us-map-date-picker-range', 'date'),
+     Input('us_map_dropdown', 'value')])
 def update_us_map(chosen_date,val):
     return build_us_map(chosen_date,val)
 
+@app.callback(
+    Output('us_tot_det', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Total Detected')
+
+@app.callback(
+    Output('us_active', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Active')
+
+@app.callback(
+    Output('us_active_hosp', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Active Hospitalized')
+
+@app.callback(
+    Output('us_tot_death', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
+def update_us_tot_det(chosen_date):
+    return get_us_stat(chosen_date,'Total Detected Deaths')
+
+@app.callback(
+    Output('us-stats-title', 'children'),
+    [Input('us-map-date-picker-range', 'date')])
+def display_US_stats_title(d):
+    d = dt.strptime(d, '%Y-%m-%d').date()
+    return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
+
+# navbar
+@app.callback(
+    Output("navbar-collapse", "is_open"),
+    [Input("navbar-toggler", "n_clicks")],
+    [State("navbar-collapse", "is_open")],
+)
+def toggle_navbar_collapse(n, is_open):
+    if n:
+        return not is_open
+    return is_open
 
 if __name__ == '__main__':
     app.run_server(debug=True)

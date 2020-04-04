@@ -10,12 +10,15 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
+
 from navbar import Navbar
+from footer import Footer
+from assets.mappings import colors
 
 df = pd.read_csv('data/0331.csv')
 
 nav = Navbar()
+footer = Footer()
 
 categories = ["Comorbidities","Symptoms","Treatment"]
 all_options = {
@@ -66,7 +69,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H1("COVID-19 Analytics"),
+              html.H2(""),
               html.H2("Interactive Graphs")
             ]
             ),
@@ -80,21 +83,26 @@ body = dbc.Container(
                 [
                     dcc.Markdown(
                          """\
-                         Effective decision making needs data. \
-                         We interactively visualize a new [dataset](/dataset) \
-                         that aggregates data from over 100 published clinical \
-                         studies and preprints released between December 2019 \
-                         and March 2020 on COVID-19. We hope that by summarizing\
-                          the results of multiple studies, we can get a clearer \
-                          picture on the virus. Below you will find a series of \
-                          options to create descriptive graphs relating to patient \
-                          demographic characteristics, symptoms, treatments, \
-                          comorbidities, lab results, and outcomes. \
-                          Each data point corresponds to a different study that \
-                          comprises multiple patients. We hope that you can easily \
-                          derive your own insights and discover the interesting \
-                          implications of the disease.
-                         """
+                            Effective decision making needs data. \
+                            We interactively visualize a new [dataset](/dataset) \
+                            that aggregates data from over 100 published clinical \
+                            studies and preprints released between December 2019 \
+                            and March 2020 on COVID-19. We hope that by summarizing\
+                            the results of multiple studies, we can get a clearer \
+                            picture on the virus.
+                         """,
+                    ),
+                    html.P(
+                         """\
+                            Below you will find a series of \
+                            options to create descriptive graphs relating to patient \
+                            demographic characteristics, symptoms, treatments, \
+                            comorbidities, lab results, and outcomes. \
+                            Each data point corresponds to a different study that \
+                            comprises multiple patients. We hope that you can easily \
+                            derive your own insights and discover the interesting \
+                            implications of the disease.
+                         """,
                     )
                 ]
                 )
@@ -111,17 +119,16 @@ body = dbc.Container(
                     id = 'categories_dropdown',
                     options = [{'label': x, 'value': x} for x in categories],
                     value = 'Comorbidities',
-                    style={'width': '80%', 'display' : 'inline-block'}),
+                    ),
                 ),
                 html.Div(
                     id='display-selected-values',
-                    style={'width': '100%', 'display': 'inline-block','color': 'black'}),
+                    ),
                 html.Div([
                     html.Div(
                         dcc.Dropdown(
                             id = 'y_axis_dropdown',
                             value = 'Hypertension',
-                            style={'width': '80%', 'display': 'inline-block'}
                         ),
                     )
                 ]
@@ -131,7 +138,7 @@ body = dbc.Container(
                     id = 'x_axis_dropdown',
                     options = [{'label': x, 'value': x} for x in demographics],
                     value = 'Male Percentage',
-                    style={'width': '80%', 'display' : 'inline-block'}),
+                    ),
                 ),
                 html.H6('Select the Population Type:'),
                 html.Div(
@@ -140,31 +147,28 @@ body = dbc.Container(
                     options=[{'label': x, 'value': x} for x in survivor_options],
                     value=['Non-Survivors only', 'Survivors only'],
                     labelStyle={'color': 'black'},
-                    style={'width': '50%'})
+                    style={'width': '50%'}
+                    )
                 ),
             ],
-            md=4,
+            width="True"
             ),
             dbc.Col(
             [
                 html.Div(
                     id = 'interactive_graph',
                     children = [],
-                    style={
-                        'width': '100%',
-                        'display': 'inline-block',
-                        }
                     ),
             ]
             ),
         ],
         ),
    ],
-   className="mt-4",
+   className="interactive-body",
 )
 
 def InteractiveGraph():
-    layout = html.Div([nav,body])
+    layout = html.Div([nav, body, footer])
     return layout
 
 def build_graph(y_title,x_title,survivor_vals):
@@ -182,17 +186,8 @@ def build_graph(y_title,x_title,survivor_vals):
 
     fig = go.Figure()
     c = 0
-    colors = [
-    '#1f77b4',  # muted blue
-    '#9467bd',  # muted purple
-    '#e377c2',  # raspberry yogurt pink
-    '#2ca02c',  # cooked asparagus green
-    '#ff7f0e',  # safety orange
-    '#bcbd22',  # curry yellow-green
-    '#17becf'   # blue-teal
-    ]
-    sizes = [10,20,30,40,50,60]
 
+    symbols = ["circle","square","diamond","triangle"]
     for i in sub_df.Survivors.unique():
         s = 0
         for j in sub_df.Population.unique():
@@ -202,7 +197,7 @@ def build_graph(y_title,x_title,survivor_vals):
                 legendgroup=i,
                 name=i+'-'+str(j),
                 mode="markers",
-                marker=dict(color=colors[c], size=sizes[s]),
+                marker=dict(color=colors[c], symbol=symbols[s],size=10),
                 text=sub_df['Country'],
             ))
             s+=1
@@ -210,7 +205,6 @@ def build_graph(y_title,x_title,survivor_vals):
 
     fig.update_layout(
                 height=550,
-                width=730,
                 title={
                     'text': '<b> {} vs {} </b>'.format(x_title,y_title),
                     'y':0.97,
@@ -218,11 +212,14 @@ def build_graph(y_title,x_title,survivor_vals):
                     'xanchor': 'center',
                     'yanchor': 'top'},
                 title_font_size=25,
-                xaxis={'title': x_title},
-                yaxis={'title': y_title},
+                xaxis={'title': x_title,'linecolor': 'lightgrey'},
+                yaxis={'title': "Percentage with " + y_title,'linecolor': 'lightgrey'},
                 legend_title='<b> Survivors-Population </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest')
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)'
+            )
 
 
     graph = dcc.Graph(

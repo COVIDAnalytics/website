@@ -9,12 +9,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
+
 from navbar import Navbar
+from footer import Footer
 import yaml
 
 nav = Navbar()
-
+footer = Footer()
 
 # Load team members
 with open("assets/team_members/team.yml") as f:
@@ -37,18 +38,15 @@ member_rows = [dbc.Row([member_pic(m) for m in members[i*members_per_row:(i+1)*m
               [dbc.Row([member_pic(m) for m in members[num_members - (num_members % members_per_row):]])]
 
 
-body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19 Analytics"),
-                                        html.H5("Our Team comprises of passionate researchers in Operations Research and Analytics!")])])] +
+body = dbc.Container([dbc.Row([dbc.Col([html.H2(""),
+                                        html.H2("Our Team"),
+                                        html.P('Our team comprises passionate researchers in Operations Research and Analytics. We were eager to use our collective skills and create new tools that can help the scientific community fight against the pandemic.')])])] +
                      member_rows)
 
 def Team():
-    layout = html.Div(
-    [
-        nav,
-        body
-    ])
+    layout = html.Div([nav, body, footer])
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
 app.layout = Team()
-app.title = "MIT_ORC_COVID19"
+app.title = "COVIDAnalytics"

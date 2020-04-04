@@ -9,18 +9,18 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 from dash.dependencies import Output, Input
-# Navbar
-from navbar import Navbar
-import yaml
 
+from navbar import Navbar
+from footer import Footer
+import yaml
 
 # Form details
 formspree_url="https://formspree.io/xqkdkggg"
 mailing_list="covidanalytics@mit.edu"
 
-
-
 nav = Navbar()
+footer = Footer()
+
 name_input = dbc.FormGroup(
     [
         dbc.Col(html.Label("Topic", htmlFor="name-row"), width=1),
@@ -78,18 +78,18 @@ form = html.Form([name_input, email_input, text_input, submit_button],
                  action=formspree_url,
                  method="POST")
 
-body = dbc.Container([dbc.Row([dbc.Col([html.H1("COVID-19 Analytics"),
-                                        html.P("We are happy to collaborate and help you take our research one step further." +
-                                               "Feel free to send us an email using that the following form."),
+body = dbc.Container([dbc.Row([dbc.Col([html.H2(""),
+                                        html.P("We are happy to collaborate and help you take our research one step further. " +
+                                               "Feel free to send us an email using the following form."),
                                         html.P(["You can also reach out to us by sending an email to ", html.A(
                                             mailing_list, href="mailto:%s" % mailing_list, ), "."]),
                                         form
                                         ])])])
 
 def Contact():
-    layout = html.Div( [nav, body])
+    layout = html.Div([nav, body, footer])
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
 app.layout = Contact()
-app.title = "MIT_ORC_COVID19"
+app.title = "COVIDAnalytics"

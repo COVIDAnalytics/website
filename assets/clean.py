@@ -1,5 +1,5 @@
 import pandas as pd
-from colMapping import mapping
+from mappings import mapping
 d = "0331"
 
 df = pd.read_csv('../data/raw/{}.csv'.format(d))
