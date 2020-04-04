@@ -10,7 +10,7 @@ from flask import session
 
 from datetime import datetime as dt
 
-from interactive import InteractiveGraph, build_graph, all_options
+from interactive import InteractiveGraph, build_graph
 from homepage import Homepage
 from projections import ProjectState, build_state_projection, build_us_map, get_us_stat
 from team import Team
@@ -18,7 +18,7 @@ from dataset import Dataset
 from contact import Contact
 from dataset_documentation import Dataset_documentation
 from projections_documentation import Projections_documentation
-
+from assets.mappings import data_cols,all_options
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
 server = app.server

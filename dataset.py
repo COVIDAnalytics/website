@@ -17,7 +17,7 @@ from navbar import Navbar
 from footer import Footer
 from interactive import demographics
 
-dataset = 'data/covid_analytics.csv'
+dataset = 'data/clinical_outcomes_database.csv'
 df = pd.read_csv(dataset)
 
 nav = Navbar()

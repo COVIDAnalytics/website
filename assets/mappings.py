@@ -30,6 +30,23 @@ data_cols = [
     "Projected Mortality (accounting for patients not currently discharged)"
 ]
 
+all_options = {
+    'Comorbidities': [
+        "Hypertension",
+        "Diabetes",
+        "Cardiovascular Disease (incl. CAD)",
+        "Chronic obstructive lung (COPD)"
+    ],
+    'Symptoms': [
+        "Fever (temperature ≥37·3°C)",
+        "Cough",
+        "Fatigue",
+        "Diarrhoea",
+    ],
+    'Treatment': ["Invasive mechanical ventilation"],
+}
+
+
 states = {
     'US':'US','Alaska': 'AK', 'Alabama': 'AL', 'Arkansas': 'AR', 'American Samoa': 'AS',
     'Arizona': 'AZ', 'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT',
