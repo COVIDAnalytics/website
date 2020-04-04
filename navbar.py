@@ -14,7 +14,6 @@ def Navbar():
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
                     ],
-                    style={"text":"white"}
                 ),
                 dbc.NavLink("Interactive Graphs", href="/interactive-graph"),
                 dbc.DropdownMenu(
