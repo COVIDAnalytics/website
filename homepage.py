@@ -68,14 +68,13 @@ body = dbc.Container(
               html.Div(
                   id = 'us_map_homepage',
                   children = build_tom_us_map(),
-                  style={'margin-bottom':30}
               ),
             ]
             )
         ],
         )
     ],
-    className="hompage-body",
+    className="page-body"
 )
 
 def Homepage():

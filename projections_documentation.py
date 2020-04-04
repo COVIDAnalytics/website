@@ -42,9 +42,11 @@ body = dbc.Container([
                   2. Societal/Governmental Response: This parameter measures, through a parametric nonlinear function, the impact of the governmental and societal response on the spread of the virus over time. This covers measures including government decrees on social distancing and shelter-in-place, but also increased hygiene awareness and reduced travel among the general population. This function is fitted for every state to account for the differing responses in different states.
                 '''),
 				 ])
-		 ]
+		 ],
 	 ),
-])
+],
+className="page-body"
+)
 
 def Projections_documentation():
     layout = html.Div([nav, body, footer])

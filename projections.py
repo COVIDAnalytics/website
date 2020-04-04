@@ -151,7 +151,7 @@ body = dbc.Container(
           ],
           ),
    ],
-   className="projections-body",
+   className="page-body"
 )
 
 def ProjectState():

@@ -49,7 +49,9 @@ body = dbc.Container([
 			])
 		 ]
 	 ),
-])
+],
+className="page-body",
+)
 
 def Dataset_documentation():
     layout = html.Div([nav, body, footer])
