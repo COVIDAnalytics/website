@@ -4,40 +4,38 @@ import dash_html_components as html
 def Navbar():
     links = dbc.Row(
         [
-                # dbc.NavLink("Projections", href="/projections"),
                 dbc.DropdownMenu(
-                   nav=True,
                    in_navbar=True,
+                   className="projections-nav",
+                   color="link",
                    label="Projections",
                    children=[
                       dbc.DropdownMenuItem("Graphs", href="/projections"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
                     ],
-                    style={"margin-bottom":20}
+                    style={"text":"white"}
                 ),
                 dbc.NavLink("Interactive Graphs", href="/interactive-graph"),
                 dbc.DropdownMenu(
-                   nav=True,
                    in_navbar=True,
+                   color="link",
                    label="Dataset",
                    children=[
                       dbc.DropdownMenuItem("Data Access", href="/dataset"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
                     ],
-                    style={"margin-bottom":20}
                 ),
                 dbc.DropdownMenu(
-                   nav=True,
                    in_navbar=True,
+                   color="link",
                    label="About Us",
                    children=[
                       dbc.DropdownMenuItem("The Team", href="/team"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Contact Us", href="/contact"),
                     ],
-                    style={"margin-bottom":20}
                 ),
             ],
             id="navbar-links",
