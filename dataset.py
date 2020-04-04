@@ -2,6 +2,7 @@
 import pandas as pd
 import pickle
 from datetime import datetime as dt
+import urllib
 ### Graphing
 import plotly.graph_objects as go
 ### Dash
@@ -18,13 +19,21 @@ from footer import Footer
 from interactive import demographics
 from assets.mappings import data_cols
 
-dataset = 'data/clinical_outcomes_database.csv'
-df = pd.read_csv(dataset)
-
 nav = Navbar()
 footer = Footer()
 
+dataset = "data/clinical_outcomes_database.csv"
+ref_data = "data/reference_ranges.csv"
+
+ref = pd.read_csv(ref_data)
+df = pd.read_csv(dataset)
 df = df.loc[:,data_cols]
+
+data_csv_string = df.to_csv(index=False, encoding='utf-8')
+data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
+ref_data_csv_string = ref.to_csv(index=False, encoding='utf-8')
+ref_data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(ref_data_csv_string)
+
 table = dash_table.DataTable(
 			id="data-table",
 		    data=df.to_dict('records'),
@@ -87,19 +96,32 @@ body = dbc.Container([
 				 ])
 		 ]
 	 ),
-    dbc.Row(
+    dbc.Row([
 			dbc.Col(
 				html.Div(
 					html.A(
-						"Download the Dataset",
+						"Download the Data",
 						id="download-link",
 						download=dataset,
-						href="",
+						href=data_csv_string,
 	        			target="_blank"
 					),
-					 style={'text-align':"center"}
+					style={'text-align':"center"}
 				)
-			)
+			),
+			dbc.Col(
+				html.Div(
+					html.A(
+						"Download the Reference",
+						id="download-reference-link",
+						download=ref_data,
+						href=ref_data_csv_string,
+	        			target="_blank"
+					),
+					style={'text-align':"center"}
+				)
+			),
+			]
 	),
   dbc.Row(
            [
@@ -119,7 +141,3 @@ className="page-body"
 def Dataset():
     layout = html.Div([nav, body, footer])
     return layout
-
-app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
-app.layout = Dataset()
-app.title = "COVIDAnalytics"

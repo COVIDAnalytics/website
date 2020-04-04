@@ -1,0 +1,27 @@
+﻿Lab Test,Abbreviation,Reported Units,Reference Range,Source,Source Link,Notes
+White Blood Cell Count,"WBC, Leukocytes",10^9/L,3.4-9.6 x 10^9/L,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/9109,
+Lymphocyte Count,,10^9/L,0.95-3.07 x 10^9/L,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/9109,
+CD4+ T Lymphocyte,,,,,,
+CD8+ T Lymphocyte,,,,,,
+Platelet Count,,10^9/L,"Male = 135-317 x 10^9/L
+Female = 157-371 x 10^9/L",Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/9109,
+Neutrophil Count,,10^9/L,1.56-6.45 x 10^9/L,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/9109,
+Hemoglobin,HB,g/L,"Male = 135-175 g/L
+Female = 120-160 g/L",NBME,,
+Hematocrit,,%,"Male = 41-53%
+Female = 36-46%",NBME,,
+Albumin,,g/L,35-55 g/L,NBME,,
+Alanine Aminotransferase,ALT,U/L,8-20 U/L,NBME,,
+Aspartate Aminotransferase,AST,U/L,8-20 U/L,NBME,,
+Total Bilirubin,,umol/L,2-17 umol/L,NBME,,
+Blood urea nitrogen,BUN,mmol/L,1.2-3.0 mmol/L,NBME,,
+Creatinine,CRE,umol/L,53-106 umol/L,NBME,,
+Creatine Kinase,CK,U/L,"Male = 25-90 U/L,
+Female = 10-70 U/L",NBME,,
+C-Reactive Protein,CRP,mg/L,0-8 mg/L,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/9731,
+Gamma-Glutamyl Transferase,GGT,U/L,"Male = 8-61 U/L
+Female = 5-36 U/L",Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/8677,
+Interleukin-6,IL-6,ng/L = pg/mL,0-1.8 pg/mL,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/63020,
+Procalcitonin,PCT,ng/mL = ug/L,0-0.15 ng/mL,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/83169,
+D-Dimer,D-D,mg/L = ug/mL,0-.5 mg/L,Mayo Clinic,https://www.mayocliniclabs.com/test-catalog/Clinical+and+Interpretive/40936,Potential inconsistency in units; some papers report 0-.5 mg/L normal range and others 0-500 mg/L normal range
+Prothrombin Time,,Seconds,11-15 seconds,NBME,,
