@@ -162,10 +162,9 @@ body = dbc.Container(
             ]
             ),
         ],
-        style={"height": "90vh"},
         ),
    ],
-   className="interactive-body",
+   className="page-body",
 )
 
 def InteractiveGraph():

@@ -78,13 +78,30 @@ form = html.Form([name_input, email_input, text_input, submit_button],
                  action=formspree_url,
                  method="POST")
 
-body = dbc.Container([dbc.Row([dbc.Col([
-                                        html.P("We are happy to collaborate and help you take our research one step further. " +
-                                               "Feel free to send us an email using the following form."),
-                                        html.P(["You can also reach out to us by sending an email to ", html.A(
-                                            mailing_list, href="mailto:%s" % mailing_list, ), "."]),
-                                        form
-                                        ])])])
+body = dbc.Container([
+            dbc.Row(
+            [
+                dbc.Col(
+                    [
+                        html.P("We are happy to collaborate and help you take our research one step further. " +
+                               "Feel free to send us an email using the following form."),
+                        html.P(
+                            ["You can also reach out to us by sending an email to ",
+                                html.A(
+                                        mailing_list,
+                                        href="mailto:%s" % mailing_list,
+                                    ), "."
+                            ]
+                        ),
+                        form
+                      ]
+                    )
+                ],
+                style={"height":550}
+                )
+            ],
+            className="page-body",
+)
 
 def Contact():
     layout = html.Div([nav, body, footer])
