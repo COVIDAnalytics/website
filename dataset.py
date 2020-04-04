@@ -27,12 +27,14 @@ ref_data = "data/reference_ranges.csv"
 
 ref = pd.read_csv(ref_data)
 df = pd.read_csv(dataset)
-df = df.loc[:,data_cols]
 
 data_csv_string = df.to_csv(index=False, encoding='utf-8')
 data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 ref_data_csv_string = ref.to_csv(index=False, encoding='utf-8')
 ref_data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(ref_data_csv_string)
+
+df = df.loc[:,data_cols]
+
 
 table = dash_table.DataTable(
 			id="data-table",
