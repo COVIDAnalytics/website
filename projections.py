@@ -38,7 +38,6 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H2(""),
                 html.H2("Projections"),
                 html.P("""\
                         This page presents the predictions of a new epidemiological model for COVID-19 infections, hospitalizations, and deaths in all states of the United States. The model is based on the widely successful SEIR (Susceptible-Exposed-Infected-Recovered) model.

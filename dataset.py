@@ -63,7 +63,6 @@ body = dbc.Container([
 	dbc.Row(
         [
 			dbc.Col([
-				html.H2(""),
             	html.H2("Dataset"),
                 html.P('In the fog of war of the Covid-19 pandemic, a critical factor inhibiting \
 				 effective decision making at regional, national, and global levels is a lack of \

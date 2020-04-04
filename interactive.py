@@ -69,7 +69,6 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H2(""),
               html.H2("Interactive Graphs")
             ]
             ),
@@ -158,10 +157,12 @@ body = dbc.Container(
                 html.Div(
                     id = 'interactive_graph',
                     children = [],
+                    style={"margin-bottom":30}
                     ),
             ]
             ),
         ],
+        style={"height": "90vh"},
         ),
    ],
    className="interactive-body",

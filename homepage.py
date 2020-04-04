@@ -28,7 +28,6 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H2(""),
                 dcc.Markdown(
                      '''
                      This website represents the effort of a group of about 20 graduate \
