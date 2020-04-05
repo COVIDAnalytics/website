@@ -41,23 +41,32 @@ def member_pic(member):
              style={'display': 'inline-block'}
             )
         ],
-        width=3
+        width=True,
     )
 
 # Table rows
-member_rows = [
-    dbc.Row(
-        [
-            member_pic(m) for m in members[i*members_per_row:(i+1)*members_per_row]
-        ]
-    ) for i in range(num_members//members_per_row)
-    dbc.Row(
-        [
-            member_pic(m) for m in members[num_members - (num_members % members_per_row):]
-        ]
-    )
+member_rows = \
+    [
+        dbc.Row(
+            [
+                member_pic(members[0])
+            ],
+        )
+    ] + \
+    [
+        dbc.Row(
+            [
+                member_pic(m) for m in members[1 + i*members_per_row:1 + (i+1)*members_per_row]
+            ]
+        ) for i in range(num_members//members_per_row)
+    ] + \
+    [
+        dbc.Row(
+            [
+                member_pic(m) for m in members[1 + num_members - (num_members % members_per_row):]
+            ]
+        )
     ]
-
 
 body = dbc.Container(
         [
@@ -71,7 +80,8 @@ body = dbc.Container(
                         tools that can help the scientific community fight against the pandemic.')
                     ]
                     )
-                ]
+                ],
+                style={'margin-bottom': 20}
             )
         ] + member_rows,
         className="page-body"
