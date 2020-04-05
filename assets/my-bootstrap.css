@@ -3867,6 +3867,7 @@ input[type=button].btn-block {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
+  color: white;
 }
 .nav-link:hover{
 }
@@ -3906,6 +3907,7 @@ input[type=button].btn-block {
   border-color: #dee2e6 #dee2e6 #fff;
 }
 .nav-tabs .dropdown-menu {
+  color: white;
   margin-top: -1px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -12781,11 +12783,11 @@ fieldset:disabled a.btn {
 
 .btn-link {
   font-weight: 400;
-  color: #007bff;
+  color: white;
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #0056b3;
+  color: lightgrey;
   text-decoration: underline;
 }
 .btn-link:focus, .btn-link.focus {
@@ -13768,7 +13770,10 @@ input[type=button].btn-block {
   display: block;
   padding: 0.5rem 1rem;
 }
-.nav-link:hover, .nav-link:focus {
+.nav-link:hover{
+  color: lightgrey;
+}
+.nav-link:focus {
   text-decoration: none;
 }
 .nav-link.disabled {

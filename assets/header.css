@@ -53,3 +53,5 @@ P {
   font-size: 20px;
   font-weight: bold;
 }
+
+a.projections-nav:link { color:#FFF; text-decoration:none; font-weight:normal; }

@@ -5,8 +5,8 @@ def Navbar():
     links = dbc.Row(
         [
                 dbc.DropdownMenu(
-                   in_navbar=True,
-                   className="projections-nav",
+                   #in_navbar=True,
+                   #className="projections-nav",
                    color="link",
                    label="Projections",
                    children=[
@@ -14,6 +14,7 @@ def Navbar():
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
                     ],
+                    style={"color":'white'}
                 ),
                 dbc.NavLink("Interactive Graphs", href="/interactive-graph"),
                 dbc.DropdownMenu(
