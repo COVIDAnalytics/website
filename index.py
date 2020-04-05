@@ -30,6 +30,7 @@ app.layout = html.Div([
     dcc.Location(id = 'url', refresh = False),
     html.Div(id = 'page-content')
 ])
+app.scripts.append_script({'external_url':'https://covidanalytics.io/assets/gtag.js'})
 
 @app.server.route('/favicon.ico')
 def favicon():
