@@ -15,9 +15,8 @@ def Footer():
                                     dbc.Row(
                                         [
                                             dbc.Col(html.Img(src="assets/mit.png", height="60px")),
-                                            dbc.Col(html.Img(src="assets/orc.png", height="60px")),
+                                            dbc.Col(html.Img(src="assets/orc.png", height="50px")),
                                         ],
-                                        align="left",
                                         no_gutters=True,
                                     ),
                                     href="https://orc.mit.edu/",
@@ -30,7 +29,6 @@ def Footer():
                             ],
                         ),
                     ],
-                    align="center",
                 ),
                 id="footer",
             )
