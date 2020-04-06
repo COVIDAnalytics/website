@@ -2,6 +2,7 @@
 import pandas as pd
 import pickle
 from datetime import datetime as dt
+import urllib
 ### Graphing
 import plotly.graph_objects as go
 ### Dash
@@ -15,7 +16,10 @@ from navbar import Navbar
 from footer import Footer
 from assets.mappings import colors
 
+dataset = "data/clinical_outcomes_database.csv"
 df = pd.read_csv('data/clinical_outcomes_database.csv')
+data_csv_string = df.to_csv(index=False, encoding='utf-8')
+data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 
 nav = Navbar()
 footer = Footer()
@@ -125,6 +129,21 @@ body = dbc.Container(
             ]
             ),
         ],
+        ),
+        dbc.Row([
+            dbc.Col(
+                html.Div(
+                    html.A(
+                        "Download the Data",
+                        id="download-link",
+                        download=dataset,
+                        href=data_csv_string,
+                        target="_blank"
+                    ),
+                    style={'text-align':"center"}
+                )
+            ),
+            ]
         ),
    ],
    className="page-body",
