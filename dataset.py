@@ -116,7 +116,7 @@ body = dbc.Container([
 			dbc.Col(
 				html.Div(
 					html.A(
-						"Download the Reference",
+						"Download the Reference for Lab Values",
 						id="download-reference-link",
 						download=ref_data,
 						href=ref_data_csv_string,

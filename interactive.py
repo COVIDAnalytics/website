@@ -2,6 +2,7 @@
 import pandas as pd
 import pickle
 from datetime import datetime as dt
+import urllib
 ### Graphing
 import plotly.graph_objects as go
 ### Dash
@@ -15,7 +16,10 @@ from navbar import Navbar
 from footer import Footer
 from assets.mappings import colors
 
+dataset = "data/clinical_outcomes_database.csv"
 df = pd.read_csv('data/clinical_outcomes_database.csv')
+data_csv_string = df.to_csv(index=False, encoding='utf-8')
+data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 
 nav = Navbar()
 footer = Footer()
@@ -126,6 +130,21 @@ body = dbc.Container(
             ),
         ],
         ),
+        dbc.Row([
+            dbc.Col(
+                html.Div(
+                    html.A(
+                        "Download the Data",
+                        id="download-link",
+                        download=dataset,
+                        href=data_csv_string,
+                        target="_blank"
+                    ),
+                    style={'text-align':"center"}
+                )
+            ),
+            ]
+        ),
    ],
    className="page-body",
 )
@@ -149,8 +168,7 @@ def build_graph(y_title,x_title,survivor_vals):
 
     fig = go.Figure()
     c = 0
-
-    symbols = ["circle","square","diamond","triangle"]
+    sizes = [10,20,30,40,50,60]
     for i in sub_df.Survivors.unique():
         s = 0
         for j in sub_df.Population.unique():
@@ -158,9 +176,9 @@ def build_graph(y_title,x_title,survivor_vals):
                 x=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][x_title],
                 y=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][y_title],
                 legendgroup=i,
-                name=i+'-'+str(j),
+                name= '{} <br> {}K < Pop. Size < {}K'.format(i,str(int((j-1000)/1000)),str(int(j/1000))),
                 mode="markers",
-                marker=dict(color=colors[c], symbol=symbols[s],size=10),
+                marker=dict(color=colors[c], size=sizes[s]),
                 text=sub_df['Country'],
             ))
             s+=1
@@ -177,7 +195,7 @@ def build_graph(y_title,x_title,survivor_vals):
                 title_font_size=20,
                 xaxis={'title': x_title,'linecolor': 'lightgrey'},
                 yaxis={'title': "Percentage with " + y_title,'linecolor': 'lightgrey'},
-                legend_title='<b> Survivors-Population </b>',
+                legend_title='<b> Survivors <br> Population Size </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',

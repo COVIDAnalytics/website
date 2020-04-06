@@ -15,6 +15,7 @@ from dash.dependencies import Output, Input
 from navbar import Navbar
 from footer import Footer
 from assets.mappings import states, colors
+import urllib
 
 nav = Navbar()
 footer = Footer()
@@ -27,6 +28,11 @@ df_projections = df_projections.loc[df_projections['Day']>=today]
 
 cols = ['Active','Active Hospitalized','Total Detected','Cumulative Hospitalized','Total Detected Deaths']
 
+
+dataset = "data/predicted/Allstates.csv"
+data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
+data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
+    
 def add_cases(w):
     if 'Deaths' not in w:
         w += ' Cases'
@@ -150,6 +156,21 @@ body = dbc.Container(
                 )
           ],
           ),
+         dbc.Row([
+            dbc.Col(
+                html.Div(
+                    html.A(
+                        "Download the Data",
+                        id="download-link",
+                        download=dataset,
+                        href=data_csv_string,
+                        target="_blank"
+                    ),
+                    style={'text-align':"center"}
+                )
+            ),
+            ]
+        ),
    ],
    className="page-body"
 )

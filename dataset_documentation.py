@@ -45,8 +45,8 @@ body = dbc.Container([
 					5. Studies in this dataset do not always have the same purpose, which affects data reporting. For instance, many papers from Italy seem to report data only on non-survivors. In addition, some studies focus on the disease’s contagion profile, with little information on death, discharge, stay length. Data points from these studies may exhibit a high proportion of missing features.
 					6. To the best of our ability, we avoid reporting data from metastudies to avoid double-counting patients. However, there remains a (low) risk that some patients will appear in multiple studies (for example two studies in Feb and Mar in the same hospital).
 					7. We have tried to report all lab values in consistent units. We have included a companion document (Reference Ranges) with corresponding reference ranges to facilitate analysis. There are some instances where the reported lab units seem inconsistent with the expected ranges (e.g. for D-Dimer), but we have generally reported the raw values from the source papers.
-					8. We intend to continuously update this dataset, for the duration of this epidemic. If you spot any errors in the dataset, or know of any papers which you believe this dataset would benefit from including, please do not hesitate to contact us, either by filing an issue in our GitHub repo, or emailing us at covidanalytics@mit.edu.
 					'''),
+					#8. We intend to continuously update this dataset, for the duration of this epidemic. If you spot any errors in the dataset, or know of any papers which you believe this dataset would benefit from including, please do not hesitate to contact us, either by filing an issue in our GitHub repo, or emailing us at covidanalytics@mit.edu.
 			])
 		 ]
 	 ),
