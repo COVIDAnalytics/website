@@ -97,7 +97,6 @@ body = dbc.Container([
                       ]
                     )
                 ],
-                #style={"height":550}
                 )
             ],
             className="page-body",
