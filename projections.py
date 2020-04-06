@@ -99,22 +99,20 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H6('Predicted Value:'),
-                    html.Div(dcc.Dropdown(
-                        id = 'us_map_dropdown',
-                        options = [{'label': x, 'value': x} for x in cols],
-                        value = 'Active',
-                        style={'width': '100%','margin-bottom':10}
+                html.H6('Predicted Value:',id="date-projections"),
+                    html.Div(
+                        dcc.Dropdown(
+                            id = 'us_map_dropdown',
+                            options = [{'label': x, 'value': x} for x in cols],
+                            value = 'Active',
+                        ),
                     ),
-                ),
-                html.P('* Gray states correspond to no projection as their number \
-                        of confirmed cases so far is too low for a reliable estimation.\
-        		        We will update on a daily basis.',
-                        style={'color':'gray'}
-                ),
             ],
-            width=3
             ),
+        ],
+        ),
+        dbc.Row(
+        [
             dbc.Col(
             [
                 html.Div(
@@ -127,19 +125,29 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
-             dbc.Col(html.H4('State:'), width=1),
-             dbc.Col(
+            html.P('* Gray states correspond to no projection as their number \
+                    of confirmed cases so far is too low for a reliable estimation.\
+                    We will update on a daily basis.',
+                    style={'color':'gray'}
+            ),
+        ],
+        ),
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                html.H6('State:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'state_dropdown',
                         options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
                         value = 'US',
-                        style={'width': '50%', 'display' : 'inline-block','margin':0, 'textAlign': 'left'}
                     )
                )
-             )
-             ],
-         ),
+            ],
+            ),
+        ],
+        ),
          dbc.Row(
          [
                dbc.Col(
