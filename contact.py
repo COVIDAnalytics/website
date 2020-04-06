@@ -97,14 +97,13 @@ body = dbc.Container([
                       ]
                     )
                 ],
-                style={"height":550}
                 )
             ],
             className="page-body",
 )
 
 def Contact():
-    layout = html.Div([nav, body, footer])
+    layout = html.Div([nav, body, footer],className="site")
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])

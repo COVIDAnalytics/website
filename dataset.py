@@ -141,5 +141,5 @@ className="page-body"
 )
 
 def Dataset():
-    layout = html.Div([nav, body, footer])
+    layout = html.Div([nav, body, footer],className="site")
     return layout

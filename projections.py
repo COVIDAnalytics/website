@@ -155,7 +155,7 @@ body = dbc.Container(
 )
 
 def ProjectState():
-    layout = html.Div([nav, body, footer])
+    layout = html.Div([nav, body, footer],className="site")
     return layout
 
 def build_us_map(map_date,val='Active'):
