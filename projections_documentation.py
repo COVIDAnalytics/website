@@ -49,7 +49,7 @@ className="page-body"
 )
 
 def Projections_documentation():
-    layout = html.Div([nav, body, footer])
+    layout = html.Div([nav, body, footer],className="site")
     return layout
 
 app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
