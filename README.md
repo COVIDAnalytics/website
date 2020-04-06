@@ -2,7 +2,7 @@
 
 This website presents the results of our work.
 
-Link to website: https://covidanalytics.io
+Link to website: http://www.covidanalytics.io/
 
 ## Getting Started
 
