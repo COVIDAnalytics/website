@@ -56,14 +56,7 @@ member_rows = \
     [
         dbc.Row(
             [
-                member_pic(m) for m in members[1 + i*members_per_row:1 + (i+1)*members_per_row]
-            ]
-        ) for i in range(num_members//members_per_row)
-    ] + \
-    [
-        dbc.Row(
-            [
-                member_pic(m) for m in members[1 + num_members - (num_members % members_per_row):]
+                member_pic(members[i]) for i in range(1,num_members)
             ]
         )
     ]

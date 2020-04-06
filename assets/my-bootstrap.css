@@ -3991,14 +3991,15 @@ input[type=button].btn-block {
 }
 
 .navbar-text {
-  display: inline-block
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .navbar-collapse {
   flex-basis: 100%;
   flex-grow: 1;
   align-items: center;
-  height: 40px
 }
 
 .navbar-toggler {

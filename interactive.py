@@ -118,8 +118,13 @@ body = dbc.Container(
                     )
                 ),
             ],
-            width="True"
+            width="True",
+            align="center"
             ),
+        ],
+        ),
+        dbc.Row(
+            [
             dbc.Col(
             [
                 html.Div(
@@ -128,7 +133,7 @@ body = dbc.Container(
                     ),
             ]
             ),
-        ],
+            ]
         ),
         dbc.Row([
             dbc.Col(
