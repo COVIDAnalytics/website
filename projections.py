@@ -32,7 +32,7 @@ cols = ['Active','Active Hospitalized','Total Detected','Cumulative Hospitalized
 dataset = "data/predicted/Allstates.csv"
 data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
 data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
-    
+
 def add_cases(w):
     if 'Deaths' not in w:
         w += ' Cases'
@@ -89,10 +89,10 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
-            dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="start"),
-            dbc.Col(dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="center"),
-            dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="center"),
-            dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20}),align="end"),
+            dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="start"),
+            dbc.Col(dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="center"),
+            dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="center"),
+            dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="end"),
         ],
         ),
         dbc.Row(
