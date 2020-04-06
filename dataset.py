@@ -34,7 +34,7 @@ ref_data_csv_string = ref.to_csv(index=False, encoding='utf-8')
 ref_data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(ref_data_csv_string)
 
 df = df.loc[:,data_cols]
-
+df = df.head(50)
 
 table = dash_table.DataTable(
 			id="data-table",
@@ -45,15 +45,15 @@ table = dash_table.DataTable(
 		        'height': 'auto',
 		    },
 			style_table={
-				'overflowX': 'scroll',
-				'maxHeight': '300px',
-				'overflowY': 'scroll',
+				'overflowX': 'auto',
+				'maxHeight': '400px',
+				'overflowY': 'auto',
 				'border': 'thin lightgrey solid',
 			},
 			style_cell={
 		        'height': 'auto',
 		        'minWidth': '0px',
-				'width': '150px',
+				'width': '180px',
 				'maxWidth': '180px',
 		        'whiteSpace': 'normal',
 				'textAlign': 'center',
@@ -93,7 +93,9 @@ body = dbc.Container([
 				html.P('At a high level, each row of the dataset represents a cohort of patients.\
 				 Some papers study a single cohort, while others study several cohorts, \
 				 and still others report results about one cohort and one or more subcohorts;\
-				 all of these are included as rows in the dataset. '
+				 all of these are included as rows in the dataset. \
+				 The in browser dataset is a subset of columns and rows. For the full dataset, please \
+				 download the data.'
 				 )
 				 ])
 		 ]
