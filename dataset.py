@@ -93,7 +93,9 @@ body = dbc.Container([
 				html.P('At a high level, each row of the dataset represents a cohort of patients.\
 				 Some papers study a single cohort, while others study several cohorts, \
 				 and still others report results about one cohort and one or more subcohorts;\
-				 all of these are included as rows in the dataset. '
+				 all of these are included as rows in the dataset. \
+				 The in browser dataset is a subset of columns and rows. For the full dataset, please \
+				 download the data.'
 				 )
 				 ])
 		 ]
