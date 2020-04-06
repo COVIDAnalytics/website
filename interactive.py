@@ -168,8 +168,7 @@ def build_graph(y_title,x_title,survivor_vals):
 
     fig = go.Figure()
     c = 0
-
-    symbols = ["circle","square","diamond","triangle"]
+    sizes = [10,20,30,40,50,60]
     for i in sub_df.Survivors.unique():
         s = 0
         for j in sub_df.Population.unique():
@@ -177,9 +176,9 @@ def build_graph(y_title,x_title,survivor_vals):
                 x=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][x_title],
                 y=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][y_title],
                 legendgroup=i,
-                name=i+'-'+str(j),
+                name= '{} <br> {}K < Pop. Size < {}K'.format(i,str(int((j-1000)/1000)),str(int(j/1000))),
                 mode="markers",
-                marker=dict(color=colors[c], symbol=symbols[s],size=10),
+                marker=dict(color=colors[c], size=sizes[s]),
                 text=sub_df['Country'],
             ))
             s+=1
@@ -196,7 +195,7 @@ def build_graph(y_title,x_title,survivor_vals):
                 title_font_size=20,
                 xaxis={'title': x_title,'linecolor': 'lightgrey'},
                 yaxis={'title': "Percentage with " + y_title,'linecolor': 'lightgrey'},
-                legend_title='<b> Survivors-Population </b>',
+                legend_title='<b> Survivors <br> Population Size </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
