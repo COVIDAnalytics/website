@@ -2,7 +2,7 @@
 
 This website presents the results of our work.
 
-Link to website: https://mit-orc-covid19.herokuapp.com/
+Link to website: https://covidanalytics.io
 
 ## Getting Started
 
