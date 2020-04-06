@@ -32,7 +32,7 @@ body = dbc.Container(
                      '''
                      This website represents the effort of a group of about 20 graduate \
                      students in the [Operations Research Center](https://orc.mit.edu/) at [MIT](http://mit.edu/) under the guidance \
-                     of [Professor Bertsimas](https://www.mit.edu/~dbertsim/). Our overarching objective is to rapidly develop, \
+                     of [Professor Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). Our overarching objective is to rapidly develop, \
                      and deliver tools for use by hospitals, government officials, \
                      and healthcare institutions in the United States to combat the spread of COVID-19.
                      '''
