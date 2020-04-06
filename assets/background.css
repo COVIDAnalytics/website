@@ -1,6 +1,5 @@
 html {
     position: relative;
-    min-height: 100%;
 }
 
 body {
@@ -9,24 +8,34 @@ body {
     position: relative;
 }
 
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
 #navbar{
   margin-bottom: 40px;
 }
 
 .page-body{
+  flex: 1;
   padding-bottom: 2.5rem;
   position: relative;
+  min-height: 100%;
+  margin-bottom: -50px;
 }
 
 #footer {
   background-color: black;
-  padding: 10px;
   text-align: center;
+  padding: 10px;
   color: white;
-  position: absolute;
   width:100%;
   height: 100px;
   width: 100%;
   overflow: hidden;
   margin-top: 20px;
+  flex-shrink: 0;
 }

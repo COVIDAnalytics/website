@@ -131,7 +131,7 @@ body = dbc.Container(
 )
 
 def InteractiveGraph():
-    layout = html.Div([nav, body, footer])
+    layout = html.Div([nav, body, footer],className="site")
     return layout
 
 def build_graph(y_title,x_title,survivor_vals):

@@ -78,5 +78,5 @@ body = dbc.Container(
 )
 
 def Homepage():
-    layout = html.Div([nav, body, footer])
+    layout = html.Div([nav, body, footer],className="site")
     return layout
