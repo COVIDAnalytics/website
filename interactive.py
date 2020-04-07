@@ -141,7 +141,7 @@ body = dbc.Container(
                     html.A(
                         "Download the Data",
                         id="download-link",
-                        download=dataset,
+                        download="covid_analytics_clinical_data.csv",
                         href=data_csv_string,
                         target="_blank"
                     ),
