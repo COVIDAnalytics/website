@@ -3143,7 +3143,9 @@ input[type=button].btn-block {
 .dropdown-item {
   display: block;
   width: 100%;
-  padding: 0.25rem 1.5rem;
+  padding: 0.25rem 0.25rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
   clear: both;
   font-weight: 400;
   color: #212529;
@@ -3947,7 +3949,7 @@ input[type=button].btn-block {
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-  max-height: 320px;
+  max-height: 320;
   overflow: auto;
 }
 .navbar .container,
@@ -13049,18 +13051,20 @@ input[type=button].btn-block {
   display: block;
   width: 100%;
   padding: 0.25rem 1.5rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
   clear: both;
   font-weight: 400;
-  color: #212529;
+  color: white;
   text-align: inherit;
   white-space: nowrap;
   background-color: transparent;
   border: 0;
 }
 .dropdown-item:hover, .dropdown-item:focus {
-  color: #16181b;
+  color: white;
   text-decoration: none;
-  background-color: #f8f9fa;
+  background-color: black;
 }
 .dropdown-item.active, .dropdown-item:active {
   color: #fff;
@@ -13075,6 +13079,7 @@ input[type=button].btn-block {
 
 .dropdown-menu.show {
   display: block;
+  background-color: #800020;
 }
 
 .dropdown-header {
