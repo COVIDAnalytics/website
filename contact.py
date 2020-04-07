@@ -23,53 +23,74 @@ footer = Footer()
 
 name_input = dbc.FormGroup(
     [
-        dbc.Col(html.Label("Topic", htmlFor="name-row"), width=1),
-        dbc.Col(
-            dcc.Input(
-                type="text",
-                id="name-row",
-                name="name",
-                className="form-control",
-                placeholder="Enter the topic of your message",
+        dbc.Row(
+        [
+            dbc.Col(html.Label("Topic", htmlFor="name-row"),width="auto"),
+            dbc.Col(
+                dcc.Input(
+                    type="text",
+                    id="name-row",
+                    name="name",
+                    className="form-control",
+                    placeholder="Enter the topic of your message",
+                    style={"width":"50%"},
+                ),
+                width=True
             ),
-            width=6,
-        ),
+        ],
+        )
     ],
-    row=True,
 )
 
 email_input = dbc.FormGroup(
     [
-        dbc.Col(html.Label("Email", htmlFor="email-row"), width=1),
-        dbc.Col(
-            [dcc.Input(
-                type="email",
-                id="email-row",
-                name="email",
-                className="form-control",
-                placeholder="Enter your email address"),
-            dcc.Input(
-                type="hidden",
-                name="_subject",
-                value="Covidanalytics Mailing List")]
-            ,
-            width=6,
-        ),
+        dbc.Row(
+        [
+            dbc.Col(html.Label("Email", htmlFor="email-row"),width="auto"),
+            dbc.Col(
+                [dcc.Input(
+                    type="email",
+                    id="email-row",
+                    name="email",
+                    className="form-control",
+                    placeholder="Enter your email address",
+                    style={"width":"50%"}
+                ),
+                dcc.Input(
+                    type="hidden",
+                    name="_subject",
+                    value="Covidanalytics Mailing List",
+                    style={"width":"50%"},
+                )
+            ],
+            width=True
+            ),
+        ],
+        )
     ],
-    row=True,
 )
 
 
 text_input = dbc.FormGroup(
     [
-        dbc.Label("Text", html_for="message-row", width=1),
-        dbc.Col([ dcc.Textarea(placeholder="Your message goes here...",
-            className="form-control",
-            id="message-row",
-            name="message")],
-            width=6),
+        dbc.Row(
+        [
+            dbc.Col(dbc.Label("Text", html_for="message-row"),width="auto"),
+            dbc.Col(
+            [
+                dcc.Textarea(
+                    placeholder="Your message goes here...",
+                    className="form-control",
+                    id="message-row",
+                    name="message",
+                    style={"width":"50%","margin-left":5},
+                )
+            ],
+            width=True
+            ),
+        ],
+        )
     ],
-    row=True,
 )
 
 submit_button = html.Button("Submit", className="btn btn-primary", formEncType="submit")
@@ -97,6 +118,7 @@ body = dbc.Container([
                       ]
                     )
                 ],
+
                 )
             ],
             className="page-body",

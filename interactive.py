@@ -5,6 +5,7 @@ from datetime import datetime as dt
 import urllib
 ### Graphing
 import plotly.graph_objects as go
+from textwrap import wrap
 ### Dash
 import dash
 import dash_core_components as dcc
@@ -82,10 +83,12 @@ body = dbc.Container(
             dbc.Col(
             [
                 html.H5('What would you like to compare?'),
-                html.Div(dcc.Dropdown(
-                    id = 'categories_dropdown',
-                    options = [{'label': x, 'value': x} for x in categories],
-                    value = 'Comorbidities',
+                html.Div(
+                    dcc.Dropdown(
+                        id = 'categories_dropdown',
+                        options = [{'label': x, 'value': x} for x in categories],
+                        value = 'Comorbidities',
+                        style={'margin-bottom': 10}
                     ),
                 ),
                 html.Div(
@@ -96,32 +99,35 @@ body = dbc.Container(
                         dcc.Dropdown(
                             id = 'y_axis_dropdown',
                             value = 'Hypertension',
+                            style={'margin-bottom': 10,'margin-top': 10}
                         ),
                     )
                 ]
                 ),
-                html.H6('Select the Demographic (Horizontal Axis)'),
-                html.Div(dcc.Dropdown(
-                    id = 'x_axis_dropdown',
-                    options = [{'label': x, 'value': x} for x in demographics],
-                    value = '% Male',
+                html.P('Select the Demographic (Horizontal Axis)'),
+                html.Div(
+                    dcc.Dropdown(
+                        id = 'x_axis_dropdown',
+                        options = [{'label': x, 'value': x} for x in demographics],
+                        value = '% Male',
+                        style={'margin-bottom': 10,'margin-top': -5}
                     ),
                 ),
-                html.H6('Select the Population Type:'),
+                html.P('Select the Population Type:'),
                 html.Div(
                 dcc.Checklist(
                     id = 'survivors',
                     options=[{'label': x, 'value': x} for x in survivor_options],
                     value=['Non-Survivors only', 'Survivors only'],
                     labelStyle={'color': 'black'},
-                    style={'width': '50%'}
+                    style={'width': '50%','margin-top': -5}
                     )
                 ),
             ],
             width="True",
-            align="center"
             ),
         ],
+        justify="center"
         ),
         dbc.Row(
             [
@@ -192,7 +198,7 @@ def build_graph(y_title,x_title,survivor_vals):
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<b> {} vs {} </b>'.format(x_title,y_title),
+                    'text': '<br>'.join(wrap('<b> {} vs {} </b>'.format(x_title,y_title), width=26)),
                     'y':0.97,
                     'x':0.5,
                     'xanchor': 'center',
@@ -204,7 +210,13 @@ def build_graph(y_title,x_title,survivor_vals):
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                legend={
+                        "orientation": "h",
+                        "xanchor": "center",
+                        "y": -0.2,
+                        "x": 0.5
+                        }
             )
 
 
