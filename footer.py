@@ -15,7 +15,7 @@ def Footer():
                                     dbc.Row(
                                         [
                                             dbc.Col(html.Img(src="assets/mit.png", height="60px")),
-                                            dbc.Col(html.Img(src="assets/orc.png", height="50px")),
+                                            dbc.Col(html.Img(src="assets/orc.png", height="70px")),
                                         ],
                                         no_gutters=True,
                                     ),

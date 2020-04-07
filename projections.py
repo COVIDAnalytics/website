@@ -87,12 +87,12 @@ body = dbc.Container(
             ),
         ],
         ),
-        dbc.Row(
+        dbc.CardDeck(
         [
-            dbc.Col(dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="start"),
-            dbc.Col(dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="center"),
-            dbc.Col(dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="center"),
-            dbc.Col(dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-top':20,'margin-bottom':20,'padding-top':20,'padding-bottom':20}),align="end"),
+            dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
+            dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
+            dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
+            dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
         ],
         ),
         dbc.Row(
@@ -170,7 +170,7 @@ body = dbc.Container(
                     html.A(
                         "Download the Data",
                         id="download-link",
-                        download=dataset,
+                        download="covid_analytics_projections.csv",
                         href=data_csv_string,
                         target="_blank"
                     ),
