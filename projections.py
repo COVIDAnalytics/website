@@ -250,7 +250,7 @@ def build_state_projection(state):
                 x=df_projections_sub['Day'],
                 y=df_projections_sub[val].values,
                 legendgroup=i,
-                name=val,
+                name=val.replace(' ','<br>'),
                 mode="lines+markers",
                 marker=dict(color=colors[i]),
                 line=dict(color=colors[i])
@@ -272,7 +272,13 @@ def build_state_projection(state):
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                legend={
+                        "orientation": "h",
+                        "xanchor": "center",
+                        "y": -0.2,
+                        "x": 0.5
+                        }
             )
 
     graph = dcc.Graph(
