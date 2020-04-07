@@ -2,22 +2,20 @@ import dash
 import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
+from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import flask
-from dash.dependencies import Input, Output, State, ClientsideFunction
-from flask import session
 
 from datetime import datetime as dt
 
-from interactive import InteractiveGraph, build_graph
+from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
-from projections import ProjectState, build_state_projection, build_us_map, get_us_stat
-from team import Team
-from dataset import Dataset
-from contact import Contact
-from dataset_documentation import Dataset_documentation
-from projections_documentation import Projections_documentation
+from projections.projections import ProjectState, build_state_projection, build_us_map, get_us_stat
+from about_us.team import Team
+from dataset.dataset import Dataset
+from about_us.contact import Contact
+from dataset.dataset_documentation import Dataset_documentation
+from projections.projections_documentation import Projections_documentation
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
