@@ -16,6 +16,7 @@ from dataset.dataset import Dataset
 from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
 from projections.projections_documentation import Projections_documentation
+from ventilators.allocations import VentilatorAllocations
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
