@@ -1,0 +1,764 @@
+State_From,State_To,Day,Num_Units,Param1,Param2,Param3
+Connecticut,New York,2020-04-01,95,0.1,0.5,true
+Delaware,New York,2020-04-01,92,0.1,0.5,true
+Florida,Alabama,2020-04-01,1188,0.1,0.5,true
+Georgia,Alabama,2020-04-01,469,0.1,0.5,true
+Indiana,Michigan,2020-04-01,345,0.1,0.5,true
+Maine,New York,2020-04-01,47,0.1,0.5,true
+Maryland,New York,2020-04-01,224,0.1,0.5,true
+Massachusetts,New York,2020-04-01,127,0.1,0.5,true
+New Hampshire,New York,2020-04-01,57,0.1,0.5,true
+New Jersey,New York,2020-04-01,110,0.1,0.5,true
+North Carolina,New York,2020-04-01,882,0.1,0.5,true
+Ohio,New York,2020-04-01,1244,0.1,0.5,true
+Pennsylvania,New York,2020-04-01,1366,0.1,0.5,true
+Rhode Island,New York,2020-04-01,75,0.1,0.5,true
+South Carolina,New York,2020-04-01,416,0.1,0.5,true
+Vermont,New York,2020-04-01,40,0.1,0.5,true
+Virginia,New York,2020-04-01,526,0.1,0.5,true
+West Virginia,New York,2020-04-01,239,0.1,0.5,true
+Indiana,New York,2020-04-02,235,0.1,0.5,true
+South Carolina,New York,2020-04-02,32,0.1,0.5,true
+Arkansas,Alabama,2020-04-03,44,0.1,0.5,true
+Georgia,Alabama,2020-04-04,343,0.1,0.5,true
+Indiana,Tennessee,2020-04-04,107,0.1,0.5,true
+Missouri,Iowa,2020-04-05,9,0.1,0.5,true
+Kentucky,Tennessee,2020-04-06,439,0.1,0.5,true
+Mississippi,Alabama,2020-04-06,269,0.1,0.5,true
+South Carolina,Alabama,2020-04-06,27,0.1,0.5,true
+New Mexico,Colorado,2020-04-07,60,0.1,0.5,true
+Wyoming,Colorado,2020-04-07,8,0.1,0.5,true
+Arkansas,Alabama,2020-04-09,250,0.1,0.5,true
+New Mexico,Colorado,2020-04-09,32,0.1,0.5,true
+Louisiana,Alabama,2020-04-10,132,0.1,0.5,true
+New Mexico,Colorado,2020-04-10,34,0.1,0.5,true
+Louisiana,Alabama,2020-04-11,31,0.1,0.5,true
+Missouri,Iowa,2020-04-20,62,0.1,0.5,true
+California,Alabama,2020-04-01,298,0.1,0.8,true
+Connecticut,New York,2020-04-01,123,0.1,0.8,true
+Delaware,New York,2020-04-01,39,0.1,0.8,true
+Florida,New York,2020-04-01,885,0.1,0.8,true
+Georgia,New York,2020-04-01,412,0.1,0.8,true
+Idaho,Michigan,2020-04-01,37,0.1,0.8,true
+Illinois,New York,2020-04-01,410,0.1,0.8,true
+Indiana,New York,2020-04-01,275,0.1,0.8,true
+Iowa,Michigan,2020-04-01,100,0.1,0.8,true
+Kentucky,New York,2020-04-01,175,0.1,0.8,true
+Maine,New York,2020-04-01,39,0.1,0.8,true
+Maryland,New York,2020-04-01,179,0.1,0.8,true
+Massachusetts,New York,2020-04-01,203,0.1,0.8,true
+Minnesota,New York,2020-04-01,155,0.1,0.8,true
+Missouri,New York,2020-04-01,225,0.1,0.8,true
+Montana,New York,2020-04-01,30,0.1,0.8,true
+Nebraska,Michigan,2020-04-01,88,0.1,0.8,true
+Nevada,New York,2020-04-01,59,0.1,0.8,true
+New Hampshire,New York,2020-04-01,38,0.1,0.8,true
+New Jersey,New York,2020-04-01,110,0.1,0.8,true
+North Carolina,New York,2020-04-01,352,0.1,0.8,true
+North Dakota,New York,2020-04-01,36,0.1,0.8,true
+Ohio,New York,2020-04-01,497,0.1,0.8,true
+Oklahoma,Alabama,2020-04-01,101,0.1,0.8,true
+Pennsylvania,New York,2020-04-01,546,0.1,0.8,true
+Rhode Island,New York,2020-04-01,35,0.1,0.8,true
+South Carolina,New York,2020-04-01,190,0.1,0.8,true
+South Dakota,Michigan,2020-04-01,29,0.1,0.8,true
+Texas,Alabama,2020-04-01,397,0.1,0.8,true
+Vermont,New York,2020-04-01,16,0.1,0.8,true
+Virginia,New York,2020-04-01,256,0.1,0.8,true
+West Virginia,New York,2020-04-01,95,0.1,0.8,true
+Wisconsin,New York,2020-04-01,159,0.1,0.8,true
+Wyoming,Michigan,2020-04-01,21,0.1,0.8,true
+Arizona,Alabama,2020-04-02,268,0.1,0.8,true
+Arkansas,Alabama,2020-04-02,117,0.1,0.8,true
+Nevada,Michigan,2020-04-02,70,0.1,0.8,true
+Texas,Alabama,2020-04-03,156,0.1,0.8,true
+Texas,Alabama,2020-04-04,286,0.1,0.8,true
+Kansas,Tennessee,2020-04-05,94,0.1,0.8,true
+Oklahoma,Tennessee,2020-04-05,7,0.1,0.8,true
+Texas,Alabama,2020-04-05,285,0.1,0.8,true
+Mississippi,Alabama,2020-04-06,138,0.1,0.8,true
+New Mexico,Alabama,2020-04-06,67,0.1,0.8,true
+Utah,Colorado,2020-04-06,30,0.1,0.8,true
+New Jersey,Connecticut,2020-04-07,10,0.1,0.8,true
+New Jersey,Massachusetts,2020-04-07,7,0.1,0.8,true
+California,Alabama,2020-04-08,135,0.1,0.8,true
+Louisiana,Alabama,2020-04-08,92,0.1,0.8,true
+Michigan,Tennessee,2020-04-08,6,0.1,0.8,true
+Missouri,Tennessee,2020-04-08,40,0.1,0.8,true
+New Jersey,Connecticut,2020-04-08,10,0.1,0.8,true
+New Jersey,Tennessee,2020-04-08,23,0.1,0.8,true
+Utah,Colorado,2020-04-08,52,0.1,0.8,true
+Louisiana,Alabama,2020-04-09,16,0.1,0.8,true
+Michigan,Tennessee,2020-04-09,57,0.1,0.8,true
+Nevada,Colorado,2020-04-09,18,0.1,0.8,true
+New Jersey,Alabama,2020-04-09,49,0.1,0.8,true
+New York,Alabama,2020-04-09,63,0.1,0.8,true
+New York,Connecticut,2020-04-09,4,0.1,0.8,true
+New York,Massachusetts,2020-04-09,58,0.1,0.8,true
+New York,Tennessee,2020-04-09,58,0.1,0.8,true
+Louisiana,Alabama,2020-04-10,24,0.1,0.8,true
+Michigan,Tennessee,2020-04-10,87,0.1,0.8,true
+New Jersey,Alabama,2020-04-10,61,0.1,0.8,true
+New York,Alabama,2020-04-10,127,0.1,0.8,true
+New York,Massachusetts,2020-04-10,9,0.1,0.8,true
+New York,Tennessee,2020-04-10,13,0.1,0.8,true
+Utah,Colorado,2020-04-10,22,0.1,0.8,true
+California,Colorado,2020-04-11,1,0.1,0.8,true
+Louisiana,Alabama,2020-04-11,31,0.1,0.8,true
+Michigan,Alabama,2020-04-11,35,0.1,0.8,true
+Michigan,Tennessee,2020-04-11,77,0.1,0.8,true
+Nevada,Colorado,2020-04-11,7,0.1,0.8,true
+Louisiana,Oklahoma,2020-04-12,38,0.1,0.8,true
+Michigan,Tennessee,2020-04-12,84,0.1,0.8,true
+Michigan,Iowa,2020-04-15,147,0.1,0.8,true
+Louisiana,Oklahoma,2020-04-16,3,0.1,0.8,true
+Michigan,Iowa,2020-04-22,1,0.1,0.8,true
+Oklahoma,Iowa,2020-04-22,7,0.1,0.8,true
+Oklahoma,Iowa,2020-04-23,10,0.1,0.8,true
+Oklahoma,Iowa,2020-04-24,6,0.1,0.8,true
+Arizona,Colorado,2020-04-01,80,0.3,0.5,true
+Arkansas,Alabama,2020-04-01,206,0.3,0.5,true
+Delaware,New Jersey,2020-04-01,33,0.3,0.5,true
+Florida,New Jersey,2020-04-01,140,0.3,0.5,true
+Florida,New York,2020-04-01,1234,0.3,0.5,true
+Georgia,New York,2020-04-01,224,0.3,0.5,true
+Illinois,Michigan,2020-04-01,66,0.3,0.5,true
+Illinois,New York,2020-04-01,182,0.3,0.5,true
+Indiana,New York,2020-04-01,534,0.3,0.5,true
+Kentucky,New York,2020-04-01,341,0.3,0.5,true
+Maine,New York,2020-04-01,10,0.3,0.5,true
+Maryland,New York,2020-04-01,349,0.3,0.5,true
+Minnesota,Michigan,2020-04-01,160,0.3,0.5,true
+Missouri,New York,2020-04-01,18,0.3,0.5,true
+Nebraska,Michigan,2020-04-01,68,0.3,0.5,true
+North Carolina,New York,2020-04-01,686,0.3,0.5,true
+Ohio,New York,2020-04-01,967,0.3,0.5,true
+Pennsylvania,New York,2020-04-01,1062,0.3,0.5,true
+South Carolina,New York,2020-04-01,355,0.3,0.5,true
+South Dakota,Michigan,2020-04-01,38,0.3,0.5,true
+Texas,Alabama,2020-04-01,2043,0.3,0.5,true
+Texas,Louisiana,2020-04-01,144,0.3,0.5,true
+Virginia,New York,2020-04-01,498,0.3,0.5,true
+West Virginia,New York,2020-04-01,186,0.3,0.5,true
+Wisconsin,Michigan,2020-04-01,309,0.3,0.5,true
+Delaware,New Jersey,2020-04-02,17,0.3,0.5,true
+Georgia,Alabama,2020-04-02,132,0.3,0.5,true
+Kansas,Alabama,2020-04-02,52,0.3,0.5,true
+New Hampshire,Massachusetts,2020-04-02,11,0.3,0.5,true
+New Hampshire,New York,2020-04-02,11,0.3,0.5,true
+North Dakota,Michigan,2020-04-02,71,0.3,0.5,true
+Vermont,New York,2020-04-02,31,0.3,0.5,true
+Kansas,Oklahoma,2020-04-03,90,0.3,0.5,true
+Missouri,Tennessee,2020-04-03,497,0.3,0.5,true
+Nebraska,Iowa,2020-04-03,102,0.3,0.5,true
+New Mexico,Colorado,2020-04-03,52,0.3,0.5,true
+Rhode Island,Connecticut,2020-04-03,12,0.3,0.5,true
+Rhode Island,Massachusetts,2020-04-03,44,0.3,0.5,true
+Utah,Colorado,2020-04-03,181,0.3,0.5,true
+Wyoming,Colorado,2020-04-03,29,0.3,0.5,true
+Mississippi,Alabama,2020-04-05,116,0.3,0.5,true
+New Jersey,Connecticut,2020-04-07,12,0.3,0.5,true
+New Jersey,Massachusetts,2020-04-07,5,0.3,0.5,true
+Louisiana,Alabama,2020-04-08,8,0.3,0.5,true
+New Jersey,Connecticut,2020-04-08,3,0.3,0.5,true
+New Jersey,Maryland,2020-04-08,25,0.3,0.5,true
+New Jersey,Rhode Island,2020-04-08,5,0.3,0.5,true
+New York,Connecticut,2020-04-08,8,0.3,0.5,true
+New York,Massachusetts,2020-04-08,76,0.3,0.5,true
+New York,New Hampshire,2020-04-08,4,0.3,0.5,true
+Louisiana,Alabama,2020-04-09,16,0.3,0.5,true
+Michigan,Tennessee,2020-04-09,57,0.3,0.5,true
+New Jersey,Maryland,2020-04-09,30,0.3,0.5,true
+New York,Alabama,2020-04-09,208,0.3,0.5,true
+New York,Connecticut,2020-04-09,5,0.3,0.5,true
+New York,Maine,2020-04-09,5,0.3,0.5,true
+New York,Massachusetts,2020-04-09,32,0.3,0.5,true
+New York,New Hampshire,2020-04-09,3,0.3,0.5,true
+New York,Rhode Island,2020-04-09,5,0.3,0.5,true
+New York,Tennessee,2020-04-09,70,0.3,0.5,true
+Louisiana,Alabama,2020-04-10,24,0.3,0.5,true
+Michigan,Tennessee,2020-04-10,87,0.3,0.5,true
+New Jersey,Alabama,2020-04-10,52,0.3,0.5,true
+New Jersey,Maryland,2020-04-10,29,0.3,0.5,true
+New York,New Hampshire,2020-04-10,1,0.3,0.5,true
+New York,Rhode Island,2020-04-10,4,0.3,0.5,true
+Delaware,Alabama,2020-04-11,2,0.3,0.5,true
+Louisiana,Alabama,2020-04-11,31,0.3,0.5,true
+Michigan,Alabama,2020-04-11,34,0.3,0.5,true
+Michigan,Tennessee,2020-04-11,78,0.3,0.5,true
+New Jersey,Alabama,2020-04-11,11,0.3,0.5,true
+New Jersey,Maryland,2020-04-11,55,0.3,0.5,true
+New Jersey,Rhode Island,2020-04-11,5,0.3,0.5,true
+Michigan,Tennessee,2020-04-12,83,0.3,0.5,true
+New Jersey,Maryland,2020-04-12,30,0.3,0.5,true
+New Jersey,Virginia,2020-04-12,49,0.3,0.5,true
+New Jersey,Maryland,2020-04-13,84,0.3,0.5,true
+New Jersey,Maryland,2020-04-14,71,0.3,0.5,true
+Delaware,Virginia,2020-04-15,23,0.3,0.5,true
+Illinois,Iowa,2020-04-19,18,0.3,0.5,true
+Illinois,Iowa,2020-04-20,20,0.3,0.5,true
+Illinois,Iowa,2020-04-21,16,0.3,0.5,true
+Illinois,Iowa,2020-04-22,12,0.3,0.5,true
+Illinois,Iowa,2020-04-23,9,0.3,0.5,true
+Illinois,Iowa,2020-04-24,6,0.3,0.5,true
+South Carolina,Virginia,2020-04-27,3,0.3,0.5,true
+Maryland,Virginia,2020-04-28,5,0.3,0.5,true
+South Carolina,Virginia,2020-04-28,5,0.3,0.5,true
+Maryland,Virginia,2020-04-29,9,0.3,0.5,true
+South Carolina,Virginia,2020-04-29,6,0.3,0.5,true
+Maryland,Virginia,2020-04-30,11,0.3,0.5,true
+Maryland,Virginia,2020-05-01,16,0.3,0.5,true
+Maryland,Virginia,2020-05-02,18,0.3,0.5,true
+Maryland,Virginia,2020-05-03,22,0.3,0.5,true
+Maryland,Virginia,2020-05-04,24,0.3,0.5,true
+Maryland,Virginia,2020-05-05,27,0.3,0.5,true
+Maryland,Virginia,2020-05-06,28,0.3,0.5,true
+Maryland,Virginia,2020-05-07,10,0.3,0.5,true
+Alaska,Michigan,2020-04-01,11,0.3,0.8,true
+Delaware,New York,2020-04-01,30,0.3,0.8,true
+Florida,New York,2020-04-01,688,0.3,0.8,true
+Georgia,New York,2020-04-01,208,0.3,0.8,true
+Idaho,Michigan,2020-04-01,22,0.3,0.8,true
+Illinois,New York,2020-04-01,319,0.3,0.8,true
+Indiana,New York,2020-04-01,213,0.3,0.8,true
+Iowa,Michigan,2020-04-01,78,0.3,0.8,true
+Kentucky,New York,2020-04-01,136,0.3,0.8,true
+Maine,New York,2020-04-01,15,0.3,0.8,true
+Maryland,New York,2020-04-01,139,0.3,0.8,true
+Minnesota,Michigan,2020-04-01,53,0.3,0.8,true
+Montana,Michigan,2020-04-01,23,0.3,0.8,true
+Nebraska,Michigan,2020-04-01,69,0.3,0.8,true
+New Hampshire,New York,2020-04-01,27,0.3,0.8,true
+North Carolina,New York,2020-04-01,274,0.3,0.8,true
+North Dakota,Michigan,2020-04-01,28,0.3,0.8,true
+Ohio,New York,2020-04-01,387,0.3,0.8,true
+Oregon,Michigan,2020-04-01,23,0.3,0.8,true
+Pennsylvania,New York,2020-04-01,425,0.3,0.8,true
+Rhode Island,New York,2020-04-01,27,0.3,0.8,true
+South Carolina,New York,2020-04-01,147,0.3,0.8,true
+South Dakota,Michigan,2020-04-01,22,0.3,0.8,true
+Texas,Alabama,2020-04-01,731,0.3,0.8,true
+Texas,Louisiana,2020-04-01,118,0.3,0.8,true
+Vermont,New York,2020-04-01,12,0.3,0.8,true
+Virginia,New York,2020-04-01,199,0.3,0.8,true
+Washington,Michigan,2020-04-01,132,0.3,0.8,true
+West Virginia,New York,2020-04-01,74,0.3,0.8,true
+Wisconsin,Michigan,2020-04-01,123,0.3,0.8,true
+Arkansas,Alabama,2020-04-02,91,0.3,0.8,true
+Georgia,Alabama,2020-04-02,113,0.3,0.8,true
+Minnesota,Michigan,2020-04-02,67,0.3,0.8,true
+New Mexico,Alabama,2020-04-02,52,0.3,0.8,true
+Oklahoma,Alabama,2020-04-02,8,0.3,0.8,true
+Oklahoma,Tennessee,2020-04-02,43,0.3,0.8,true
+Texas,Louisiana,2020-04-02,17,0.3,0.8,true
+Utah,Colorado,2020-04-02,28,0.3,0.8,true
+Wyoming,Michigan,2020-04-02,16,0.3,0.8,true
+California,Alabama,2020-04-03,775,0.3,0.8,true
+Texas,Louisiana,2020-04-03,8,0.3,0.8,true
+Kansas,Tennessee,2020-04-04,73,0.3,0.8,true
+Oregon,Colorado,2020-04-04,54,0.3,0.8,true
+California,Colorado,2020-04-05,4,0.3,0.8,true
+Utah,Colorado,2020-04-05,53,0.3,0.8,true
+California,Alabama,2020-04-06,181,0.3,0.8,true
+Hawaii,Alabama,2020-04-06,35,0.3,0.8,true
+Mississippi,Alabama,2020-04-06,107,0.3,0.8,true
+Missouri,Tennessee,2020-04-06,206,0.3,0.8,true
+Nevada,Colorado,2020-04-06,53,0.3,0.8,true
+Arizona,Alabama,2020-04-07,208,0.3,0.8,true
+California,Colorado,2020-04-07,18,0.3,0.8,true
+Nevada,Colorado,2020-04-07,29,0.3,0.8,true
+Louisiana,Alabama,2020-04-08,7,0.3,0.8,true
+Nevada,Colorado,2020-04-08,38,0.3,0.8,true
+Louisiana,Alabama,2020-04-09,16,0.3,0.8,true
+Michigan,Tennessee,2020-04-09,12,0.3,0.8,true
+Louisiana,Oklahoma,2020-04-10,24,0.3,0.8,true
+Michigan,Illinois,2020-04-10,1,0.3,0.8,true
+Michigan,Tennessee,2020-04-10,86,0.3,0.8,true
+Louisiana,Oklahoma,2020-04-11,31,0.3,0.8,true
+Michigan,Tennessee,2020-04-11,112,0.3,0.8,true
+New Jersey,Alabama,2020-04-11,42,0.3,0.8,true
+Louisiana,Alabama,2020-04-12,10,0.3,0.8,true
+Louisiana,Oklahoma,2020-04-12,28,0.3,0.8,true
+Michigan,Illinois,2020-04-12,60,0.3,0.8,true
+Michigan,Tennessee,2020-04-12,73,0.3,0.8,true
+New Jersey,Alabama,2020-04-12,33,0.3,0.8,true
+New Jersey,Connecticut,2020-04-12,2,0.3,0.8,true
+New Jersey,Massachusetts,2020-04-12,44,0.3,0.8,true
+Louisiana,Alabama,2020-04-13,44,0.3,0.8,true
+Michigan,Illinois,2020-04-13,5,0.3,0.8,true
+Michigan,Iowa,2020-04-13,46,0.3,0.8,true
+Michigan,Tennessee,2020-04-13,95,0.3,0.8,true
+New Jersey,Alabama,2020-04-13,50,0.3,0.8,true
+New Jersey,Maine,2020-04-13,3,0.3,0.8,true
+New Jersey,New Hampshire,2020-04-13,6,0.3,0.8,true
+New Jersey,Tennessee,2020-04-13,25,0.3,0.8,true
+Louisiana,Idaho,2020-04-14,9,0.3,0.8,true
+Louisiana,Oklahoma,2020-04-14,39,0.3,0.8,true
+Michigan,Iowa,2020-04-14,29,0.3,0.8,true
+Michigan,Tennessee,2020-04-14,125,0.3,0.8,true
+New York,Maryland,2020-04-14,45,0.3,0.8,true
+Louisiana,Idaho,2020-04-15,6,0.3,0.8,true
+Louisiana,Montana,2020-04-15,5,0.3,0.8,true
+Louisiana,Oklahoma,2020-04-15,13,0.3,0.8,true
+Michigan,Iowa,2020-04-15,28,0.3,0.8,true
+Alaska,Idaho,2020-04-16,2,0.3,0.8,true
+Louisiana,Oklahoma,2020-04-16,6,0.3,0.8,true
+Michigan,Iowa,2020-04-16,74,0.3,0.8,true
+Alaska,Idaho,2020-04-17,1,0.3,0.8,true
+New Jersey,Maryland,2020-04-17,5,0.3,0.8,true
+New York,Maryland,2020-04-18,34,0.3,0.8,true
+Colorado,Idaho,2020-04-19,3,0.3,0.8,true
+Colorado,Montana,2020-04-19,3,0.3,0.8,true
+Illinois,Iowa,2020-04-19,13,0.3,0.8,true
+Michigan,Iowa,2020-04-19,9,0.3,0.8,true
+Illinois,Iowa,2020-04-20,19,0.3,0.8,true
+New York,Maryland,2020-04-20,12,0.3,0.8,true
+Illinois,Iowa,2020-04-21,29,0.3,0.8,true
+New York,Maryland,2020-04-21,9,0.3,0.8,true
+New York,Maryland,2020-04-22,7,0.3,0.8,true
+Oklahoma,Iowa,2020-04-22,8,0.3,0.8,true
+Illinois,Iowa,2020-04-23,5,0.3,0.8,true
+New York,Maryland,2020-04-23,1,0.3,0.8,true
+Oklahoma,Iowa,2020-04-24,1,0.3,0.8,true
+California,Alabama,2020-04-01,853,0.5,0.5,true
+California,Colorado,2020-04-01,168,0.5,0.5,true
+Delaware,New Jersey,2020-04-01,20,0.5,0.5,true
+Florida,Connecticut,2020-04-01,32,0.5,0.5,true
+Florida,Massachusetts,2020-04-01,67,0.5,0.5,true
+Florida,New Jersey,2020-04-01,453,0.5,0.5,true
+Florida,New York,2020-04-01,390,0.5,0.5,true
+Georgia,New York,2020-04-01,192,0.5,0.5,true
+Indiana,Michigan,2020-04-01,2,0.5,0.5,true
+Indiana,New York,2020-04-01,367,0.5,0.5,true
+Iowa,Michigan,2020-04-01,30,0.5,0.5,true
+Kentucky,New York,2020-04-01,244,0.5,0.5,true
+Maryland,New York,2020-04-01,181,0.5,0.5,true
+Minnesota,Michigan,2020-04-01,78,0.5,0.5,true
+Missouri,New York,2020-04-01,209,0.5,0.5,true
+Missouri,Tennessee,2020-04-01,22,0.5,0.5,true
+Montana,Michigan,2020-04-01,7,0.5,0.5,true
+Nebraska,Michigan,2020-04-01,105,0.5,0.5,true
+Nevada,Michigan,2020-04-01,96,0.5,0.5,true
+North Carolina,New York,2020-04-01,490,0.5,0.5,true
+North Dakota,Michigan,2020-04-01,43,0.5,0.5,true
+Ohio,New York,2020-04-01,645,0.5,0.5,true
+Oregon,Michigan,2020-04-01,124,0.5,0.5,true
+Pennsylvania,New York,2020-04-01,736,0.5,0.5,true
+South Carolina,New York,2020-04-01,264,0.5,0.5,true
+South Dakota,Michigan,2020-04-01,40,0.5,0.5,true
+Texas,Alabama,2020-04-01,721,0.5,0.5,true
+Texas,Louisiana,2020-04-01,345,0.5,0.5,true
+Utah,Michigan,2020-04-01,86,0.5,0.5,true
+Virginia,New York,2020-04-01,355,0.5,0.5,true
+Washington,Michigan,2020-04-01,95,0.5,0.5,true
+West Virginia,New York,2020-04-01,133,0.5,0.5,true
+Wisconsin,Michigan,2020-04-01,221,0.5,0.5,true
+Wyoming,Michigan,2020-04-01,30,0.5,0.5,true
+Arkansas,Tennessee,2020-04-02,42,0.5,0.5,true
+Florida,Connecticut,2020-04-02,78,0.5,0.5,true
+Mississippi,Alabama,2020-04-02,37,0.5,0.5,true
+Oregon,Idaho,2020-04-02,14,0.5,0.5,true
+Rhode Island,Massachusetts,2020-04-02,18,0.5,0.5,true
+Texas,Louisiana,2020-04-02,17,0.5,0.5,true
+Washington,Michigan,2020-04-02,86,0.5,0.5,true
+California,Colorado,2020-04-03,180,0.5,0.5,true
+Florida,Massachusetts,2020-04-03,147,0.5,0.5,true
+Hawaii,Alabama,2020-04-03,46,0.5,0.5,true
+Kansas,Tennessee,2020-04-03,75,0.5,0.5,true
+New Mexico,Alabama,2020-04-03,16,0.5,0.5,true
+Texas,Louisiana,2020-04-03,9,0.5,0.5,true
+Vermont,Maine,2020-04-03,1,0.5,0.5,true
+Vermont,New Hampshire,2020-04-03,6,0.5,0.5,true
+Washington,Alaska,2020-04-03,2,0.5,0.5,true
+Arkansas,Tennessee,2020-04-04,117,0.5,0.5,true
+California,Tennessee,2020-04-04,163,0.5,0.5,true
+Vermont,Maine,2020-04-04,8,0.5,0.5,true
+Washington,Alaska,2020-04-04,3,0.5,0.5,true
+Arizona,Alabama,2020-04-05,347,0.5,0.5,true
+California,Oklahoma,2020-04-05,73,0.5,0.5,true
+Florida,Connecticut,2020-04-05,11,0.5,0.5,true
+Florida,Massachusetts,2020-04-05,52,0.5,0.5,true
+Kansas,Illinois,2020-04-05,35,0.5,0.5,true
+Rhode Island,New Hampshire,2020-04-05,4,0.5,0.5,true
+Vermont,Maine,2020-04-05,7,0.5,0.5,true
+Washington,Alaska,2020-04-05,2,0.5,0.5,true
+California,Colorado,2020-04-06,138,0.5,0.5,true
+California,Tennessee,2020-04-06,140,0.5,0.5,true
+Texas,Alabama,2020-04-06,470,0.5,0.5,true
+Washington,Alaska,2020-04-06,2,0.5,0.5,true
+Missouri,Tennessee,2020-04-07,137,0.5,0.5,true
+Louisiana,Alabama,2020-04-08,8,0.5,0.5,true
+New Jersey,Maryland,2020-04-08,33,0.5,0.5,true
+California,Oklahoma,2020-04-09,32,0.5,0.5,true
+Louisiana,Mississippi,2020-04-09,16,0.5,0.5,true
+Michigan,Indiana,2020-04-09,12,0.5,0.5,true
+Michigan,Tennessee,2020-04-09,3,0.5,0.5,true
+New Jersey,Georgia,2020-04-09,35,0.5,0.5,true
+New Jersey,Maryland,2020-04-09,14,0.5,0.5,true
+Louisiana,Oklahoma,2020-04-10,24,0.5,0.5,true
+Michigan,Indiana,2020-04-10,9,0.5,0.5,true
+Michigan,Tennessee,2020-04-10,78,0.5,0.5,true
+New Jersey,Georgia,2020-04-10,62,0.5,0.5,true
+Washington,Idaho,2020-04-10,1,0.5,0.5,true
+Louisiana,Mississippi,2020-04-11,30,0.5,0.5,true
+Louisiana,Oklahoma,2020-04-11,1,0.5,0.5,true
+Michigan,Arkansas,2020-04-11,25,0.5,0.5,true
+Michigan,Illinois,2020-04-11,41,0.5,0.5,true
+Michigan,Minnesota,2020-04-11,26,0.5,0.5,true
+Michigan,Tennessee,2020-04-11,20,0.5,0.5,true
+New Jersey,Georgia,2020-04-11,45,0.5,0.5,true
+New Jersey,South Carolina,2020-04-11,26,0.5,0.5,true
+Washington,Idaho,2020-04-11,2,0.5,0.5,true
+Louisiana,Oklahoma,2020-04-12,38,0.5,0.5,true
+Michigan,Illinois,2020-04-12,113,0.5,0.5,true
+Michigan,Iowa,2020-04-12,1,0.5,0.5,true
+Michigan,Kansas,2020-04-12,19,0.5,0.5,true
+New Jersey,Florida,2020-04-12,58,0.5,0.5,true
+New Jersey,North Carolina,2020-04-12,21,0.5,0.5,true
+Washington,Idaho,2020-04-12,2,0.5,0.5,true
+Louisiana,Arizona,2020-04-13,16,0.5,0.5,true
+Louisiana,Mississippi,2020-04-13,23,0.5,0.5,true
+Louisiana,Oklahoma,2020-04-13,5,0.5,0.5,true
+Michigan,Arkansas,2020-04-13,22,0.5,0.5,true
+Michigan,Minnesota,2020-04-13,48,0.5,0.5,true
+Michigan,North Dakota,2020-04-13,6,0.5,0.5,true
+Michigan,Oklahoma,2020-04-13,18,0.5,0.5,true
+Michigan,Tennessee,2020-04-13,2,0.5,0.5,true
+Michigan,Utah,2020-04-13,7,0.5,0.5,true
+Michigan,Wisconsin,2020-04-13,43,0.5,0.5,true
+New Jersey,Florida,2020-04-13,84,0.5,0.5,true
+Washington,Idaho,2020-04-13,4,0.5,0.5,true
+Delaware,Florida,2020-04-14,5,0.5,0.5,true
+Louisiana,Arizona,2020-04-14,6,0.5,0.5,true
+Louisiana,New Mexico,2020-04-14,6,0.5,0.5,true
+Louisiana,Oklahoma,2020-04-14,36,0.5,0.5,true
+Michigan,Arkansas,2020-04-14,9,0.5,0.5,true
+Michigan,Iowa,2020-04-14,137,0.5,0.5,true
+Michigan,Nebraska,2020-04-14,8,0.5,0.5,true
+New Jersey,Florida,2020-04-14,67,0.5,0.5,true
+New Jersey,North Carolina,2020-04-14,20,0.5,0.5,true
+New York,Georgia,2020-04-14,21,0.5,0.5,true
+New York,New Hampshire,2020-04-14,7,0.5,0.5,true
+New York,North Carolina,2020-04-14,32,0.5,0.5,true
+New York,Pennsylvania,2020-04-14,96,0.5,0.5,true
+New York,South Carolina,2020-04-14,42,0.5,0.5,true
+Washington,Idaho,2020-04-14,4,0.5,0.5,true
+Delaware,Florida,2020-04-15,8,0.5,0.5,true
+Louisiana,Arizona,2020-04-15,27,0.5,0.5,true
+Louisiana,New Mexico,2020-04-15,25,0.5,0.5,true
+Michigan,Arkansas,2020-04-15,8,0.5,0.5,true
+Michigan,Indiana,2020-04-15,5,0.5,0.5,true
+Michigan,Iowa,2020-04-15,28,0.5,0.5,true
+Michigan,Kansas,2020-04-15,24,0.5,0.5,true
+Michigan,Minnesota,2020-04-15,15,0.5,0.5,true
+Michigan,Montana,2020-04-15,16,0.5,0.5,true
+Michigan,Nebraska,2020-04-15,22,0.5,0.5,true
+Michigan,Oklahoma,2020-04-15,12,0.5,0.5,true
+Michigan,Utah,2020-04-15,11,0.5,0.5,true
+Michigan,Wisconsin,2020-04-15,16,0.5,0.5,true
+New Jersey,Florida,2020-04-15,86,0.5,0.5,true
+New York,Alabama,2020-04-15,13,0.5,0.5,true
+New York,Georgia,2020-04-15,104,0.5,0.5,true
+New York,Maine,2020-04-15,10,0.5,0.5,true
+New York,Maryland,2020-04-15,201,0.5,0.5,true
+New York,North Carolina,2020-04-15,20,0.5,0.5,true
+New York,Ohio,2020-04-15,69,0.5,0.5,true
+New York,Rhode Island,2020-04-15,24,0.5,0.5,true
+New York,South Carolina,2020-04-15,12,0.5,0.5,true
+New York,Tennessee,2020-04-15,253,0.5,0.5,true
+Washington,Idaho,2020-04-15,5,0.5,0.5,true
+Alaska,Hawaii,2020-04-16,1,0.5,0.5,true
+Delaware,Florida,2020-04-16,7,0.5,0.5,true
+Louisiana,Arizona,2020-04-16,14,0.5,0.5,true
+Louisiana,Arkansas,2020-04-16,8,0.5,0.5,true
+Louisiana,Hawaii,2020-04-16,8,0.5,0.5,true
+Louisiana,New Mexico,2020-04-16,5,0.5,0.5,true
+Louisiana,Oklahoma,2020-04-16,7,0.5,0.5,true
+Louisiana,Utah,2020-04-16,1,0.5,0.5,true
+Michigan,Florida,2020-04-16,66,0.5,0.5,true
+Michigan,Georgia,2020-04-16,28,0.5,0.5,true
+Michigan,Iowa,2020-04-16,27,0.5,0.5,true
+Michigan,Kansas,2020-04-16,8,0.5,0.5,true
+Michigan,Montana,2020-04-16,5,0.5,0.5,true
+Michigan,Nebraska,2020-04-16,2,0.5,0.5,true
+Michigan,South Dakota,2020-04-16,2,0.5,0.5,true
+Michigan,Wisconsin,2020-04-16,16,0.5,0.5,true
+Michigan,Wyoming,2020-04-16,1,0.5,0.5,true
+New Jersey,Maryland,2020-04-16,22,0.5,0.5,true
+New Jersey,North Carolina,2020-04-16,32,0.5,0.5,true
+New Jersey,South Carolina,2020-04-16,28,0.5,0.5,true
+New Jersey,Virginia,2020-04-16,3,0.5,0.5,true
+Washington,Idaho,2020-04-16,4,0.5,0.5,true
+Alaska,Hawaii,2020-04-17,1,0.5,0.5,true
+Delaware,Florida,2020-04-17,8,0.5,0.5,true
+Louisiana,Arizona,2020-04-17,11,0.5,0.5,true
+Louisiana,Arkansas,2020-04-17,11,0.5,0.5,true
+Louisiana,New Mexico,2020-04-17,1,0.5,0.5,true
+Louisiana,Texas,2020-04-17,33,0.5,0.5,true
+Michigan,Florida,2020-04-17,42,0.5,0.5,true
+Michigan,Iowa,2020-04-17,25,0.5,0.5,true
+Michigan,Kansas,2020-04-17,14,0.5,0.5,true
+Michigan,Montana,2020-04-17,4,0.5,0.5,true
+Michigan,South Dakota,2020-04-17,5,0.5,0.5,true
+Michigan,Wisconsin,2020-04-17,7,0.5,0.5,true
+Michigan,Wyoming,2020-04-17,3,0.5,0.5,true
+New Jersey,Florida,2020-04-17,19,0.5,0.5,true
+New Jersey,Maryland,2020-04-17,39,0.5,0.5,true
+New Jersey,Virginia,2020-04-17,22,0.5,0.5,true
+Washington,Hawaii,2020-04-17,6,0.5,0.5,true
+Washington,Idaho,2020-04-17,1,0.5,0.5,true
+Alaska,Hawaii,2020-04-18,2,0.5,0.5,true
+Louisiana,Arizona,2020-04-18,8,0.5,0.5,true
+Louisiana,Florida,2020-04-18,33,0.5,0.5,true
+Louisiana,Texas,2020-04-18,28,0.5,0.5,true
+Michigan,Florida,2020-04-18,15,0.5,0.5,true
+Michigan,Iowa,2020-04-18,23,0.5,0.5,true
+Michigan,South Dakota,2020-04-18,4,0.5,0.5,true
+New Jersey,Florida,2020-04-18,57,0.5,0.5,true
+New Jersey,North Carolina,2020-04-18,18,0.5,0.5,true
+Washington,Hawaii,2020-04-18,5,0.5,0.5,true
+Washington,Idaho,2020-04-18,2,0.5,0.5,true
+Alaska,Hawaii,2020-04-19,2,0.5,0.5,true
+Colorado,Arizona,2020-04-19,6,0.5,0.5,true
+Colorado,Montana,2020-04-19,1,0.5,0.5,true
+Colorado,South Dakota,2020-04-19,4,0.5,0.5,true
+Colorado,Wyoming,2020-04-19,6,0.5,0.5,true
+Delaware,Florida,2020-04-19,6,0.5,0.5,true
+Louisiana,Texas,2020-04-19,55,0.5,0.5,true
+Michigan,Iowa,2020-04-19,22,0.5,0.5,true
+Michigan,West Virginia,2020-04-19,6,0.5,0.5,true
+New Jersey,Florida,2020-04-19,16,0.5,0.5,true
+New Jersey,Maryland,2020-04-19,16,0.5,0.5,true
+New Jersey,South Carolina,2020-04-19,6,0.5,0.5,true
+New Jersey,Virginia,2020-04-19,19,0.5,0.5,true
+Washington,Hawaii,2020-04-19,7,0.5,0.5,true
+Washington,Idaho,2020-04-19,1,0.5,0.5,true
+Alabama,Florida,2020-04-20,52,0.5,0.5,true
+Alaska,Hawaii,2020-04-20,3,0.5,0.5,true
+Colorado,Arizona,2020-04-20,5,0.5,0.5,true
+Colorado,Kansas,2020-04-20,4,0.5,0.5,true
+Colorado,South Dakota,2020-04-20,4,0.5,0.5,true
+Colorado,Texas,2020-04-20,17,0.5,0.5,true
+Colorado,Wyoming,2020-04-20,13,0.5,0.5,true
+Illinois,Iowa,2020-04-20,19,0.5,0.5,true
+Louisiana,Texas,2020-04-20,51,0.5,0.5,true
+Nevada,Hawaii,2020-04-20,1,0.5,0.5,true
+Ohio,Florida,2020-04-20,4,0.5,0.5,true
+Ohio,North Carolina,2020-04-20,3,0.5,0.5,true
+Ohio,South Carolina,2020-04-20,4,0.5,0.5,true
+Ohio,West Virginia,2020-04-20,9,0.5,0.5,true
+Pennsylvania,Maryland,2020-04-20,14,0.5,0.5,true
+Pennsylvania,Virginia,2020-04-20,19,0.5,0.5,true
+Washington,Hawaii,2020-04-20,2,0.5,0.5,true
+Alabama,Florida,2020-04-21,50,0.5,0.5,true
+Colorado,Kansas,2020-04-21,3,0.5,0.5,true
+Colorado,Texas,2020-04-21,1,0.5,0.5,true
+Illinois,Iowa,2020-04-21,28,0.5,0.5,true
+Louisiana,Texas,2020-04-21,54,0.5,0.5,true
+Minnesota,South Dakota,2020-04-21,1,0.5,0.5,true
+Mississippi,Texas,2020-04-21,7,0.5,0.5,true
+Nevada,Hawaii,2020-04-21,7,0.5,0.5,true
+North Dakota,South Dakota,2020-04-21,2,0.5,0.5,true
+Ohio,West Virginia,2020-04-21,9,0.5,0.5,true
+Pennsylvania,Maryland,2020-04-21,16,0.5,0.5,true
+Pennsylvania,Virginia,2020-04-21,19,0.5,0.5,true
+Tennessee,South Carolina,2020-04-21,2,0.5,0.5,true
+Alabama,Florida,2020-04-22,72,0.5,0.5,true
+Louisiana,Texas,2020-04-22,49,0.5,0.5,true
+Nebraska,South Dakota,2020-04-22,2,0.5,0.5,true
+Nevada,Hawaii,2020-04-22,9,0.5,0.5,true
+North Dakota,South Dakota,2020-04-22,1,0.5,0.5,true
+Ohio,Virginia,2020-04-22,32,0.5,0.5,true
+Ohio,West Virginia,2020-04-22,18,0.5,0.5,true
+Oklahoma,Texas,2020-04-22,8,0.5,0.5,true
+Colorado,Texas,2020-04-23,2,0.5,0.5,true
+Georgia,Florida,2020-04-23,10,0.5,0.5,true
+Illinois,Iowa,2020-04-23,16,0.5,0.5,true
+Louisiana,Texas,2020-04-23,12,0.5,0.5,true
+Mississippi,Texas,2020-04-23,26,0.5,0.5,true
+Nebraska,South Dakota,2020-04-23,1,0.5,0.5,true
+Nevada,Hawaii,2020-04-23,7,0.5,0.5,true
+North Dakota,South Dakota,2020-04-23,2,0.5,0.5,true
+Ohio,West Virginia,2020-04-23,9,0.5,0.5,true
+Oklahoma,Texas,2020-04-23,13,0.5,0.5,true
+Pennsylvania,Virginia,2020-04-23,47,0.5,0.5,true
+Alabama,Florida,2020-04-24,14,0.5,0.5,true
+Georgia,Florida,2020-04-24,16,0.5,0.5,true
+Louisiana,Texas,2020-04-24,5,0.5,0.5,true
+Mississippi,Texas,2020-04-24,17,0.5,0.5,true
+New Mexico,Texas,2020-04-24,6,0.5,0.5,true
+North Dakota,South Dakota,2020-04-24,2,0.5,0.5,true
+Oklahoma,Texas,2020-04-24,18,0.5,0.5,true
+Arkansas,Texas,2020-04-25,3,0.5,0.5,true
+Georgia,Florida,2020-04-25,23,0.5,0.5,true
+Mississippi,Texas,2020-04-25,11,0.5,0.5,true
+New Mexico,Texas,2020-04-25,5,0.5,0.5,true
+North Dakota,South Dakota,2020-04-25,3,0.5,0.5,true
+Oklahoma,Texas,2020-04-25,22,0.5,0.5,true
+Arkansas,Texas,2020-04-26,4,0.5,0.5,true
+Georgia,Florida,2020-04-26,16,0.5,0.5,true
+Montana,Wyoming,2020-04-26,2,0.5,0.5,true
+New Mexico,Texas,2020-04-26,3,0.5,0.5,true
+North Carolina,Virginia,2020-04-26,8,0.5,0.5,true
+Ohio,Virginia,2020-04-26,7,0.5,0.5,true
+Oklahoma,Texas,2020-04-26,25,0.5,0.5,true
+Pennsylvania,Virginia,2020-04-26,4,0.5,0.5,true
+Georgia,Florida,2020-04-27,5,0.5,0.5,true
+North Carolina,Virginia,2020-04-27,15,0.5,0.5,true
+North Dakota,South Dakota,2020-04-27,1,0.5,0.5,true
+Oklahoma,Texas,2020-04-27,28,0.5,0.5,true
+South Carolina,Virginia,2020-04-27,3,0.5,0.5,true
+Maryland,Virginia,2020-04-28,5,0.5,0.5,true
+North Carolina,Virginia,2020-04-28,14,0.5,0.5,true
+Oklahoma,Texas,2020-04-28,17,0.5,0.5,true
+Maryland,Virginia,2020-04-29,9,0.5,0.5,true
+North Carolina,Virginia,2020-04-29,20,0.5,0.5,true
+Oklahoma,Texas,2020-04-29,12,0.5,0.5,true
+Maryland,Virginia,2020-04-30,2,0.5,0.5,true
+North Carolina,Virginia,2020-04-30,21,0.5,0.5,true
+North Carolina,Virginia,2020-05-02,51,0.5,0.5,true
+Maryland,Virginia,2020-05-04,17,0.5,0.5,true
+North Carolina,Virginia,2020-05-05,17,0.5,0.5,true
+Maryland,Virginia,2020-05-08,11,0.5,0.5,true
+Maryland,Virginia,2020-05-09,9,0.5,0.5,true
+Maryland,Virginia,2020-05-10,24,0.5,0.5,true
+California,Colorado,2020-04-01,64,0.5,0.8,true
+Florida,Alabama,2020-04-01,492,0.5,0.8,true
+Georgia,Alabama,2020-04-01,229,0.5,0.8,true
+Indiana,Michigan,2020-04-01,152,0.5,0.8,true
+Iowa,Michigan,2020-04-01,56,0.5,0.8,true
+Maryland,New York,2020-04-01,99,0.5,0.8,true
+Minnesota,Michigan,2020-04-01,86,0.5,0.8,true
+Montana,Michigan,2020-04-01,17,0.5,0.8,true
+Nebraska,Michigan,2020-04-01,23,0.5,0.8,true
+Nebraska,Tennessee,2020-04-01,6,0.5,0.8,true
+North Carolina,Connecticut,2020-04-01,32,0.5,0.8,true
+North Carolina,Massachusetts,2020-04-01,59,0.5,0.8,true
+North Carolina,New Jersey,2020-04-01,20,0.5,0.8,true
+North Dakota,Michigan,2020-04-01,20,0.5,0.8,true
+Ohio,Michigan,2020-04-01,276,0.5,0.8,true
+Oregon,Colorado,2020-04-01,46,0.5,0.8,true
+Pennsylvania,New York,2020-04-01,303,0.5,0.8,true
+Rhode Island,Massachusetts,2020-04-01,8,0.5,0.8,true
+South Carolina,New Jersey,2020-04-01,25,0.5,0.8,true
+South Carolina,New York,2020-04-01,45,0.5,0.8,true
+South Dakota,Michigan,2020-04-01,16,0.5,0.8,true
+Texas,Alabama,2020-04-01,279,0.5,0.8,true
+Texas,Louisiana,2020-04-01,345,0.5,0.8,true
+Virginia,New York,2020-04-01,142,0.5,0.8,true
+Washington,Michigan,2020-04-01,87,0.5,0.8,true
+West Virginia,New York,2020-04-01,53,0.5,0.8,true
+Wisconsin,Michigan,2020-04-01,88,0.5,0.8,true
+Wyoming,Michigan,2020-04-01,12,0.5,0.8,true
+Arizona,Alabama,2020-04-02,149,0.5,0.8,true
+Delaware,Massachusetts,2020-04-02,18,0.5,0.8,true
+North Carolina,Connecticut,2020-04-02,28,0.5,0.8,true
+Utah,Colorado,2020-04-02,58,0.5,0.8,true
+Washington,Alaska,2020-04-02,2,0.5,0.8,true
+Arkansas,Tennessee,2020-04-03,61,0.5,0.8,true
+California,Alabama,2020-04-03,385,0.5,0.8,true
+Kansas,Tennessee,2020-04-03,52,0.5,0.8,true
+Nebraska,Tennessee,2020-04-03,20,0.5,0.8,true
+Nevada,Colorado,2020-04-03,85,0.5,0.8,true
+North Carolina,Massachusetts,2020-04-03,57,0.5,0.8,true
+Rhode Island,Massachusetts,2020-04-03,11,0.5,0.8,true
+Vermont,Maine,2020-04-03,9,0.5,0.8,true
+Arkansas,Tennessee,2020-04-04,4,0.5,0.8,true
+California,Colorado,2020-04-04,38,0.5,0.8,true
+California,Oklahoma,2020-04-04,20,0.5,0.8,true
+Hawaii,Alabama,2020-04-04,25,0.5,0.8,true
+Kentucky,Tennessee,2020-04-04,97,0.5,0.8,true
+Mississippi,Alabama,2020-04-04,77,0.5,0.8,true
+Missouri,Tennessee,2020-04-04,6,0.5,0.8,true
+New Mexico,Alabama,2020-04-04,37,0.5,0.8,true
+South Carolina,New Hampshire,2020-04-04,3,0.5,0.8,true
+South Carolina,Tennessee,2020-04-04,32,0.5,0.8,true
+Washington,Alaska,2020-04-04,3,0.5,0.8,true
+California,Alabama,2020-04-05,134,0.5,0.8,true
+California,Colorado,2020-04-05,57,0.5,0.8,true
+Missouri,Tennessee,2020-04-05,141,0.5,0.8,true
+Washington,Alaska,2020-04-05,2,0.5,0.8,true
+Oregon,Idaho,2020-04-09,3,0.5,0.8,true
+Louisiana,Mississippi,2020-04-10,22,0.5,0.8,true
+Oregon,Idaho,2020-04-10,6,0.5,0.8,true
+Louisiana,Mississippi,2020-04-11,31,0.5,0.8,true
+Michigan,Georgia,2020-04-11,4,0.5,0.8,true
+Louisiana,Georgia,2020-04-12,14,0.5,0.8,true
+Louisiana,Mississippi,2020-04-12,22,0.5,0.8,true
+Louisiana,Oklahoma,2020-04-12,2,0.5,0.8,true
+Michigan,Tennessee,2020-04-12,133,0.5,0.8,true
+Louisiana,Oklahoma,2020-04-13,44,0.5,0.8,true
+Michigan,Tennessee,2020-04-13,146,0.5,0.8,true
+Delaware,Maryland,2020-04-14,3,0.5,0.8,true
+Louisiana,New Mexico,2020-04-14,45,0.5,0.8,true
+Louisiana,Oklahoma,2020-04-14,3,0.5,0.8,true
+Michigan,Georgia,2020-04-14,154,0.5,0.8,true
+New Jersey,Maryland,2020-04-14,27,0.5,0.8,true
+New Jersey,Rhode Island,2020-04-14,10,0.5,0.8,true
+Louisiana,Oklahoma,2020-04-15,52,0.5,0.8,true
+Michigan,Illinois,2020-04-15,78,0.5,0.8,true
+Michigan,Iowa,2020-04-15,79,0.5,0.8,true
+New Jersey,Maryland,2020-04-15,86,0.5,0.8,true
+Louisiana,Oklahoma,2020-04-16,55,0.5,0.8,true
+Michigan,Georgia,2020-04-16,68,0.5,0.8,true
+Michigan,Iowa,2020-04-16,16,0.5,0.8,true
+Michigan,Minnesota,2020-04-16,54,0.5,0.8,true
+Michigan,Tennessee,2020-04-16,17,0.5,0.8,true
+New Jersey,Maryland,2020-04-16,72,0.5,0.8,true
+Louisiana,Mississippi,2020-04-17,1,0.5,0.8,true
+Louisiana,New Mexico,2020-04-17,6,0.5,0.8,true
+Louisiana,Oklahoma,2020-04-17,49,0.5,0.8,true
+Michigan,Iowa,2020-04-17,148,0.5,0.8,true
+Alaska,Hawaii,2020-04-18,2,0.5,0.8,true
+Louisiana,Georgia,2020-04-18,20,0.5,0.8,true
+Louisiana,Hawaii,2020-04-18,2,0.5,0.8,true
+Louisiana,Idaho,2020-04-18,30,0.5,0.8,true
+Louisiana,Kansas,2020-04-18,4,0.5,0.8,true
+Louisiana,New Mexico,2020-04-18,1,0.5,0.8,true
+Michigan,Georgia,2020-04-18,62,0.5,0.8,true
+Michigan,Iowa,2020-04-18,24,0.5,0.8,true
+Michigan,Montana,2020-04-18,36,0.5,0.8,true
+Alaska,Hawaii,2020-04-19,2,0.5,0.8,true
+Louisiana,Hawaii,2020-04-19,9,0.5,0.8,true
+Louisiana,Iowa,2020-04-19,22,0.5,0.8,true
+Louisiana,Kansas,2020-04-19,7,0.5,0.8,true
+New York,Maryland,2020-04-19,55,0.5,0.8,true
+Alaska,Hawaii,2020-04-20,3,0.5,0.8,true
+Louisiana,Iowa,2020-04-20,14,0.5,0.8,true
+New York,Iowa,2020-04-20,21,0.5,0.8,true
+New York,Maryland,2020-04-20,30,0.5,0.8,true
+Alaska,Hawaii,2020-04-21,2,0.5,0.8,true
+Louisiana,Kansas,2020-04-21,3,0.5,0.8,true
+Colorado,Hawaii,2020-04-22,10,0.5,0.8,true
+Colorado,Iowa,2020-04-22,12,0.5,0.8,true
+Colorado,Kansas,2020-04-22,1,0.5,0.8,true
+Colorado,South Dakota,2020-04-22,1,0.5,0.8,true
+Alabama,Florida,2020-04-23,41,0.5,0.8,true
+Alaska,Hawaii,2020-04-23,4,0.5,0.8,true
+Colorado,South Dakota,2020-04-23,3,0.5,0.8,true
+Colorado,Wyoming,2020-04-23,4,0.5,0.8,true
+Illinois,Iowa,2020-04-23,9,0.5,0.8,true
+Alaska,Hawaii,2020-04-24,4,0.5,0.8,true
+Georgia,Florida,2020-04-24,16,0.5,0.8,true
+Illinois,Iowa,2020-04-24,7,0.5,0.8,true
+Minnesota,South Dakota,2020-04-24,2,0.5,0.8,true
+Colorado,Wyoming,2020-04-25,1,0.5,0.8,true
+Georgia,Florida,2020-04-25,23,0.5,0.8,true
+Minnesota,South Dakota,2020-04-25,4,0.5,0.8,true
+New Mexico,Hawaii,2020-04-25,2,0.5,0.8,true
+Georgia,Florida,2020-04-26,21,0.5,0.8,true
+Idaho,Hawaii,2020-04-26,1,0.5,0.8,true
+Montana,Wyoming,2020-04-26,2,0.5,0.8,true
+New York,Virginia,2020-04-27,4,0.5,0.8,true
+Maryland,Virginia,2020-04-29,8,0.5,0.8,true
+New York,Virginia,2020-04-29,10,0.5,0.8,true
+Maryland,Virginia,2020-04-30,18,0.5,0.8,true
+Maryland,Virginia,2020-05-01,15,0.5,0.8,true
+New York,Virginia,2020-05-01,1,0.5,0.8,true
+Maryland,Virginia,2020-05-02,17,0.5,0.8,true
+Maryland,Virginia,2020-05-03,23,0.5,0.8,true
+Maryland,Virginia,2020-05-04,24,0.5,0.8,true
+Maryland,Virginia,2020-05-05,27,0.5,0.8,true
+Maryland,Virginia,2020-05-06,28,0.5,0.8,true
+Maryland,Virginia,2020-05-07,9,0.5,0.8,true
+Maryland,Virginia,2020-05-14,1,0.5,0.8,true
