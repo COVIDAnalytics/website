@@ -106,7 +106,7 @@ body = dbc.Container([
 					html.A(
 						"Download the Data",
 						id="download-link",
-						download=dataset,
+						download="covid_analytics_reference_ranges.csv",
 						href=data_csv_string,
 	        			target="_blank"
 					),
@@ -118,7 +118,7 @@ body = dbc.Container([
 					html.A(
 						"Download the Reference for Lab Values",
 						id="download-reference-link",
-						download=ref_data,
+						download="covid_analytics_clinical_data.csv",
 						href=ref_data_csv_string,
 	        			target="_blank"
 					),
