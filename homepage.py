@@ -33,86 +33,107 @@ body = dbc.Container(
                 ),
             ),
         ),
-        dbc.CardDeck(
+        dbc.Row(
             [
-                dbc.Card(
-                    [
-                        dbc.CardImg(src="assets/data-1.jpg", top=True),
-                        dbc.CardBody(
-                            [
-                                html.H4("Data", className="card-title"),
-                                dcc.Markdown('''
-                                       130+ international Covid-19 clinical studies,
-                                       aggregated into a single [dataset](/dataset).
-                                       ''',
-                                ),
-                            ]
-                        ),
-                    ],
-                    style={"width": "18rem", "border-color": "#900C3F"},
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardImg(src="assets/data-1.jpg", top=True),
+                            dbc.CardBody(
+                                [
+                                    html.H4("Data", className="card-title"),
+                                    dcc.Markdown('''
+                                           130+ international Covid-19 clinical studies,
+                                           aggregated into a single [dataset](/dataset).
+                                           ''',
+                                    ),
+                                ]
+                            ),
+                        ],
+                        style={"width": "13rem", "border-color": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin-bottom": "1rem"}
                 ),
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            [
-                                html.H4("Insights", className="card-title"),
-                                dcc.Markdown('''
-                                      Key characteristics of COVID-19 patients in an 
-                                      [interactive summary](/interactive-graph).
-                                  ''',
-                                ),
-                            ]
-                        ),
-                        dbc.CardImg(src="assets/insights-3.png", top=False),
-                    ],
-                    style={"width": "18rem", "border-color": "#900C3F"},
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                                [
+                                    html.H4("Insights", className="card-title"),
+                                    dcc.Markdown('''
+                                          Key characteristics of COVID-19 patients in an 
+                                          [interactive summary](/interactive-graph).
+                                      ''',
+                                    ),
+                                ]
+                            ),
+                            dbc.CardImg(src="assets/insights-3.png", top=False),
+                        ],
+                        style={"width": "13rem", "border-color": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin-bottom": "1rem"}
                 ),
-                dbc.Card(
-                    [
-                        dbc.CardImg(src="assets/forecast-1.png", top=True),
-                        dbc.CardBody(
-                            [
-                                html.H4("Forecasts", className="card-title"),
-                                dcc.Markdown('''
-                                    State-by-state [predictions](/projections) of COVID-19 infections, hospital stays, and deaths.
-                                       ''',
-                                ),
-                            ]
-                        ),
-                    ],
-                    style={"width": "18rem", "border-color": "#900C3F"},
-                    inverse=True,
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardImg(src="assets/forecast-1.png", top=True),
+                            dbc.CardBody(
+                                [
+                                    html.H4("Forecasts", className="card-title"),
+                                    dcc.Markdown('''
+                                        State-by-state [predictions](/projections) of COVID-19 infections, hospital stays, and deaths.
+                                           ''',
+                                    ),
+                                ]
+                            ),
+                        ],
+                        style={"width": "13rem", "border-color": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin-bottom": "1rem"}
                 ),
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            [
-                                html.H4("Risk calculator", className="card-title"),
-                                dcc.Markdown('''
-                                      (Coming 4/10). Personalized calculator predicting ICU length of stay and mortality.''',
-                                ),
-                            ]
-                        ),
-                        dbc.CardImg(src="assets/tree-1.png", top=True),
-                    ],
-                    style={"width": "18rem", "border-color": "#900C3F"},
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                                [
+                                    html.H4("Risk calculator", className="card-title"),
+                                    dcc.Markdown('''
+                                          (Coming 4/10). Personalized calculator predicting ICU length of stay and mortality.''',
+                                    ),
+                                ]
+                            ),
+                            dbc.CardImg(src="assets/tree-1.png", top=True),
+                        ],
+                        style={"width": "13rem", "border-color": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin-bottom": "1rem"}
                 ),
-                dbc.Card(
-                    [
-                        dbc.CardImg(src="assets/allocation.png", top=True),
-                        dbc.CardBody(
-                            [
-                                html.H4("Ventilator allocation", className="card-title"),
-                                dcc.Markdown('''
-                                       (Coming 4/10). 
-                                       Leveraging delays between state peaks to optimally re-use ventilators.'''
-                                ),
-                            ],
-                        ),
-                    ],
-                    style={"width": "18rem", "border-color": "#900C3F"},
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardImg(src="assets/allocation.png", top=True),
+                            dbc.CardBody(
+                                [
+                                    html.H4("Ventilator allocation", className="card-title"),
+                                    dcc.Markdown('''
+                                           (Coming 4/10). 
+                                           Leveraging delays between state peaks to optimally re-use ventilators.'''
+                                    ),
+                                ],
+                            ),
+                        ],
+                        style={"width": "13rem", "border-color": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin-bottom": "1rem"}
                 ),
             ],
+            justify="around",
+            no_gutters=True,
         ),
         dbc.Row(
         [
