@@ -25,41 +25,135 @@ def build_tom_us_map():
 body = dbc.Container(
     [
         dbc.Row(
-        [
             dbc.Col(
-            [
                 dcc.Markdown(
                      '''
-                     This website represents the effort of a group of about 20 graduate \
-                     students in the [Operations Research Center](https://orc.mit.edu/) at [MIT](http://mit.edu/) under the guidance \
-                     of [Professor Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). Our overarching objective is to rapidly develop, \
-                     and deliver tools for use by hospitals, government officials, \
-                     and healthcare institutions in the United States to combat the spread of COVID-19.
+                     We are a group of researchers from the [MIT](http://mit.edu/) [Operations Research Center](https://orc.mit.edu/), led by [Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). We aim to quickly develop and deliver tools for hospitals and policymakers in the US to combat the spread of COVID-19. 
                      '''
                 ),
-                html.H5("In our website you will find the following:"),
-                dcc.Markdown('''
-                  1. [Data](/dataset) from over 130 scientific papers published in March 2020 \
-                  about COVID-19 incidents in hospitals around the world. These data were curated and verified by the team.
-                  2. [Descriptive analytics](/interactive-graph) from these papers that provide insights on a \
-                  variety of aspects related to COVID-19 patients.
-                  3. [Predictions](/projections) of COVID-19 infections, hospitalizations, and deaths in \
-                  all states of the United States. It is based on a new epidemiological \
-                  model that was specifically built for COVID-19.
-                  4. We are in the process of developing a personalized prediction calculator \
-                  that assesses the probability of length of stay at the ICU and mortality risk \
-                  using the aggregate data the group has curated as well patients level data we \
-                  received from major hospitals in Boston, US, Wuhan, China and Cremona, Italy. \
-                  We expect this calculator to be released by Friday, April, 10. 2020.
-                  5. Because the peak of the infection for different states occurs at different \
-                  times, we have also developed an optimization model based on the epidemiological \
-                  model that shows how different states can send ventilators to materially \
-                  decrease the deficit over time. This idea can also be used at different hospitals \
-                  within the same state.
-                ''')
-            ],
             ),
-        ]
+        ),
+        dbc.Row(
+            [
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardImg(src="assets/data-1.jpg", top=True),
+                            dbc.CardBody(
+                                [
+                                    html.H4("Data", className="card-title"),
+                                    dcc.Markdown('''
+                                           130+ international Covid-19 clinical studies,
+                                           aggregated into a single [dataset](/dataset).
+                                           ''',
+                                    ),
+                                ]
+                            ),
+                        ],
+                        style={"borderColor": "#900C3F"},
+                        className="h-100",
+                    ),
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
+                ),
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                                [
+                                    html.H4("Insights", className="card-title"),
+                                    dcc.Markdown('''
+                                          Key characteristics of COVID-19 patients in an 
+                                          [interactive summary](/interactive-graph).
+                                      ''',
+                                    ),
+                                ]
+                            ),
+                            dbc.CardImg(src="assets/insights-3.png", top=False),
+                        ],
+                        style={"borderColor": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
+                ),
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardImg(src="assets/forecast-1.png", top=True),
+                            dbc.CardBody(
+                                [
+                                    html.H4("Forecasts", className="card-title"),
+                                    dcc.Markdown('''
+                                        State-by-state [predictions](/projections) of COVID-19 infections, hospital stays, and deaths.
+                                           ''',
+                                    ),
+                                ]
+                            ),
+                        ],
+                        style={"borderColor": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
+                ),
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardBody(
+                                [
+                                    html.H4("Risk calculator", className="card-title"),
+                                    dcc.Markdown('''
+                                          (Coming 4/10). Personalized calculator predicting ICU length of stay and mortality.''',
+                                    ),
+                                ]
+                            ),
+                            dbc.CardImg(src="assets/tree-1.png", top=True),
+                        ],
+                        style={"borderColor": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
+                ),
+                dbc.Col(
+                    dbc.Card(
+                        [
+                            dbc.CardImg(src="assets/allocation.png", top=True),
+                            dbc.CardBody(
+                                [
+                                    html.H4("Ventilator allocation", className="card-title"),
+                                    dcc.Markdown('''
+                                           (Coming 4/10). 
+                                           Leveraging delays between state peaks to optimally re-use ventilators.'''
+                                    ),
+                                ],
+                            ),
+                        ],
+                        style={"borderColor": "#900C3F"},
+                        className="h-100"
+                    ),
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
+                ),
+            ],
+            justify="around",
+            no_gutters=True,
         ),
         dbc.Row(
         [
@@ -78,5 +172,5 @@ body = dbc.Container(
 )
 
 def Homepage():
-    layout = html.Div([nav, body, footer],className="site")
+    layout = html.Div([nav, body, footer], className="site")
     return layout
