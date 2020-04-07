@@ -12,7 +12,8 @@ import dash_html_components as html
 
 from navbar import Navbar
 from footer import Footer
-from projections import build_us_map
+
+from projections.projections import build_us_map
 from assets.mappings import states
 
 nav = Navbar()
@@ -28,7 +29,7 @@ body = dbc.Container(
             dbc.Col(
                 dcc.Markdown(
                      '''
-                     We are a group of researchers from the [MIT](http://mit.edu/) [Operations Research Center](https://orc.mit.edu/), led by [Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). We aim to quickly develop and deliver tools for hospitals and policymakers in the US to combat the spread of COVID-19. 
+                     We are a group of researchers from the [MIT](http://mit.edu/) [Operations Research Center](https://orc.mit.edu/), led by [Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). We aim to quickly develop and deliver tools for hospitals and policymakers in the US to combat the spread of COVID-19.
                      '''
                 ),
             ),
@@ -38,7 +39,7 @@ body = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/data-1.jpg", top=True),
+                            dbc.CardImg(src="assets/images/data-1.jpg", top=True),
                             dbc.CardBody(
                                 [
                                     html.H4("Data", className="card-title"),
@@ -66,13 +67,13 @@ body = dbc.Container(
                                 [
                                     html.H4("Insights", className="card-title"),
                                     dcc.Markdown('''
-                                          Key characteristics of COVID-19 patients in an 
+                                          Key characteristics of COVID-19 patients in an
                                           [interactive summary](/interactive-graph).
                                       ''',
                                     ),
                                 ]
                             ),
-                            dbc.CardImg(src="assets/insights-3.png", top=False),
+                            dbc.CardImg(src="assets/images/insights-3.png", top=False),
                         ],
                         style={"borderColor": "#900C3F"},
                         className="h-100"
@@ -86,7 +87,7 @@ body = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/forecast-1.png", top=True),
+                            dbc.CardImg(src="assets/images/forecast-1.png", top=True),
                             dbc.CardBody(
                                 [
                                     html.H4("Forecasts", className="card-title"),
@@ -117,7 +118,7 @@ body = dbc.Container(
                                     ),
                                 ]
                             ),
-                            dbc.CardImg(src="assets/tree-1.png", top=True),
+                            dbc.CardImg(src="assets/images/tree-1.png", top=True),
                         ],
                         style={"borderColor": "#900C3F"},
                         className="h-100"
@@ -131,12 +132,12 @@ body = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/allocation.png", top=True),
+                            dbc.CardImg(src="assets/images/allocation.png", top=True),
                             dbc.CardBody(
                                 [
                                     html.H4("Ventilator allocation", className="card-title"),
                                     dcc.Markdown('''
-                                           (Coming 4/10). 
+                                           (Coming 4/10).
                                            Leveraging delays between state peaks to optimally re-use ventilators.'''
                                     ),
                                 ],
