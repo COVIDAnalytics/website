@@ -20,7 +20,13 @@ from dataset_documentation import Dataset_documentation
 from projections_documentation import Projections_documentation
 from assets.mappings import data_cols,all_options
 
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.UNITED])
+app = dash.Dash(
+        __name__,
+        external_stylesheets=[dbc.themes.UNITED],
+        meta_tags=[
+            {"name": "viewport", "content": "width=device-width, initial-scale=1"}
+            ]
+        )
 server = app.server
 app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True

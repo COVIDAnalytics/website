@@ -105,7 +105,3 @@ body = dbc.Container([
 def Contact():
     layout = html.Div([nav, body, footer],className="site")
     return layout
-
-app = dash.Dash(__name__, external_stylesheets = [dbc.themes.UNITED])
-app.layout = Contact()
-app.title = "COVIDAnalytics"
