@@ -50,10 +50,14 @@ body = dbc.Container(
                                 ]
                             ),
                         ],
-                        style={"width": "13rem", "border-color": "#900C3F"},
-                        className="h-100"
+                        style={"borderColor": "#900C3F"},
+                        className="h-100",
                     ),
-                    style={"margin-bottom": "1rem"}
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
                 ),
                 dbc.Col(
                     dbc.Card(
@@ -70,10 +74,14 @@ body = dbc.Container(
                             ),
                             dbc.CardImg(src="assets/insights-3.png", top=False),
                         ],
-                        style={"width": "13rem", "border-color": "#900C3F"},
+                        style={"borderColor": "#900C3F"},
                         className="h-100"
                     ),
-                    style={"margin-bottom": "1rem"}
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
                 ),
                 dbc.Col(
                     dbc.Card(
@@ -89,10 +97,14 @@ body = dbc.Container(
                                 ]
                             ),
                         ],
-                        style={"width": "13rem", "border-color": "#900C3F"},
+                        style={"borderColor": "#900C3F"},
                         className="h-100"
                     ),
-                    style={"margin-bottom": "1rem"}
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
                 ),
                 dbc.Col(
                     dbc.Card(
@@ -107,10 +119,14 @@ body = dbc.Container(
                             ),
                             dbc.CardImg(src="assets/tree-1.png", top=True),
                         ],
-                        style={"width": "13rem", "border-color": "#900C3F"},
+                        style={"borderColor": "#900C3F"},
                         className="h-100"
                     ),
-                    style={"margin-bottom": "1rem"}
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
                 ),
                 dbc.Col(
                     dbc.Card(
@@ -126,10 +142,14 @@ body = dbc.Container(
                                 ],
                             ),
                         ],
-                        style={"width": "13rem", "border-color": "#900C3F"},
+                        style={"borderColor": "#900C3F"},
                         className="h-100"
                     ),
-                    style={"margin-bottom": "1rem"}
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=6,
+                    md=4,
+                    lg=2,
                 ),
             ],
             justify="around",
