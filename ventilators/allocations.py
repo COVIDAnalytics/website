@@ -21,25 +21,20 @@ footer = Footer()
 
 
 df_vent_state_mod1 = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
-df_vent_transfers_mod1 = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
+df_vent_transfers_mod1 = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Day'])
 
 df_vent_state_mod2 = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
-df_vent_transfers_mod2 = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
+df_vent_transfers_mod2 = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Day'])
 
 today = pd.Timestamp('today')
 oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
-
-df_vent_state_mod1.loc[:,'Date'] = pd.to_datetime(df_vent_state_mod1['Date'], format='y%m%d').dt.date
-df_vent_state_mod1 = df_vent_state_mod1.loc[df_vent_state_mod1['Date']>=today]
-df_vent_state_mod2.loc[:,'Date'] = pd.to_datetime(df_vent_state_mod2['Date'], format='y%m%d').dt.date
-df_vent_state_mod2 = df_vent_state_mod2.loc[df_vent_state_mod1['Date']>=today]
 
 state_cols = ["Supply_Excess","Supply","Demand"]
 transfers_cols = []
 models = ["Washington IHME","COVIDAnalytics"]
 
 def change2Percent(frac):
-    return str(100*(1-frac))+'%'
+    return str(100*frac)+'%'
 
 body = dbc.Container(
     [
@@ -80,8 +75,8 @@ body = dbc.Container(
                 html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range-vent',
-                        min_date_allowed=min(df_vent_state_mod1.Day.values),
-                        max_date_allowed=max(df_vent_state_mod1.Day.values),
+                        min_date_allowed=min(df_vent_state_mod1.Date.values),
+                        max_date_allowed=max(df_vent_state_mod1.Date.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
                         style={'margin-bottom':20}
@@ -211,7 +206,7 @@ body = dbc.Container(
                 html.Div(
                     dcc.Dropdown(
                         id = 'p2-transfer-dropdown',
-                        options = [{'label': x, 'value': x} for x in df_vent_transfers_mod1.Param2.unique()],
+                        options = [{'label': change2Percent(x), 'value': x} for x in df_vent_transfers_mod1.Param2.unique()],
                         value = '0.1',
                     ),
                 ),
@@ -223,7 +218,7 @@ body = dbc.Container(
                 html.Div(
                     dcc.Dropdown(
                         id = 'p3-transfer-dropdown',
-                        options = [{'label': x, 'value': x} for x in df_vent_transfers_mod1.Param3.unique()],
+                        options = [{'label': change2Percent(x), 'value': x} for x in df_vent_transfers_mod1.Param3.unique()],
                         value = '0.9',
                     ),
                 ),
@@ -272,6 +267,7 @@ body = dbc.Container(
         ),
         dbc.Row([
                 dbc.Col(
+                [
                     html.H6('Base Model:',id="date-projections"),
                     html.Div(
                         dcc.Dropdown(
@@ -280,6 +276,7 @@ body = dbc.Container(
                             value = 'Washington IHME',
                         ),
                     ),
+                ],
                 ),
     			dbc.Col(
     				html.Div(
@@ -316,9 +313,9 @@ def build_us_vent_map(chosen_model,chosen_date,val):
         df_map = df_vent_state_mod1
     else:
         df_map = df_vent_state_mod2
-
-    if isinstance(chosen_date, str):
-        chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
+    #
+    # if isinstance(chosen_date, str):
+    #     chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 
     df_map = df_map.loc[df_map['Date']==chosen_date]
     df_map = df_map.loc[df_map['State']!='US']
@@ -475,7 +472,7 @@ def build_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
         df_trans_map = df_vent_transfers_mod2
 
     #filter on date
-    df_trans_map = df_trans_map.loc[df_trans_map['Date']==chosen_date]
+    df_trans_map = df_trans_map.loc[df_trans_map['Day']==chosen_date]
     df_trans_map = df_trans_map.applymap(str)
 
     #filter on three params
@@ -560,7 +557,7 @@ def build_us_transfers(chosen_model,chosen_date,to_or_from,state):
     tab_transfers = dash_table.DataTable(
             id="transfer_list",
             data=df_trans.to_dict('records'),
-            columns=[{'id': c, 'name': c} for c in df_trans.columns,
+            columns=[{'id': c, 'name': c} for c in df_trans.columns],
             style_data={
                 'whiteSpace': 'normal',
                 'height': 'auto',

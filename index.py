@@ -59,6 +59,10 @@ def display_page(pathname):
         return Projections_documentation()
     if pathname == '/dataset_documentation':
         return Dataset_documentation()
+    if pathname == '/ventilator_allocation':
+        return VentilatorAllocations()
+    # if pathname == '/ventilator_allocation_documentation':
+    #     return Dataset_documentation()
     else:
         return Homepage()
 
@@ -198,7 +202,6 @@ def update_download_link_demand(chosen_model):
     [Input('base-model-dropdown_download', 'value')])
 def update_download_link_transfers(chosen_model):
     return build_download_link_transfers(chosen_model)
-
 
 
 #Callbacks for navbar
