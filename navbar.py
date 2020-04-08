@@ -20,7 +20,7 @@ def Navbar():
                    children=[
                       dbc.DropdownMenuItem("Transfers", href="/ventilator_allocation"),
                       dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
+                      dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
                     ],
                     style={"padding-top": 30,"padding-bottom": 20}
                 ),

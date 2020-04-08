@@ -17,6 +17,7 @@ from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
 from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
+from ventilators.ventilators_documentation import Ventilator_documentation
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -61,8 +62,8 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    # if pathname == '/ventilator_allocation_documentation':
-    #     return Dataset_documentation()
+    if pathname == '/ventilator_allocation_documentation':
+        return Ventilator_documentation()
     else:
         return Homepage()
 
