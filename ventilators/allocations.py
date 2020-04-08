@@ -172,20 +172,20 @@ body = dbc.Container(
                 impact on shortfalls. '''),
                 dcc.Markdown('''You can choose:'''),
                 dcc.Markdown('''
-                  1. Data Source: Which pandemic prediction models to use to estimate \
-                  ventilator demand.
-                  2. Pooling Fraction: Fraction of each state’s initial ventilator \
-                  supply that is available for sharing with other states. \
-                  For instance, if the Pooling Fraction is 10%, the model guarantees that \
-                  each state will share at most 90% of its initial supply.
-                  3. Buffer: Percentage of additional demand that states would like to plan for\
-                   (with buffer supply of ventilators). For instance, if the Buffer is 10% and\
-                    the demand in a given state on a given day is 40,000 ventilators, then the \
-                    state would ideally like to get 44,000 ventilators.
+                  1. Data Source: Which pandemic prediction models to use to estimate ventilator demand.
+                  2. Pooling Fraction: Fraction of each state’s initial ventilator supply that is \
+                  available for sharing with other states. For instance, if the Pooling Fraction \
+                  is 10%, the model guarantees that each state will retain at least 90% of its \
+                  initial supply.
+                  3. Buffer: Percentage of additional demand that states would like to plan for \
+                  (with buffer supply of ventilators). For instance, if the Buffer is 10% and \
+                  the demand in a given state on a given day is 40,000 ventilators, then the \
+                  state would ideally like to get 44,000 ventilators. **We place a (smaller) \
+                  penalty on unmet demand in this range.**
                   4. Surge Supply Availability: Scaling factor to adjust the available surge \
-                  supply of ventilators from the federal government. Our baseline estimate of\
-                   surge supply is 450 ventilators per day for the next 30 days. To cope with \
-                   uncertainty in this estimate, we let the user vary this number.
+                  supply of ventilators from the federal government. Our baseline estimate of \
+                  surge supply is 450 ventilators per day for the next 30 days. \
+                  To cope with uncertainty in this estimate, we let the user vary this number.
                 '''),
                 dcc.Markdown('''You will find additional data sources and parameter choices on our \
                 [documentation](/ventilators_documentation).'''),
@@ -237,7 +237,7 @@ body = dbc.Container(
             ),
             dbc.Col(
             [
-                html.H6('Param1:',id="date-projections"),
+                html.H6('Pooling Fraction:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'p1-transfer-dropdown',
@@ -249,7 +249,7 @@ body = dbc.Container(
             ),
             dbc.Col(
             [
-                html.H6('Param2:',id="date-projections"),
+                html.H6('Buffer:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'p2-transfer-dropdown',
@@ -261,7 +261,7 @@ body = dbc.Container(
             ),
             dbc.Col(
             [
-                html.H6('Param3:',id="date-projections"),
+                html.H6('Surge Supply Availability:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'p3-transfer-dropdown',
