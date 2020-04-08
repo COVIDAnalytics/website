@@ -17,6 +17,10 @@ from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
 from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
+from ventilators.allocations import build_us_vent_map,build_us_vent_timeline
+from ventilators.allocations import build_us_transfers_map, build_us_transfers_timeline
+from ventilators.allocations import build_transfers, build_us_transfers
+from ventilators.allocations import build_download_link_demand, build_download_link_transfers
 from ventilators.ventilators_documentation import Ventilator_documentation
 from assets.mappings import data_cols,all_options
 
@@ -153,17 +157,9 @@ def update_us_vent_map(chosen_model,chosen_date,val):
 
 @app.callback(
     Output('us_ventilator_graph', 'children'),
-    [Input('base-model-dropdown', 'value'),
-     Input('us_map_dropdown-vent', 'value')])
-def update_us_vent_timeline(chosen_model,val):
-    return build_us_vent_timeline(chosen_model,val)
-
-@app.callback(
-    Output('time_x_graph', 'children'),
-    [Input('base-model-dropdown', 'value'),
-     Input('us_map_dropdown-vent', 'value')])
-def update_us_vent_peaks(chosen_model,val):
-    return build_us_vent_peaks(chosen_model,val)
+    [Input('base-model-dropdown', 'value')])
+def update_us_vent_timeline(chosen_model):
+    return build_us_vent_timeline(chosen_model)
 
 @app.callback(
     Output('us_map_transfers_vent', 'children'),
@@ -175,6 +171,15 @@ def update_us_vent_peaks(chosen_model,val):
      Input('p3-transfer-dropdown', 'value')])
 def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
     return build_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3)
+
+@app.callback(
+    Output('us_transfers_graph', 'children'),
+    [Input('base-model-dropdown_transfers', 'value'), 
+     Input('p1-transfer-dropdown', 'value'),
+     Input('p2-transfer-dropdown', 'value'),
+     Input('p3-transfer-dropdown', 'value')])
+def update_us_vent_timeline(chosen_model,p1,p2,p3):
+    return build_us_transfers_timeline(chosen_model,p1,p2,p3)
 
 @app.callback(
     Output('transfer-state-dropdown', 'options'),

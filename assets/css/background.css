@@ -53,3 +53,16 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
+
+#base-model-dropdown{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 20px;
+}
+
+#us_map_dropdown-vent{
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
