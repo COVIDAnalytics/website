@@ -38,6 +38,14 @@ body = dbc.Container([
 					6. To the best of our ability, we avoid reporting data from metastudies to avoid double-counting patients. However, there remains a (low) risk that some patients will appear in multiple studies (for example two studies in Feb and Mar in the same hospital).
 					7. We have tried to report all lab values in consistent units. We have included a companion document (Reference Ranges) with corresponding reference ranges to facilitate analysis. There are some instances where the reported lab units seem inconsistent with the expected ranges (e.g. for D-Dimer), but we have generally reported the raw values from the source papers.
 					'''),
+				html.P('To cite the dataset, you can use the following reference:'),
+				dcc.Markdown(''' 
+					@online{bertsimas2020covidClinicalOutcomes,
+					author = {Bertsimas, Dimitris and Bandi, Hari and Boussioux, Leonard and Cory-Wright, Ryan and Delarue, Arthur and Digalakis, Vasileios and Gilmour, Samuel and Graham, Justin and Kim, Adam and Lahlou Kitane, Driss and Lin, Zhen and Lukin, Galit and Li, Michael and Mingardi, Luca and Na, Liangyuan and Orfanoudaki, Agni and Papalexopoulos, Theodore and Paskov, Ivan and Pauphilet, Jean and Skali Lami, Omar and Sobiesk, Matthew and Stellato, Bartolomeo and Carballo, Kimberly and Wang, Yuchen and Wiberg, Holly and Zeng, Cynthia},
+					title = {An Aggregated Dataset of Clinical Outcomes for COVID-19 Patients},
+					url = {http://www.covidanalytics.io/dataset_documentation},
+					year={2020}
+					}'''),
 					#8. We intend to continuously update this dataset, for the duration of this epidemic. If you spot any errors in the dataset, or know of any papers which you believe this dataset would benefit from including, please do not hesitate to contact us, either by filing an issue in our GitHub repo, or emailing us at covidanalytics@mit.edu.
 			])
 		 ]
