@@ -76,7 +76,7 @@ body = dbc.Container([
         [
 			dbc.Col([
             	html.H2("Dataset"),
-                html.P('In the fog of war of the Covid-19 pandemic, a critical factor inhibiting \
+                html.P('In the fog of war of the COVID-19 pandemic, a critical factor inhibiting \
 				 effective decision making at regional, national, and global levels is a lack of \
 				 relevant data on patient outcomes. We hope to partially alleviate this problem by\
 				 sharing the following dataset, which aggregates data from over 100 published \
@@ -84,17 +84,22 @@ body = dbc.Container([
 				html.P('We would like to remind the reader that the raw data in this dataset should not \
 				 be used to estimate trends in the general population such as mortality rates. \
 				 Indeed, this dataset is largely derived from studies run in hospitals and nations\
-				 affected with SARS-COV-2 generally only admit seriously affected patients to \
+				 affected with COVID-19 generally only admit seriously affected patients to \
 				 hospitals. However, it should be possible to derive reasonably accurate estimates\
 				 of these quantities by (a) accounting for the prevalence of asymptomatic \
-				 patients, and (b) only including sufficiently representative studies. '),
+				 patients, and (b) including only sufficiently representative studies. \
+				 So far, the majority of the included studies are using patient data from China.\
+				 We will keep on updating this resource as more research investigations from \
+				 other countries are getting published.'), 
+				html.H5("Guidance for Use of the Dataset"),
 				html.P('At a high level, each row of the dataset represents a cohort of patients.\
 				 Some papers study a single cohort, while others study several cohorts, \
 				 and still others report results about one cohort and one or more subcohorts;\
-				 all of these are included as rows in the dataset. \
-				 The in browser dataset is a subset of columns and rows. For the full dataset, please \
+				 Each of these cohorts are included as rows in the dataset. \
+				 The in browser dataset is a subset of the recorded features and studies. For the full dataset, please \
 				 download the data.'
-				 )
+				 ),
+				dcc.Markdown('''Detailed information regarding the use of this resource is available [here](/dataset_documentation).'''),
 				 ])
 		 ]
 	 ),
