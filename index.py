@@ -137,7 +137,71 @@ def display_US_stats_title(d):
     d = dt.strptime(d, '%Y-%m-%d').date()
     return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
 
-# navbar
+#Callbacks for ventilators
+@app.callback(
+    Output('us_map_projections_vent', 'children'),
+    [Input('base-model-dropdown', 'value'),
+     Input('us-map-date-picker-range-vent', 'date'),
+     Input('us_map_dropdown-vent', 'value')])
+def update_us_vent_map(chosen_model,chosen_date,val):
+    return build_us_vent_map(chosen_model,chosen_date,val)
+
+@app.callback(
+    Output('us_ventilator_graph', 'children'),
+    [Input('base-model-dropdown', 'value'),
+     Input('us_map_dropdown-vent', 'value')])
+def update_us_vent_timeline(chosen_model,val):
+    return build_us_vent_timeline(chosen_model,val)
+
+@app.callback(
+    Output('time_x_graph', 'children'),
+    [Input('base-model-dropdown', 'value'),
+     Input('us_map_dropdown-vent', 'value')])
+def update_us_vent_peaks(chosen_model,val):
+    return build_us_vent_peaks(chosen_model,val)
+
+@app.callback(
+    Output('us_map_transfers_vent', 'children'),
+    [Input('base-model-dropdown_transfers', 'value'),
+     Input('date-transfer-dropdown', 'date'),
+     Input('val-transfer-dropdown', 'value'),
+     Input('p1-transfer-dropdown', 'value'),
+     Input('p2-transfer-dropdown', 'value'),
+     Input('p3-transfer-dropdown', 'value')])
+def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
+    return build_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3)
+
+@app.callback(
+    Output('transfer-state-dropdown', 'options'),
+    [Input('base-model-dropdown_transfers', 'value'),
+    Input('transfer-to-from-dropdown', 'value')])
+def set_transfer_state_options(chosen_model,to_or_from):
+    return build_transfers(chosen_model,to_or_from)
+
+@app.callback(
+    Output('transfer_list', 'children'),
+    [Input('base-model-dropdown_transfers', 'value'),
+     Input('date-transfer-dropdown', 'date'),
+     Input('transfer-to-from-dropdown', 'value'),
+     Input('transfer-state-dropdown', 'value')])
+def update_us_transfers(chosen_model,chosen_date,to_or_from,state):
+    return build_us_transfers(chosen_model,chosen_date,to_or_from,state)
+
+@app.callback(
+    Output('download-link-demand', 'href'),
+    [Input('base-model-dropdown_download', 'value')])
+def update_download_link_demand(chosen_model):
+    return build_download_link_demand(chosen_model)
+
+@app.callback(
+    Output('download-link-tranfers', 'href'),
+    [Input('base-model-dropdown_download', 'value')])
+def update_download_link_transfers(chosen_model):
+    return build_download_link_transfers(chosen_model)
+
+
+
+#Callbacks for navbar
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
