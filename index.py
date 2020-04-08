@@ -174,7 +174,7 @@ def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
 
 @app.callback(
     Output('us_transfers_graph', 'children'),
-    [Input('base-model-dropdown_transfers', 'value'), 
+    [Input('base-model-dropdown_transfers', 'value'),
      Input('p1-transfer-dropdown', 'value'),
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
@@ -184,18 +184,35 @@ def update_us_vent_timeline(chosen_model,p1,p2,p3):
 @app.callback(
     Output('transfer-state-dropdown', 'options'),
     [Input('base-model-dropdown_transfers', 'value'),
-    Input('transfer-to-from-dropdown', 'value')])
-def set_transfer_state_options(chosen_model,to_or_from):
-    return build_transfers(chosen_model,to_or_from)
+    Input('date-transfer-dropdown', 'date'),
+    Input('transfer-to-from-dropdown', 'value'),
+    Input('p1-transfer-dropdown', 'value'),
+    Input('p2-transfer-dropdown', 'value'),
+    Input('p3-transfer-dropdown', 'value')])
+def set_transfer_state_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
+    return build_transfers(chosen_model,chosen_date,to_or_from,p1,p2,p3)
 
 @app.callback(
-    Output('transfer_list', 'children'),
+    Output('table-text', 'children'),
+    [Input('transfer-to-from-dropdown', 'value'),
+    Input('transfer-state-dropdown', 'value')])
+def set_font_for_table(to_or_from,state):
+    if to_or_from == "to":
+        return u'The following presents which states send how many ventilators to {}'.format(state)
+    else:
+        return u'The following presents which states receive how many ventilators from {}'.format(state)
+
+@app.callback(
+    Output('transfer_list', 'data'),
     [Input('base-model-dropdown_transfers', 'value'),
      Input('date-transfer-dropdown', 'date'),
      Input('transfer-to-from-dropdown', 'value'),
-     Input('transfer-state-dropdown', 'value')])
-def update_us_transfers(chosen_model,chosen_date,to_or_from,state):
-    return build_us_transfers(chosen_model,chosen_date,to_or_from,state)
+     Input('transfer-state-dropdown', 'value'),
+     Input('p1-transfer-dropdown', 'value'),
+     Input('p2-transfer-dropdown', 'value'),
+     Input('p3-transfer-dropdown', 'value')])
+def update_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
+    return build_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3)
 
 @app.callback(
     Output('download-link-demand', 'href'),
