@@ -603,8 +603,6 @@ def build_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
         df_trans = df_trans[["State_From","Num_Units"]]
         df_trans.columns = ["State","Units"]
 
-    df_trans['Units'] = df_trans.Units.apply(lambda x: f'{int(x):,}')
-
     tab_transfers = dash_table.DataTable(
             id="transfer_list",
             data=df_trans.to_dict('records'),
