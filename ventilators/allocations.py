@@ -35,7 +35,7 @@ body = dbc.Container(
                            policymakers in their resource allocation decisions.
                        """),
                 dcc.Markdown('''For more details on the optimization model and the data that we utilize, we refer the user to the\
-                 [documentation](/ventilators_documentation).'''),
+                 [documentation](/ventilator_allocation_documentation).'''),
                 dcc.Markdown('''**Why share ventilators between states?**'''),
                 dcc.Markdown('''The graph below shows that the number of ventilators available \
                 across all 50 states---without accounting for the federal stockpile---can be sufficient \
@@ -96,7 +96,7 @@ body = dbc.Container(
                       To cope with uncertainty in this estimate, we let the user vary this number.
                     '''),
                     dcc.Markdown('''You will find additional data sources and parameter choices on our \
-                    [documentation](/ventilators_documentation).'''),
+                    [documentation](/ventilator_allocation_documentation).'''),
                 ]
                 ),
             ],
