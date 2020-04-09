@@ -125,15 +125,6 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
-            html.P('* Gray states correspond to no projection as their number \
-                    of confirmed cases so far is too low for a reliable estimation.\
-                    We will update on a daily basis.',
-                    style={'color':'gray'}
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
             dbc.Col(
             [
                 html.H6('State:',id="date-projections"),
