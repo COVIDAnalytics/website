@@ -66,7 +66,7 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    if pathname == '/ventilator_allocation_documentation':
+    if pathname == '/ventilators_documentation':
         return Ventilator_documentation()
     else:
         return Homepage()

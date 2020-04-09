@@ -34,7 +34,7 @@ no_model_visual = {
 model_visual = {
                 "Shortage":"Shortage",
                 "Supply": "Supply",
-                "Demand":"Projected Ventilator Demand"
+                "Demand":"Demand"
                 }
 models = ["Washington IHME","COVIDAnalytics"]
 

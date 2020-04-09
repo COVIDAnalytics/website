@@ -58,17 +58,17 @@ body = dbc.Container(
                     impact on shortfalls. '''),
                     dcc.Markdown('''You can choose:'''),
                     dcc.Markdown('''
-                      1. Data Source: Which pandemic prediction models to use to estimate ventilator demand.
-                      2. Pooling Fraction: Fraction of each state’s initial ventilator supply that is \
+                      1. **Data Source**: Which pandemic prediction models to use to estimate ventilator demand.
+                      2. **Pooling Fraction**: Fraction of each state’s initial ventilator supply that is \
                       available for sharing with other states. For instance, if the Pooling Fraction \
                       is 10%, the model guarantees that each state will retain at least 90% of its \
                       initial supply.
-                      3. Buffer: Percentage of additional demand that states would like to plan for \
+                      3. **Buffer**: Percentage of additional demand that states would like to plan for \
                       (with buffer supply of ventilators). For instance, if the Buffer is 10% and \
                       the demand in a given state on a given day is 40,000 ventilators, then the \
                       state would ideally like to get 44,000 ventilators. **We place a (smaller) \
                       penalty on unmet demand in this range.**
-                      4. Surge Supply Availability: Scaling factor to adjust the available surge \
+                      4. **Surge Supply Availability**: Scaling factor to adjust the available surge \
                       supply of ventilators from the federal government. Our baseline estimate of \
                       surge supply is 450 ventilators per day for the next 30 days. \
                       To cope with uncertainty in this estimate, we let the user vary this number.
@@ -111,7 +111,7 @@ body = dbc.Container(
             ),
             dbc.Col(
             [
-                html.H6('Value Calculated:',id="date-projections"),
+                html.H6('Plotted Value:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'val-transfer-dropdown',
