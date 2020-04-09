@@ -27,14 +27,14 @@ today = pd.Timestamp('today')
 oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
 state_cols = ["Shortage","Supply","Demand"]
 no_model_visual = {
-                "Shortage":"Baseline Shortage",
-                "Supply": "Current Supply",
-                "Demand":"Projected Demand"
+                "Shortage":"Baseline Ventilator Shortage",
+                "Supply": "Current Ventilator Supply",
+                "Demand":"Projected Ventilator Demand"
                 }
 model_visual = {
                 "Shortage":"Shortage",
                 "Supply": "Supply",
-                "Demand":"Projected Demand"
+                "Demand":"Projected Ventilator Demand"
                 }
 models = ["Washington IHME","COVIDAnalytics"]
 
