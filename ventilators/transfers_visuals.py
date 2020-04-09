@@ -69,9 +69,9 @@ transfers_visuals = \
             [
                 dbc.Col(
                 [
-                    html.H6("By intelligent optimization via the ventilator allocation \
+                    dbc.Alert("By intelligent optimization via the ventilator allocation \
                     model, we are able to reduce the shortage of ventilators in the states \
-                    substantially.",id="graph-vent-text"),
+                    substantially.", color="success"),
                 ]
                 )
             ]

@@ -23,23 +23,18 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H2("Ventilator Allocation"),
-                html.P("""\
+                html.H2("Optimization can solve the ventilator shortage"),
+                dcc.Markdown('''\
                         For severe COVID-19 patients, medical ventilators can spell the\
                          difference between life and death. These devices are increasingly\
                           in demand, with some US states already experiencing shortages. \
                           Fortunately, the dynamics of the pandemic differ from one state to \
                           another, creating opportunities to mitigate shortages by pooling some of \
-                          the ventilator supply across states. We propose an optimization model to \
-                          design ventilator pooling strategies and support health care providers and\
-                           policymakers in their resource allocation decisions.
-                       """),
-                dcc.Markdown('''For more details on the optimization model and the data that we utilize, we refer the user to the\
+                          the ventilator supply across states. Details on data and models can be found in the\
                  [documentation](/ventilator_allocation_documentation).'''),
                 dcc.Markdown('''**Why share ventilators between states?**'''),
-                dcc.Markdown('''The graph below shows that the number of ventilators available \
-                across all 50 states---without accounting for the federal stockpile---can be sufficient \
-                to satisfy overall demand. Yet, the map shows that, with the current allocation of \
+                dcc.Markdown('''The number of ventilators available \
+                across all 50 states - without even accounting for the federal stockpile - exceeds national demand. Yet with the current allocation of \
                 ventilators, some states are expected to face strong shortages over time. \
                 When exploring these visuals, you can choose between two different pandemic \
                 prediction models: the [University of Washington’s IHME model]\
