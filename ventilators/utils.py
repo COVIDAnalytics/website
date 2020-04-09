@@ -70,7 +70,7 @@ def us_map(df,chosen_date,val,label_dict):
         ))
 
     fig.update_layout(
-            title_text='{} Predicted {}'.format(chosen_date.strftime('%b %d,%Y'), label_dict[val]),
+            title_text='{} on {}'.format(label_dict[val], chosen_date.strftime('%b %d, %Y')),
             geo = dict(
                 scope='usa',
                 projection=go.layout.geo.Projection(type = 'albers usa'),
@@ -85,7 +85,7 @@ def us_map(df,chosen_date,val,label_dict):
     )
     return graph
 
-def us_timeline(df,label_dict):
+def us_timeline(df, label_dict, title="US Ventilator Predictions"):
     df = df.loc[df.State == 'US']
     fig = go.Figure()
 
@@ -104,12 +104,12 @@ def us_timeline(df,label_dict):
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<br>'.join(wrap('<b> US Ventilator Predictions </b>', width=30)),
+                    'text': '<br>'.join(wrap(''.join(['<b> ', title, ' </b>']), width=30)),
                     'y':0.96,
                     'x':0.5,
                     'xanchor': 'center',
                     'yanchor': 'top'},
-                title_font_size=25,
+                title_font_size=20,
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
                 legend_title='<b> Values Predicted </b>',

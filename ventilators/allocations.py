@@ -34,9 +34,8 @@ body = dbc.Container(
                        """),
                 dcc.Markdown('''For more details on the optimization model, we refer the user to the\
                  [documentation](/ventilators_documentation).'''),
-                dcc.Markdown('''**Need for ventilator pooling**'''),
-                dcc.Markdown('''We first illustrate why ventilator pooling can alleviate shortages \
-                in the United States. The graph below shows that the number of ventilators available \
+                dcc.Markdown('''**Why share ventilators between states?**'''),
+                dcc.Markdown('''The graph below shows that the number of ventilators available \
                 across all 50 states---without accounting for the federal stockpile---can be sufficient \
                 to satisfy overall demand. Yet, the map shows that, with the current allocation of \
                 ventilators, some states are expected to face strong shortages over time. \
@@ -84,7 +83,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H6('Base Model:',id="date-projections"),
+                html.H6('Data Source:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'base-model-dropdown_transfers',
@@ -148,7 +147,7 @@ body = dbc.Container(
             ),
             dbc.Col(
             [
-                html.H6('Surge Supply Availability:',id="date-projections"),
+                html.H6('Surge Supply:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'p3-transfer-dropdown',
@@ -232,7 +231,7 @@ body = dbc.Container(
                             },
                             style_table={
                                 'overflow':'visible',
-                                'maxHeight': '300px',
+                                'maxHeight': 'auto',
                                 'maxWidth': '500px',
                                 'border': 'thin lightgrey solid',
                             },
