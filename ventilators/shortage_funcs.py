@@ -22,4 +22,6 @@ def build_shortage_timeline(chosen_model):
     else:
         df_projections_vent_us = df_mod2_projections.copy()
 
-    return us_timeline(df_projections_vent_us,no_model_visual, "US Ventilator Supply, Demand, & Shortage")
+    df_projections_vent_us = df_projections_vent_us.loc[df_projections_vent_us.State == 'US']
+
+    return us_timeline(df_projections_vent_us, "US Ventilator Supply, Demand, & Shortage", False)

@@ -85,21 +85,42 @@ def us_map(df,chosen_date,val,label_dict):
     )
     return graph
 
-def us_timeline(df, label_dict, title="Optimization Effect on Shortage"):
-    df = df.loc[df.State == 'US']
+def us_timeline(df, title, with_opt):
+
     fig = go.Figure()
 
-    for i,val in enumerate(state_cols):
-        fig.add_trace(go.Scatter(
-            x=df['Date'],
-            y=df[val].values,
-            legendgroup=i,
-            name=label_dict[val].replace(' ','<br>'),
-            mode="lines+markers",
-            marker=dict(color=colors[i]),
-            line=dict(color=colors[i])
-        ))
-        i+=1
+    if with_opt:
+        # we want to keep the baseline shortage the same color as the prev. graph
+        # and add a new color for the new shortage
+        col_ind = [0,3]
+        c = 0
+        i = 0
+        for val in df.columns:
+            if val != "Date":
+                fig.add_trace(go.Scatter(
+                    x=df['Date'],
+                    y=df[val].values,
+                    legendgroup=i,
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[col_ind[c]]),
+                    line=dict(color=colors[col_ind[c]])
+                ))
+                c+=1
+                i+=1
+
+    else:
+        for i,val in enumerate(state_cols):
+            fig.add_trace(go.Scatter(
+                x=df['Date'],
+                y=df[val].values,
+                legendgroup=i,
+                name=no_model_visual[val].replace(' ','<br>'),
+                mode="lines+markers",
+                marker=dict(color=colors[i]),
+                line=dict(color=colors[i])
+            ))
+            i+=1
 
     fig.update_layout(
                 height=550,

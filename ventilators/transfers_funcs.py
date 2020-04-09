@@ -7,7 +7,7 @@ import dash_core_components as dcc
 
 from ventilators.utils import df_mod1_shortages, df_mod1_transfers,df_mod1_projections
 from ventilators.utils import df_mod2_shortages, df_mod2_transfers,df_mod2_projections
-from ventilators.utils import us_map, us_timeline,no_model_visual, model_visual
+from ventilators.utils import us_map, us_timeline, no_model_visual, model_visual
 
 def build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
     global df_mod1_shortages
@@ -26,16 +26,33 @@ def build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
 def build_transfers_timeline(chosen_model,p1,p2,p3):
     global df_mod1_shortages
     global df_mod2_shortages
+    global df_mod1_projections
+    global df_mod2_projections
     if chosen_model == "Washington IHME":
-        df_projections_vent_curr = df_mod1_shortages.copy()
+        df_opt_pre = df_mod1_projections.copy()
+        df_opt_post = df_mod1_shortages.copy()
     else:
-        df_projections_vent_curr = df_mod2_shortages.copy()
+        df_opt_pre = df_mod2_projections.copy()
+        df_opt_post = df_mod1_shortages.copy()
 
-    df_projections_vent_curr = df_projections_vent_curr.loc[df_projections_vent_curr.Param1==float(p1)]
-    df_projections_vent_curr = df_projections_vent_curr.loc[df_projections_vent_curr.Param2==float(p2)]
-    df_projections_vent_curr = df_projections_vent_curr.loc[df_projections_vent_curr.Param3==float(p3)]
+    timeline_cols = ["Date","Shortage"]
+    df_opt_pre = df_opt_pre.loc[df_opt_pre.State == 'US']
+    df_opt_pre = df_opt_pre[timeline_cols]
+    df_opt_pre.columns = ["Date",no_model_visual["Shortage"]]
 
-    return us_timeline(df_projections_vent_curr,model_visual)
+    df_opt_post = df_opt_post.loc[
+                                    (df_opt_post.State == 'US') & \
+                                    (df_opt_post.Param1==float(p1)) & \
+                                    (df_opt_post.Param2==float(p2)) & \
+                                    (df_opt_post.Param3==float(p3))
+                                ]
+
+    df_opt_post = df_opt_post[timeline_cols]
+    df_opt_post.columns = ["Date",model_visual["Shortage"]]
+
+    df_opt_effect = pd.merge(df_opt_pre,df_opt_post,on='Date',how='inner')
+
+    return us_timeline(df_opt_effect,"Optimization Effect on Shortage",True)
 
 def build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
     global df_mod1_transfers
