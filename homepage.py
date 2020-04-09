@@ -138,8 +138,7 @@ body = dbc.Container(
                                 [
                                     html.H4("Ventilator allocation", className="card-title"),
                                     dcc.Markdown('''
-                                           (Coming 4/10).
-                                           Leveraging delays between state peaks to optimally re-use ventilators.'''
+                                           Leveraging delays between state peaks to [optimally re-use ventilators](/ventilator_allocation).'''
                                     ),
                                 ],
                             ),

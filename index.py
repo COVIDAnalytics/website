@@ -157,7 +157,7 @@ def update_shortage_map(chosen_model,chosen_date,val):
 @app.callback(
     Output('us_ventilator_graph', 'children'),
     [Input('base-model-dropdown', 'value')])
-def update_hortage_timeline(chosen_model):
+def update_shortage_timeline(chosen_model):
     return build_shortage_timeline(chosen_model)
 
 @app.callback(

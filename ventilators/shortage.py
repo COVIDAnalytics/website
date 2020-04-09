@@ -4,12 +4,14 @@ import dash_bootstrap_components as dbc
 from ventilators.utils import df_mod1_shortages, oneWeekFromNow, state_cols
 from ventilators.utils import no_model_visual, model_visual, models
 
+
+# Defines the top of the page, where the current situation is displayed (no optimization yet)
 shortage = dbc.Container([
     dbc.Row(
         [
             dbc.Col(
             [
-                html.H6('Base Model:',id="date-projections"),
+                html.H6('Data Source:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'base-model-dropdown',
@@ -37,7 +39,7 @@ shortage = dbc.Container([
             ),
             dbc.Col(
             [
-                html.H6('Predicted Value:',id="date-projections"),
+                html.H6('Plotted Value:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'us_map_dropdown-vent',
@@ -53,8 +55,9 @@ shortage = dbc.Container([
         [
             dbc.Col(
             [
+                dcc.Markdown("The total ventilator supply in the US exceeds projected demand..."),
                 html.Div(
-                    id = 'us_map_projections_vent',
+                    id = 'us_ventilator_graph',
                     children = [],
                     style={
                         'width': '100%',
@@ -65,8 +68,10 @@ shortage = dbc.Container([
             ),
             dbc.Col(
             [
+                dcc.Markdown("... but imbalanced demand from local 'hot spots' leads "
+                             "to shortages."),
                 html.Div(
-                    id = 'us_ventilator_graph',
+                    id = 'us_map_projections_vent',
                     children = [],
                     style={
                         'width': '100%',
