@@ -66,7 +66,7 @@ body = dbc.Container(
                         max_date_allowed=max(df_projections.Day.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
-                        style={'margin-bottom':20}
+                        style={'marginBottom':20}
                     ),
                     id="date-projections-picker-div"
                 ),
@@ -81,19 +81,19 @@ body = dbc.Container(
                 style={
                     'width': '100%',
                     'color': 'black',
-                    'text-align': 'center',
-                    'font-size': 30,
-                    'font-weight':'bold'
+                    'textAlign': 'center',
+                    'fontSize': 30,
+                    'fontWeight':'bold'
                     }
             ),
         ],
         ),
         dbc.CardDeck(
         [
-            dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
-            dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
-            dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
-            dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'margin-bottom':20,'padding-top':20}),
+            dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
+            dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
+            dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
+            dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
         ],
         ),
         dbc.Row(
@@ -166,7 +166,7 @@ body = dbc.Container(
                         href=data_csv_string,
                         target="_blank"
                     ),
-                    style={'text-align':"center"}
+                    style={'textAlign':"center"}
                 )
             ),
             ]
@@ -290,7 +290,7 @@ def get_us_stat(d, val):
     card_content = [
         dbc.CardHeader(
             f'{us_date.iloc[0][val]:,}',
-            style={"text-align":"center","font-size":30,"font-weight": "bold","color":"#1E74F0"}
+            style={"textAlign":"center","fontSize":30,"fontWeight": "bold","color":"#1E74F0"}
         ),
         dbc.CardBody(
             [

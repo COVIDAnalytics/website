@@ -86,7 +86,7 @@ body = dbc.Container(
                         id = 'categories_dropdown',
                         options = [{'label': x, 'value': x} for x in categories],
                         value = 'Comorbidities',
-                        style={'margin-bottom': 10}
+                        style={'marginBottom': 10}
                     ),
                 ),
                 html.Div(
@@ -97,7 +97,7 @@ body = dbc.Container(
                         dcc.Dropdown(
                             id = 'y_axis_dropdown',
                             value = 'Hypertension',
-                            style={'margin-bottom': 10,'margin-top': 10}
+                            style={'marginBottom': 10,'marginTop': 10}
                         ),
                     )
                 ]
@@ -108,7 +108,7 @@ body = dbc.Container(
                         id = 'x_axis_dropdown',
                         options = [{'label': x, 'value': x} for x in demographics],
                         value = '% Male',
-                        style={'margin-bottom': 10,'margin-top': -5}
+                        style={'marginBottom': 10,'marginTop': -5}
                     ),
                 ),
                 html.P('Select the Population Type:'),
@@ -118,7 +118,7 @@ body = dbc.Container(
                     options=[{'label': x, 'value': x} for x in survivor_options],
                     value=['Non-Survivors only', 'Survivors only'],
                     labelStyle={'color': 'black'},
-                    style={'width': '50%','margin-top': -5}
+                    style={'width': '50%','marginTop': -5}
                     )
                 ),
             ],
@@ -149,7 +149,7 @@ body = dbc.Container(
                         href=data_csv_string,
                         target="_blank"
                     ),
-                    style={'text-align':"center"}
+                    style={'textAlign':"center"}
                 )
             ),
             ]
