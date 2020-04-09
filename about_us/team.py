@@ -1,8 +1,6 @@
 ### Data
 import yaml
 ### Dash
-import dash
-import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
@@ -16,8 +14,10 @@ footer = Footer()
 with open("assets/team_members/team.yml") as f:
     members = yaml.load(f, Loader=yaml.FullLoader)
 num_members = len(members)
-members_per_row = 4
 
+with open("assets/collaborators/organizations.yml") as f:
+    collaborators = yaml.load(f, Loader=yaml.FullLoader)
+num_collaborators = len(collaborators)
 
 # Single member pic
 def member_pic(member):
@@ -39,6 +39,23 @@ def member_pic(member):
         width=True,
     )
 
+# Single collaborator pic
+def collab_pic(collaborator):
+    return dbc.Col(
+        [
+            html.Div(
+            [
+                html.Img(
+                    src='assets/collaborators/photos/%s' % collaborator['photo'],
+                    className="collabs"
+                ),
+             ],
+             style={'display': 'inline-block'}
+            )
+        ],
+        width='auto',
+    )
+
 # Table rows
 member_rows = \
     [
@@ -52,6 +69,15 @@ member_rows = \
         dbc.Row(
             [
                 member_pic(members[i]) for i in range(1,num_members)
+            ]
+        )
+    ]
+
+collab_rows = \
+    [
+        dbc.Row(
+            [
+                collab_pic(collaborators[i]) for i in range(num_collaborators)
             ]
         )
     ]
@@ -71,7 +97,18 @@ body = dbc.Container(
                 ],
                 style={'marginBottom': 20}
             )
-        ] + member_rows,
+        ] + member_rows +
+        [dbc.Row(
+            [
+                dbc.Col(
+                [
+                    html.H2("Our Collaborators"),
+                ]
+                )
+            ],
+            style={'margin-bottom': 20,'margin-top': 40}
+        )
+        ] + collab_rows,
         className="page-body"
     )
 
