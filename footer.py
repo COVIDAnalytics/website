@@ -28,9 +28,10 @@ def Footer():
                                         html.Img(
                                             src='assets/images/icons/github.png',
                                             style={
-                                                'height' : '15%',
-                                                'width' : '15%',
+                                                'height' : '40px',
+                                                'width' : '40px',
                                                 'position' : 'relative',
+                                                'margin-top' : 15,
                                                 'padding-top' : 0,
                                                 'padding-right' : 0
                                             }
@@ -40,9 +41,10 @@ def Footer():
                                         html.Img(
                                             src='assets/images/icons/email.png',
                                             style={
-                                                'height' : '15%',
-                                                'width' : '15%',
+                                                'height' : '40px',
+                                                'width' : '40px',
                                                 'position' : 'relative',
+                                                'margin-top' : 15,
                                                 'padding-top' : 0,
                                                 'padding-right' : 0
                                             }
@@ -52,9 +54,10 @@ def Footer():
                                         html.Img(
                                             src='assets/images/icons/twitter.png',
                                             style={
-                                                'height' : '15%',
-                                                'width' : '15%',
+                                                'height' : '40px',
+                                                'width' : '40px',
                                                 'position' : 'relative',
+                                                'margin-top' : 15,
                                                 'padding-top' : 0,
                                                 'padding-right' : 0
                                             }
