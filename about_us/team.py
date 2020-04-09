@@ -19,7 +19,6 @@ with open("assets/collaborators/organizations.yml") as f:
     collaborators = yaml.load(f, Loader=yaml.FullLoader)
 num_collaborators = len(collaborators)
 
-print(collaborators)
 # Single member pic
 def member_pic(member):
     return dbc.Col(
