@@ -111,7 +111,7 @@ body = dbc.Container(
             ),
             dbc.Col(
             [
-                html.H6('Value Calculated:',id="date-projections"),
+                html.H6('Plotted Value:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(
                         id = 'val-transfer-dropdown',
