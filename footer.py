@@ -23,10 +23,44 @@ def Footer():
                                  ),
                         ),
                         dbc.Col(
-                            [
-                                dbc.NavLink("Team", href="/team", style={"font-size":15,"margin-right":10}),
-                                dbc.NavLink("Contact Us", href="/contact", style={"font-size":15,"margin-bottom":0}),
-                            ],
+                            html.Div([
+                                html.A([
+                                        html.Img(
+                                            src='assets/images/icons/github.png',
+                                            style={
+                                                'height' : '15%',
+                                                'width' : '15%',
+                                                'position' : 'relative',
+                                                'padding-top' : 0,
+                                                'padding-right' : 0
+                                            }
+                                        )
+                                ], href='https://github.com/COVIDAnalytics'),
+                                html.A([
+                                        html.Img(
+                                            src='assets/images/icons/email.png',
+                                            style={
+                                                'height' : '15%',
+                                                'width' : '15%',
+                                                'position' : 'relative',
+                                                'padding-top' : 0,
+                                                'padding-right' : 0
+                                            }
+                                        )
+                                ], href='/contact'),
+                                html.A([
+                                        html.Img(
+                                            src='assets/images/icons/twitter.png',
+                                            style={
+                                                'height' : '15%',
+                                                'width' : '15%',
+                                                'position' : 'relative',
+                                                'padding-top' : 0,
+                                                'padding-right' : 0
+                                            }
+                                        )
+                                ], href='https://twitter.com/covid_analytics'),
+                            ])
                         ),
                     ],
                 ),
