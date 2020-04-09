@@ -17,10 +17,9 @@ from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
 from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
-from ventilators.allocations import build_us_vent_map,build_us_vent_timeline
-from ventilators.allocations import build_us_transfers_map, build_us_transfers_timeline
-from ventilators.allocations import build_transfers, build_us_transfers
-from ventilators.allocations import build_download_link_demand, build_download_link_transfers
+from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
+from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,build_transfers_table
+from ventilators.utils import build_download_link_demand, build_download_link_transfers
 from ventilators.ventilators_documentation import Ventilator_documentation
 from assets.mappings import data_cols,all_options
 
@@ -152,14 +151,14 @@ def display_US_stats_title(d):
     [Input('base-model-dropdown', 'value'),
      Input('us-map-date-picker-range-vent', 'date'),
      Input('us_map_dropdown-vent', 'value')])
-def update_us_vent_map(chosen_model,chosen_date,val):
-    return build_us_vent_map(chosen_model,chosen_date,val)
+def update_shortage_map(chosen_model,chosen_date,val):
+    return build_shortage_map(chosen_model,chosen_date,val)
 
 @app.callback(
     Output('us_ventilator_graph', 'children'),
     [Input('base-model-dropdown', 'value')])
-def update_us_vent_timeline(chosen_model):
-    return build_us_vent_timeline(chosen_model)
+def update_hortage_timeline(chosen_model):
+    return build_shortage_timeline(chosen_model)
 
 @app.callback(
     Output('us_map_transfers_vent', 'children'),
@@ -170,7 +169,7 @@ def update_us_vent_timeline(chosen_model):
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
 def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
-    return build_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3)
+    return build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3)
 
 @app.callback(
     Output('us_transfers_graph', 'children'),
@@ -179,7 +178,7 @@ def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
 def update_us_vent_timeline(chosen_model,p1,p2,p3):
-    return build_us_transfers_timeline(chosen_model,p1,p2,p3)
+    return build_transfers_timeline(chosen_model,p1,p2,p3)
 
 @app.callback(
     Output('transfer-state-dropdown', 'options'),
@@ -190,7 +189,7 @@ def update_us_vent_timeline(chosen_model,p1,p2,p3):
     Input('p2-transfer-dropdown', 'value'),
     Input('p3-transfer-dropdown', 'value')])
 def set_transfer_state_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
-    return build_transfers(chosen_model,chosen_date,to_or_from,p1,p2,p3)
+    return build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3)
 
 @app.callback(
     Output('table-text', 'children'),
@@ -212,7 +211,7 @@ def set_font_for_table(to_or_from,state):
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
 def update_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
-    return build_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3)
+    return build_transfers_table(chosen_model,chosen_date,to_or_from,state,p1,p2,p3)
 
 @app.callback(
     Output('download-link-demand', 'href'),
