@@ -5,6 +5,7 @@ import dash_html_components as html
 from dash.dependencies import Input, Output, State
 import dash_bootstrap_components as dbc
 import flask
+import os
 
 from datetime import datetime as dt
 
@@ -225,6 +226,11 @@ def update_download_link_demand(chosen_model):
 def update_download_link_transfers(chosen_model):
     return build_download_link_transfers(chosen_model)
 
+
+@app.server.route('/ventilator_documentation_pdf', methods=['GET', 'POST'])
+def download_ventilator_documentation():
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
+                                     filename="Ventilator_Documentation.pdf")
 
 #Callbacks for navbar
 @app.callback(
