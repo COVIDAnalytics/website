@@ -44,7 +44,7 @@ shortage = dbc.Container([
                     dcc.Dropdown(
                         id = 'us_map_dropdown-vent',
                         options = [{'label': no_model_visual[x], 'value': x} for x in state_cols],
-                        value = 'Demand',
+                        value = 'Shortage',
                     ),
                 ),
             ]
@@ -55,7 +55,16 @@ shortage = dbc.Container([
         [
             dbc.Col(
             [
-                dcc.Markdown("The total ventilator supply in the US exceeds projected demand..."),
+                html.H6("The total ventilator supply in the US exceeds projected demand, \
+                but imbalanced demand from local 'hot spots' leads to shortages.",id="graph-vent-text"),
+            ]
+            )
+        ]
+    ),
+    dbc.Row(
+        [
+            dbc.Col(
+            [
                 html.Div(
                     id = 'us_ventilator_graph',
                     children = [],
@@ -68,8 +77,6 @@ shortage = dbc.Container([
             ),
             dbc.Col(
             [
-                dcc.Markdown("... but imbalanced demand from local 'hot spots' leads "
-                             "to shortages."),
                 html.Div(
                     id = 'us_map_projections_vent',
                     children = [],

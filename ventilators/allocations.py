@@ -32,7 +32,7 @@ body = dbc.Container(
                           design ventilator pooling strategies and support health care providers and\
                            policymakers in their resource allocation decisions.
                        """),
-                dcc.Markdown('''For more details on the optimization model, we refer the user to the\
+                dcc.Markdown('''For more details on the optimization model and the data that we utilize, we refer the user to the\
                  [documentation](/ventilators_documentation).'''),
                 dcc.Markdown('''**Why share ventilators between states?**'''),
                 dcc.Markdown('''The graph below shows that the number of ventilators available \
@@ -65,12 +65,12 @@ body = dbc.Container(
                       initial supply.
                       3. **Buffer**: Percentage of additional demand that states would like to plan for \
                       (with buffer supply of ventilators). For instance, if the Buffer is 10% and \
-                      the demand in a given state on a given day is 40,000 ventilators, then the \
-                      state would ideally like to get 44,000 ventilators. **We place a (smaller) \
-                      penalty on unmet demand in this range.**
+                      the demand in a given state on a given day is 1,000 ventilators, then the \
+                      state would ideally like to have a stock of 1,100 ventilators.
                       4. **Surge Supply Availability**: Scaling factor to adjust the available surge \
-                      supply of ventilators from the federal government. Our baseline estimate of \
-                      surge supply is 450 ventilators per day for the next 30 days. \
+                      supply of ventilators from the federal government. Our baseline estimate of the \
+                      federal stockpile available is 13,500 and is available for a release to the states in the next 30 days, i.e., \
+                      450 ventilators per day. \
                       To cope with uncertainty in this estimate, we let the user vary this number.
                     '''),
                     dcc.Markdown('''You will find additional data sources and parameter choices on our \
