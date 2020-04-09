@@ -48,7 +48,8 @@ body = dbc.Container(
                         hospitalizations, and deaths in all states of the United States. The model is based on the widely \
                         applied SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach.
                        """),
-                dcc.Markdown('''You can read more about the model [here](/projections_documentation).'''),
+                dcc.Markdown('''You can read a summary of the documentation [here](/projections_documentation) or access\
+                 or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
             ]
             ),
         ],
