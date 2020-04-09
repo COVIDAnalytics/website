@@ -58,6 +58,7 @@ def us_map(df,chosen_date,val,label_dict):
                 'Supply ' + df['Supply'] + '<br>' + \
                 'Demand ' + df['Demand']
 
+    bar_title = '{}'.format(label_dict[val])
     fig = go.Figure(data=go.Choropleth(
             locations=df['code'],
             z=df[val].astype(float),
@@ -66,11 +67,12 @@ def us_map(df,chosen_date,val,label_dict):
             autocolorscale=False,
             text=df['text'], # hover text
             marker_line_color='white', # line markers between states
-            colorbar_title='{}'.format(label_dict[val])
+            colorbar_title='<br>'.join(wrap(''.join([bar_title]), width=10)),
         ))
 
+    title = '{} on {}'.format(label_dict[val], chosen_date.strftime('%b %d, %Y'))
     fig.update_layout(
-            title_text='{} on {}'.format(label_dict[val], chosen_date.strftime('%b %d, %Y')),
+            title_text='<br>'.join(wrap(''.join(['<b> ', title, ' </b>']), width=26)),
             geo = dict(
                 scope='usa',
                 projection=go.layout.geo.Projection(type = 'albers usa'),
