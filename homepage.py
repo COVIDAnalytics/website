@@ -74,7 +74,7 @@ body = dbc.Container(
                                     ),
                                 ]
                             ),
-                            dbc.CardImg(src="assets/images/insights-3.png", top=False),
+                            dbc.CardImg(src="assets/images/insights-4.png", top=False),
                         ],
                         style={"borderColor": "#900C3F"},
                         className="h-100"
