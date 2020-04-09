@@ -34,7 +34,7 @@ def build_transfers_timeline(chosen_model,p1,p2,p3):
         df_opt_post = df_mod1_shortages.copy()
     else:
         df_opt_pre = df_mod2_projections.copy()
-        df_opt_post = df_mod1_shortages.copy()
+        df_opt_post = df_mod2_shortages.copy()
 
     timeline_cols = ["Date","Shortage"]
     df_opt_pre = df_opt_pre.loc[df_opt_pre.State == 'US']
