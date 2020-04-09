@@ -59,39 +59,7 @@ transfers_table = \
         dbc.Row([
             dbc.Col(
             [
-                dash_table.DataTable(
-                        id="transfer_list",
-                        columns=[{'id': c, 'name': c} for c in ["State","Units"]],
-                        style_data={
-                            'whiteSpace': 'normal',
-                            'height': 'auto',
-                        },
-                        style_table={
-                            'overflow':'visible',
-                            'maxHeight': 'auto',
-                            'maxWidth': '500px',
-                            'border': 'thin lightgrey solid',
-                        },
-                        style_cell={
-                            'height': 'auto',
-                            'minWidth': '0px',
-                            'width': '50px',
-                            'maxWidth': '180px',
-                            'whiteSpace': 'normal',
-                            'textAlign': 'center',
-                            'font_size': '14px',
-                            'font-family': 'arial',
-                        },
-                        style_data_conditional=[
-                            {
-                                'if': {'row_index': 'odd'},
-                                'backgroundColor': 'rgb(248, 248, 248)'
-                            }
-                        ],
-                        style_header={
-                            'display': 'none',
-                        }
-                    )
+                html.Div(id='table-container')
             ],
             ),
         ],

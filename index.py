@@ -19,7 +19,7 @@ from dataset.dataset_documentation import Dataset_documentation
 from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
-from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,build_transfers_table
+from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
 from ventilators.ventilators_documentation import Ventilator_documentation
 from assets.mappings import data_cols,all_options
@@ -205,7 +205,7 @@ def set_font_for_table(chosen_date):
         return u'The following presents which states receive how many ventilators from {}'.format(state)
 
 @app.callback(
-    Output('transfer_list', 'data'),
+    Output('table-container', 'children'),
     [Input('base-model-dropdown', 'value'),
      Input('date-transfer-dropdown', 'date'),
      Input('transfer-to-from-dropdown', 'value'),
@@ -213,8 +213,10 @@ def set_font_for_table(chosen_date):
      Input('p1-transfer-dropdown', 'value'),
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
-def update_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
-    return build_transfers_table(chosen_model,chosen_date,to_or_from,state,p1,p2,p3)
+def display_table(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
+    if state is None:
+        return generate_table(chosen_model,chosen_date,p1,p2,p3)
+    return generate_table(chosen_model,chosen_date,p1,p2,p3,to_or_from,state)
 
 @app.callback(
     Output('download-link-demand', 'href'),

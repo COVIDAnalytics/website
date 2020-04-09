@@ -4,6 +4,7 @@ import plotly.graph_objects as go
 import dash
 import dash_table
 import dash_core_components as dcc
+import dash_html_components as html
 
 from ventilators.utils import df_mod1_shortages, df_mod1_transfers,df_mod1_projections
 from ventilators.utils import df_mod2_shortages, df_mod2_transfers,df_mod2_projections
@@ -74,9 +75,12 @@ def build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
     else:
         return [{'label': x, 'value': x} for x in sorted(df_trans.State_From.unique())]
 
-def build_transfers_table(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
+def generate_table(chosen_model,chosen_date,p1,p2,p3,to_or_from=None,state=None):
     global df_mod1_transfers
     global df_mod2_transfers
+
+    orig_cols = ["State_From","State_To","Num_Units"]
+    final_cols = ["Origin","Destination","Units"]
 
     if chosen_model == "Washington IHME":
         df_trans = df_mod1_transfers.copy()
@@ -84,52 +88,33 @@ def build_transfers_table(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
         df_trans = df_mod2_transfers.copy()
     if isinstance(chosen_date, str):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
-    df_trans = df_trans.loc[df_trans['Date']==chosen_date]
-    df_trans = df_trans.loc[df_trans.Param1==float(p1)]
-    df_trans = df_trans.loc[df_trans.Param2==float(p2)]
-    df_trans = df_trans.loc[df_trans.Param3==float(p3)]
 
-    if to_or_from == "to":
-        df_trans = df_trans.loc[df_trans['State_To']==state]
-        df_trans = df_trans[["State_From","Num_Units"]]
-        df_trans.columns = ["State","Units"]
-    else:
-        df_trans = df_trans.loc[df_trans['State_From']==state]
-        df_trans = df_trans[["State_From","Num_Units"]]
-        df_trans.columns = ["State","Units"]
+    df_trans = df_trans.loc[
+                                (df_trans['Date']==chosen_date) & \
+                                (df_trans.Param1==float(p1)) & \
+                                (df_trans.Param2==float(p2)) & \
+                                (df_trans.Param3==float(p3))
+                            ]
+    if state:
+        if to_or_from == "to":
+            df_trans = df_trans.loc[df_trans['State_To']==state]
+        else:
+            df_trans = df_trans.loc[df_trans['State_From']==state]
 
-    tab_transfers = dash_table.DataTable(
-            id="transfer_list",
-            data=df_trans.to_dict('records'),
-            columns=[{'id': c, 'name': c} for c in df_trans.columns],
-            style_data={
-                'whiteSpace': 'normal',
-                'height': 'auto',
-            },
-            style_table={
-                'overflow':'auto',
-                'maxHeight': '300px',
-                'maxWidth': '500px',
-                'border': 'thin lightgrey solid',
-            },
-            style_cell={
-                'height': 'auto',
-                'minWidth': '0px',
-                'width': '50px',
-                'maxWidth': '180px',
-                'whiteSpace': 'normal',
-                'textAlign': 'center',
-                'font_size': '14px',
-                'font-family': 'arial',
-            },
-            style_data_conditional=[
-                {
-                    'if': {'row_index': 'odd'},
-                    'backgroundColor': 'rgb(248, 248, 248)'
-                }
-            ],
-            style_header={
-                'display': 'none',
-            }
-        )
-    return df_trans.to_dict('records')
+    df_trans = df_trans[orig_cols]
+    df_trans.columns = final_cols
+    max_rows = 100
+    return html.Table(
+        # Header
+        [html.Tr([html.Th(col) for col in df_trans.columns])] +
+
+        # Body
+        [
+            html.Tr([
+                html.Td(
+                    df_trans.iloc[i][col]) for col in df_trans.columns
+                    ]
+                ) for i in range(min(len(df_trans), max_rows))
+        ],
+        id="transfers-table"
+    )
