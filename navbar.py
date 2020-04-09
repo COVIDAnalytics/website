@@ -14,6 +14,16 @@ def Navbar():
                     ],
                     style={"padding-top": 30,"padding-bottom": 20}
                 ),
+                dbc.DropdownMenu(
+                   color="link",
+                   label="Ventilator Allocation",
+                   children=[
+                      dbc.DropdownMenuItem("Transfers", href="/ventilator_allocation"),
+                      dbc.DropdownMenuItem(divider=True),
+                      dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
+                    ],
+                    style={"padding-top": 30,"padding-bottom": 20}
+                ),
                 dbc.NavLink("Interactive Graphs", href="/interactive-graph",style={"padding-top": 30,"padding-bottom": 20}),
                 dbc.DropdownMenu(
                    color="link",

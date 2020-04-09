@@ -17,6 +17,10 @@ from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
 from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
+from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
+from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,build_transfers_table
+from ventilators.utils import build_download_link_demand, build_download_link_transfers
+from ventilators.ventilators_documentation import Ventilator_documentation
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -59,6 +63,10 @@ def display_page(pathname):
         return Projections_documentation()
     if pathname == '/dataset_documentation':
         return Dataset_documentation()
+    if pathname == '/ventilator_allocation':
+        return VentilatorAllocations()
+    if pathname == '/ventilator_allocation_documentation':
+        return Ventilator_documentation()
     else:
         return Homepage()
 
@@ -137,7 +145,88 @@ def display_US_stats_title(d):
     d = dt.strptime(d, '%Y-%m-%d').date()
     return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
 
-# navbar
+#Callbacks for ventilators
+@app.callback(
+    Output('us_map_projections_vent', 'children'),
+    [Input('base-model-dropdown', 'value'),
+     Input('us-map-date-picker-range-vent', 'date'),
+     Input('us_map_dropdown-vent', 'value')])
+def update_shortage_map(chosen_model,chosen_date,val):
+    return build_shortage_map(chosen_model,chosen_date,val)
+
+@app.callback(
+    Output('us_ventilator_graph', 'children'),
+    [Input('base-model-dropdown', 'value')])
+def update_hortage_timeline(chosen_model):
+    return build_shortage_timeline(chosen_model)
+
+@app.callback(
+    Output('us_map_transfers_vent', 'children'),
+    [Input('base-model-dropdown_transfers', 'value'),
+     Input('date-transfer-dropdown', 'date'),
+     Input('val-transfer-dropdown', 'value'),
+     Input('p1-transfer-dropdown', 'value'),
+     Input('p2-transfer-dropdown', 'value'),
+     Input('p3-transfer-dropdown', 'value')])
+def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
+    return build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3)
+
+@app.callback(
+    Output('us_transfers_graph', 'children'),
+    [Input('base-model-dropdown_transfers', 'value'),
+     Input('p1-transfer-dropdown', 'value'),
+     Input('p2-transfer-dropdown', 'value'),
+     Input('p3-transfer-dropdown', 'value')])
+def update_us_vent_timeline(chosen_model,p1,p2,p3):
+    return build_transfers_timeline(chosen_model,p1,p2,p3)
+
+@app.callback(
+    Output('transfer-state-dropdown', 'options'),
+    [Input('base-model-dropdown_transfers', 'value'),
+    Input('date-transfer-dropdown', 'date'),
+    Input('transfer-to-from-dropdown', 'value'),
+    Input('p1-transfer-dropdown', 'value'),
+    Input('p2-transfer-dropdown', 'value'),
+    Input('p3-transfer-dropdown', 'value')])
+def set_transfer_state_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
+    return build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3)
+
+@app.callback(
+    Output('table-text', 'children'),
+    [Input('transfer-to-from-dropdown', 'value'),
+    Input('transfer-state-dropdown', 'value')])
+def set_font_for_table(to_or_from,state):
+    if to_or_from == "to":
+        return u'The following presents which states send how many ventilators to {}'.format(state)
+    else:
+        return u'The following presents which states receive how many ventilators from {}'.format(state)
+
+@app.callback(
+    Output('transfer_list', 'data'),
+    [Input('base-model-dropdown_transfers', 'value'),
+     Input('date-transfer-dropdown', 'date'),
+     Input('transfer-to-from-dropdown', 'value'),
+     Input('transfer-state-dropdown', 'value'),
+     Input('p1-transfer-dropdown', 'value'),
+     Input('p2-transfer-dropdown', 'value'),
+     Input('p3-transfer-dropdown', 'value')])
+def update_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
+    return build_transfers_table(chosen_model,chosen_date,to_or_from,state,p1,p2,p3)
+
+@app.callback(
+    Output('download-link-demand', 'href'),
+    [Input('base-model-dropdown_download', 'value')])
+def update_download_link_demand(chosen_model):
+    return build_download_link_demand(chosen_model)
+
+@app.callback(
+    Output('download-link-tranfers', 'href'),
+    [Input('base-model-dropdown_download', 'value')])
+def update_download_link_transfers(chosen_model):
+    return build_download_link_transfers(chosen_model)
+
+
+#Callbacks for navbar
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
