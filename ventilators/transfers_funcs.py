@@ -9,7 +9,7 @@ from ventilators.utils import df_mod1_shortages, df_mod1_transfers,df_mod1_proje
 from ventilators.utils import df_mod2_shortages, df_mod2_transfers,df_mod2_projections
 from ventilators.utils import us_map, us_timeline, no_model_visual, model_visual
 
-def build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
+def build_transfers_map(chosen_model,chosen_date,p1,p2,p3):
     global df_mod1_shortages
     global df_mod2_shortages
     if chosen_model == "Washington IHME":
@@ -21,7 +21,7 @@ def build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
     df_map = df_map.loc[df_map.Param2==float(p2)]
     df_map = df_map.loc[df_map.Param3==float(p3)]
 
-    return us_map(df_map,chosen_date,val,model_visual)
+    return us_map(df_map,chosen_date,"Shortage",model_visual)
 
 def build_transfers_timeline(chosen_model,p1,p2,p3):
     global df_mod1_shortages

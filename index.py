@@ -165,12 +165,11 @@ def update_shortage_timeline(chosen_model):
     Output('us_map_transfers_vent', 'children'),
     [Input('base-model-dropdown', 'value'),
      Input('date-transfer-dropdown', 'date'),
-     Input('val-transfer-dropdown', 'value'),
      Input('p1-transfer-dropdown', 'value'),
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
-def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
-    return build_transfers_map(chosen_model,chosen_date,val,p1,p2,p3)
+def update_us_transfers_map(chosen_model,chosen_date,p1,p2,p3):
+    return build_transfers_map(chosen_model,chosen_date,p1,p2,p3)
 
 @app.callback(
     Output('us_transfers_graph', 'children'),

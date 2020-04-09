@@ -27,18 +27,6 @@ transfers_visuals = \
             ),
             dbc.Col(
             [
-                html.H6('Plotted Value:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'val-transfer-dropdown',
-                        options = [{'label': model_visual[x], 'value': x} for x in state_cols],
-                        value = 'Demand',
-                    ),
-                ),
-            ]
-            ),
-            dbc.Col(
-            [
                 html.H6('Pooling Fraction:',id="date-projections"),
                 html.Div(
                     dcc.Dropdown(

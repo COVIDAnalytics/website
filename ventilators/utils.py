@@ -32,7 +32,7 @@ no_model_visual = {
                 "Demand":"Projected Ventilator Demand"
                 }
 model_visual = {
-                "Shortage":"Shortage",
+                "Shortage":" Optimized Shortage",
                 "Supply": "Supply",
                 "Demand":"Demand"
                 }
