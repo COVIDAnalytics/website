@@ -74,7 +74,7 @@ body = dbc.Container(
                                     ),
                                 ]
                             ),
-                            dbc.CardImg(src="assets/images/insights-3.png", top=False),
+                            dbc.CardImg(src="assets/images/insights-4.png", top=False),
                         ],
                         style={"borderColor": "#900C3F"},
                         className="h-100"
@@ -119,7 +119,7 @@ body = dbc.Container(
                                     ),
                                 ]
                             ),
-                            dbc.CardImg(src="assets/images/tree-1.png", top=True),
+                            dbc.CardImg(src="assets/images/tree-2.png", top=True),
                         ],
                         style={"borderColor": "#900C3F"},
                         className="h-100"
@@ -133,7 +133,7 @@ body = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/images/allocation.png", top=True),
+                            dbc.CardImg(src="assets/images/allocation-2.png", top=True),
                             dbc.CardBody(
                                 [
                                     html.H4("Ventilator allocation", className="card-title"),
