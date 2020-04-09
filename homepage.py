@@ -119,7 +119,7 @@ body = dbc.Container(
                                     ),
                                 ]
                             ),
-                            dbc.CardImg(src="assets/images/tree-1.png", top=True),
+                            dbc.CardImg(src="assets/images/tree-2.png", top=True),
                         ],
                         style={"borderColor": "#900C3F"},
                         className="h-100"
