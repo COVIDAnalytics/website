@@ -133,7 +133,7 @@ body = dbc.Container(
                 dbc.Col(
                     dbc.Card(
                         [
-                            dbc.CardImg(src="assets/images/allocation.png", top=True),
+                            dbc.CardImg(src="assets/images/allocation-2.png", top=True),
                             dbc.CardBody(
                                 [
                                     html.H4("Ventilator allocation", className="card-title"),
