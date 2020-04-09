@@ -6,21 +6,9 @@ from ventilators.utils import no_model_visual, model_visual, models
 
 
 # Defines the top of the page, where the current situation is displayed (no optimization yet)
-shortage = dbc.Container([
-    dbc.Row(
+shortage = \
+    [dbc.Row(
         [
-            dbc.Col(
-            [
-                html.H6('Data Source:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'base-model-dropdown',
-                        options = [{'label': x, 'value': x} for x in models],
-                        value = 'Washington IHME',
-                    )
-                ),
-            ],
-            ),
             dbc.Col(
             [
                 html.H6('Date:',id="date-projections"),
@@ -50,8 +38,8 @@ shortage = dbc.Container([
             ]
             )
         ]
-    ),
-    dbc.Row(
+    )] + \
+    [dbc.Row(
         [
             dbc.Col(
             [
@@ -60,8 +48,8 @@ shortage = dbc.Container([
             ]
             )
         ]
-    ),
-    dbc.Row(
+    )] + \
+    [dbc.Row(
         [
             dbc.Col(
             [
@@ -89,6 +77,4 @@ shortage = dbc.Container([
             ),
         ]
     )
-],
-className="page-body"
-)
+]

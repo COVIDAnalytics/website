@@ -7,9 +7,11 @@ from navbar import Navbar
 from footer import Footer
 from assets.mappings import states, colors
 from ventilators.shortage import shortage
+from ventilators.transfers_visuals import transfers_visuals
+from ventilators.transfers_table import transfers_table
 from ventilators.utils import df_mod1_shortages, df_mod1_transfers, df_mod1_projections
 from ventilators.utils import df_mod2_shortages, df_mod2_transfers, df_mod2_projections
-from ventilators.utils import df_mod1_transfers, oneWeekFromNow, state_cols
+from ventilators.utils import oneWeekFromNow, state_cols
 from ventilators.utils import no_model_visual, model_visual, models, change2Percent
 
 nav = Navbar()
@@ -46,8 +48,28 @@ body = dbc.Container(
             ]
             ),
         ],
-        ),
-        shortage,
+        )
+    ] + \
+    [
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                html.H6('Select the Data Source:',id="date-projections"),
+                html.Div(
+                    dcc.Dropdown(
+                        id = 'base-model-dropdown',
+                        options = [{'label': x, 'value': x} for x in models],
+                        value = 'Washington IHME',
+                    ),
+                ),
+            ],
+            ),
+        ]
+        )
+    ] + \
+        shortage + \
+    [
         dbc.Row(
             [
                 dbc.Col(
@@ -78,203 +100,11 @@ body = dbc.Container(
                 ]
                 ),
             ],
-            ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.H6('Data Source:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'base-model-dropdown_transfers',
-                        options = [{'label': x, 'value': x} for x in models],
-                        value = 'Washington IHME',
-                    ),
-                ),
-            ],
-            ),
-            dbc.Col(
-            [
-                html.H6('Date:',id="date-projections"),
-                html.Div(
-                    dcc.DatePickerSingle(
-                        id='date-transfer-dropdown',
-                        min_date_allowed=min(df_mod1_transfers.Date.values),
-                        max_date_allowed=max(df_mod1_transfers.Date.values),
-                        date=oneWeekFromNow,
-                        initial_visible_month=oneWeekFromNow,
-                        style={'marginBottom':20}
-                    ),
-                    id="date-projections-picker-div"
-                ),
-            ]
-            ),
-            dbc.Col(
-            [
-                html.H6('Plotted Value:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'val-transfer-dropdown',
-                        options = [{'label': model_visual[x], 'value': x} for x in state_cols],
-                        value = 'Demand',
-                    ),
-                ),
-            ]
-            ),
-            dbc.Col(
-            [
-                html.H6('Pooling Fraction:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'p1-transfer-dropdown',
-                        options = [{'label': change2Percent(x), 'value': x} for x in df_mod1_transfers.Param1.unique()],
-                        value = '0.1',
-                    ),
-                ),
-            ]
-            ),
-            dbc.Col(
-            [
-                html.H6('Buffer:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'p2-transfer-dropdown',
-                        options = [{'label': change2Percent(x), 'value': x} for x in df_mod1_transfers.Param2.unique()],
-                        value = '0.2',
-                    ),
-                ),
-            ]
-            ),
-            dbc.Col(
-            [
-                html.H6('Surge Supply:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'p3-transfer-dropdown',
-                        options = [{'label': change2Percent(x), 'value': x} for x in df_mod1_transfers.Param3.unique()],
-                        value = '0.75',
-                    ),
-                ),
-            ]
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.Div(
-                    id = 'us_map_transfers_vent',
-                    children = [],
-                ),
-            ]
-            ),
-            dbc.Col(
-            [
-                html.Div(
-                    id = 'us_transfers_graph',
-                    children = [],
-                ),
-            ]
-            ),
-        ]
-        ),
-        dbc.Row(
-            [
-                dbc.Col(
-                [
-                    html.H6('Transfer:',id="date-projections"),
-                ]
-                ),
-                dbc.Col(
-                [
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'transfer-to-from-dropdown',
-                            options = [{'label': x, 'value': x} for x in ["to", "from"]],
-                            value = 'to',
-                        ),
-                    ),
-                ]
-                ),
-                dbc.Col(
-                [
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'transfer-state-dropdown',
-                            options = [{'label': x, 'value': x} for x in models],
-                            value = '',
-                        ),
-                        style={'textAlign':"center"}
-                    ),
-                ]
-                ),
-            ],
-            ),
-            dbc.Row([
-                dbc.Col(
-                [
-                    html.Div(id='table-text',children='',style={'paddingTop':"20px"}),
-                ]
-                ),
-            ],
-            ),
-            dbc.Row([
-                dbc.Col(
-                [
-                    dash_table.DataTable(
-                            id="transfer_list",
-                            columns=[{'id': c, 'name': c} for c in ["State","Units"]],
-                            style_data={
-                                'whiteSpace': 'normal',
-                                'height': 'auto',
-                            },
-                            style_table={
-                                'overflow':'visible',
-                                'maxHeight': 'auto',
-                                'maxWidth': '500px',
-                                'border': 'thin lightgrey solid',
-                            },
-                            style_cell={
-                                'height': 'auto',
-                                'minWidth': '0px',
-                                'width': '50px',
-                                'maxWidth': '180px',
-                                'whiteSpace': 'normal',
-                                'textAlign': 'center',
-                                'font_size': '14px',
-                                'font-family': 'arial',
-                            },
-                            style_data_conditional=[
-                                {
-                                    'if': {'row_index': 'odd'},
-                                    'backgroundColor': 'rgb(248, 248, 248)'
-                                }
-                            ],
-                            style_header={
-                                'display': 'none',
-                            }
-                        )
-                ],
-                ),
-            ],
-            ),
-        dbc.Row([
-                dbc.Col(
-                [
-                    html.H6('Select Model - Download Data:',id="date-projections"),
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'base-model-dropdown_download',
-                            options = [{'label': x, 'value': x} for x in models],
-                            value = 'Washington IHME',
-                        ),
-                    ),
-                ],
-                ),
-    		],
-            align="center",
-            ),
+        )
+    ] + \
+        transfers_visuals + \
+        transfers_table + \
+    [
         dbc.Row([
     			dbc.Col(
     				html.Div(

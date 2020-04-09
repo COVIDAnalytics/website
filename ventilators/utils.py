@@ -85,7 +85,7 @@ def us_map(df,chosen_date,val,label_dict):
     )
     return graph
 
-def us_timeline(df, label_dict, title="US Ventilator Predictions"):
+def us_timeline(df, label_dict, title="Optimization Effect on Shortage"):
     df = df.loc[df.State == 'US']
     fig = go.Figure()
 

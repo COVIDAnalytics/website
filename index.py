@@ -163,7 +163,7 @@ def update_shortage_timeline(chosen_model):
 
 @app.callback(
     Output('us_map_transfers_vent', 'children'),
-    [Input('base-model-dropdown_transfers', 'value'),
+    [Input('base-model-dropdown', 'value'),
      Input('date-transfer-dropdown', 'date'),
      Input('val-transfer-dropdown', 'value'),
      Input('p1-transfer-dropdown', 'value'),
@@ -174,7 +174,7 @@ def update_us_transfers_map(chosen_model,chosen_date,val,p1,p2,p3):
 
 @app.callback(
     Output('us_transfers_graph', 'children'),
-    [Input('base-model-dropdown_transfers', 'value'),
+    [Input('base-model-dropdown', 'value'),
      Input('p1-transfer-dropdown', 'value'),
      Input('p2-transfer-dropdown', 'value'),
      Input('p3-transfer-dropdown', 'value')])
@@ -183,7 +183,7 @@ def update_us_vent_timeline(chosen_model,p1,p2,p3):
 
 @app.callback(
     Output('transfer-state-dropdown', 'options'),
-    [Input('base-model-dropdown_transfers', 'value'),
+    [Input('base-model-dropdown', 'value'),
     Input('date-transfer-dropdown', 'date'),
     Input('transfer-to-from-dropdown', 'value'),
     Input('p1-transfer-dropdown', 'value'),
@@ -194,9 +194,12 @@ def set_transfer_state_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
 
 @app.callback(
     Output('table-text', 'children'),
-    [Input('transfer-to-from-dropdown', 'value'),
-    Input('transfer-state-dropdown', 'value')])
-def set_font_for_table(to_or_from,state):
+    [Input('date-transfer-dropdown', 'date')])
+def set_font_for_table(chosen_date):
+    return u'Below you can view the inter-state transfers scheduled on \
+        {}. Note that this table will be empty if there are no transfers \
+        scheduled.'.format(dt.strptime(chosen_date, '%Y-%m-%d').date().strftime('%b %d, %Y'))
+
     if to_or_from == "to":
         return u'The following presents which states send how many ventilators to {}'.format(state)
     else:
@@ -204,7 +207,7 @@ def set_font_for_table(to_or_from,state):
 
 @app.callback(
     Output('transfer_list', 'data'),
-    [Input('base-model-dropdown_transfers', 'value'),
+    [Input('base-model-dropdown', 'value'),
      Input('date-transfer-dropdown', 'date'),
      Input('transfer-to-from-dropdown', 'value'),
      Input('transfer-state-dropdown', 'value'),
@@ -216,13 +219,13 @@ def update_us_transfers(chosen_model,chosen_date,to_or_from,state,p1,p2,p3):
 
 @app.callback(
     Output('download-link-demand', 'href'),
-    [Input('base-model-dropdown_download', 'value')])
+    [Input('base-model-dropdown', 'value')])
 def update_download_link_demand(chosen_model):
     return build_download_link_demand(chosen_model)
 
 @app.callback(
     Output('download-link-tranfers', 'href'),
-    [Input('base-model-dropdown_download', 'value')])
+    [Input('base-model-dropdown', 'value')])
 def update_download_link_transfers(chosen_model):
     return build_download_link_transfers(chosen_model)
 
