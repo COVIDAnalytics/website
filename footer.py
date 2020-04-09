@@ -24,8 +24,8 @@ def Footer():
                         ),
                         dbc.Col(
                             [
-                                dbc.NavLink("Team", href="/team", style={"font-size":15,"margin-right":10}),
-                                dbc.NavLink("Contact Us", href="/contact", style={"font-size":15,"margin-bottom":0}),
+                                dbc.NavLink("Team", href="/team", style={"fontSize":15,"marginRight":10}),
+                                dbc.NavLink("Contact Us", href="/contact", style={"fontSize":15,"marginBottom":0}),
                             ],
                         ),
                     ],

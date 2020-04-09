@@ -31,7 +31,7 @@ shortage = dbc.Container([
                         max_date_allowed=max(df_mod1_shortages.Date.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
-                        style={'margin-bottom':20}
+                        style={'marginBottom':20}
                     ),
                     id="date-projections-picker-div"
                 ),

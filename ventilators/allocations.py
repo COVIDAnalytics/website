@@ -103,7 +103,7 @@ body = dbc.Container(
                         max_date_allowed=max(df_mod1_transfers.Date.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
-                        style={'margin-bottom':20}
+                        style={'marginBottom':20}
                     ),
                     id="date-projections-picker-div"
                 ),
@@ -205,7 +205,7 @@ body = dbc.Container(
                             options = [{'label': x, 'value': x} for x in models],
                             value = '',
                         ),
-                        style={'text-align':"center"}
+                        style={'textAlign':"center"}
                     ),
                 ]
                 ),
@@ -214,7 +214,7 @@ body = dbc.Container(
             dbc.Row([
                 dbc.Col(
                 [
-                    html.Div(id='table-text',children='',style={'padding-top':"20px"}),
+                    html.Div(id='table-text',children='',style={'paddingTop':"20px"}),
                 ]
                 ),
             ],
@@ -284,7 +284,7 @@ body = dbc.Container(
     						download="covid_analytics_ventilator_demand.csv",
     	        			target="_blank"
     					),
-    					style={'text-align':"center"}
+    					style={'textAlign':"center"}
     				)
     			),
     			dbc.Col(
@@ -295,7 +295,7 @@ body = dbc.Container(
     						download="covid_analytics_ventilator_transfers.csv",
     	        			target="_blank"
     					),
-    					style={'text-align':"center"}
+    					style={'textAlign':"center"}
     				)
     			),
     		]

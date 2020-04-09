@@ -69,7 +69,7 @@ body = dbc.Container(
                     ]
                     )
                 ],
-                style={'margin-bottom': 20}
+                style={'marginBottom': 20}
             )
         ] + member_rows,
         className="page-body"

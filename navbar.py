@@ -12,7 +12,7 @@ def Navbar():
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
                     ],
-                    style={"padding-top": 30,"padding-bottom": 20}
+                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
                 dbc.DropdownMenu(
                    color="link",
@@ -22,9 +22,9 @@ def Navbar():
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
                     ],
-                    style={"padding-top": 30,"padding-bottom": 20}
+                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
-                dbc.NavLink("Interactive Graphs", href="/interactive-graph",style={"padding-top": 30,"padding-bottom": 20}),
+                dbc.NavLink("Interactive Graphs", href="/interactive-graph",style={"paddingTop": 30,"paddingBottom": 20}),
                 dbc.DropdownMenu(
                    color="link",
                    label="Dataset",
@@ -33,7 +33,7 @@ def Navbar():
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
                     ],
-                    style={"padding-top": 30,"padding-bottom": 20}
+                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
                 dbc.DropdownMenu(
                    color="link",
@@ -43,7 +43,7 @@ def Navbar():
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Contact Us", href="/contact"),
                     ],
-                    style={"padding-top": 30,"padding-bottom": 20}
+                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
             ],
             id="navbar-links",

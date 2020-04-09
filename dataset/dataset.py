@@ -90,7 +90,7 @@ body = dbc.Container([
 				 patients, and (b) including only sufficiently representative studies. \
 				 So far, the majority of the included studies are using patient data from China.\
 				 We will keep on updating this resource as more research investigations from \
-				 other countries are getting published.'), 
+				 other countries are getting published.'),
 				html.H5("Guidance for Use of the Dataset"),
 				html.P('At a high level, each row of the dataset represents a cohort of patients.\
 				 Some papers study a single cohort, while others study several cohorts, \
@@ -113,7 +113,7 @@ body = dbc.Container([
 						href=data_csv_string,
 	        			target="_blank"
 					),
-					style={'text-align':"center"}
+					style={'textAlign':"center"}
 				)
 			),
 			dbc.Col(
@@ -125,7 +125,7 @@ body = dbc.Container([
 						href=ref_data_csv_string,
 	        			target="_blank"
 					),
-					style={'text-align':"center"}
+					style={'textAlign':"center"}
 				)
 			),
 			]
