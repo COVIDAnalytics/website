@@ -48,6 +48,9 @@ body = dbc.Container([
                   awareness and reduced travel among the general population. This function is calibrated for every state to account \
                   for the differing responses in different states.
                 '''),
+				dcc.Markdown('''
+                  Additional documentation and the source code can be found [here](https://github.com/COVIDAnalytics/epidemic-model).
+                '''),
 				 ])
 		 ],
 	 ),
