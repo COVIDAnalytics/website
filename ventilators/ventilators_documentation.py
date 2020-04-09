@@ -18,9 +18,6 @@ body = dbc.Container([
 			dbc.Col([
             	html.H2("Ventilator Allocation Documentation"),
                 dcc.Markdown("Detailed model specifications are available in the following [technical report](/ventilator_documentation_pdf)."),
-                html.P("""\
-                        blah
-                       """),
 				 ])
 		 ],
 	 ),
