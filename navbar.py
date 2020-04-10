@@ -18,7 +18,7 @@ def Navbar():
                    color="link",
                    label="Ventilator Allocation",
                    children=[
-                      dbc.DropdownMenuItem("Transfers", href="/ventilator_allocation"),
+                      dbc.DropdownMenuItem("Results", href="/ventilator_allocation"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
                     ],
