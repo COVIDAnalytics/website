@@ -42,7 +42,8 @@ def member_pic(member):
 # Single collaborator pic
 def collab_pic(collaborator):
     return dbc.Col(
-        [
+        [   
+        html.A([
             html.Div(
             [
                 html.Img(
@@ -52,6 +53,7 @@ def collab_pic(collaborator):
              ],
              style={'display': 'inline-block'}
             )
+            ], href=collaborator['website'])
         ],
         width='auto',
     )

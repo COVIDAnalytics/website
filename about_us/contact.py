@@ -6,6 +6,7 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
+import plotly.express as px
 
 from navbar import Navbar
 from footer import Footer
@@ -13,6 +14,7 @@ from footer import Footer
 # Form details
 formspree_url="https://formspree.io/xqkdkggg"
 mailing_list="covidanalytics@mit.edu"
+
 
 nav = Navbar()
 footer = Footer()
