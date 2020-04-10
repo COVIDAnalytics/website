@@ -6,9 +6,20 @@ def Navbar():
         [
                 dbc.DropdownMenu(
                    color="link",
+                   label="Data",
+                   children=[
+                      dbc.DropdownMenuItem("Data Access", href="/dataset"),
+                      dbc.DropdownMenuItem(divider=True),
+                      dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
+                    ],
+                    style={"paddingTop": 30,"paddingBottom": 20}
+                ),
+                dbc.NavLink("Insights", href="/interactive-graph",style={"paddingTop": 30,"paddingBottom": 20}),
+                dbc.DropdownMenu(
+                   color="link",
                    label="Projections",
                    children=[
-                      dbc.DropdownMenuItem("Graphs", href="/projections"),
+                      dbc.DropdownMenuItem("Results", href="/projections"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
                     ],
@@ -21,17 +32,6 @@ def Navbar():
                       dbc.DropdownMenuItem("Results", href="/ventilator_allocation"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
-                    ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
-                ),
-                dbc.NavLink("Interactive Graphs", href="/interactive-graph",style={"paddingTop": 30,"paddingBottom": 20}),
-                dbc.DropdownMenu(
-                   color="link",
-                   label="Dataset",
-                   children=[
-                      dbc.DropdownMenuItem("Data Access", href="/dataset"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),

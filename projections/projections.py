@@ -36,6 +36,23 @@ def add_cases(w):
         w += ' Cases'
     return w
 
+def build_card(id):
+    return dbc.Col(
+                [
+                dbc.Card(
+                    [],
+                    id = id,
+                    color="dark",
+                    inverse=True,
+                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
+                    ),
+                ],
+                xs=12,
+                sm=6,
+                md=6,
+                lg=3,
+            )
+
 body = dbc.Container(
     [
         dbc.Row(
@@ -88,13 +105,14 @@ body = dbc.Container(
             ),
         ],
         ),
-        dbc.CardDeck(
+        dbc.Row(
         [
-            dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
-            dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
-            dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
-            dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
+            build_card('us_tot_det'),
+            build_card('us_tot_death'),
+            build_card('us_active'),
+            build_card('us_active_hosp')
         ],
+        align="center"
         ),
         dbc.Row(
         [
@@ -209,7 +227,7 @@ def build_us_map(map_date,val='Active'):
             autocolorscale=False,
             text=df_map['text'], # hover text
             marker_line_color='white', # line markers between states
-            colorbar_title='{}'.format(val)
+            colorbar_title='{}'.format(add_cases(val))
         ))
 
     fig.update_layout(
@@ -237,16 +255,28 @@ def build_state_projection(state):
 
     i = 0
     for val in df_projections_sub.columns:
-        if val in cols and val != 'Total Detected':
-            fig.add_trace(go.Scatter(
-                x=df_projections_sub['Day'],
-                y=df_projections_sub[val].values,
-                legendgroup=i,
-                name=val.replace(' ','<br>'),
-                mode="lines+markers",
-                marker=dict(color=colors[i]),
-                line=dict(color=colors[i])
-            ))
+        if val in cols:
+            if val != 'Total Detected':
+                fig.add_trace(go.Scatter(
+                    x=df_projections_sub['Day'],
+                    y=df_projections_sub[val].values,
+                    legendgroup=i,
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[i]),
+                    line=dict(color=colors[i])
+                ))
+            else:
+                fig.add_trace(go.Scatter(
+                    x=df_projections_sub['Day'],
+                    y=df_projections_sub[val].values,
+                    legendgroup=i,
+                    visible = 'legendonly',
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[i]),
+                    line=dict(color=colors[i])
+                ))
             i+=1
 
     fig.update_layout(
@@ -294,7 +324,7 @@ def get_us_stat(d, val):
         ),
         dbc.CardBody(
             [
-                html.H5(val,id='us-stats-cards'),
+                html.H5(add_cases(val),id='us-stats-cards'),
             ]
         ),
     ]
