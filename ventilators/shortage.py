@@ -7,7 +7,6 @@ from ventilators.utils import no_model_visual, model_visual, models
 
 # Defines the top of the page, where the current situation is displayed (no optimization yet)
 shortage = \
-    [] + \
     [dbc.Row(
         [
             dbc.Col(
