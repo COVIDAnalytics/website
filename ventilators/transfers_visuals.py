@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from ventilators.utils import df_mod1_transfers, oneWeekFromNow, state_cols, today
+from ventilators.utils import df_mod1_transfers, oneWeekFromNow, state_cols
 from ventilators.utils import model_visual, models, change2Percent
 
 transfers_visuals = \
