@@ -44,7 +44,7 @@ def build_card(id):
                     id = id,
                     color="dark",
                     inverse=True,
-                    style={'marginBottom':20,'paddingTop':20,"height":"13rem"},
+                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
                     ),
                 ],
                 xs=12,
