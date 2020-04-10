@@ -145,7 +145,11 @@ transfers_visuals = \
                     id = 'us_transfers_graph',
                     children = [],
                 ),
-            ]
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
             dbc.Col(
             [
@@ -165,7 +169,11 @@ transfers_visuals = \
                     ),
                     id="date-projections-picker-div"
                 ),
-            ]
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
         ]
         ),

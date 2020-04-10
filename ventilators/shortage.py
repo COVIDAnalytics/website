@@ -30,7 +30,11 @@ shortage = \
                         'display': 'inline-block',
                         }
                 ),
-            ]
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
             dbc.Col(
             [
@@ -74,7 +78,11 @@ shortage = \
                         )
                     ]
                 ),
-            ]
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
         ]
     )
