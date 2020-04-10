@@ -22,6 +22,7 @@ from ventilators.shortage_funcs import build_shortage_map,build_shortage_timelin
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
 from ventilators.ventilators_documentation import Ventilator_documentation
+from risk_calculator.calculator import RickCalc
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -68,6 +69,8 @@ def display_page(pathname):
         return VentilatorAllocations()
     if pathname == '/ventilator_allocation_documentation':
         return Ventilator_documentation()
+    if pathname == '/risk_calculator':
+        return RickCalc()
     else:
         return Homepage()
 
@@ -236,6 +239,13 @@ def update_download_link_transfers(chosen_model):
 def download_ventilator_documentation():
     return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
                                      filename="Ventilator_Documentation.pdf")
+
+#Callbacks for calculator
+STATIC_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'risk_calculators')
+
+@app.server.route('/risk_calculators/<resource>')
+def serve_static(resource):
+    return flask.send_from_directory(STATIC_PATH, resource)
 
 #Callbacks for navbar
 @app.callback(
