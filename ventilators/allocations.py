@@ -32,14 +32,12 @@ body = dbc.Container(
                           another, creating opportunities to mitigate shortages by pooling some of \
                           the ventilator supply across states. Details on data and models can be found in the\
                  [documentation](/ventilator_allocation_documentation).'''),
-                dcc.Markdown('''**Why share ventilators between states?**'''),
-                dcc.Markdown('''The number of ventilators available \
+                html.H4("Why share ventilators between states?"),
+                dcc.Markdown('''As highlighted in the visuals below, the number of ventilators available \
                 across all 50 states - without even accounting for the federal stockpile - exceeds national demand. Yet with the current allocation of \
                 ventilators, some states are expected to face strong shortages over time. \
-                When exploring these visuals, you can choose between two different pandemic \
-                prediction models: the [University of Washington’s IHME model]\
-                (https://covid19.healthdata.org/united-states-of-america) and [our SEIR epidemiological model]\
-                (/projections).'''),
+                And this is true for different pandemic projection models, including [our own forecasts](/projections) and those of the [University of Washington’s IHME model]\
+                (https://covid19.healthdata.org/united-states-of-america).'''),
             ]
             ),
         ],
@@ -55,7 +53,7 @@ body = dbc.Container(
                     dcc.Dropdown(
                         id = 'base-model-dropdown',
                         options = [{'label': x, 'value': x} for x in models],
-                        value = 'Washington IHME',
+                        value = 'COVIDAnalytics',
                     ),
                 ),
             ],
@@ -69,29 +67,14 @@ body = dbc.Container(
             [
                 dbc.Col(
                 [
-                    dcc.Markdown('''**Ventilator pooling results**'''),
-                    dcc.Markdown('''We now propose an interactive tool which allows the user \
-                    to experiment with different reallocation policies and see the resulting \
-                    impact on shortfalls. '''),
-                    dcc.Markdown('''You can choose:'''),
+                    html.H4("How can states share ventilators optimally?"),
                     dcc.Markdown('''
-                      1. **Data Source**: Which pandemic prediction models to use to estimate ventilator demand.
-                      2. **Pooling Fraction**: Fraction of each state’s initial ventilator supply that is \
-                      available for sharing with other states. For instance, if the Pooling Fraction \
-                      is 10%, the model guarantees that each state will retain at least 90% of its \
-                      initial supply.
-                      3. **Buffer**: Percentage of additional demand that states would like to plan for \
-                      (with buffer supply of ventilators). For instance, if the Buffer is 10% and \
-                      the demand in a given state on a given day is 1,000 ventilators, then the \
-                      state would ideally like to have a stock of 1,100 ventilators.
-                      4. **Surge Supply Availability**: Scaling factor to adjust the available surge \
-                      supply of ventilators from the federal government. Our baseline estimate of the \
-                      federal stockpile available is 13,500 and is available for a release to the states in the next 30 days, i.e., \
-                      450 ventilators per day. \
-                      To cope with uncertainty in this estimate, we let the user vary this number.
-                    '''),
-                    dcc.Markdown('''You will find additional data sources and parameter choices on our \
-                    [documentation](/ventilator_allocation_documentation).'''),
+                        We know how many ventilators are in each state from public data, and we \
+                        estimate that up to 450 ventilators per day could be made available \
+                        through a federal surge \
+                        (see [documentation](/ventilator_allocation_documentation) for details). \
+                        Our optimization model recommends surge supply allocations and interstate transfers to reduce ventilator shortage as quickly and efficiently as possible.'''),
+                    html.H5('Use the interactive tool below to experiment with different reallocation policies!'),
                 ]
                 ),
             ],
