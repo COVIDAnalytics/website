@@ -17,7 +17,8 @@ body = dbc.Container([
         [
 			dbc.Col([
             	html.H2("Ventilator Allocation Documentation"),
-                dcc.Markdown("Detailed model specifications are available in the following [technical report](/ventilator_documentation_pdf)."),
+                dcc.Markdown('''Detailed model specifications are available in the following [technical report](/ventilator_documentation_pdf).
+                	The full source code can be accessed on [GitHub](https://github.com/COVIDAnalytics/ventilator-allocation).'''),
 				 ])
 		 ],
 	 ),
