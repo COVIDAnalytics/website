@@ -36,7 +36,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H2("Interactive Graphs")
+              html.H2("Insights")
             ]
             ),
         ],
