@@ -46,6 +46,8 @@ def us_map(df,chosen_date,val,label_dict):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 
     max_val = max(df.loc[df['State']!='US'][val])
+    if max_val == 0:
+        max_val = 500
 
     df = df.loc[df['Date']==chosen_date]
     df = df.loc[df['State']!='US']
