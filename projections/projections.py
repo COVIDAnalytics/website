@@ -118,22 +118,6 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H6('Predicted Value:',id="date-projections"),
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'us_map_dropdown',
-                            options = [{'label': x, 'value': x} for x in cols],
-                            value = 'Active',
-                        ),
-                    ),
-            ],
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
                 html.Div(
                     id = 'us_map_projections',
                     children = [],
@@ -144,6 +128,18 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
+            dbc.Col(
+            [
+                html.H6('Predicted Value:',id="date-projections"),
+                    html.Div(
+                        dcc.Dropdown(
+                            id = 'us_map_dropdown',
+                            options = [{'label': x, 'value': x} for x in cols],
+                            value = 'Total Detected',
+                        ),
+                    ),
+            ],
+            ),
             dbc.Col(
             [
                 html.H6('State:',id="date-projections"),
@@ -197,7 +193,7 @@ def ProjectState():
     layout = html.Div([nav, body, footer],className="site")
     return layout
 
-def build_us_map(map_date,val='Active'):
+def build_us_map(map_date,val='Total Detected'):
 
     global df_projections
 
@@ -247,37 +243,24 @@ def build_us_map(map_date,val='Active'):
     return graph
 
 
-def build_state_projection(state):
+def build_state_projection(state,val='Total Detected'):
     global df_projections
 
     df_projections_sub = df_projections.loc[df_projections.State == state]
     fig = go.Figure()
-
-    i = 0
-    for val in df_projections_sub.columns:
-        if val in cols:
-            if val != 'Total Detected':
-                fig.add_trace(go.Scatter(
-                    x=df_projections_sub['Day'],
-                    y=df_projections_sub[val].values,
-                    legendgroup=i,
-                    name=val.replace(' ','<br>'),
-                    mode="lines+markers",
-                    marker=dict(color=colors[i]),
-                    line=dict(color=colors[i])
-                ))
-            else:
-                fig.add_trace(go.Scatter(
-                    x=df_projections_sub['Day'],
-                    y=df_projections_sub[val].values,
-                    legendgroup=i,
-                    visible = 'legendonly',
-                    name=val.replace(' ','<br>'),
-                    mode="lines+markers",
-                    marker=dict(color=colors[i]),
-                    line=dict(color=colors[i])
-                ))
-            i+=1
+    color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
+                'Cumulative Hospitalized':3,'Total Detected Deaths':4};
+    if val is not None:
+        i = color_dict[val]
+        fig.add_trace(go.Scatter(
+            x=df_projections_sub['Day'],
+            y=df_projections_sub[val].values,
+            legendgroup=i,
+            name=val.replace(' ','<br>'),
+            mode="lines+markers",
+            marker=dict(color=colors[i]),
+            line=dict(color=colors[i])
+        ))
 
     fig.update_layout(
                 height=550,
