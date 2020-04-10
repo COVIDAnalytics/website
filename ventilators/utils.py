@@ -45,6 +45,10 @@ def us_map(df,chosen_date,val,label_dict):
     if isinstance(chosen_date, str):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 
+    max_val = max(df.loc[df['State']!='US'][val])
+    if max_val == 0:
+        max_val = 500
+
     df = df.loc[df['Date']==chosen_date]
     df = df.loc[df['State']!='US']
     df = df.applymap(str)
@@ -64,6 +68,8 @@ def us_map(df,chosen_date,val,label_dict):
             z=df[val].astype(float),
             locationmode='USA-states',
             colorscale='Inferno_r',
+            zmin = 0,
+            zmax = max_val,
             autocolorscale=False,
             text=df['text'], # hover text
             marker_line_color='white', # line markers between states

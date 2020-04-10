@@ -23,7 +23,7 @@ data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_s
 nav = Navbar()
 footer = Footer()
 
-categories = ["Comorbidities","Symptoms","Treatment"]
+categories = ["Comorbidities","Symptoms","Treatment","Lab Test Results"]
 
 demographics = ["Median Age", "% Male"]
 
@@ -97,6 +97,7 @@ body = dbc.Container(
                         dcc.Dropdown(
                             id = 'y_axis_dropdown',
                             value = 'Hypertension',
+                            optionHeight = 50,
                             style={'marginBottom': 10,'marginTop': 10}
                         ),
                     )

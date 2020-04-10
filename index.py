@@ -97,7 +97,7 @@ def set_y_value(available_options):
     Output('display-selected-values', 'children'),
     [Input('categories_dropdown', 'value')])
 def set_display_children(selected_category):
-    mapping = {"Comorbidities": "Comorbidity", "Treatment": "Treatment", "Symptoms": "Symptom"}
+    mapping = {"Comorbidities": "Comorbidity", "Treatment": "Treatment", "Symptoms": "Symptom", "Lab Test Results":"Lab Test Result"}
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
 #Callbacks for projections
@@ -195,9 +195,10 @@ def set_transfer_state_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
     Output('table-text', 'children'),
     [Input('date-transfer-dropdown', 'date')])
 def set_font_for_table(chosen_date):
-    return u'Below you can view the inter-state transfers scheduled on \
-        {}. Note that this table will be empty if there are no transfers \
-        scheduled.'.format(dt.strptime(chosen_date, '%Y-%m-%d').date().strftime('%b %d, %Y'))
+    return u'The table below lists all interstate transfers scheduled on \
+        {} (empty if none are scheduled). Try changing the date above to see which \
+        transfers are recommended on \
+        other days!'.format(dt.strptime(chosen_date, '%Y-%m-%d').date().strftime('%b %d, %Y'))
 
     if to_or_from == "to":
         return u'The following presents which states send how many ventilators to {}'.format(state)
