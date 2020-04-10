@@ -23,20 +23,24 @@ num_collaborators = len(collaborators)
 def member_pic(member):
     return dbc.Col(
         [
-            html.Div(
+            dbc.Card(
             [
-                html.Img(src='assets/team_members/photos/%s' % member['photo']),
-                dbc.Button(
-                    member['name'],
-                    color="info",
-                    block=True,
-                    className="mb-3",
-                    href=member['website'])
+                dbc.CardImg(src='assets/team_members/photos/%s' % member['photo']),
+                dbc.CardBody(
+                    html.A(member['name'],
+                           href=member['website'],
+                           className="stretched-link team-name"),
+                ),
              ],
-             style={'display': 'inline-block'}
+             className="team-card h-100 w-100"
             )
         ],
-        width=True,
+        xs=12,
+        sm=6,
+        md=3,
+        lg=3,
+        xl=2,
+        style={'marginBottom': 7}
     )
 
 # Single collaborator pic
@@ -65,13 +69,15 @@ member_rows = \
             [
                 member_pic(members[0])
             ],
+            justify="around"
         )
     ] + \
     [
         dbc.Row(
             [
                 member_pic(members[i]) for i in range(1,num_members)
-            ]
+            ],
+            justify="around",
         )
     ]
 
@@ -80,7 +86,8 @@ collab_rows = \
         dbc.Row(
             [
                 collab_pic(collaborators[i]) for i in range(num_collaborators)
-            ]
+            ],
+            justify="around",
         )
     ]
 
@@ -92,7 +99,7 @@ body = dbc.Container(
                     [
                         html.H2("Our Team"),
                         html.P('Our team comprises passionate researchers in Operations Research \
-                        and Analytics. We were eager to use our collective skills and create new \
+                        and Analytics. We are eager to use our collective skills and create new \
                         tools that can help the scientific community fight against the pandemic.')
                     ]
                     )

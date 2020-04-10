@@ -53,3 +53,13 @@ P {
   color: #800020;
   text-align: center;
 }
+
+.team-name{
+  text-align: center;
+  color: #800020;
+}
+
+.team-name:hover{
+  color: #0000A0;
+  text-decoration: none;
+}

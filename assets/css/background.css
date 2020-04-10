@@ -83,3 +83,12 @@ body {
     margin-right: auto;
     padding-bottom: 20px;
   }
+
+.team-card{
+  border-color: #800020;
+  text-align: center;
+}
+
+.team-card:hover{
+  border-color: #0000A0;
+}
