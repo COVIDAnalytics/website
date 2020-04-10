@@ -61,11 +61,20 @@ body = dbc.Container(
             [
                 html.H2("Projections"),
                 html.P("""\
-                        This page presents the predictions of a new epidemiological model for COVID-19 infections, \
-                        hospitalizations, and deaths in all states of the United States. The model is based on the widely \
-                        applied SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach.
+                        This page presents the predictions of a new epidemiological model, \
+                        DELPHI, for COVID-19 infections, hospitalizations, and deaths in all \
+                        states of the United States. The model is based on the widely applied \
+                        SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach. \
+                        We additionally explicitly account for under detection and government \
+                        intervention on a state level.
                        """),
-                dcc.Markdown('''You can read a summary of the documentation [here](/projections_documentation) or access\
+                dcc.Markdown(''' **Note on "Active Cases"**: Active Cases is the estimated number of COVID-19 \
+                cases that have not recovered or perished yet. The seemingly large discrepancy \
+                with what the JHU dashboard indicates is because JHU does not have data on the \
+                number of people recovered for most states, and thus the number of people \
+                recovered recorded there is a vast underestimate.'''),
+                dcc.Markdown('''You can read a summary of the documentation \
+                [here](/projections_documentation) or access\
                  or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
             ]
             ),
