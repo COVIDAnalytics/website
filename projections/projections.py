@@ -255,16 +255,28 @@ def build_state_projection(state):
 
     i = 0
     for val in df_projections_sub.columns:
-        if val in cols and val != 'Total Detected':
-            fig.add_trace(go.Scatter(
-                x=df_projections_sub['Day'],
-                y=df_projections_sub[val].values,
-                legendgroup=i,
-                name=val.replace(' ','<br>'),
-                mode="lines+markers",
-                marker=dict(color=colors[i]),
-                line=dict(color=colors[i])
-            ))
+        if val in cols:
+            if val != 'Total Detected':
+                fig.add_trace(go.Scatter(
+                    x=df_projections_sub['Day'],
+                    y=df_projections_sub[val].values,
+                    legendgroup=i,
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[i]),
+                    line=dict(color=colors[i])
+                ))
+            else:
+                fig.add_trace(go.Scatter(
+                    x=df_projections_sub['Day'],
+                    y=df_projections_sub[val].values,
+                    legendgroup=i,
+                    visible = 'legendonly',
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[i]),
+                    line=dict(color=colors[i])
+                ))
             i+=1
 
     fig.update_layout(
