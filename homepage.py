@@ -114,8 +114,7 @@ body = dbc.Container(
                             dbc.CardBody(
                                 [
                                     html.H4("Risk calculator", className="card-title"),
-                                    dcc.Markdown('''
-                                          (Coming 4/10). Personalized calculator predicting ICU length of stay and mortality.''',
+                                    dcc.Markdown('''Personalized [calculator](/calculator) predicting mortality risk.''',
                                     ),
                                 ]
                             ),

@@ -69,7 +69,7 @@ def display_page(pathname):
         return VentilatorAllocations()
     if pathname == '/ventilator_allocation_documentation':
         return Ventilator_documentation()
-    if pathname == '/risk_calculator':
+    if pathname == '/calculator':
         return RickCalc()
     else:
         return Homepage()
