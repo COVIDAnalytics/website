@@ -84,7 +84,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H6('Date:',id="date-projections"),
+                html.H6('Date of Projection:',id="date-projections"),
                 html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range',
@@ -136,30 +136,80 @@ body = dbc.Container(
         ],
         ),
         dbc.Row(
-        [
-            dbc.Col(
             [
-                html.H6('Predicted Value:',id="date-projections"),
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'us_map_dropdown',
-                            options = [{'label': x, 'value': x} for x in cols],
-                            value = 'Total Detected',
-                        ),
-                    ),
+                dbc.Col(
+                [
+                    html.H5('Use the tool below to explore our predictions for different locations!'),
+                ]
+                ),
             ],
+        ),
+        dbc.Row(
+        [   dbc.Col(
+            [
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Markdown("What value would you like to know?"),                                
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            [
+                                                html.H6('Predicted Value:',id="date-projections"),
+                                                    html.Div(
+                                                        dcc.Dropdown(
+                                                            id = 'us_map_dropdown',
+                                                            options = [{'label': x, 'value': x} for x in cols],
+                                                            value = 'Total Detected',
+                                                        ),
+                                                    ),
+                                            ],
+                                            )
+                                        ]
+                                    ),
+                            ],
+                        ),
+                    ],
+                ),
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
             dbc.Col(
             [
-                html.H6('State:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'state_dropdown',
-                        options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
-                        value = 'US',
-                    )
-               )
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Markdown("For what location would you want to know it for?"),                                
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                        [
+                                            html.H6('State:',id="date-projections"),
+                                            html.Div(
+                                                dcc.Dropdown(
+                                                    id = 'state_dropdown',
+                                                    options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
+                                                    value = 'US',
+                                                )
+                                           )
+                                        ],
+                                            )
+                                        ]
+                                    ),
+                            ],
+                        ),
+                    ],
+                ),
             ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
         ],
         ),
@@ -209,7 +259,7 @@ def build_us_map(map_date,val='Total Detected'):
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
-    if val is not None:
+    if (val is not None) and (val in cols):
 
         df_map = df_projections.loc[df_projections['Day']==map_date]
         df_map = df_map.loc[df_projections['State']!='US']
@@ -261,13 +311,11 @@ def build_state_projection(state,val='Total Detected'):
     fig = go.Figure()
     color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
                 'Cumulative Hospitalized':3,'Total Detected Deaths':4};
-    if val is not None:
+    if (val is not None) and (val in cols):
         i = color_dict[val]
         fig.add_trace(go.Scatter(
             x=df_projections_sub['Day'],
             y=df_projections_sub[val].values,
-            legendgroup=i,
-            name=val.replace(' ','<br>'),
             mode="lines+markers",
             marker=dict(color=colors[i]),
             line=dict(color=colors[i])
@@ -276,7 +324,7 @@ def build_state_projection(state,val='Total Detected'):
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<b> {} </b>'.format(state),
+                    'text': '<b> Predicted {} for {} </b>'.format(add_cases(val),state),
                     'y':0.97,
                     'x':0.5,
                     'xanchor': 'center',
@@ -284,17 +332,10 @@ def build_state_projection(state,val='Total Detected'):
                 title_font_size=25,
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
-                legend_title='<b> Values Predicted </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                legend={
-                        "orientation": "h",
-                        "xanchor": "center",
-                        "y": -0.2,
-                        "x": 0.5
-                        }
+                plot_bgcolor='rgba(0,0,0,0)'
             )
 
     graph = dcc.Graph(
