@@ -155,13 +155,14 @@ body = dbc.Container(
             [
                 dbc.Col(
                 [
-                    html.H5('Use the tool below to explore our predictions for different locations!'),
+                    html.H5('Use the tool below to explore our predictions for different locations.'),
                 ]
                 ),
             ],
         ),
         dbc.Row(
-        [   dbc.Col(
+        [
+            dbc.Col(
             [
                 dbc.Card(
                     [
@@ -170,23 +171,23 @@ body = dbc.Container(
                                 dcc.Markdown("What value would you like to know?"),
                                 dbc.Row(
                                     [
+                                        dbc.Col(dcc.Markdown("**Predicted Value:**")),
                                         dbc.Col(
-                                            [
-                                                html.H6('Predicted Value:',id="date-projections"),
-                                                    html.Div(
-                                                        dcc.Dropdown(
-                                                            id = 'us_map_dropdown',
-                                                            options = [{'label': x, 'value': x} for x in cols],
-                                                            value = 'Total Detected',
-                                                        ),
-                                                    ),
-                                            ],
-                                            )
-                                        ]
-                                    ),
+                                            html.Div(
+                                                dcc.Dropdown(
+                                                    id = 'us_map_dropdown',
+                                                    options = [{'label': x, 'value': x} for x in cols],
+                                                    value = 'Total Detected',
+                                                ),
+                                                id = "p2-transfer-dropdown-wrapper",
+                                            ),
+                                        ),
+                                    ]
+                                ),
                             ],
                         ),
                     ],
+                    className="h-100",
                 ),
             ],
             xs=12,
@@ -203,23 +204,23 @@ body = dbc.Container(
                                 dcc.Markdown("For what location would you want to know it for?"),
                                 dbc.Row(
                                     [
+                                        dbc.Col(dcc.Markdown("**State:**")),
                                         dbc.Col(
-                                        [
-                                            html.H6('State:',id="date-projections"),
                                             html.Div(
                                                 dcc.Dropdown(
                                                     id = 'state_dropdown',
                                                     options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
                                                     value = 'US',
-                                                )
-                                           )
-                                        ],
-                                            )
-                                        ]
-                                    ),
+                                                ),
+                                                id = "p2-transfer-dropdown-wrapper",
+                                            ),
+                                        ),
+                                    ]
+                                ),
                             ],
                         ),
                     ],
+                    className="h-100",
                 ),
             ],
             xs=12,
@@ -276,28 +277,31 @@ def build_us_map(map_date,val='Active'):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
     if (val is not None) and (val in cols):
+        df_map = df_projections.loc[df_projections['Day']==map_date]
+        df_map = df_map.loc[df_projections['State']!='US']
+        df_map = df_map.applymap(str)
 
-    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
+        df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
 
-    fig = go.Figure()
+        fig = go.Figure()
 
-    df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
-                'Total Detected ' + df_map['Total Detected'] + '<br>' + \
-                'Active ' + df_map['Active'] + '<br>' + \
-                'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
-                'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
-                'Total Detected Deaths ' + df_map['Total Detected Deaths']
+        df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
+                    'Total Detected ' + df_map['Total Detected'] + '<br>' + \
+                    'Active ' + df_map['Active'] + '<br>' + \
+                    'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
+                    'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
+                    'Total Detected Deaths ' + df_map['Total Detected Deaths']
 
-    fig = go.Figure(data=go.Choropleth(
-            locations=df_map['code'],
-            z=df_map[val].astype(float),
-            locationmode='USA-states',
-            colorscale='Inferno_r',
-            autocolorscale=False,
-            text=df_map['text'], # hover text
-            marker_line_color='white', # line markers between states
-            colorbar_title='{}'.format(add_cases(val))
-        ))
+        fig = go.Figure(data=go.Choropleth(
+                locations=df_map['code'],
+                z=df_map[val].astype(float),
+                locationmode='USA-states',
+                colorscale='Inferno_r',
+                autocolorscale=False,
+                text=df_map['text'], # hover text
+                marker_line_color='white', # line markers between states
+                colorbar_title='{}'.format(add_cases(val))
+            ))
 
     fig.update_layout(
             title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
@@ -313,16 +317,19 @@ def build_us_map(map_date,val='Active'):
         id='projection-map',
         figure=fig
     )
+
     return graph
 
 
-def build_state_projection(state):
+def build_state_projection(state,val='Total Detected'):
     global df_projections
 
     df_projections_sub = df_projections.loc[df_projections.State == state]
     fig = go.Figure()
+
     color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
                 'Cumulative Hospitalized':3,'Total Detected Deaths':4};
+
     if (val is not None) and (val in cols):
         i = color_dict[val]
         fig.add_trace(go.Scatter(
