@@ -61,13 +61,20 @@ body = dbc.Container(
             [
                 html.H2("Projections"),
                 html.P("""\
-                        This page presents the predictions of a new epidemiological model, DELPHI,
-                        for COVID-19 infections, hospitalizations, and deaths in all states of the 
-                        United States. The model is based on the widely applied SEIR (Susceptible-Exposed-Infected-Recovered) 
-                        modeling approach. We additionally explicitly account for under detection and government 
-                        intervention on a state level. 
+                        This page presents the predictions of a new epidemiological model, \
+                        DELPHI, for COVID-19 infections, hospitalizations, and deaths in all \
+                        states of the United States. The model is based on the widely applied \
+                        SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach. \
+                        We additionally explicitly account for under detection and government \
+                        intervention on a state level.
                        """),
-                dcc.Markdown('''You can read a summary of the documentation [here](/projections_documentation) or access\
+                dcc.Markdown(''' **Note on "Active Cases"**: Active Cases is the estimated number of COVID-19 \
+                cases that have not recovered or perished yet. The seemingly large discrepancy \
+                with what the JHU dashboard indicates is because JHU does not have data on the \
+                number of people recovered for most states, and thus the number of people \
+                recovered recorded there is a vast underestimate.'''),
+                dcc.Markdown('''You can read a summary of the documentation \
+                [here](/projections_documentation) or access\
                  or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
             ]
             ),
@@ -77,7 +84,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                    
+
                     dcc.Markdown("""**Note on Active**: Active is the estimated number of COVID-19 cases that have not recovered or perished yet.
                           The seemingly large discrepancy with what the JHU dashboard indicates is because JHU does
                           not have data on the number of people recovered for most states, and thus the number of
@@ -220,18 +227,18 @@ def build_us_map(map_date,val='Total Detected'):
         df_map = df_projections.loc[df_projections['Day']==map_date]
         df_map = df_map.loc[df_projections['State']!='US']
         df_map = df_map.applymap(str)
-    
+
         df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
-    
+
         fig = go.Figure()
-    
+
         df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
                     'Total Detected ' + df_map['Total Detected'] + '<br>' + \
                     'Active ' + df_map['Active'] + '<br>' + \
                     'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
                     'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
                     'Total Detected Deaths ' + df_map['Total Detected Deaths']
-    
+
         fig = go.Figure(data=go.Choropleth(
                 locations=df_map['code'],
                 z=df_map[val].astype(float),
@@ -242,7 +249,7 @@ def build_us_map(map_date,val='Total Detected'):
                 marker_line_color='white', # line markers between states
                 colorbar_title='{}'.format(add_cases(val))
             ))
-    
+
         fig.update_layout(
                 title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
                 geo = dict(
@@ -252,7 +259,7 @@ def build_us_map(map_date,val='Total Detected'):
                     lakecolor='rgb(255, 255, 255)'
                 ),
             )
-    
+
         graph = dcc.Graph(
             id='projection-map',
             figure=fig
