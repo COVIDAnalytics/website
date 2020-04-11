@@ -5,6 +5,7 @@ import urllib
 ### Graphing
 import plotly.graph_objects as go
 import plotly.express as px
+from textwrap import wrap
 ### Dash
 import dash
 import dash_core_components as dcc
@@ -240,6 +241,7 @@ body = dbc.Container(
                          style={
                              'width': '100%',
                              'display': 'inline-block',
+                             'paddingTop': 20,
                              }
                      ),
                 ]
@@ -339,12 +341,12 @@ def build_state_projection(state,val='Total Detected'):
             marker=dict(color=colors[i]),
             line=dict(color=colors[i])
         ))
-
+    title = '<br>'.join(wrap('<b> Predicted {} for {} </b>'.format(add_cases(val),state), width=26))
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<b> Predicted {} for {} </b>'.format(add_cases(val),state),
-                    'y':0.97,
+                    'text': title,
+                    'y':0.95,
                     'x':0.5,
                     'xanchor': 'center',
                     'yanchor': 'top'},
