@@ -127,6 +127,22 @@ body = dbc.Container(
         [
             dbc.Col(
             [
+                html.H6('Predicted Value:',id="date-projections"),
+                    html.Div(
+                        dcc.Dropdown(
+                            id = 'us_map_dropdown',
+                            options = [{'label': x, 'value': x} for x in cols],
+                            value = 'Active',
+                        ),
+                    ),
+            ],
+            ),
+        ],
+        ),
+        dbc.Row(
+        [
+            dbc.Col(
+            [
                 html.Div(
                     id = 'us_map_projections',
                     children = [],
@@ -151,7 +167,7 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("What value would you like to know?"),                                
+                                dcc.Markdown("What value would you like to know?"),
                                 dbc.Row(
                                     [
                                         dbc.Col(
@@ -184,7 +200,7 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("For what location would you want to know it for?"),                                
+                                dcc.Markdown("For what location would you want to know it for?"),
                                 dbc.Row(
                                     [
                                         dbc.Col(
@@ -252,7 +268,7 @@ def ProjectState():
     layout = html.Div([nav, body, footer],className="site")
     return layout
 
-def build_us_map(map_date,val='Total Detected'):
+def build_us_map(map_date,val='Active'):
 
     global df_projections
 
@@ -261,50 +277,46 @@ def build_us_map(map_date,val='Total Detected'):
 
     if (val is not None) and (val in cols):
 
-        df_map = df_projections.loc[df_projections['Day']==map_date]
-        df_map = df_map.loc[df_projections['State']!='US']
-        df_map = df_map.applymap(str)
-    
-        df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
-    
-        fig = go.Figure()
-    
-        df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
-                    'Total Detected ' + df_map['Total Detected'] + '<br>' + \
-                    'Active ' + df_map['Active'] + '<br>' + \
-                    'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
-                    'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
-                    'Total Detected Deaths ' + df_map['Total Detected Deaths']
-    
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['code'],
-                z=df_map[val].astype(float),
-                locationmode='USA-states',
-                colorscale='Inferno_r',
-                autocolorscale=False,
-                text=df_map['text'], # hover text
-                marker_line_color='white', # line markers between states
-                colorbar_title='{}'.format(add_cases(val))
-            ))
-    
-        fig.update_layout(
-                title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
-                geo = dict(
-                    scope='usa',
-                    projection=go.layout.geo.Projection(type = 'albers usa'),
-                    showlakes=True, # lakes
-                    lakecolor='rgb(255, 255, 255)'
-                ),
-            )
-    
-        graph = dcc.Graph(
-            id='projection-map',
-            figure=fig
+    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
+
+    fig = go.Figure()
+
+    df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
+                'Total Detected ' + df_map['Total Detected'] + '<br>' + \
+                'Active ' + df_map['Active'] + '<br>' + \
+                'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
+                'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
+                'Total Detected Deaths ' + df_map['Total Detected Deaths']
+
+    fig = go.Figure(data=go.Choropleth(
+            locations=df_map['code'],
+            z=df_map[val].astype(float),
+            locationmode='USA-states',
+            colorscale='Inferno_r',
+            autocolorscale=False,
+            text=df_map['text'], # hover text
+            marker_line_color='white', # line markers between states
+            colorbar_title='{}'.format(add_cases(val))
+        ))
+
+    fig.update_layout(
+            title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
+            geo = dict(
+                scope='usa',
+                projection=go.layout.geo.Projection(type = 'albers usa'),
+                showlakes=True, # lakes
+                lakecolor='rgb(255, 255, 255)'
+            ),
         )
-        return graph
+
+    graph = dcc.Graph(
+        id='projection-map',
+        figure=fig
+    )
+    return graph
 
 
-def build_state_projection(state,val='Total Detected'):
+def build_state_projection(state):
     global df_projections
 
     df_projections_sub = df_projections.loc[df_projections.State == state]
