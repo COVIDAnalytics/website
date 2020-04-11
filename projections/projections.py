@@ -84,19 +84,6 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-
-                    dcc.Markdown("""**Note on Active**: Active is the estimated number of COVID-19 cases that have not recovered or perished yet.
-                          The seemingly large discrepancy with what the JHU dashboard indicates is because JHU does
-                          not have data on the number of people recovered for most states, and thus the number of
-                          people recovered recorded there is a vast underestimate. """),
-            ]
-            )
-        ]
-                          ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
                 html.H6('Date:',id="date-projections"),
                 html.Div(
                     dcc.DatePickerSingle(
@@ -140,6 +127,22 @@ body = dbc.Container(
         [
             dbc.Col(
             [
+                html.H6('Predicted Value:',id="date-projections"),
+                    html.Div(
+                        dcc.Dropdown(
+                            id = 'us_map_dropdown',
+                            options = [{'label': x, 'value': x} for x in cols],
+                            value = 'Active',
+                        ),
+                    ),
+            ],
+            ),
+        ],
+        ),
+        dbc.Row(
+        [
+            dbc.Col(
+            [
                 html.Div(
                     id = 'us_map_projections',
                     children = [],
@@ -150,18 +153,6 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
-            dbc.Col(
-            [
-                html.H6('Predicted Value:',id="date-projections"),
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'us_map_dropdown',
-                            options = [{'label': x, 'value': x} for x in cols],
-                            value = 'Total Detected',
-                        ),
-                    ),
-            ],
-            ),
             dbc.Col(
             [
                 html.H6('State:',id="date-projections"),
@@ -215,76 +206,87 @@ def ProjectState():
     layout = html.Div([nav, body, footer],className="site")
     return layout
 
-def build_us_map(map_date,val='Total Detected'):
+def build_us_map(map_date,val='Active'):
 
     global df_projections
 
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
-    if val is not None:
+    df_map = df_projections.loc[df_projections['Day']==map_date]
+    df_map = df_map.loc[df_projections['State']!='US']
+    df_map = df_map.applymap(str)
 
-        df_map = df_projections.loc[df_projections['Day']==map_date]
-        df_map = df_map.loc[df_projections['State']!='US']
-        df_map = df_map.applymap(str)
+    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
 
-        df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
+    fig = go.Figure()
 
-        fig = go.Figure()
+    df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
+                'Total Detected ' + df_map['Total Detected'] + '<br>' + \
+                'Active ' + df_map['Active'] + '<br>' + \
+                'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
+                'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
+                'Total Detected Deaths ' + df_map['Total Detected Deaths']
 
-        df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
-                    'Total Detected ' + df_map['Total Detected'] + '<br>' + \
-                    'Active ' + df_map['Active'] + '<br>' + \
-                    'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
-                    'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
-                    'Total Detected Deaths ' + df_map['Total Detected Deaths']
+    fig = go.Figure(data=go.Choropleth(
+            locations=df_map['code'],
+            z=df_map[val].astype(float),
+            locationmode='USA-states',
+            colorscale='Inferno_r',
+            autocolorscale=False,
+            text=df_map['text'], # hover text
+            marker_line_color='white', # line markers between states
+            colorbar_title='{}'.format(add_cases(val))
+        ))
 
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['code'],
-                z=df_map[val].astype(float),
-                locationmode='USA-states',
-                colorscale='Inferno_r',
-                autocolorscale=False,
-                text=df_map['text'], # hover text
-                marker_line_color='white', # line markers between states
-                colorbar_title='{}'.format(add_cases(val))
-            ))
-
-        fig.update_layout(
-                title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
-                geo = dict(
-                    scope='usa',
-                    projection=go.layout.geo.Projection(type = 'albers usa'),
-                    showlakes=True, # lakes
-                    lakecolor='rgb(255, 255, 255)'
-                ),
-            )
-
-        graph = dcc.Graph(
-            id='projection-map',
-            figure=fig
+    fig.update_layout(
+            title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
+            geo = dict(
+                scope='usa',
+                projection=go.layout.geo.Projection(type = 'albers usa'),
+                showlakes=True, # lakes
+                lakecolor='rgb(255, 255, 255)'
+            ),
         )
-        return graph
+
+    graph = dcc.Graph(
+        id='projection-map',
+        figure=fig
+    )
+    return graph
 
 
-def build_state_projection(state,val='Total Detected'):
+def build_state_projection(state):
     global df_projections
 
     df_projections_sub = df_projections.loc[df_projections.State == state]
     fig = go.Figure()
-    color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
-                'Cumulative Hospitalized':3,'Total Detected Deaths':4};
-    if val is not None:
-        i = color_dict[val]
-        fig.add_trace(go.Scatter(
-            x=df_projections_sub['Day'],
-            y=df_projections_sub[val].values,
-            legendgroup=i,
-            name=val.replace(' ','<br>'),
-            mode="lines+markers",
-            marker=dict(color=colors[i]),
-            line=dict(color=colors[i])
-        ))
+
+    i = 0
+    for val in df_projections_sub.columns:
+        if val in cols:
+            if val != 'Total Detected':
+                fig.add_trace(go.Scatter(
+                    x=df_projections_sub['Day'],
+                    y=df_projections_sub[val].values,
+                    legendgroup=i,
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[i]),
+                    line=dict(color=colors[i])
+                ))
+            else:
+                fig.add_trace(go.Scatter(
+                    x=df_projections_sub['Day'],
+                    y=df_projections_sub[val].values,
+                    legendgroup=i,
+                    visible = 'legendonly',
+                    name=val.replace(' ','<br>'),
+                    mode="lines+markers",
+                    marker=dict(color=colors[i]),
+                    line=dict(color=colors[i])
+                ))
+            i+=1
 
     fig.update_layout(
                 height=550,
