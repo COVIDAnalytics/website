@@ -78,7 +78,6 @@ projections_card = dbc.Card(
 
 ventilator_card = dbc.Card(
     [
-        dbc.CardImg(src="assets/images/allocation.png", top=True),
         dbc.CardBody(
             [
                 html.H4("Ventilator allocation", className="card-title"),
@@ -87,6 +86,7 @@ ventilator_card = dbc.Card(
                 ),
             ],
         ),
+        dbc.CardImg(src="assets/images/allocation.png", top=True),
     ],
     style={"borderColor": "#900C3F"},
     className="h-100"
@@ -94,6 +94,7 @@ ventilator_card = dbc.Card(
 
 calculator_card = dbc.Card(
     [
+        dbc.CardImg(src="assets/images/tree-2.png", top=True),
         dbc.CardBody(
             [
                 html.H4("Risk calculator", className="card-title"),
@@ -102,7 +103,6 @@ calculator_card = dbc.Card(
                 ),
             ]
         ),
-        dbc.CardImg(src="assets/images/tree-2.png", top=True),
     ],
     style={"borderColor": "#900C3F"},
     className="h-100"
