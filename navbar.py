@@ -39,7 +39,7 @@ def Navbar():
                    color="link",
                    label="Clinical Risk Calculator",
                    children=[
-                      dbc.DropdownMenuItem("Results", href="/risk_calculator"),
+                      dbc.DropdownMenuItem("Model", href="/calculator"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Documentation", href="/risk_calculator_allocation_documentation"),
                     ],
