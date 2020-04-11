@@ -278,14 +278,15 @@ def build_us_map(map_date,val='Active'):
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
+    df_map = df_projections.loc[df_projections['Day']==map_date]
+    df_map = df_map.loc[df_projections['State']!='US']
+    df_map = df_map.applymap(str)
+
+    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
+
+    fig = go.Figure()
+
     if (val is not None) and (val in cols):
-        df_map = df_projections.loc[df_projections['Day']==map_date]
-        df_map = df_map.loc[df_projections['State']!='US']
-        df_map = df_map.applymap(str)
-
-        df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
-
-        fig = go.Figure()
 
         df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
                     'Total Detected ' + df_map['Total Detected'] + '<br>' + \
