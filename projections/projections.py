@@ -172,16 +172,18 @@ body = dbc.Container(
                                 dcc.Markdown("What value would you like to know?"),
                                 dbc.Row(
                                     [
-                                        dbc.Col(dcc.Markdown("**Predicted Value:**")),
+                                        dbc.Col(dcc.Markdown("**Predicted  \n Value:**"),width="auto"),
                                         dbc.Col(
                                             html.Div(
                                                 dcc.Dropdown(
                                                     id = 'predicted_timeline',
                                                     options = [{'label': x, 'value': x} for x in cols],
                                                     value = 'Total Detected',
+                                                    style={'width':'100%'}
                                                 ),
                                                 id = "p2-transfer-dropdown-wrapper",
                                             ),
+                                        width=True
                                         ),
                                     ]
                                 ),
