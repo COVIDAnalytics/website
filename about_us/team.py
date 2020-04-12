@@ -30,6 +30,7 @@ def member_pic(member):
                     html.A(member['name'],
                            href=member['website'],
                            className="stretched-link team-name"),
+                    className="team-card-body",
                 ),
              ],
              className="team-card h-100 w-100"
