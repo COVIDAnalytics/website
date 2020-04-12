@@ -176,7 +176,7 @@ body = dbc.Container(
                                         dbc.Col(
                                             html.Div(
                                                 dcc.Dropdown(
-                                                    id = 'us_map_dropdown',
+                                                    id = 'predicted_timeline',
                                                     options = [{'label': x, 'value': x} for x in cols],
                                                     value = 'Total Detected',
                                                 ),
