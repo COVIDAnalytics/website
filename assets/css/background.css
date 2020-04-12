@@ -41,14 +41,14 @@ body {
 }
 
 #us_map_dropdown{
-  width:40%;
+  width:100%;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
 
 #state_dropdown{
-  width:40%;
+  width:100%;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
