@@ -47,7 +47,7 @@ def member_pic(member):
 # Single collaborator pic
 def collab_pic(collaborator):
     return dbc.Col(
-        [   
+        [
         html.A([
             html.Div(
             [
@@ -116,7 +116,7 @@ body = dbc.Container(
                 ]
                 )
             ],
-            style={'margin-bottom': 20,'margin-top': 40}
+            style={'marginBottom': 20,'marginTop': 40}
         )
         ] + collab_rows,
         className="page-body"

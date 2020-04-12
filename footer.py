@@ -31,9 +31,9 @@ def Footer():
                                                 'height' : '40px',
                                                 'width' : '40px',
                                                 'position' : 'relative',
-                                                'margin-top' : 15,
-                                                'padding-top' : 0,
-                                                'padding-right' : 0
+                                                'marginTop' : 15,
+                                                'paddingTop' : 0,
+                                                'paddingRight' : 0
                                             }
                                         )
                                 ], href='https://github.com/COVIDAnalytics'),
@@ -44,9 +44,9 @@ def Footer():
                                                 'height' : '40px',
                                                 'width' : '40px',
                                                 'position' : 'relative',
-                                                'margin-top' : 15,
-                                                'padding-top' : 0,
-                                                'padding-right' : 0
+                                                'marginTop' : 15,
+                                                'paddingTop' : 0,
+                                                'paddingRight' : 0
                                             }
                                         )
                                 ], href='/contact'),
@@ -57,9 +57,9 @@ def Footer():
                                                 'height' : '40px',
                                                 'width' : '40px',
                                                 'position' : 'relative',
-                                                'margin-top' : 15,
-                                                'padding-top' : 0,
-                                                'padding-right' : 0
+                                                'marginTop' : 15,
+                                                'paddingTop' : 0,
+                                                'paddingRight' : 0
                                             }
                                         )
                                 ], href='https://twitter.com/covid_analytics'),
