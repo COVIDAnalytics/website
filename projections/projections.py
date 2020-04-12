@@ -5,6 +5,7 @@ import urllib
 ### Graphing
 import plotly.graph_objects as go
 import plotly.express as px
+from textwrap import wrap
 ### Dash
 import dash
 import dash_core_components as dcc
@@ -36,19 +37,45 @@ def add_cases(w):
         w += ' Cases'
     return w
 
+def build_card(id):
+    return dbc.Col(
+                [
+                dbc.Card(
+                    [],
+                    id = id,
+                    color="dark",
+                    inverse=True,
+                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
+                    ),
+                ],
+                xs=12,
+                sm=6,
+                md=6,
+                lg=3,
+            )
+
 body = dbc.Container(
     [
-        dbc.Row(
+       dbc.Row(
         [
             dbc.Col(
             [
                 html.H2("Projections"),
                 html.P("""\
-                        This page presents the predictions of a new epidemiological model for COVID-19 infections, \
-                        hospitalizations, and deaths in all states of the United States. The model is based on the widely \
-                        applied SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach.
+                        This page presents the predictions of a new epidemiological model, \
+                        DELPHI, for COVID-19 infections, hospitalizations, and deaths in all \
+                        states of the United States. The model is based on the widely applied \
+                        SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach. \
+                        We additionally explicitly account for under detection and government \
+                        intervention on a state level.
                        """),
-                dcc.Markdown('''You can read a summary of the documentation [here](/projections_documentation) or access\
+                dcc.Markdown(''' **Note on "Active Cases"**: Active Cases is the estimated number of COVID-19 \
+                cases that have not recovered or perished yet. The seemingly large discrepancy \
+                with what the JHU dashboard indicates is because JHU does not have data on the \
+                number of people recovered for most states, and thus the number of people \
+                recovered recorded there is a vast underestimate.'''),
+                dcc.Markdown('''You can read a summary of the documentation \
+                [here](/projections_documentation) or access\
                  or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
             ]
             ),
@@ -58,7 +85,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H6('Date:',id="date-projections"),
+                html.H6('Date of Projection:',id="date-projections"),
                 html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range',
@@ -88,13 +115,14 @@ body = dbc.Container(
             ),
         ],
         ),
-        dbc.CardDeck(
+        dbc.Row(
         [
-            dbc.Card([], id = 'us_tot_det', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
-            dbc.Card([], id = 'us_tot_death', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
-            dbc.Card([], id = 'us_active', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
-            dbc.Card([], id = 'us_active_hosp', color="dark", inverse=True, style={'marginBottom':20,'paddingTop':20}),
+            build_card('us_tot_det'),
+            build_card('us_tot_death'),
+            build_card('us_active'),
+            build_card('us_active_hosp')
         ],
+        align="center"
         ),
         dbc.Row(
         [
@@ -125,18 +153,81 @@ body = dbc.Container(
         ],
         ),
         dbc.Row(
+            [
+                dbc.Col(
+                [
+                    html.H5('Use the tool below to explore our predictions for different locations.'),
+                ]
+                ),
+            ],
+        ),
+        dbc.Row(
         [
             dbc.Col(
             [
-                html.H6('State:',id="date-projections"),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'state_dropdown',
-                        options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
-                        value = 'US',
-                    )
-               )
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Markdown("What value would you like to know?"),
+                                dbc.Row(
+                                    [
+                                        dbc.Col(dcc.Markdown("**Predicted Value:**")),
+                                        dbc.Col(
+                                            html.Div(
+                                                dcc.Dropdown(
+                                                    id = 'us_map_dropdown',
+                                                    options = [{'label': x, 'value': x} for x in cols],
+                                                    value = 'Total Detected',
+                                                ),
+                                                id = "p2-transfer-dropdown-wrapper",
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ],
+                        ),
+                    ],
+                    className="h-100",
+                ),
             ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
+            ),
+            dbc.Col(
+            [
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Markdown("For what location would you want to know it for?"),
+                                dbc.Row(
+                                    [
+                                        dbc.Col(dcc.Markdown("**State:**")),
+                                        dbc.Col(
+                                            html.Div(
+                                                dcc.Dropdown(
+                                                    id = 'state_dropdown',
+                                                    options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
+                                                    value = 'US',
+                                                ),
+                                                id = "p2-transfer-dropdown-wrapper",
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ],
+                        ),
+                    ],
+                    className="h-100",
+                ),
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
             ),
         ],
         ),
@@ -150,6 +241,7 @@ body = dbc.Container(
                          style={
                              'width': '100%',
                              'display': 'inline-block',
+                             'paddingTop': 20,
                              }
                      ),
                 ]
@@ -194,23 +286,25 @@ def build_us_map(map_date,val='Active'):
 
     fig = go.Figure()
 
-    df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
-                'Total Detected ' + df_map['Total Detected'] + '<br>' + \
-                'Active ' + df_map['Active'] + '<br>' + \
-                'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
-                'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
-                'Total Detected Deaths ' + df_map['Total Detected Deaths']
+    if (val is not None) and (val in cols):
 
-    fig = go.Figure(data=go.Choropleth(
-            locations=df_map['code'],
-            z=df_map[val].astype(float),
-            locationmode='USA-states',
-            colorscale='Inferno_r',
-            autocolorscale=False,
-            text=df_map['text'], # hover text
-            marker_line_color='white', # line markers between states
-            colorbar_title='{}'.format(val)
-        ))
+        df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
+                    'Total Detected ' + df_map['Total Detected'] + '<br>' + \
+                    'Active ' + df_map['Active'] + '<br>' + \
+                    'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
+                    'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
+                    'Total Detected Deaths ' + df_map['Total Detected Deaths']
+
+        fig = go.Figure(data=go.Choropleth(
+                locations=df_map['code'],
+                z=df_map[val].astype(float),
+                locationmode='USA-states',
+                colorscale='Inferno_r',
+                autocolorscale=False,
+                text=df_map['text'], # hover text
+                marker_line_color='white', # line markers between states
+                colorbar_title='{}'.format(add_cases(val))
+            ))
 
     fig.update_layout(
             title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
@@ -226,51 +320,44 @@ def build_us_map(map_date,val='Active'):
         id='projection-map',
         figure=fig
     )
+
     return graph
 
 
-def build_state_projection(state):
+def build_state_projection(state,val='Total Detected'):
     global df_projections
 
     df_projections_sub = df_projections.loc[df_projections.State == state]
     fig = go.Figure()
 
-    i = 0
-    for val in df_projections_sub.columns:
-        if val in cols and val != 'Total Detected':
-            fig.add_trace(go.Scatter(
-                x=df_projections_sub['Day'],
-                y=df_projections_sub[val].values,
-                legendgroup=i,
-                name=val.replace(' ','<br>'),
-                mode="lines+markers",
-                marker=dict(color=colors[i]),
-                line=dict(color=colors[i])
-            ))
-            i+=1
+    color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
+                'Cumulative Hospitalized':3,'Total Detected Deaths':4};
 
+    if (val is not None) and (val in cols):
+        i = color_dict[val]
+        fig.add_trace(go.Scatter(
+            x=df_projections_sub['Day'],
+            y=df_projections_sub[val].values,
+            mode="lines+markers",
+            marker=dict(color=colors[i]),
+            line=dict(color=colors[i])
+        ))
+    title = '<br>'.join(wrap('<b> Predicted {} for {} </b>'.format(add_cases(val),state), width=26))
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<b> {} </b>'.format(state),
-                    'y':0.97,
+                    'text': title,
+                    'y':0.95,
                     'x':0.5,
                     'xanchor': 'center',
                     'yanchor': 'top'},
                 title_font_size=25,
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
-                legend_title='<b> Values Predicted </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                legend={
-                        "orientation": "h",
-                        "xanchor": "center",
-                        "y": -0.2,
-                        "x": 0.5
-                        }
+                plot_bgcolor='rgba(0,0,0,0)'
             )
 
     graph = dcc.Graph(
@@ -294,7 +381,7 @@ def get_us_stat(d, val):
         ),
         dbc.CardBody(
             [
-                html.H5(val,id='us-stats-cards'),
+                html.H5(add_cases(val),id='us-stats-cards'),
             ]
         ),
     ]

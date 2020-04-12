@@ -45,6 +45,10 @@ def us_map(df,chosen_date,val,label_dict):
     if isinstance(chosen_date, str):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 
+    max_val = max(df.loc[df['State']!='US'][val])
+    if max_val == 0:
+        max_val = 500
+
     df = df.loc[df['Date']==chosen_date]
     df = df.loc[df['State']!='US']
     df = df.applymap(str)
@@ -58,22 +62,14 @@ def us_map(df,chosen_date,val,label_dict):
                 'Supply ' + df['Supply'] + '<br>' + \
                 'Demand ' + df['Demand']
 
-    # figure out what the min and max of the range should be
-    # useful if the map is all 0, to make comparisons clearer
-    zmin = min(df[val].astype(float))
-    zmax = max(df[val].astype(float))
-    if zmax == 0 and zmin == 0:
-        zmin = 0
-        zmax = 500
-
     bar_title = '{}'.format(label_dict[val])
     fig = go.Figure(data=go.Choropleth(
             locations=df['code'],
             z=df[val].astype(float),
-            zmin=zmin,
-            zmax=zmax,
             locationmode='USA-states',
             colorscale='Inferno_r',
+            zmin = 0,
+            zmax = max_val,
             autocolorscale=False,
             text=df['text'], # hover text
             marker_line_color='white', # line markers between states
