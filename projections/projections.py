@@ -357,7 +357,13 @@ def build_state_projection(state,val='Total Detected'):
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
             )
 
     graph = dcc.Graph(
