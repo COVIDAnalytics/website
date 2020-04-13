@@ -163,6 +163,18 @@ def InteractiveGraph():
     layout = html.Div([nav, body, footer],className="site")
     return layout
 
+def graph_bucket(x,buckets):
+    numBuckets = len(buckets)
+    b = 0
+    while b < numBuckets and x > buckets[b]:
+        b+=1
+    # b should never be == numBuckets but just in case
+    return buckets[b] if b < numBuckets else max_pop
+
+def get_lb(ind,buckets):
+    return str(buckets[ind-1]) if ind > 0 else '0'
+
+
 def build_graph(y_title,x_title,survivor_vals):
     global df
     if y_title not in df.columns or x_title not in df.columns:
@@ -172,27 +184,32 @@ def build_graph(y_title,x_title,survivor_vals):
     post_cols = cols + ["Population"]
     sub_df = df[pre_cols]
     sub_df = sub_df.dropna()
-    sub_df["Population"] = sub_df["Study Pop Size (N)"].apply(lambda x: int(x) if int(x) % 1000 == 0 else int(x) + 1000 - int(x) % 1000)
+    max_pop = max(sub_df["Study Pop Size (N)"].values)
+    #round up the maximum number to the nearest hundred
+    max_pop = int(max_pop) + 100 - int(max_pop) % 100
+    buckets = [100,500,1000,2000,max_pop]
+    sub_df["Population"] = sub_df["Study Pop Size (N)"].apply(lambda x: graph_bucket(x,buckets))
     sub_df = sub_df[post_cols]
     sub_df = sub_df[sub_df['Survivors'].isin(survivor_vals)]
 
+
+
     fig = go.Figure()
-    c = 0
-    sizes = [10,20,30,40,50,60]
+    color_ind = {'Non-Survivors only':1,'Survivors only':4,'Both':2}
+    sizes = [5,10,20,40,60]
     for i in sub_df.Survivors.unique():
         s = 0
-        for j in sub_df.Population.unique():
+        for ind,j in enumerate(buckets):
             fig.add_trace(go.Scatter(
                 x=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][x_title],
                 y=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][y_title],
                 legendgroup=i,
-                name= '{} <br> {}K < Pop. Size < {}K'.format(i,str(int((j-1000)/1000)),str(int(j/1000))),
+                name= '{} <br> {} < Pop. Size < {}'.format(i, get_lb(ind,buckets),str(int(j))),
                 mode="markers",
-                marker=dict(color=colors[c], size=sizes[s]),
+                marker=dict(color=colors[color_ind[i]], size=sizes[ind]),
                 text=sub_df['Country'],
             ))
             s+=1
-        c+=1
 
     fig.update_layout(
                 height=550,
@@ -214,7 +231,8 @@ def build_graph(y_title,x_title,survivor_vals):
                         "orientation": "h",
                         "xanchor": "center",
                         "y": -0.2,
-                        "x": 0.5
+                        "x": 0.5,
+                        "itemsizing":"trace"
                         },
                 modebar={
                     'orientation': 'v',
