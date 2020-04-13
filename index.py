@@ -103,10 +103,11 @@ def set_display_children(selected_category):
 #Callbacks for projections
 @app.callback(
     Output('state_projection_graph', 'children'),
-    [Input('state_dropdown', 'value'),]
+    [Input('state_dropdown', 'value'),
+     Input('predicted_timeline', 'value')]
 )
-def update_projection(state):
-    return build_state_projection(state)
+def update_projection(state,val):
+    return build_state_projection(state,val)
 
 @app.callback(
     Output('us_map_projections', 'children'),

@@ -40,41 +40,6 @@ body {
   flex-shrink: 0;
 }
 
-#us_map_dropdown{
-  width:40%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#state_dropdown{
-  width:40%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#base-model-dropdown{
-  width:40%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 20px;
-}
-
-#us_map_dropdown-vent{
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#transfer_list{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 90%;
-  margin-left: 5%;
-	margin-right: 5%;
-}
 
 #base-model-dropdown{
     width:40%;

@@ -74,7 +74,7 @@ body = dbc.Container(
                         through a federal surge \
                         (see [documentation](/ventilator_allocation_documentation) for details). \
                         Our optimization model recommends surge supply allocations and interstate transfers to reduce ventilator shortage as quickly and efficiently as possible.'''),
-                    html.H5('Use the interactive tool below to experiment with different reallocation policies!'),
+                    html.H5('Use the interactive tool below to experiment with different reallocation policies.'),
                 ]
                 ),
             ],

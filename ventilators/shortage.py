@@ -61,7 +61,11 @@ shortage = \
                                 ),
                                 id="date-projections-picker-div"
                             ),
-                        ]
+                        ],
+                        xs=4,
+                        sm=4,
+                        md='auto',
+                        lg='auto',
                         ),
                         dbc.Col(
                         [
@@ -73,7 +77,11 @@ shortage = \
                                     value = 'Shortage',
                                 ),
                             ),
-                        ]
+                        ],
+                        xs=8,
+                        sm=8,
+                        md=True,
+                        lg=True,
                         )
                     ]
                 ),
