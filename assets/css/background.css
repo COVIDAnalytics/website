@@ -40,41 +40,6 @@ body {
   flex-shrink: 0;
 }
 
-#us_map_dropdown{
-  width:100%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#state_dropdown{
-  width:100%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#base-model-dropdown{
-  width:40%;
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 20px;
-}
-
-#us_map_dropdown-vent{
-  text-align: center;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#transfer_list{
-  padding-top: 20px;
-  padding-bottom: 20px;
-  width: 90%;
-  margin-left: 5%;
-	margin-right: 5%;
-}
 
 #base-model-dropdown{
     width:40%;
@@ -83,19 +48,3 @@ body {
     margin-right: auto;
     padding-bottom: 20px;
   }
-
-.team-card-body{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.team-card{
-  border-color: #800020;
-  background-color: #e6e6e6 !important;
-  text-align: center;
-}
-
-.team-card:hover{
-  border-color: #0000A0;
-}
