@@ -2,6 +2,7 @@
 import pandas as pd
 import datetime
 import urllib
+
 ### Graphing
 import plotly.graph_objects as go
 import plotly.express as px
@@ -19,16 +20,25 @@ from assets.mappings import states, colors
 nav = Navbar()
 footer = Footer()
 
-df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
+df_projections = pd.read_csv('data/predicted/Global_20200412.csv', sep=",", parse_dates = ['Day'])
 today = pd.Timestamp('today')
 oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
+
 df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
 df_projections = df_projections.loc[df_projections['Day']>=today]
+df_us = df_projections.loc[df_projections.Country == "US"]
 
 cols = ['Active','Active Hospitalized','Total Detected','Cumulative Hospitalized','Total Detected Deaths']
 
+#colorscale_dict={'Total Detected':'Greys','Active':'amp','Active Hospitalized':'PuRd',
+#               'Cumulative Hospitalized':'Oranges','Total Detected Deaths':'Purples'};
 
-dataset = "data/predicted/Allstates.csv"
+color_dict={'Total Detected':0,'Active':5,'Active Hospitalized':2,
+                'Cumulative Hospitalized':3,'Total Detected Deaths':1};
+
+map_locations = {'US', "Europe", "Asia", "North America", "South America", "Africa"}
+
+dataset = "data/predicted/Global_20200412.csv"
 data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
 data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 
@@ -89,8 +99,8 @@ body = dbc.Container(
                 html.Div(
                     dcc.DatePickerSingle(
                         id='us-map-date-picker-range',
-                        min_date_allowed=min(df_projections.Day.values),
-                        max_date_allowed=max(df_projections.Day.values),
+                        min_date_allowed=min(df_us.Day.values),
+                        max_date_allowed=max(df_us.Day.values),
                         date=oneWeekFromNow,
                         initial_visible_month=oneWeekFromNow,
                         style={'marginBottom':20}
@@ -129,15 +139,35 @@ body = dbc.Container(
             dbc.Col(
             [
                 html.H6('Predicted Value:',id="date-projections"),
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'us_map_dropdown',
-                            options = [{'label': x, 'value': x} for x in cols],
-                            value = 'Active',
-                        ),
+                html.Div(
+
+                    dcc.Dropdown(
+                        id = 'us_map_dropdown',
+                        options = [{'label': x, 'value': x} for x in cols],
+                        value = 'Active',
                     ),
+
+                    id="predicted-value-projections-picker-div",
+                ),
             ],
             ),
+
+            dbc.Col(
+            [
+                html.H6('Location:',id="location-projections"),
+                html.Div(
+
+                    dcc.Dropdown(
+                        id = 'location_map_dropdown',
+                        options = [{'label': x, 'value': x} for x in map_locations],
+                        value = 'US',
+                    ),
+
+                    id="predicted-location-projections-picker-div",
+                ),
+            ],
+            ),
+
         ],
         ),
         dbc.Row(
@@ -145,11 +175,12 @@ body = dbc.Container(
             dbc.Col(
             [
                 html.Div(
-                    id = 'us_map_projections',
+                    id = 'map_projections',
                     children = [],
                 ),
             ]
-            )
+            ),
+
         ],
         ),
         dbc.Row(
@@ -178,7 +209,8 @@ body = dbc.Container(
                                                 dcc.Dropdown(
                                                     id = 'predicted_timeline',
                                                     options = [{'label': x, 'value': x} for x in cols],
-                                                    value = 'Total Detected',
+                                                    value = ['Active'],
+                                                    multi=True,
                                                 ),
                                                 id = "p2-transfer-dropdown-wrapper",
                                             ),
@@ -205,16 +237,33 @@ body = dbc.Container(
                                 dcc.Markdown("For what location would you want to know it for?"),
                                 dbc.Row(
                                     [
-                                        dbc.Col(dcc.Markdown("**State:**")),
+                                        dbc.Col([dcc.Markdown("**Continent:**"), dcc.Markdown("**Country:**"),dcc.Markdown("**Province:**")]),
                                         dbc.Col(
                                             html.Div(
-                                                dcc.Dropdown(
-                                                    id = 'state_dropdown',
-                                                    options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
-                                                    value = 'US',
+                                                [dcc.Dropdown(
+                                                    id = 'continent_dropdown',
+                                                    options = [{'label': x, 'value': x} for x in df_projections['Continent'].drop_duplicates()],
+                                                    value = 'North America',
                                                 ),
-                                                id = "p2-transfer-dropdown-wrapper",
-                                            ),
+                                                #html.Div(id = "p2-transfer-dropdown-wrapper"),
+
+                                                #html.Hr(),
+                                                dcc.Dropdown(
+                                                        id = 'country_dropdown',
+                                                        options = [{'label': x, 'value': x} for x in df_projections[df_projections['Continent'] == 'North America']['Country'].drop_duplicates()],
+                                                        value = 'US',
+                                                ),
+
+                                                dcc.Dropdown(
+                                                        id = 'province_dropdown',
+                                                        options = [{'label': i, 'value': i} for i in df_projections[df_projections.Country == 'US']['Province'].drop_duplicates()],
+                                                        value = 'New York',
+                                                ),
+                                                #html.Hr(),
+
+                                                html.Div(id = "p2-transfer-dropdown-wrapper"),
+
+                                            ]),
                                         ),
                                     ]
                                 ),
@@ -271,24 +320,82 @@ def ProjectState():
     layout = html.Div([nav, body, footer],className="site")
     return layout
 
-def build_us_map(map_date,val='Active'):
+def build_continent_map(map_date,val='Active', continent = 'Europe'):
 
     global df_projections
+    df_continent = df_projections.loc[df_projections.Continent == continent]
 
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
-    df_map = df_projections.loc[df_projections['Day']==map_date]
-    df_map = df_map.loc[df_projections['State']!='US']
+    df_map = df_continent.loc[df_continent['Day']==map_date]
+    df_map = df_map.loc[df_map['Province'] == 'None']
     df_map = df_map.applymap(str)
+    countries = df_continent['Country'].drop_duplicates()
 
-    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
 
     fig = go.Figure()
 
     if (val is not None) and (val in cols):
 
-        df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
+        df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
+                    'Total Detected ' + df_map['Total Detected'] + '<br>' + \
+                    'Active ' + df_map['Active'] + '<br>' + \
+                    'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
+                    'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
+                    'Total Detected Deaths ' + df_map['Total Detected Deaths']
+
+
+        fig = go.Figure(data=go.Choropleth(
+                locations=countries,
+                z=df_map[val].astype(float),
+                locationmode="country names",
+                colorscale='amp',
+                autocolorscale=False,
+                text=df_map['text'], # hover text
+                marker_line_color='#913446', # line markers between states
+                colorbar_title='{}'.format(add_cases(val))
+            ))
+
+    fig.update_layout(
+            margin=dict(l=10, r=10, t=50, b=50),
+            title_text=add_cases('{} Predicted Europe {}'.format(map_date.strftime('%b %d,%Y'), val)),
+            geo = dict(
+                scope= continent.lower(),
+                projection=go.layout.geo.Projection(type = 'mercator'),
+                showlakes=True, # lakes
+                lakecolor='rgb(255, 255, 255)',
+                showframe = True,
+                showcoastlines = True,
+                visible = False,
+            ),
+        )
+
+    graph = dcc.Graph(
+        id='projection-map_2',
+        figure=fig,
+    )
+
+    return graph
+
+def build_us_map(map_date,val='Active'):
+
+    global df_us
+
+    if isinstance(map_date, str):
+        map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
+
+    df_map = df_us.loc[df_us['Day']==map_date]
+    df_map = df_map.loc[df_us['Province']!='US']
+    df_map = df_map.applymap(str)
+
+    df_map.loc[:,'code'] = df_map.Province.apply(lambda x: states[x])
+
+    fig = go.Figure()
+
+    if (val is not None) and (val in cols):
+
+        df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
                     'Total Detected ' + df_map['Total Detected'] + '<br>' + \
                     'Active ' + df_map['Active'] + '<br>' + \
                     'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
@@ -299,15 +406,16 @@ def build_us_map(map_date,val='Active'):
                 locations=df_map['code'],
                 z=df_map[val].astype(float),
                 locationmode='USA-states',
-                colorscale='Inferno_r',
+                colorscale='amp',
                 autocolorscale=False,
                 text=df_map['text'], # hover text
-                marker_line_color='white', # line markers between states
+                marker_line_color='#913446' , # line markers between states
                 colorbar_title='{}'.format(add_cases(val))
             ))
 
     fig.update_layout(
-            title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
+            margin=dict(l=10, r=10, t=50, b=50),
+            title_text=add_cases('{} Predicted US {}'.format(map_date.strftime('%b %d,%Y'), val)),
             geo = dict(
                 scope='usa',
                 projection=go.layout.geo.Projection(type = 'albers usa'),
@@ -323,26 +431,35 @@ def build_us_map(map_date,val='Active'):
 
     return graph
 
+def find_smaller_scope(state, country, continent):
+    location = state
+    if state in [None, 'None']:
+        if country is None:
+            location = continent
+        else:
+            location = country
+    return location
 
-def build_state_projection(state,val='Total Detected'):
+
+def build_state_projection(state, country, continent,vals):
     global df_projections
 
-    df_projections_sub = df_projections.loc[df_projections.State == state]
+    df_projections_sub = df_projections.loc[(df_projections.Continent == continent) & (df_projections.Province == state) & (df_projections.Country == country)]
     fig = go.Figure()
 
-    color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
-                'Cumulative Hospitalized':3,'Total Detected Deaths':4};
+    if (vals is not None) and (set(vals).issubset(set(cols))):
+        for val in vals:
+            i = color_dict[val]
+            fig.add_trace(go.Scatter(
+                x=df_projections_sub['Day'],
+                y=df_projections_sub[val].values,
+                mode="lines+markers",
+                marker=dict(color=colors[i]),
+                line=dict(color=colors[i])
+            ))
+    location = find_smaller_scope(state, country, continent)
 
-    if (val is not None) and (val in cols):
-        i = color_dict[val]
-        fig.add_trace(go.Scatter(
-            x=df_projections_sub['Day'],
-            y=df_projections_sub[val].values,
-            mode="lines+markers",
-            marker=dict(color=colors[i]),
-            line=dict(color=colors[i])
-        ))
-    title = '<br>'.join(wrap('<b> Predicted {} for {} </b>'.format(add_cases(val),state), width=26))
+    title = '<br>'.join(wrap('<b> Projections for {} </b>'.format(location), width=26))
     fig.update_layout(
                 height=550,
                 title={
@@ -367,17 +484,21 @@ def build_state_projection(state,val='Total Detected'):
     return graph
 
 def get_us_stat(d, val):
-    global df_projections
+    df_us = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
+    global today 
+    global oneWeekFromNow 
+    df_us.loc[:,'Day'] = pd.to_datetime(df_us['Day'], format='y%m%d').dt.date
+    df_us = df_us.loc[df_us['Day']>=today]
 
     if isinstance(d, str):
         d = datetime.datetime.strptime(d, '%Y-%m-%d').date()
 
-    us_date = df_projections.loc[(df_projections['Day']==d) & (df_projections['State']=='US')].reset_index()
+    us_date = df_us.loc[(df_us['Day']==d) & (df_us['State'] == 'US')].reset_index()
 
     card_content = [
         dbc.CardHeader(
             f'{us_date.iloc[0][val]:,}',
-            style={"textAlign":"center","fontSize":30,"fontWeight": "bold","color":"#1E74F0"}
+            style={"textAlign":"center","fontSize":30,"fontWeight": "bold","color":'#913446'}
         ),
         dbc.CardBody(
             [

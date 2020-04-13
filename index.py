@@ -11,7 +11,7 @@ from datetime import datetime as dt
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
-from projections.projections import ProjectState, build_state_projection, build_us_map, get_us_stat
+from projections.projections import ProjectState, build_state_projection, build_us_map, get_us_stat, df_projections, build_continent_map
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
@@ -102,19 +102,46 @@ def set_display_children(selected_category):
 
 #Callbacks for projections
 @app.callback(
-    Output('state_projection_graph', 'children'),
-    [Input('state_dropdown', 'value'),
-     Input('predicted_timeline', 'value')]
-)
-def update_projection(state,val):
-    return build_state_projection(state,val)
+    [Output('country_dropdown', 'options'), Output('province_dropdown', 'value')],
+    [Input('continent_dropdown', 'value')])
+def set_cities_options(selected_continent):
+    return [[{'label': i, 'value': i} for i in df_projections[df_projections.Continent == selected_continent]['Country'].drop_duplicates()], None]
 
 @app.callback(
-    Output('us_map_projections', 'children'),
+    dash.dependencies.Output('province_dropdown', 'options'),
+    [dash.dependencies.Input('country_dropdown', 'value')])
+def set_cities_options(selected_country):
+    return [{'label': i, 'value': i} for i in df_projections[df_projections.Country == selected_country]['Province'].drop_duplicates()]
+
+
+@app.callback(
+    Output('state_projection_graph', 'children'),
+    [Input('province_dropdown', 'value'),
+     Input('country_dropdown', 'value'),
+     Input('continent_dropdown', 'value'),
+     Input('predicted_timeline', 'value')
+     ])
+def update_projection(state, country, continent, val):
+    print(state, country, continent)
+    return build_state_projection(state, country, continent, val)
+
+@app.callback(
+    Output('map_projections', 'children'),
+    [Input('us-map-date-picker-range', 'date'),
+     Input('us_map_dropdown', 'value'),
+     Input('location_map_dropdown', 'value')])
+def update_us_map(chosen_date,val, location):
+    if location == 'US':
+        return build_us_map(chosen_date,val)
+    else:
+        return build_continent_map(chosen_date,val, location)
+
+@app.callback(
+    Output('europe_map_projections', 'children'),
     [Input('us-map-date-picker-range', 'date'),
      Input('us_map_dropdown', 'value')])
 def update_us_map(chosen_date,val):
-    return build_us_map(chosen_date,val)
+    return build_europe_map(chosen_date,val)
 
 @app.callback(
     Output('us_tot_det', 'children'),
@@ -138,7 +165,8 @@ def update_us_tot_det(chosen_date):
     Output('us_tot_death', 'children'),
     [Input('us-map-date-picker-range', 'date')])
 def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Total Detected Deaths')
+    y = get_us_stat(chosen_date,'Total Detected Deaths')
+    return y
 
 @app.callback(
     Output('us-stats-title', 'children'),
