@@ -23,90 +23,75 @@ def build_tom_us_map():
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
     return build_us_map(tomorrow)
 
-data_card = dbc.Card(
-    [
-        dbc.CardImg(src="assets/images/data-1.jpg", top=True),
-        dbc.CardBody(
-            [
-                html.H4("Data", className="card-title"),
-                dcc.Markdown('''
-                       130+ international Covid-19 clinical studies,
-                       aggregated into a single [dataset](/dataset).
-                       ''',
-                ),
-            ]
-        ),
-    ],
-    style={"borderColor": "#900C3F"},
-    className="h-100",
-)
 
-insights_card = dbc.Card(
-    [
-        dbc.CardBody(
-            [
-                html.H4("Insights", className="card-title"),
-                dcc.Markdown('''
-                      Key characteristics of COVID-19 patients in an
-                      [interactive summary](/interactive-graph).
-                  ''',
-                ),
-            ]
-        ),
-        dbc.CardImg(src="assets/images/insights-4.png", top=False),
-    ],
-    style={"borderColor": "#900C3F"},
-    className="h-100"
-)
+def build_card(imgTop,title,text,img,link):
+    if imgTop:
+        card_content = \
+                [
+                    dbc.CardImg(src=img, top=False),
+                    dbc.CardBody(
+                        [
+                            html.H4(title, className="card-title"),
+                            dcc.Markdown(text),
+                            html.A(href=link,
+                            className="stretched-link home-card"),
+                        ],
+                        className="home-card-body"
+                    ),
+                ]
 
-projections_card = dbc.Card(
-    [
-        dbc.CardImg(src="assets/images/forecast-1.png", top=True),
-        dbc.CardBody(
-            [
-                html.H4("Projections", className="card-title"),
-                dcc.Markdown('''
-                    State-by-state [predictions](/projections) of COVID-19 infections, hospital stays, and deaths.
-                       ''',
-                ),
-            ]
-        ),
-    ],
-    style={"borderColor": "#900C3F"},
-    className="h-100"
-)
+    else:
+        card_content = \
+                [
+                    dbc.CardBody(
+                        [
+                            html.H4(title, className="card-title"),
+                            dcc.Markdown(text),
+                            html.A(href=link,
+                            className="stretched-link home-card"),
+                        ],
+                        className="home-card-body"
+                    ),
+                    dbc.CardImg(src=img, top=True),
+                ]
 
-ventilator_card = dbc.Card(
-    [
-        dbc.CardBody(
-            [
-                html.H4("Ventilator allocation", className="card-title"),
-                dcc.Markdown('''
-                       Leveraging delays between state peaks to [optimally re-use ventilators](/ventilator_allocation).'''
-                ),
-            ],
-        ),
-        dbc.CardImg(src="assets/images/allocation.png", top=True),
-    ],
-    style={"borderColor": "#900C3F"},
-    className="h-100"
-)
+    card = dbc.Card(
+                card_content,
+                className="home-card h-100"
+            )
 
-calculator_card = dbc.Card(
-    [
-        dbc.CardImg(src="assets/images/tree-2.png", top=True),
-        dbc.CardBody(
-            [
-                html.H4("Risk calculator", className="card-title"),
-                dcc.Markdown('''
-                      (Coming 4/12). Personalized calculator predicting ICU length of stay and mortality.''',
-                ),
-            ]
-        ),
-    ],
-    style={"borderColor": "#900C3F"},
-    className="h-100"
-)
+    return dbc.Col(
+                    [card],
+                    style={"margin": "0.5rem"},
+                    xs=12,
+                    sm=5,
+                    md=5,
+                    lg=2,
+                )
+
+
+data_text = '''
+       130+ international Covid-19 clinical studies,
+       aggregated into a single dataset.
+       '''
+insights_text = '''
+      Key characteristics of COVID-19 patients in an
+      interactive summary.
+      '''
+projections_text = '''
+    State-by-state predictions of COVID-19 infections, \
+    hospital stays, and deaths.
+    '''
+
+ventilator_text = '''
+       Leveraging delays between state peaks to \
+       optimally re-use ventilators.
+       '''
+
+calculator_text = '''
+      (Coming 4/18). Personalized calculator predicting ICU length of \
+      stay and mortality.
+      '''
 
 body = dbc.Container(
     [
@@ -125,46 +110,11 @@ body = dbc.Container(
         ),
         dbc.Row(
             [
-                dbc.Col(
-                    data_card,
-                    style={"margin": "0.5rem"},
-                    xs=12,
-                    sm=5,
-                    md=5,
-                    lg=2,
-                ),
-                dbc.Col(
-                    insights_card,
-                    style={"margin": "0.5rem"},
-                    xs=12,
-                    sm=5,
-                    md=5,
-                    lg=2,
-                ),
-                dbc.Col(
-                    projections_card,
-                    style={"margin": "0.5rem"},
-                    xs=12,
-                    sm=5,
-                    md=5,
-                    lg=2,
-                ),
-                dbc.Col(
-                    ventilator_card,
-                    style={"margin": "0.5rem"},
-                    xs=12,
-                    sm=5,
-                    md=5,
-                    lg=2,
-                ),
-                dbc.Col(
-                    calculator_card,
-                    style={"margin": "0.5rem"},
-                    xs=12,
-                    sm=5,
-                    md=5,
-                    lg=2,
-                ),
+                build_card(True,"Data",data_text,"assets/images/data-1.jpg","/dataset"),
+                build_card(False,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
+                build_card(True,"Projections",projections_text,"assets/images/forecast-1.png","/projections"),
+                build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
+                build_card(True,"Risk calculator",calculator_text,"assets/images/tree-2.png","/home"),
             ],
             justify="around",
             no_gutters=True,

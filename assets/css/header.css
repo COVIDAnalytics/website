@@ -23,25 +23,12 @@ P {
     color: black;
 }
 
-#data-table {
-  margin-top: 20px;
-}
 
 #date-projections{
   margin-top: 10px;
   text-align: center;
 }
 
-#date-projections-picker-div{
-  text-align: center;
-}
-
-#us-stats-cards{
-  color: white;
-  text-align: center;
-  font-size: 20px;
-  font-weight: bold;
-}
 
 .card-title{
   color: #800020;
@@ -49,16 +36,11 @@ P {
   font-weight: bold;
 }
 
-#graph-vent-text{
-  color: #800020;
-  text-align: center;
-}
 
 .team-name{
   text-align: center;
   color: #800020;
 }
-
 .team-name:hover{
   color: #0000A0;
   text-decoration: none;

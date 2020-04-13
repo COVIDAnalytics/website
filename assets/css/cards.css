@@ -1,0 +1,40 @@
+.team-card-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.team-card{
+  border-color: #800020;
+  background-color: #e6e6e6 !important;
+  text-align: center;
+}
+
+.team-card:hover{
+  border-color: #0000A0;
+}
+
+
+.home-card{
+  border-color: #800020 !important;
+}
+
+.home-card-body{
+    border-color: #800020;
+}
+
+.home-card:hover{
+  border-color: #0000A0 !important;
+}
+
+.home-card:hover .home-card-body h4 {
+  color: #0000A0 !important;
+}
+
+
+#us-stats-cards{
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+}
