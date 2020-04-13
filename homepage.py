@@ -57,7 +57,7 @@ def build_card(imgTop,title,text,img,link):
 
     card = dbc.Card(
                 card_content,
-                className="home-card"
+                className="home-card h-100"
             )
 
     return dbc.Col(
