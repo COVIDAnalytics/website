@@ -215,7 +215,13 @@ def build_graph(y_title,x_title,survivor_vals):
                         "xanchor": "center",
                         "y": -0.2,
                         "x": 0.5
-                        }
+                        },
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
             )
 
 
