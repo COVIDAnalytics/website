@@ -99,3 +99,20 @@ body {
 .team-card:hover{
   border-color: #0000A0;
 }
+
+.home-card{
+  border-color: #800020 !important;
+  height: 355px;
+}
+
+.home-card-body{
+    border-color: #800020;
+}
+
+.home-card:hover{
+  border-color: #0000A0 !important;
+}
+
+.home-card:hover .home-card-body h4 {
+  color: #0000A0 !important;
+}
