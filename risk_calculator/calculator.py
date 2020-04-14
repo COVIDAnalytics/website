@@ -13,7 +13,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from risk_calculator.features import build_feature_cards
+from risk_calculator.features import build_feature_cards,features
 
 nav = Navbar()
 footer = Footer()
@@ -113,7 +113,18 @@ def RickCalc():
     return layout
 
 def valid_input(feature_vals):
-    return False,"err"
+    numeric = len(features["numeric"])
+    for feat in range(numeric):
+        val = feature_vals[feat]
+        content = features["numeric"][feat]
+        name = content["name"]
+        min_val = content["min_val"]
+        max_val = content["max_val"]
+        if val is None:
+            return False, "Please insert a numeric value for {}".format(name)
+        if val < min_val or val > max_val:
+            return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val)
+    return True,""
 
 def predict_risk(feature_vals):
     return 0.5

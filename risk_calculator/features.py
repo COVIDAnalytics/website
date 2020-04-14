@@ -1,6 +1,7 @@
 ### Data
 import datetime
 import pandas as pd
+import json
 ### Graphing
 import plotly.graph_objects as go
 import dash
@@ -12,54 +13,8 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-features = \
-    {
-        "numeric": #features with free text
-            {
-                0: #id of numeric feature
-                    {
-                        "name": "Age",
-                        "min_val": 0,
-                        "max_val": 150,
-                        "default": 50, #not used for checkboxes
-                        "explanation": "Age of patient"
-                    },
-                1:
-                    {
-                        "name": "Diastolic Blood Pressure",
-                        "min_val": 0,
-                        "max_val": 150,
-                        "default": 70,
-                        "explanation": "Explanation on what DBP is"
-
-                    },
-            },
-        "categorical": #features with dropdown
-            {
-                0: #id of categorical feature
-                    {
-                        "name": "Gender",
-                        "vals": ["Male","Female"],
-                        "default": "Male",
-                        "explanation": "Gender of patient"
-                    },
-            },
-        "checkboxes": #features with checkbox
-            {
-                0: #id of checkbox for Symptoms
-                    {
-                        "name": "Symptoms",
-                        "vals": ["Cough","Fever"],#all of the checkboxes
-                        "explanation": "Explanation on symptoms"
-                    },
-                1: #id of checkbox for Comorbidities
-                    {
-                        "name": "Symptoms",
-                        "vals": ["Cancer","Asthma"],#all of the checkboxes
-                        "explanation": "Explanation on comorbidites"
-                    },
-            },
-    }
+with open('risk_calculator/risk_calc_features.json','r') as f:
+    features = json.load(f)
 
 def build_dropdown_card(id, content_dict):
     insert_data = \
@@ -146,11 +101,11 @@ def build_feature_cards():
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     checkboxes = features["checkboxes"]
-    for id, content_dict in dropdowns.items():
+    for id, content_dict in enumerate(dropdowns):
         card_content.append(build_dropdown_card(id, content_dict))
-    for id, content_dict in inputs.items():
+    for id, content_dict in enumerate(inputs):
         card_content.append(build_input_card(id, content_dict))
-    for id, content_dict in checkboxes.items():
+    for id, content_dict in enumerate(checkboxes):
         card_content.append(build_checkbox_card(id, content_dict))
 
     for c in card_content:
