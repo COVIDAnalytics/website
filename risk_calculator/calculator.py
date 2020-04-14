@@ -125,7 +125,7 @@ def valid_input(feature_vals):
 def predict_risk(feature_vals):
     score = 0.5
     card_content = [
-        html.H4("The clinical risk score is:",className="score-calculator-card-content"),
+        html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),
     ]
     return card_content

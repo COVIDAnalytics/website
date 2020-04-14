@@ -41,7 +41,7 @@ def Navbar():
                    children=[
                       dbc.DropdownMenuItem("Model", href="/calculator"),
                       dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/risk_calculator_allocation_documentation"),
+                      dbc.DropdownMenuItem("Documentation", href="/risk_calculator_documentation"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),

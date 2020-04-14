@@ -26,6 +26,7 @@ def build_dropdown_card(id, content_dict):
                             id = 'calc-categorical-{}'.format(id),
                             options = [{'label': x, 'value': x} for x in content_dict['vals']],
                             value = "{}".format(content_dict['default']),
+                            style={"width":100}
                         ),
                         id = 'calc-categorical-{}-wrapper'.format(id),
                     ),
