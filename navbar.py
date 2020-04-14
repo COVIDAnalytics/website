@@ -6,45 +6,25 @@ def Navbar():
         [
                 dbc.DropdownMenu(
                    color="link",
-                   label="Data",
+                   label="Dataset",
                    children=[
-                      dbc.DropdownMenuItem("Data Access", href="/dataset"),
+                      dbc.DropdownMenuItem("Data", href="/dataset"),
                       dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
-                    ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
-                ),
-                dbc.NavLink("Insights", href="/interactive-graph",style={"paddingTop": 30,"paddingBottom": 20}),
-                dbc.DropdownMenu(
-                   color="link",
-                   label="Projections",
-                   children=[
-                      dbc.DropdownMenuItem("Results", href="/projections"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
+                      dbc.DropdownMenuItem("Insights", href="/interactive-graph"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
                 dbc.DropdownMenu(
                    color="link",
-                   label="Ventilator Allocation",
+                   label="DELPHI",
                    children=[
-                      dbc.DropdownMenuItem("Results", href="/ventilator_allocation"),
+                      dbc.DropdownMenuItem("Projections", href="/projections"),
                       dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
+                      dbc.DropdownMenuItem("Ventilator Allocation", href="/ventilator_allocation"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
-                dbc.DropdownMenu(
-                   color="link",
-                   label="Clinical Risk Calculator",
-                   children=[
-                      dbc.DropdownMenuItem("Model", href="/calculator"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/risk_calculator_documentation"),
-                    ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
-                ),
+                dbc.NavLink("Clinical Risk Calculator", href="/calculator",style={"paddingTop": 30,"paddingBottom": 20}),
                 dbc.DropdownMenu(
                    color="link",
                    label="About Us",

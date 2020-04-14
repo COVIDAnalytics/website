@@ -74,9 +74,9 @@ body = dbc.Container(
                 with what the JHU dashboard indicates is because JHU does not have data on the \
                 number of people recovered for most states, and thus the number of people \
                 recovered recorded there is a vast underestimate.'''),
-                dcc.Markdown('''You can read a summary of the documentation \
-                [here](/projections_documentation) or access\
-                 or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                dcc.Markdown('''Detailed model specifications are available in the following \
+                [technical report](/ventilator_documentation_pdf). The full source code can be accessed on\
+                [Github](https://github.com/COVIDAnalytics/epidemic-model).'''),
             ]
             ),
         ],
