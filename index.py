@@ -24,7 +24,6 @@ from ventilators.utils import build_download_link_demand, build_download_link_tr
 from ventilators.ventilators_documentation import Ventilator_documentation
 from risk_calculator.calculator import RickCalc, valid_input, predict_risk
 from risk_calculator.features import features
-from risk_calculator.risk_calculator_documentation import Risk_Calculator_documentation
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -73,8 +72,6 @@ def display_page(pathname):
         return Ventilator_documentation()
     if pathname == '/calculator':
         return RickCalc()
-    if pathname == '/risk_calculator_documentation':
-        return Risk_Calculator_documentation()
     else:
         return Homepage()
 
