@@ -122,10 +122,10 @@ def build_feature_cards():
                 'paddingBottom':20,
                 'borderColor':'red'
                 },
-            xs=12,
-            sm=12,
+            xs=5,
+            sm=4,
             md=4,
-            lg=4,
+            lg=3,
             )
         cards.append(card)
     return cards

@@ -1,5 +1,7 @@
 import pickle
 import plotly.graph_objects as go
+from textwrap import wrap
+
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -88,7 +90,7 @@ body = dbc.Container(
                     ],
                     color="dark",
                     inverse=True,
-                    style={"marginTop":20}
+                    style={"marginTop":20,"marginBottom":20}
                     ),
                 ],
                 xs=12,
@@ -153,10 +155,11 @@ def build_feature_importance_graph():
         id='feature-importance-graph',
         figure=fig,
     )
+
     fig.update_layout(
                 height=550,
                 title={
-                    'text': "Feature Importances (Top 10)",
+                    'text':'<br>'.join(wrap('<b> Feature Importances (Top 10)" </b>', width=26)) ,
                      'x': 0.5,
                     'xanchor': 'center',
                     'yanchor': 'top'},
