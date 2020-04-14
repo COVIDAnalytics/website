@@ -21,7 +21,6 @@ from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
-from ventilators.ventilators_documentation import Ventilator_documentation
 from risk_calculator.calculator import RickCalc, valid_input, predict_risk
 from risk_calculator.features import features
 from assets.mappings import data_cols,all_options
@@ -68,8 +67,6 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    if pathname == '/ventilator_allocation_documentation':
-        return Ventilator_documentation()
     if pathname == '/calculator':
         return RickCalc()
     else:
