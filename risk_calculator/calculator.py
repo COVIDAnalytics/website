@@ -78,23 +78,31 @@ body = dbc.Container(
             ),
         ]),
         dbc.Row(build_feature_cards()),
-        dbc.Row(dbc.Col(dbc.Button("Submit", color="primary",id="submit-features-calc"))),
+        dbc.Row(dbc.Col(dbc.Button("Submit", color="primary",id="submit-features-calc",n_clicks=0))),
         dbc.Row(
             dbc.Col(
                 [
+                dcc.ConfirmDialog(
+                    id='calc-input-error',
+                ),
                 dbc.Card(
                     [],
                     id = 'score-calculator',
                     color="dark",
                     inverse=True,
-                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
+                    style={
+                        'marginBottom':20,
+                        'marginTop':20,
+                        "height":"8rem"
+                    },
                     ),
                 ],
                 xs=12,
                 sm=6,
                 md=6,
                 lg=3,
-            )
+            ),
+            justify="center",
         ),
     ],
     className="page-body"
@@ -103,3 +111,9 @@ body = dbc.Container(
 def RickCalc():
     layout = html.Div([nav, body, footer], className="site")
     return layout
+
+def valid_input(feature_vals):
+    return False,"err"
+
+def predict_risk(feature_vals):
+    return 0.5

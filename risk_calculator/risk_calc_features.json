@@ -1,0 +1,47 @@
+{
+    "numeric":
+        {
+            0:
+                {
+                    "name": "Age",
+                    "min_val": 0,
+                    "max_val": 150,
+                    "default": 50,
+                    "explanation": "Age of patient"
+                },
+            1:
+                {
+                    "name": "Diastolic Blood Pressure",
+                    "min_val": 0,
+                    "max_val": 150,
+                    "default": 70,
+                    "explanation": "Explanation on what DBP is"
+
+                },
+        },
+    "categorical":
+        {
+            0:
+                {
+                    "name": "Gender",
+                    "vals": ["Male","Female"],
+                    "default": "Male",
+                    "explanation": "Gender of patient"
+                },
+        },
+    "checkboxes":
+        {
+            0:
+                {
+                    "name": "Symptoms",
+                    "vals": ["Cough","Fever"],
+                    "explanation": "Explanation on symptoms"
+                },
+            1:
+                {
+                    "name": "Comorbidities",
+                    "vals": ["Cancer","Asthma"],
+                    "explanation": "Explanation on comorbidites"
+                },
+        },
+}

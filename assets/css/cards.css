@@ -31,6 +31,18 @@
   color: #0000A0 !important;
 }
 
+.feat-options-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feat-options{
+  border-color: #800020 !important;
+  height: 8rem;
+}
+
+
 
 #us-stats-cards{
   color: white;

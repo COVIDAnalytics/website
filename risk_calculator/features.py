@@ -68,11 +68,11 @@ def build_dropdown_card(id, content_dict):
                 dbc.Col(
                     html.Div(
                         dcc.Dropdown(
-                            id = 'calc-dropdown-{}'.format(id),
+                            id = 'calc-categorical-{}'.format(id),
                             options = [{'label': x, 'value': x} for x in content_dict['vals']],
                             value = "{}".format(content_dict['default']),
                         ),
-                        id = "select-feature-wrapper"
+                        id = 'calc-categorical-{}-wrapper'.format(id),
                     ),
                 ),
             ]
@@ -82,7 +82,7 @@ def build_dropdown_card(id, content_dict):
         ),
         dbc.Tooltip(
             content_dict['explanation'],
-            target="select-feature-wrapper",
+            target='calc-categorical-{}-wrapper'.format(id),
         ),
     ]
     return card
@@ -94,11 +94,12 @@ def build_input_card(id, content_dict):
                 dbc.Col(
                     html.Div(
                         dcc.Input(
-                            id="calc-input-{}".format(id),
+                            id="calc-numeric-{}".format(id),
                             type="number",
                             placeholder="{}".format(content_dict['default']),
+                            style={"width":100}
                         ),
-                        id = "select-feature-wrapper"
+                        id = "calc-numeric-{}-wrapper".format(id)
                     ),
                 ),
             ]
@@ -108,7 +109,7 @@ def build_input_card(id, content_dict):
         ),
         dbc.Tooltip(
             content_dict['explanation'],
-            target="select-feature-wrapper",
+            target="calc-numeric-{}-wrapper".format(id),
         ),
     ]
     return card
@@ -122,9 +123,9 @@ def build_checkbox_card(id, content_dict):
                         dbc.Checklist(
                             options=[{'label': x, 'value': x} for x in content_dict['vals']],
                             value=[],
-                            id="checklist-input-{}".format(id),
+                            id="calc-checkboxes-{}".format(id),
                         ),
-                        id = "select-feature-wrapper"
+                        id = "calc-checkboxes-{}-wrapper".format(id)
                     ),
                 ),
             ]
@@ -134,7 +135,7 @@ def build_checkbox_card(id, content_dict):
         ),
         dbc.Tooltip(
             content_dict['explanation'],
-            target="select-feature-wrapper",
+            target="calc-checkboxes-{}-wrapper".format(id),
         ),
     ]
     return card
@@ -157,10 +158,14 @@ def build_feature_cards():
             dbc.Col(
             [
                 dbc.Card(
-                    [dbc.CardBody(c)],
-                    className="h-100",
+                    [dbc.CardBody(c,className="feat-options-body")],
+                    className="feat-options"
                 ),
             ],
+            style={
+                'paddingBottom':20,
+                'borderColor':'red'
+                },
             xs=12,
             sm=12,
             md=4,

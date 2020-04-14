@@ -22,7 +22,8 @@ from ventilators.shortage_funcs import build_shortage_map,build_shortage_timelin
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
 from ventilators.ventilators_documentation import Ventilator_documentation
-from risk_calculator.calculator import RickCalc
+from risk_calculator.calculator import RickCalc, valid_input, predict_risk
+from risk_calculator.features import features
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -241,23 +242,38 @@ def download_ventilator_documentation():
     return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
                                      filename="Ventilator_Documentation.pdf")
 
-#callback for risk calculator
-# def get_feature_inputs():
-#     keys = len(features_name.keys())
-#     inputs = [None]*(keys+1)
-#     for k in range(keys):
-#         inputs[k] = State('input_{}'.format(k), 'value')
-#     inputs[keys]=Input('submit-features-calc', 'value')
-#     return inputs
-#
-#
-# @app.callback(
-#     Output('score-calculator', 'children'),
-#     get_feature_inputs()
-# )
-# def update_projection(state,val):
-#     return build_state_projection(state,val)
 
+#callback for risk calculator
+def get_type_inputs(amount,name):
+    inputs = [None]*amount
+    for k in range(amount):
+        inputs[k] = State('calc-{}-{}'.format(name,k), 'value')
+    return inputs
+
+def get_feature_inputs():
+    inputs = get_type_inputs(len(features['numeric']),'numeric')
+    inputs += get_type_inputs(len(features['categorical']),'categorical')
+    inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
+    return inputs
+
+@app.callback(
+    [Output('score-calculator', 'children'),
+    Output('calc-input-error', 'displayed'),
+    Output('calc-input-error', 'message')],
+    [Input('submit-features-calc', 'n_clicks')],
+    get_feature_inputs()
+)
+def update_projection(*argv):
+    #if submit button was clicked
+    if argv[0] > 0:
+        x = argv[1:]
+        valid, err = valid_input(x)
+        if valid:
+            return predict_risk(x),False,''
+        else:
+            return None,True,err
+    #user has not clicked submit
+    return None,False,''
 
 #Callbacks for navbar
 @app.callback(
