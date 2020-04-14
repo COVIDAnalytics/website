@@ -19,14 +19,13 @@ with open('assets/risk_calculators/risk_calc_features.json','r') as f:
 def build_dropdown_card(id, content_dict):
     insert_data = \
             [
-                dbc.Col(dcc.Markdown("**{}**".format(content_dict['name']))),
                 dbc.Col(
                     html.Div(
                         dcc.Dropdown(
                             id = 'calc-categorical-{}'.format(id),
                             options = [{'label': x, 'value': x} for x in content_dict['vals']],
                             value = "{}".format(content_dict['default']),
-                            style={"width":100}
+                            style={"width":150}
                         ),
                         id = 'calc-categorical-{}-wrapper'.format(id),
                     ),
@@ -34,7 +33,7 @@ def build_dropdown_card(id, content_dict):
             ]
     card = [
         dbc.Row(
-            insert_data
+            insert_data,
         ),
         dbc.Tooltip(
             content_dict['explanation'],
@@ -46,7 +45,6 @@ def build_dropdown_card(id, content_dict):
 def build_input_card(id, content_dict):
     insert_data = \
             [
-                dbc.Col(dcc.Markdown("**{}**".format(content_dict['name']))),
                 dbc.Col(
                     html.Div(
                         dcc.Input(
@@ -55,13 +53,13 @@ def build_input_card(id, content_dict):
                             placeholder="{}".format(content_dict['default']),
                             style={"width":100}
                         ),
-                        id = "calc-numeric-{}-wrapper".format(id)
+                        id = "calc-numeric-{}-wrapper".format(id),
                     ),
                 ),
             ]
     card = [
         dbc.Row(
-            insert_data
+            insert_data,
         ),
         dbc.Tooltip(
             content_dict['explanation'],
@@ -73,7 +71,6 @@ def build_input_card(id, content_dict):
 def build_checkbox_card(id, content_dict):
     insert_data = \
             [
-                dbc.Col(dcc.Markdown("**{}**".format(content_dict['name']))),
                 dbc.Col(
                     html.Div(
                         dbc.Checklist(
@@ -103,18 +100,21 @@ def build_feature_cards():
     dropdowns = features["categorical"]
     checkboxes = features["checkboxes"]
     for id, content_dict in enumerate(dropdowns):
-        card_content.append(build_dropdown_card(id, content_dict))
+        card_content.append((content_dict['name'],build_dropdown_card(id, content_dict)))
     for id, content_dict in enumerate(inputs):
-        card_content.append(build_input_card(id, content_dict))
+        card_content.append((content_dict['name'],build_input_card(id, content_dict)))
     for id, content_dict in enumerate(checkboxes):
-        card_content.append(build_checkbox_card(id, content_dict))
+        card_content.append((content_dict['name'],build_checkbox_card(id, content_dict)))
 
-    for c in card_content:
+    for name,c in card_content:
         card = \
             dbc.Col(
             [
                 dbc.Card(
-                    [dbc.CardBody(c,className="feat-options-body")],
+                    [
+                        dbc.CardHeader(name,style={"fontWeight": "bold"}),
+                        dbc.CardBody(c,className="feat-options-body")
+                    ],
                     className="feat-options"
                 ),
             ],

@@ -29,3 +29,11 @@
 #date-projections-picker-div{
   text-align: center;
 }
+
+#base-model-dropdown{
+    width:40%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+  }

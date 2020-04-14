@@ -76,8 +76,17 @@ body = dbc.Container(
                 html.H5('Insert the features below into the risk calculator.')
             ),
         ]),
-        dbc.Row(build_feature_cards()),
-        dbc.Row(dbc.Col(dbc.Button("Submit", color="primary",id="submit-features-calc",n_clicks=0))),
+        dbc.Row(build_feature_cards(),justify="center"),
+        dbc.Row(
+            dbc.Col(
+                dbc.Button(
+                    "Submit",
+                    id="submit-features-calc",
+                    n_clicks=0,
+                    className="mr-1"
+                )
+            )
+        ),
         dbc.Row(
             dbc.Col(
                 [
