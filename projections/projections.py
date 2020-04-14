@@ -76,7 +76,7 @@ body = dbc.Container(
                 recovered recorded there is a vast underestimate.'''),
                 dcc.Markdown('''You can read a summary of the documentation \
                 [here](/projections_documentation) or access\
-                 or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                 our [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
             ]
             ),
         ],
