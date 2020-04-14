@@ -13,7 +13,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-with open('risk_calculator/risk_calc_features.json','r') as f:
+with open('assets/risk_calculators/risk_calc_features.json','r') as f:
     features = json.load(f)
 
 def build_dropdown_card(id, content_dict):

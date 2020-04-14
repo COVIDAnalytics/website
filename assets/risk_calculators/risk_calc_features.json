@@ -3,6 +3,7 @@
             [
                 {
                     "name": "Age",
+                    "index": 3,
                     "min_val": 0,
                     "max_val": 150,
                     "default": 50,
@@ -10,6 +11,7 @@
                 },
                 {
                     "name": "Diastolic Blood Pressure",
+                    "index": 14,
                     "min_val": 0,
                     "max_val": 150,
                     "default": 70,
@@ -21,6 +23,7 @@
         [
                 {
                     "name": "Gender",
+                    "index": 28,
                     "vals": ["Male","Female"],
                     "default": "Male",
                     "explanation": "Gender of patient"
@@ -30,11 +33,13 @@
         [
                 {
                     "name": "Symptoms",
-                    "vals": ["Cough","Fever"],
+                    "index": [30,31],
+                    "vals": ["Fever","Vomit"],
                     "explanation": "Explanation on symptoms"
                 },
                 {
                     "name": "Comorbidities",
+                    "index": [6,5],
                     "vals": ["Cancer","Asthma"],
                     "explanation": "Explanation on comorbidites"
                 }

@@ -1,11 +1,5 @@
-### Data
-import datetime
-import pandas as pd
+import pickle
 
-### Graphing
-import plotly.graph_objects as go
-import dash
-import dash_table
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -17,6 +11,9 @@ from risk_calculator.features import build_feature_cards,features
 
 nav = Navbar()
 footer = Footer()
+
+with open('assets/risk_calculators/rf_model.pkl', 'rb') as file:
+    model = pickle.load(file)
 
 body = dbc.Container(
     [
@@ -91,6 +88,7 @@ body = dbc.Container(
                     ],
                     color="dark",
                     inverse=True,
+                    style={"marginTop":20}
                     ),
                 ],
                 xs=12,
