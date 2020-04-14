@@ -241,6 +241,24 @@ def download_ventilator_documentation():
     return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
                                      filename="Ventilator_Documentation.pdf")
 
+#callback for risk calculator
+# def get_feature_inputs():
+#     keys = len(features_name.keys())
+#     inputs = [None]*(keys+1)
+#     for k in range(keys):
+#         inputs[k] = State('input_{}'.format(k), 'value')
+#     inputs[keys]=Input('submit-features-calc', 'value')
+#     return inputs
+#
+#
+# @app.callback(
+#     Output('score-calculator', 'children'),
+#     get_feature_inputs()
+# )
+# def update_projection(state,val):
+#     return build_state_projection(state,val)
+
+
 #Callbacks for navbar
 @app.callback(
     Output("navbar-collapse", "is_open"),

@@ -13,8 +13,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from projections.projections import build_us_map
-from assets.mappings import states
+from risk_calculator.features import build_feature_cards
 
 nav = Navbar()
 footer = Footer()
@@ -80,6 +79,23 @@ body = dbc.Container(
         ]),
         dbc.Row(build_feature_cards()),
         dbc.Row(dbc.Col(dbc.Button("Submit", color="primary",id="submit-features-calc"))),
+        dbc.Row(
+            dbc.Col(
+                [
+                dbc.Card(
+                    [],
+                    id = 'score-calculator',
+                    color="dark",
+                    inverse=True,
+                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
+                    ),
+                ],
+                xs=12,
+                sm=6,
+                md=6,
+                lg=3,
+            )
+        ),
     ],
     className="page-body"
 )
