@@ -61,22 +61,39 @@ body = dbc.Container(
             dbc.Col(
             [
                 html.H2("Projections"),
-                html.P("""\
-                        This page presents the predictions of a new epidemiological model, \
-                        DELPHI, for COVID-19 infections, hospitalizations, and deaths in all \
-                        states of the United States. The model is based on the widely applied \
-                        SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach. \
-                        We additionally explicitly account for under detection and government \
-                        intervention on a state level.
+                dcc.Markdown("""\
+                        A critical tool for COVID-19 planning is charting out the progression \
+                        of the pandemic across the United States and the world. \
+                        We've developed a new epidemiological model called DELPHI, which \
+                        forecasts infections, hospitalizations, and deaths. \
+                        You can think of our model as a standard \
+                        [SEIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SEIR_model) \
+                        with additional \
+                        features specific to the COVID-19 pandemic, like under-detection and \
+                        differentiated government intervention.
                        """),
-                dcc.Markdown(''' **Note on "Active Cases"**: Active Cases is the estimated number of COVID-19 \
-                cases that have not recovered or perished yet. The seemingly large discrepancy \
-                with what the JHU dashboard indicates is because JHU does not have data on the \
-                number of people recovered for most states, and thus the number of people \
-                recovered recorded there is a vast underestimate.'''),
-                dcc.Markdown('''You can read a summary of the documentation \
-                [here](/projections_documentation) or access\
-                 or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                dcc.Markdown('''If you want to learn more, check out the \
+                             [documentation](/projections_documentation) or \
+                             [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                            html.H5("Note: what do we mean by \"active cases\"?"),
+                            dcc.Markdown("We define a COVID-19 case as **active** \
+                                         if it has not yet resulted in recovery \
+                                         or death. You may notice a discrepancy \
+                                         between the number of active cases here \
+                                         and on the \
+                                         [JHU map](https://coronavirus.jhu.edu/map.html). \
+                                         The JHU map is very good at keeping track of new cases, \
+                                         but does not always publish data on recovered cases, \
+                                         which can lead to overestimating currently active \
+                                         cases."),
+                            ]
+                        ),
+                    ]
+                ),
             ]
             ),
         ],
@@ -169,7 +186,7 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("What value would you like to know?"),
+                                dcc.Markdown("What value would you like to plot?"),
                                 dbc.Row(
                                     [
                                         dbc.Col(dcc.Markdown("**Predicted  \n Value:**"),width="auto"),
@@ -204,7 +221,7 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("For what location would you want to know it for?"),
+                                dcc.Markdown("For what location?"),
                                 dbc.Row(
                                     [
                                         dbc.Col(dcc.Markdown("**State:**")),
