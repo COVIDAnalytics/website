@@ -257,13 +257,14 @@ def get_feature_inputs():
     return inputs
 
 @app.callback(
-    [Output('score-calculator', 'children'),
+    [Output('score-calculator-card-body', 'children'),
     Output('calc-input-error', 'displayed'),
     Output('calc-input-error', 'message')],
     [Input('submit-features-calc', 'n_clicks')],
     get_feature_inputs()
 )
 def update_projection(*argv):
+    default = html.H4("The clinical risk score is:",className="score-calculator-card-content"),
     #if submit button was clicked
     if argv[0] > 0:
         x = argv[1:]
@@ -271,9 +272,9 @@ def update_projection(*argv):
         if valid:
             return predict_risk(x),False,''
         else:
-            return None,True,err
+            return default,True,err
     #user has not clicked submit
-    return None,False,''
+    return default,False,''
 
 #Callbacks for navbar
 @app.callback(

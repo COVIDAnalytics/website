@@ -86,15 +86,11 @@ body = dbc.Container(
                     id='calc-input-error',
                 ),
                 dbc.Card(
-                    [],
-                    id = 'score-calculator',
+                    [
+                        dbc.CardBody(id="score-calculator-card-body")
+                    ],
                     color="dark",
                     inverse=True,
-                    style={
-                        'marginBottom':20,
-                        'marginTop':20,
-                        "height":"8rem"
-                    },
                     ),
                 ],
                 xs=12,
@@ -127,4 +123,9 @@ def valid_input(feature_vals):
     return True,""
 
 def predict_risk(feature_vals):
-    return 0.5
+    score = 0.5
+    card_content = [
+        html.H4("The clinical risk score is:",className="score-calculator-card-content"),
+        html.H4(score,className="score-calculator-card-content"),
+    ]
+    return card_content

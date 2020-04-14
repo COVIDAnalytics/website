@@ -42,6 +42,10 @@
   height: 8rem;
 }
 
+.score-calculator-card-content{
+  color: white;
+  text-align: center;
+}
 
 
 #us-stats-cards{
