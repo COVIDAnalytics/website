@@ -21,7 +21,7 @@ from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
-from risk_calculator.calculator import RickCalc, valid_input, predict_risk
+from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
 from risk_calculator.features import features
 from assets.mappings import data_cols,all_options
 
@@ -256,7 +256,8 @@ def get_feature_inputs():
 @app.callback(
     [Output('score-calculator-card-body', 'children'),
     Output('calc-input-error', 'displayed'),
-    Output('calc-input-error', 'message')],
+    Output('calc-input-error', 'message'),
+    Output('feature-importance-bar-graph', 'children')],
     [Input('submit-features-calc', 'n_clicks')],
     get_feature_inputs()
 )
@@ -267,11 +268,11 @@ def update_projection(*argv):
         x = argv[1:]
         valid, err = valid_input(x)
         if valid:
-            return predict_risk(x),False,''
+            return predict_risk(x),False,'',build_feature_importance_graph()
         else:
-            return default,True,err
+            return default,True,err,[]
     #user has not clicked submit
-    return default,False,''
+    return default,False,'',[]
 
 #Callbacks for navbar
 @app.callback(

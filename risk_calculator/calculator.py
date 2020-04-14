@@ -1,5 +1,5 @@
 import pickle
-
+import plotly.graph_objects as go
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -98,6 +98,17 @@ body = dbc.Container(
             ),
             justify="center",
         ),
+        dbc.Row(
+            dbc.Col(
+                [
+                    html.Div(
+                        id = 'feature-importance-bar-graph',
+                        children = [],
+                    )
+                ],
+            ),
+            justify="center",
+        ),
     ],
     className="page-body"
 )
@@ -121,9 +132,46 @@ def valid_input(feature_vals):
     return True,""
 
 def predict_risk(feature_vals):
-    score = 0.5
+    x = [0]*len(model.feature_importances_)
+    #TODO: create x from feature_vals
+    #score = model.predict(temp)
+    score = [0.5]
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
-        html.H4(score,className="score-calculator-card-content"),
+        html.H4(score[0],className="score-calculator-card-content"),
     ]
     return card_content
+
+def build_feature_importance_graph():
+    importances = list(model.feature_importances_)
+    feature_list = ["feature {}".format(i) for i in range(len(importances))]
+    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
+    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
+    x,y = zip(*feature_importances)
+    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
+    graph = dcc.Graph(
+        id='feature-importance-graph',
+        figure=fig,
+    )
+    fig.update_layout(
+                height=550,
+                title={
+                    'text': "Feature Importances (Top 10)",
+                     'x': 0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top'},
+                title_font_size=25,
+                xaxis={'title': "Features",'linecolor': 'lightgrey'},
+                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
+                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
+            )
+    return graph
