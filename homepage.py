@@ -113,7 +113,7 @@ body = dbc.Container(
                 build_card(False,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
                 build_card(True,"Projections",projections_text,"assets/images/forecast-1.png","/projections"),
                 build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
-                build_card(True,"Risk calculator",calculator_text,"assets/images/tree-2.png","/home"),
+                build_card(True,"Risk calculator",calculator_text,"assets/images/tree-2.png","/calculator"),
             ],
             justify="around",
             no_gutters=True,
