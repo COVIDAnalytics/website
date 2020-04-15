@@ -16,6 +16,14 @@ from footer import Footer
 with open('assets/risk_calculators/risk_calc_features.json','r') as f:
     features = json.load(f)
 
+def gender_map(x,name):
+    if name == "Gender":
+        if x == 0:
+            return "Male"
+        else:
+            return "Female"
+    return x
+
 def build_dropdown_card(id, content_dict):
     insert_data = \
             [
@@ -23,7 +31,7 @@ def build_dropdown_card(id, content_dict):
                     html.Div(
                         dcc.Dropdown(
                             id = 'calc-categorical-{}'.format(id),
-                            options = [{'label': x, 'value': x} for x in content_dict['vals']],
+                            options = [{'label': gender_map(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
                             value = "{}".format(content_dict['default']),
                             style={"width":150}
                         ),
@@ -78,7 +86,17 @@ def build_checkbox_card(id, content_dict):
                             value=[],
                             id="calc-checkboxes-{}".format(id),
                         ),
-                        id = "calc-checkboxes-{}-wrapper".format(id)
+                        id = "calc-checkboxes-{}-wrapper".format(id),
+                    ),
+                ),
+                dbc.Col(
+                    html.Div(
+                        dbc.Checklist(
+                            options=[{'label': x, 'value': x} for x in content_dict['vals']],
+                            value=[],
+                            id="calc-checkboxes-{}".format(id),
+                        ),
+                        id = "calc-checkboxes-{}-wrapper".format(id),
                     ),
                 ),
             ]
@@ -125,7 +143,7 @@ def build_feature_cards():
             xs=5,
             sm=4,
             md=4,
-            lg=3,
+            lg=12,
             )
         cards.append(card)
     return cards
