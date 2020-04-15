@@ -126,7 +126,7 @@ body = dbc.Container(
                                                     max_date_allowed=max(df_us.Day.values),
                                                     date=oneWeekFromNow,
                                                     initial_visible_month=oneWeekFromNow,
-                                                    style={'marginBottom':20}
+                                                    style={'marginBottom':5,}
                                                 ),
                                                 id="date-projections-picker-div"
                                             ),
