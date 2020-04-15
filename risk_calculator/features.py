@@ -59,7 +59,7 @@ def build_input_card(id, content_dict):
                             id="calc-numeric-{}".format(id),
                             type="number",
                             placeholder="i.e. {}".format(int(content_dict['default'])),
-                            style={"width":90}
+                            style={"width":80}
                         ),
                         id = "calc-numeric-{}-wrapper".format(id),
                     ),
@@ -118,16 +118,15 @@ def build_multidrop_card(id, content_dict):
     insert_data = \
             [
                 dbc.Col(
-                    html.Div(
+                    html.Div([
                         dcc.Dropdown(
                             options=[{'label': x, 'value': x} for x in content_dict['vals']],
                             value=[],
                             id="calc-multidrop-{}".format(id),
                             multi=True,
-                            style={"width":180}
-                        ),
+                        )],
                         id = "calc-multidrop-{}-wrapper".format(id),
-                    ),
+                    )
                 ),
             ]
     card = [
@@ -158,25 +157,24 @@ def build_feature_cards():
         card_content.append((content_dict['name'],build_multidrop_card(id, content_dict)))
 
     for name,c in card_content:
+        content = dbc.Card(
+                        [
+                            dbc.CardHeader(name,style={"fontWeight": "bold"}),
+                            dbc.CardBody(c,className="feat-options-body")
+                        ],
+                        className="feat-options"
+                    )
+        w = 12 if name == "Comorbidities" else 4
         card = \
-            dbc.Col(
-            [
-                dbc.Card(
-                    [
-                        dbc.CardHeader(name,style={"fontWeight": "bold"}),
-                        dbc.CardBody(c,className="feat-options-body")
-                    ],
-                    className="feat-options"
-                ),
-            ],
+            dbc.Col([content],
             style={
                 'paddingBottom':20,
                 'borderColor':'red'
                 },
-            xs=6,
-            sm=6,
-            md=4,
-            lg=3,
+            xs=12,
+            sm=w,
+            md=w,
+            lg=w,
             )
         cards.append(card)
     return cards

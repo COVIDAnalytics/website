@@ -47,10 +47,11 @@ def build_feature_importance_graph():
     fig.update_layout(
                 height=450,
                 title={
-                    'text':'<br>'.join(wrap('<b> Feature Importances (Top 10) </b>', width=26)) ,
+                    'text':'<br>'.join(wrap('<b> Feature Importance Graph </b>', width=30)) ,
                      'x': 0.5,
                     'xanchor': 'center',
                     'yanchor': 'top'},
+                title_font_color='black',
                 title_font_size=18,
                 xaxis={'title': "Features",'linecolor': 'lightgrey'},
                 yaxis={'title': "Importance",'linecolor': 'lightgrey'},
@@ -146,13 +147,16 @@ body = dbc.Container(
         dbc.Row(build_feature_cards(),justify="center"),
         dbc.Row(
             dbc.Col(
-                dbc.Button(
-                    "Submit",
-                    id="submit-features-calc",
-                    n_clicks=0,
-                    className="mr-1"
+                html.Div(
+                    dbc.Button(
+                        "Submit",
+                        id="submit-features-calc",
+                        n_clicks=0,
+                        className="mr-1"
+                    ),
+                id="submit-features-calc-wrapper",
                 )
-            )
+            ),
         ),
         dbc.Row(
             dbc.Col(

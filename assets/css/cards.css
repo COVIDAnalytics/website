@@ -39,13 +39,17 @@
 
 .feat-options{
   border-color: #800020 !important;
-  height: 8rem;
+  height: 10rem;
   padding-bottom: 40;
 }
 
 .score-calculator-card-content{
   color: white;
   text-align: center;
+}
+
+#calc-multidrop-0-wrapper{
+  width:100%;
 }
 
 
