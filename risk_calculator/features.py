@@ -32,7 +32,7 @@ def build_dropdown_card(id, content_dict):
                         dcc.Dropdown(
                             id = 'calc-categorical-{}'.format(id),
                             options = [{'label': gender_map(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
-                            #value = "{}".format(content_dict['default']),
+                            value = 0,
                             style={"width":110}
                         ),
                         id = 'calc-categorical-{}-wrapper'.format(id),
@@ -58,13 +58,26 @@ def build_input_card(id, content_dict):
                         dcc.Input(
                             id="calc-numeric-{}".format(id),
                             type="number",
-                            #placeholder="{}".format(content_dict['default']),
-                            style={"width":100}
+                            placeholder="i.e. {}".format(int(content_dict['default'])),
+                            style={"width":90}
                         ),
                         id = "calc-numeric-{}-wrapper".format(id),
                     ),
                 ),
             ]
+    if content_dict["name"] == "Temperature":
+        insert_data.append(
+            dbc.Col(
+                html.Div(
+                    dcc.Dropdown(
+                        id = 'calc-temp-f-c',
+                        options = [{'label': x, 'value': x} for x in ["F","C"]],
+                        value = "C",
+                        style={"width":50}
+                    ),
+                ),
+            ),
+        )
     card = [
         dbc.Row(
             insert_data,

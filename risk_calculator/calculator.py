@@ -198,11 +198,20 @@ def valid_input(feature_vals):
             return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val)
     return True,""
 
+def convert_temp_units(x):
+    return (x-32)/1.8
+
 def predict_risk(feature_vals):
     x = [0]*len(model.feature_importances_)
+    #if temperature is in F, switch measurement to Celsius
+    convert_temperature = feature_vals[-1] == "F"
+    #align order of feature vector so that values are in correct order
     i = 0
     for feat in features["numeric"]:
-        x[feat["index"]] = feature_vals[i]
+        if feat["name"] == "Temperature" and convert_temperature:
+            x[feat["index"]] = convert_temp_units(feature_vals[i])
+        else:
+            x[feat["index"]] = feature_vals[i]
         i+=1
     for feat in features["categorical"]:
         x[feat["index"]] = feature_vals[i]
@@ -216,7 +225,7 @@ def predict_risk(feature_vals):
         ind = features["multidrop"][0]["vals"].index(c)
         x[ind] = 1
     score = model.predict_proba([x])[:,1]
-    score = str(100*round(1 - score[0], 2))+"%"
+    score = str(int(100*round(1 - score[0], 2)))+"%"
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),

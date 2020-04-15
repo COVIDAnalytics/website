@@ -252,6 +252,7 @@ def get_feature_inputs():
     inputs += get_type_inputs(len(features['categorical']),'categorical')
     inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
     inputs += get_type_inputs(len(features['multidrop']),'multidrop')
+    inputs += [State('calc-temp-f-c', 'value')]
     return inputs
 
 @app.callback(
