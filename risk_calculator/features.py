@@ -19,9 +19,9 @@ with open('assets/risk_calculators/risk_calc_features.json','r') as f:
 def gender_map(x,name):
     if name == "Gender":
         if x == 0:
-            return "Male"
-        else:
             return "Female"
+        else:
+            return "Male"
     return x
 
 def build_dropdown_card(id, content_dict):
