@@ -89,16 +89,6 @@ def build_checkbox_card(id, content_dict):
                         id = "calc-checkboxes-{}-wrapper".format(id),
                     ),
                 ),
-                dbc.Col(
-                    html.Div(
-                        dbc.Checklist(
-                            options=[{'label': x, 'value': x} for x in content_dict['vals']],
-                            value=[],
-                            id="calc-checkboxes-{}".format(id),
-                        ),
-                        id = "calc-checkboxes-{}-wrapper".format(id),
-                    ),
-                ),
             ]
     card = [
         dbc.Row(
@@ -111,18 +101,48 @@ def build_checkbox_card(id, content_dict):
     ]
     return card
 
+def build_multidrop_card(id, content_dict):
+    insert_data = \
+            [
+                dbc.Col(
+                    html.Div(
+                        dcc.Dropdown(
+                            options=[{'label': x, 'value': x} for x in content_dict['vals']],
+                            value=[],
+                            id="calc-multidrop-{}".format(id),
+                            multi=True,
+                            style={"width":150}
+                        ),
+                        id = "calc-multidrop-{}-wrapper".format(id),
+                    ),
+                ),
+            ]
+    card = [
+        dbc.Row(
+            insert_data
+        ),
+        dbc.Tooltip(
+            content_dict['explanation'],
+            target="calc-multidrop-{}-wrapper".format(id),
+        ),
+    ]
+    return card
+
 def build_feature_cards():
     card_content = []
     cards = []
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     checkboxes = features["checkboxes"]
+    multidrop = features["multidrop"]
     for id, content_dict in enumerate(dropdowns):
         card_content.append((content_dict['name'],build_dropdown_card(id, content_dict)))
     for id, content_dict in enumerate(inputs):
         card_content.append((content_dict['name'],build_input_card(id, content_dict)))
     for id, content_dict in enumerate(checkboxes):
         card_content.append((content_dict['name'],build_checkbox_card(id, content_dict)))
+    for id, content_dict in enumerate(multidrop):
+        card_content.append((content_dict['name'],build_multidrop_card(id, content_dict)))
 
     for name,c in card_content:
         card = \
@@ -143,7 +163,7 @@ def build_feature_cards():
             xs=5,
             sm=4,
             md=4,
-            lg=12,
+            lg=3,
             )
         cards.append(card)
     return cards

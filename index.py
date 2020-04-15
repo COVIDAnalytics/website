@@ -251,6 +251,7 @@ def get_feature_inputs():
     inputs = get_type_inputs(len(features['numeric']),'numeric')
     inputs += get_type_inputs(len(features['categorical']),'categorical')
     inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
+    inputs += get_type_inputs(len(features['multidrop']),'multidrop')
     return inputs
 
 @app.callback(
@@ -262,6 +263,7 @@ def get_feature_inputs():
     get_feature_inputs()
 )
 def update_projection(*argv):
+    print(argv)
     default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
     #if submit button was clicked
     if argv[0] > 0:

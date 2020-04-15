@@ -83,7 +83,9 @@
          "explanation":[
             "Select the existing symptoms."
          ]
-      },
+      }
+    ],
+    "multidrop":[
       {
          "name":"Comorbidities",
          "index":[
