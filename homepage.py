@@ -89,7 +89,7 @@ ventilator_text = '''
        '''
 
 calculator_text = '''
-      Personalized calculator predicting mortality given hosptalization.
+      Personalized calculator predicting mortality given hospitalization.
       '''
 
 body = dbc.Container(
