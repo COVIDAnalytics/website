@@ -105,6 +105,7 @@ body = dbc.Container(
             ),
         ],
         ),
+
         dbc.Row(
         [
 
@@ -409,7 +410,7 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
             title_text=add_cases('{} Predicted {} {}'.format(map_date.strftime('%b %d,%Y'), continent, val)),
             geo = dict(
                 scope= continent.lower(),
-                projection=go.layout.geo.Projection(type = 'equirectangular'),
+                projection=go.layout.geo.Projection(type = 'natural earth'),
                 showlakes=True, # lakes
                 lakecolor='rgb(255, 255, 255)',
                 showframe = False,
