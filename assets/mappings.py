@@ -95,6 +95,7 @@ states = {
     'Washington': 'WA', 'Wisconsin': 'WI', 'West Virginia': 'WV', 'Wyoming': 'WY'
     }
 
+
 # colors that align with inferno
 colors =[
             '#000004',
