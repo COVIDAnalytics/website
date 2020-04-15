@@ -34,11 +34,13 @@
 .feat-options-body{
   display: flex;
   align-items: center;
+  padding-bottom: 40;
 }
 
 .feat-options{
   border-color: #800020 !important;
   height: 8rem;
+  padding-bottom: 40;
 }
 
 .score-calculator-card-content{

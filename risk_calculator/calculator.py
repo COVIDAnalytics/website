@@ -17,13 +17,63 @@ footer = Footer()
 with open('assets/risk_calculators/rf_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
+def build_feature_importance_graph():
+    feature_list = ['']*len(model.feature_importances_)
+    i = 0
+    for feat in features["numeric"]:
+        feature_list[feat["index"]] = feat["name"]
+        i+=1
+    for feat in features["categorical"]:
+        feature_list[feat["index"]] = feat["name"]
+        i+=1
+    for feat in features["checkboxes"]:
+        for j,name in enumerate(feat["vals"]):
+            feature_list[feat["index"][j]] = name
+            i+=1
+    for feat in features["multidrop"]:
+        for j,name in enumerate(feat["vals"]):
+            feature_list[feat["index"][j]] = name
+            i+=1
+    importances = list(model.feature_importances_)
+    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
+    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
+    x,y = zip(*feature_importances)
+    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
+    graph = dcc.Graph(
+        id='feature-importance-graph',
+        figure=fig,
+    )
+
+    fig.update_layout(
+                height=450,
+                title={
+                    'text':'<br>'.join(wrap('<b> Feature Importances (Top 10) </b>', width=26)) ,
+                     'x': 0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top'},
+                title_font_size=18,
+                xaxis={'title': "Features",'linecolor': 'lightgrey'},
+                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
+                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
+            )
+    return graph
+
 body = dbc.Container(
     [
         dbc.Row(
         [
             dbc.Col(
             [
-              html.H2("Clinical Rick Calculator")
+              html.H2("Mortality Risk Calculator")
             ]
             ),
         ],
@@ -50,7 +100,7 @@ body = dbc.Container(
                          """,
                     ),
                     dcc.Markdown(
-                         """ **Data** (as of 2020/04/10): Our model is trained on 496 patients from the Azienda \
+                         """ **Data** (as of 04/15/2020): Our model is trained on 496 patients (out of whom 201 deceased) from the Azienda \
                          Socio-Sanitaria Territoriale di Cremona [ASST Cremona](https://www.asst-cremona.it/) which includes the Ospedale \
                          di Cremona, Ospedale Oglio Po and other minor public hospitals in the Province of \
                          Cremona. Cremona is one of the most hit italian provinces in Lombardy in the Italian \
@@ -64,11 +114,28 @@ body = dbc.Container(
                           It is available only to solicit input about its future development.**
                          """,
                          ),
+                    html.Div([
+                        'We utilized random forest to predict mortality. The out of sample area under the curve \
+                        (AUC) on 124 patients (out of whom 50 deceased) is',
+                        html.Span(' 0.92 ', style={'color': '#800020',"fontWeight":"bold"}),
+                        ' and the importance of the features is as follows:'
+                    ])
                 ]
                 )
             ]
             ),
         ],
+        ),
+        dbc.Row(
+            dbc.Col(
+                [
+                    html.Div(
+                        id = 'feature-importance-bar-graph',
+                        children = build_feature_importance_graph(),
+                    )
+                ],
+            ),
+            justify="center",
         ),
         dbc.Row(
         [
@@ -106,17 +173,6 @@ body = dbc.Container(
                 sm=6,
                 md=6,
                 lg=3,
-            ),
-            justify="center",
-        ),
-        dbc.Row(
-            dbc.Col(
-                [
-                    html.Div(
-                        id = 'feature-importance-bar-graph',
-                        children = [],
-                    )
-                ],
             ),
             justify="center",
         ),
@@ -160,59 +216,9 @@ def predict_risk(feature_vals):
         ind = features["multidrop"][0]["vals"].index(c)
         x[ind] = 1
     score = model.predict_proba([x])[:,1]
-    score = round(1 - score[0], 2)
+    score = str(100*round(1 - score[0], 2))+"%"
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),
     ]
     return card_content
-
-def build_feature_importance_graph():
-    feature_list = ['']*len(model.feature_importances_)
-    i = 0
-    for feat in features["numeric"]:
-        feature_list[feat["index"]] = feat["name"]
-        i+=1
-    for feat in features["categorical"]:
-        feature_list[feat["index"]] = feat["name"]
-        i+=1
-    for feat in features["checkboxes"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    for feat in features["multidrop"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    importances = list(model.feature_importances_)
-    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
-    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
-    x,y = zip(*feature_importances)
-    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
-    graph = dcc.Graph(
-        id='feature-importance-graph',
-        figure=fig,
-    )
-
-    fig.update_layout(
-                height=550,
-                title={
-                    'text':'<br>'.join(wrap('<b> Feature Importances (Top 10) </b>', width=26)) ,
-                     'x': 0.5,
-                    'xanchor': 'center',
-                    'yanchor': 'top'},
-                title_font_size=25,
-                xaxis={'title': "Features",'linecolor': 'lightgrey'},
-                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
-                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest',
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                modebar={
-                    'orientation': 'v',
-                    'bgcolor': 'rgba(0,0,0,0)',
-                    'color': 'lightgray',
-                    'activecolor': 'gray'
-                }
-            )
-    return graph

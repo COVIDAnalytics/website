@@ -32,8 +32,8 @@ def build_dropdown_card(id, content_dict):
                         dcc.Dropdown(
                             id = 'calc-categorical-{}'.format(id),
                             options = [{'label': gender_map(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
-                            value = "{}".format(content_dict['default']),
-                            style={"width":150}
+                            #value = "{}".format(content_dict['default']),
+                            style={"width":110}
                         ),
                         id = 'calc-categorical-{}-wrapper'.format(id),
                     ),
@@ -58,7 +58,7 @@ def build_input_card(id, content_dict):
                         dcc.Input(
                             id="calc-numeric-{}".format(id),
                             type="number",
-                            placeholder="{}".format(content_dict['default']),
+                            #placeholder="{}".format(content_dict['default']),
                             style={"width":100}
                         ),
                         id = "calc-numeric-{}-wrapper".format(id),
@@ -111,7 +111,7 @@ def build_multidrop_card(id, content_dict):
                             value=[],
                             id="calc-multidrop-{}".format(id),
                             multi=True,
-                            style={"width":150}
+                            style={"width":180}
                         ),
                         id = "calc-multidrop-{}-wrapper".format(id),
                     ),
@@ -160,8 +160,8 @@ def build_feature_cards():
                 'paddingBottom':20,
                 'borderColor':'red'
                 },
-            xs=5,
-            sm=4,
+            xs=6,
+            sm=6,
             md=4,
             lg=3,
             )

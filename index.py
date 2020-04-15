@@ -257,8 +257,7 @@ def get_feature_inputs():
 @app.callback(
     [Output('score-calculator-card-body', 'children'),
     Output('calc-input-error', 'displayed'),
-    Output('calc-input-error', 'message'),
-    Output('feature-importance-bar-graph', 'children')],
+    Output('calc-input-error', 'message')],
     [Input('submit-features-calc', 'n_clicks')],
     get_feature_inputs()
 )
@@ -269,11 +268,11 @@ def update_projection(*argv):
         x = argv[1:]
         valid, err = valid_input(x)
         if valid:
-            return predict_risk(x),False,'',build_feature_importance_graph()
+            return predict_risk(x),False,''
         else:
-            return default,True,err,[]
+            return default,True,err
     #user has not clicked submit
-    return default,False,'',[]
+    return default,False,''
 
 #Callbacks for navbar
 @app.callback(

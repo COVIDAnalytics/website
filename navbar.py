@@ -24,7 +24,7 @@ def Navbar():
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
-                dbc.NavLink("Clinical Risk Calculator", href="/calculator",style={"paddingTop": 30,"paddingBottom": 20}),
+                dbc.NavLink("Mortality Risk Calculator", href="/calculator",style={"paddingTop": 30,"paddingBottom": 20}),
                 dbc.DropdownMenu(
                    color="link",
                    label="About Us",
