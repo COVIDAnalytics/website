@@ -413,6 +413,9 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
                 projection=go.layout.geo.Projection(type = 'natural earth'),
                 showlakes=True, # lakes
                 lakecolor='rgb(255, 255, 255)',
+                countrycolor='whitesmoke',
+                landcolor='whitesmoke',
+                showland=True,
                 showframe = False,
                 showcoastlines = True,
                 visible = False,
