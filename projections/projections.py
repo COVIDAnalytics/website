@@ -72,9 +72,9 @@ body = dbc.Container(
                         features specific to the COVID-19 pandemic, like under-detection and \
                         differentiated government intervention.
                        """),
-                dcc.Markdown('''If you want to learn more, check out the \
-                             [documentation](/projections_documentation) or \
-                             [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                dcc.Markdown('''Detailed model specifications are available in the following \
+                [technical report](/ventilator_documentation_pdf). The full source code can be accessed on\
+                [Github](https://github.com/COVIDAnalytics/epidemic-model).'''),
                 dbc.Card(
                     [
                         dbc.CardBody(

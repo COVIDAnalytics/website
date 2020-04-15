@@ -39,12 +39,3 @@ body {
   margin-top: 20px;
   flex-shrink: 0;
 }
-
-
-#base-model-dropdown{
-    width:40%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: 20px;
-  }

@@ -21,7 +21,8 @@ from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
-from ventilators.ventilators_documentation import Ventilator_documentation
+from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
+from risk_calculator.features import features
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -66,8 +67,8 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    if pathname == '/ventilator_allocation_documentation':
-        return Ventilator_documentation()
+    if pathname == '/calculator':
+        return RickCalc()
     else:
         return Homepage()
 
@@ -237,6 +238,42 @@ def update_download_link_transfers(chosen_model):
 def download_ventilator_documentation():
     return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
                                      filename="Ventilator_Documentation.pdf")
+
+
+#callback for risk calculator
+def get_type_inputs(amount,name):
+    inputs = [None]*amount
+    for k in range(amount):
+        inputs[k] = State('calc-{}-{}'.format(name,k), 'value')
+    return inputs
+
+def get_feature_inputs():
+    inputs = get_type_inputs(len(features['numeric']),'numeric')
+    inputs += get_type_inputs(len(features['categorical']),'categorical')
+    inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
+    inputs += get_type_inputs(len(features['multidrop']),'multidrop')
+    inputs += [State('calc-temp-f-c', 'value')]
+    return inputs
+
+@app.callback(
+    [Output('score-calculator-card-body', 'children'),
+    Output('calc-input-error', 'displayed'),
+    Output('calc-input-error', 'message')],
+    [Input('submit-features-calc', 'n_clicks')],
+    get_feature_inputs()
+)
+def update_projection(*argv):
+    default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
+    #if submit button was clicked
+    if argv[0] > 0:
+        x = argv[1:]
+        valid, err = valid_input(x)
+        if valid:
+            return predict_risk(x),False,''
+        else:
+            return default,True,err
+    #user has not clicked submit
+    return default,False,''
 
 #Callbacks for navbar
 @app.callback(

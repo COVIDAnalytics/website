@@ -89,8 +89,7 @@ ventilator_text = '''
        '''
 
 calculator_text = '''
-      (Coming 4/18). Personalized calculator predicting ICU length of \
-      stay and mortality.
+      Personalized calculator predicting mortality given hosptalization.
       '''
 
 body = dbc.Container(
