@@ -159,12 +159,10 @@ def predict_risk(feature_vals):
     for c in comorbidities:
         ind = features["multidrop"][0]["vals"].index(c)
         x[ind] = 1
-    score = model.predict([x])
-    print(x)
-    print(score)
+    score = model.predict_proba([x])[:,1]
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
-        html.H4(score[0],className="score-calculator-card-content"),
+        html.H4(round(score[0], 2),className="score-calculator-card-content"),
     ]
     return card_content
 
