@@ -68,26 +68,44 @@ body = dbc.Container(
             dbc.Col(
             [
                 html.H2("Projections"),
-                html.P("""\
-                        This page presents the predictions of a new epidemiological model, \
-                        DELPHI, for COVID-19 infections, hospitalizations, and deaths in all \
-                        states of the United States. The model is based on the widely applied \
-                        SEIR (Susceptible-Exposed-Infected-Recovered) modeling approach. \
-                        We additionally explicitly account for under detection and government \
-                        intervention on a state level.
+                dcc.Markdown("""\
+                        A critical tool for COVID-19 planning is charting out the progression \
+                        of the pandemic across the United States and the world. \
+                        We've developed a new epidemiological model called DELPHI, which \
+                        forecasts infections, hospitalizations, and deaths. \
+                        You can think of our model as a standard \
+                        [SEIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SEIR_model) \
+                        with additional \
+                        features specific to the COVID-19 pandemic, like under-detection and \
+                        differentiated government intervention.
                        """),
-                dcc.Markdown(''' **Note on "Active Cases"**: Active Cases is the estimated number of COVID-19 \
-                cases that have not recovered or perished yet. The seemingly large discrepancy \
-                with what the JHU dashboard indicates is because JHU does not have data on the \
-                number of people recovered for most states, and thus the number of people \
-                recovered recorded there is a vast underestimate.'''),
-                dcc.Markdown('''You can read a summary of the documentation \
-                [here](/projections_documentation) or access\
-                 or [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                dcc.Markdown('''If you want to learn more, check out the \
+                             [documentation](/projections_documentation) or \
+                             [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                            html.H5("Note: what do we mean by \"active cases\"?"),
+                            dcc.Markdown("We define a COVID-19 case as **active** \
+                                         if it has not yet resulted in recovery \
+                                         or death. You may notice a discrepancy \
+                                         between the number of active cases here \
+                                         and on the \
+                                         [JHU map](https://coronavirus.jhu.edu/map.html). \
+                                         The JHU map is very good at keeping track of new cases, \
+                                         but does not always publish data on recovered cases, \
+                                         which can lead to overestimating currently active \
+                                         cases."),
+                            ]
+                        ),
+                    ]
+                ),
             ]
             ),
         ],
         ),
+
         dbc.Row(
         [
 
@@ -108,7 +126,7 @@ body = dbc.Container(
                                                     max_date_allowed=max(df_us.Day.values),
                                                     date=oneWeekFromNow,
                                                     initial_visible_month=oneWeekFromNow,
-                                                    style={'marginBottom':20}
+                                                    style={'marginBottom':5,}
                                                 ),
                                                 id="date-projections-picker-div"
                                             ),
@@ -142,7 +160,7 @@ body = dbc.Container(
                                                 dcc.Dropdown(
                                                         id = 'location_map_dropdown',
                                                         options = [{'label': x, 'value': x} for x in map_locations],
-                                                        value = 'World',
+                                                        value = 'US',
                                                 ),
 
                                             ]),
@@ -214,6 +232,9 @@ body = dbc.Container(
                     id = 'map_projections',
                     children = [],
                 ),
+                html.P('* Gray countries correspond to no estimation attempted with our model.',
+                        style={'color':'gray'}
+                ),
             ]
             ),
 
@@ -236,20 +257,22 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("What value would you like to know?"),
+                                dcc.Markdown("What value would you like to plot?"),
                                 dbc.Row(
                                     [
-                                        dbc.Col(dcc.Markdown("**Predicted Value:**")),
+                                        dbc.Col(dcc.Markdown("**Predicted  \n Value:**"),width="auto"),
                                         dbc.Col(
                                             html.Div(
                                                 dcc.Dropdown(
                                                     id = 'predicted_timeline',
                                                     options = [{'label': x, 'value': x} for x in cols],
+
                                                     value = ['Active'],
                                                     multi=True,
                                                 ),
                                                 id = "p2-transfer-dropdown-wrapper",
                                             ),
+                                        width=True
                                         ),
                                     ]
                                 ),
@@ -270,7 +293,7 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("For what location would you want to know it for?"),
+                                dcc.Markdown("For what location?"),
                                 dbc.Row(
                                     [
                                         dbc.Col([dcc.Markdown("**Country:**"),dcc.Markdown("**Province:**")]),
@@ -390,11 +413,15 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
             title_text=add_cases('{} Predicted {} {}'.format(map_date.strftime('%b %d,%Y'), continent, val)),
             geo = dict(
                 scope= continent.lower(),
-                projection=go.layout.geo.Projection(type = 'equirectangular'),
+                projection=go.layout.geo.Projection(type = 'natural earth'),
                 showlakes=True, # lakes
                 lakecolor='rgb(255, 255, 255)',
+                countrycolor='lightgray',
+                landcolor='whitesmoke',
+                showland=True,
                 showframe = False,
                 showcoastlines = True,
+                showcountries=True,
                 visible = False,
             ),
         )
@@ -437,7 +464,7 @@ def build_us_map(map_date,val='Active'):
                 colorscale='inferno_r',
                 autocolorscale=False,
                 text=df_map['text'], # hover text
-                marker_line_color='black' , # line markers between states
+                marker_line_color='white' , # line markers between states
                 colorbar_title='{}'.format(add_cases(val))
             ))
 
@@ -509,7 +536,13 @@ def build_state_projection(state, country, continent, vals):
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)'
+                plot_bgcolor='rgba(0,0,0,0)',
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
             )
 
     graph = dcc.Graph(

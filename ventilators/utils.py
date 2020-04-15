@@ -151,7 +151,13 @@ def us_timeline(df, title, with_opt):
                         "xanchor": "center",
                         "y": -0.2,
                         "x": 0.5
-                        }
+                        },
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
             )
 
     graph = dcc.Graph(

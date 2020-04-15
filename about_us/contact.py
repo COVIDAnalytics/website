@@ -81,7 +81,7 @@ text_input = dbc.FormGroup(
                     className="form-control",
                     id="message-row",
                     name="message",
-                    style={"width":"50%","margin-left":5},
+                    style={"width":"50%","marginLeft":5},
                 )
             ],
             width=True
