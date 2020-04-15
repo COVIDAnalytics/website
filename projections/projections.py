@@ -159,7 +159,7 @@ body = dbc.Container(
                                                 dcc.Dropdown(
                                                         id = 'location_map_dropdown',
                                                         options = [{'label': x, 'value': x} for x in map_locations],
-                                                        value = 'World',
+                                                        value = 'US',
                                                 ),
 
                                             ]),
@@ -262,13 +262,9 @@ body = dbc.Container(
                                                 dcc.Dropdown(
                                                     id = 'predicted_timeline',
                                                     options = [{'label': x, 'value': x} for x in cols],
-<<<<<<< HEAD
-                                                    value = 'Total Detected',
-                                                    style={'width':'100%'}
-=======
+
                                                     value = ['Active'],
                                                     multi=True,
->>>>>>> de3d8b7a1a14dfc474e3df6079bb43c917080f2b
                                                 ),
                                                 id = "p2-transfer-dropdown-wrapper",
                                             ),
@@ -460,7 +456,7 @@ def build_us_map(map_date,val='Active'):
                 colorscale='inferno_r',
                 autocolorscale=False,
                 text=df_map['text'], # hover text
-                marker_line_color='black' , # line markers between states
+                marker_line_color='white' , # line markers between states
                 colorbar_title='{}'.format(add_cases(val))
             ))
 
