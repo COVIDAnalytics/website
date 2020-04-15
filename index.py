@@ -121,7 +121,6 @@ def set_cities_options(selected_continent):
     [Output('province_dropdown', 'options'),Output('province_dropdown', 'value')],
     [Input('country_dropdown', 'value')])
 def set_cities_options(selected_country):
-    print(type(selected_country))
     if selected_country is None:
         return [[], None]
     else:

@@ -468,7 +468,6 @@ def find_smallest_scope(state, country, continent):
     return location
 
 def build_state_projection(state, country, continent, vals):
-    print(state, country, continent)
     global df_projections
     location = find_smallest_scope(state, country, continent)
 
@@ -478,7 +477,8 @@ def build_state_projection(state, country, continent, vals):
     if continent == 'US':
         df_projections_sub = df_projections.loc[(df_projections.Country == 'US') & (df_projections.Province == state)]
     if continent == 'World':
-        df_projections_sub = df_projections.loc[(df_projections.Continent == 'None')] #exclude global world data
+        if country =='None':
+            df_projections_sub = df_projections.loc[(df_projections.Continent == 'None')] #include only global world data
     fig = go.Figure()
 
     if (vals is not None) and (set(vals).issubset(set(cols))):
