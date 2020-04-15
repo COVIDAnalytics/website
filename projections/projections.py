@@ -495,7 +495,6 @@ def find_smallest_scope(state, country, continent):
     return location
 
 def build_state_projection(state, country, continent, vals):
-    print(state, country, continent)
     global df_projections
     location = find_smallest_scope(state, country, continent)
 
