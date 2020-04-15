@@ -133,6 +133,7 @@ body = dbc.Container(
                     html.Div(
                         id = 'feature-importance-bar-graph',
                         children = build_feature_importance_graph(),
+                        style={"paddingTop":20,"paddingBottom":20}
                     )
                 ],
             ),
