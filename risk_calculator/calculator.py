@@ -101,7 +101,7 @@ body = dbc.Container(
                          """,
                     ),
                     dcc.Markdown(
-                         """ **Data** (as of 04/15/2020): Our model is trained on 496 patients (out of whom 201 deceased) from the Azienda \
+                         """ **Data** (as of 04/15/2020): Our model is trained on 496 patients (out of whom 201 deceased) hospitalized due to COVID-19 at the Azienda \
                          Socio-Sanitaria Territoriale di Cremona [ASST Cremona](https://www.asst-cremona.it/) which includes the Ospedale \
                          di Cremona, Ospedale Oglio Po and other minor public hospitals in the Province of \
                          Cremona. Cremona is one of the most hit italian provinces in Lombardy in the Italian \
@@ -116,8 +116,8 @@ body = dbc.Container(
                          """,
                          ),
                     html.Div([
-                        'We utilized random forest to predict mortality. The out of sample area under the curve \
-                        (AUC) on 124 patients (out of whom 50 deceased) is',
+                        'We utilized random forest to predict a mortality risk score for patients hospitalized due to COVID-19. \
+                        The out of sample area under the curve (AUC) on 124 patients (out of whom 50 deceased) is',
                         html.Span(' 0.92 ', style={'color': '#800020',"fontWeight":"bold"}),
                         ' and the importance of the features is as follows:'
                     ])
