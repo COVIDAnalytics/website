@@ -99,9 +99,8 @@ states = {
 # colors that align with inferno
 colors =[
             '#000004',
-            '#e895a4',
-            '#99747b',
-            '#a80a29',
-            '#f7d31d',
-            '#913446'
+            '#4a0c6b',
+            '#a52c60',
+            '#ed6925',
+            '#f7d31d'
         ]

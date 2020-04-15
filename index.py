@@ -11,7 +11,7 @@ from datetime import datetime as dt
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
-from projections.projections import ProjectState, build_state_projection, build_us_map, get_us_stat, df_projections, build_continent_map
+from projections.projections import ProjectState, build_state_projection, build_us_map, get_stat, df_projections, build_continent_map
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
@@ -101,28 +101,50 @@ def set_display_children(selected_category):
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
 #Callbacks for projections
+
+#Reset country_dropdown when main location (scope) changes
 @app.callback(
-    [Output('country_dropdown', 'options'), Output('province_dropdown', 'value')],
-    [Input('continent_dropdown', 'value')])
+    [Output('country_dropdown', 'options'), Output('country_dropdown', 'value')],
+    [Input('location_map_dropdown', 'value')])
 def set_cities_options(selected_continent):
-    return [[{'label': i, 'value': i} for i in df_projections[df_projections.Continent == selected_continent]['Country'].drop_duplicates()], None]
+    if selected_continent == 'World':
+        df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
+        return [[{'label': i, 'value': i} for i in df['Country'].drop_duplicates()], None]
+    if selected_continent != 'US':
+        df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
+        return [[{'label': i, 'value': i} for i in df['Country'].drop_duplicates()], None]
+    else:
+        return [[{'label': i, 'value': i} for i in ['US']], 'US']
 
+#Reset province_dropdown when country changes.
 @app.callback(
-    dash.dependencies.Output('province_dropdown', 'options'),
-    [dash.dependencies.Input('country_dropdown', 'value')])
+    [Output('province_dropdown', 'options'),Output('province_dropdown', 'value')],
+    [Input('country_dropdown', 'value')])
 def set_cities_options(selected_country):
-    return [{'label': i, 'value': i} for i in df_projections[df_projections.Country == selected_country]['Province'].drop_duplicates()]
-
+    print(type(selected_country))
+    if selected_country is None:
+        return [[], None]
+    else:
+        df = df_projections[df_projections.Country == selected_country]
+        provinces = [i for i in df['Province'].drop_duplicates()]
+        if provinces == ['None']:
+            return [[], None]
+        else:
+            df = df_projections[df_projections.Country == selected_country]
+            return [[{'label': i, 'value': i} for i in df['Province'].drop_duplicates()], None]
 
 @app.callback(
     Output('state_projection_graph', 'children'),
     [Input('province_dropdown', 'value'),
      Input('country_dropdown', 'value'),
-     Input('continent_dropdown', 'value'),
+     Input('location_map_dropdown', 'value'),
      Input('predicted_timeline', 'value')
      ])
 def update_projection(state, country, continent, val):
-    print(state, country, continent)
+    if state == None:
+        state = 'None'
+    if country == None:
+        country = 'None'
     return build_state_projection(state, country, continent, val)
 
 @app.callback(
@@ -136,44 +158,27 @@ def update_us_map(chosen_date,val, location):
     else:
         return build_continent_map(chosen_date,val, location)
 
+
 @app.callback(
-    Output('europe_map_projections', 'children'),
+    [Output('us_tot_det', 'children'), 
+     Output('us_active', 'children'), 
+     Output('us_active_hosp', 'children'),
+     Output('us_tot_death', 'children')],
     [Input('us-map-date-picker-range', 'date'),
-     Input('us_map_dropdown', 'value')])
-def update_us_map(chosen_date,val):
-    return build_europe_map(chosen_date,val)
-
-@app.callback(
-    Output('us_tot_det', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Total Detected')
-
-@app.callback(
-    Output('us_active', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Active')
-
-@app.callback(
-    Output('us_active_hosp', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Active Hospitalized')
-
-@app.callback(
-    Output('us_tot_death', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    y = get_us_stat(chosen_date,'Total Detected Deaths')
-    return y
+     Input('location_map_dropdown', 'value')])
+def update_stats(chosen_date, scope):
+    return [get_stat(chosen_date,'Total Detected', scope),
+            get_stat(chosen_date,'Active', scope),
+            get_stat(chosen_date,'Active Hospitalized', scope),
+            get_stat(chosen_date,'Total Detected Deaths', scope)]
 
 @app.callback(
     Output('us-stats-title', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def display_US_stats_title(d):
+    [Input('us-map-date-picker-range', 'date'),
+     Input('location_map_dropdown', 'value')])
+def display_US_stats_title(d, location):
     d = dt.strptime(d, '%Y-%m-%d').date()
-    return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
+    return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
 
 #Callbacks for ventilators
 @app.callback(
