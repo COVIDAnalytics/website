@@ -67,7 +67,7 @@ def build_input_card(id, content_dict):
                         id = 'calc-temp-f-c',
                         options = [{'label': x, 'value': x} for x in ["°F","°C"]],
                         value = "°F",
-                        style={"width":50}
+                        style={"width":70}
                     ),
                 ),
             ),
