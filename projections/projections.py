@@ -232,6 +232,9 @@ body = dbc.Container(
                     id = 'map_projections',
                     children = [],
                 ),
+                html.P('* Gray countries correspond to no estimation attempted with our model.',
+                        style={'color':'gray'}
+                ),
             ]
             ),
 
