@@ -80,7 +80,7 @@ body = dbc.Container(
                         differentiated government intervention.
                        """),
                 dcc.Markdown('''Detailed model specifications are available in the following \
-                [technical report](/delphi_documentation_pdf). The full source code can be accessed on\
+                [technical report](/ventilator_documentation_pdf). The full source code can be accessed on\
                 [Github](https://github.com/COVIDAnalytics/epidemic-model).'''),
                 dbc.Card(
                     [
