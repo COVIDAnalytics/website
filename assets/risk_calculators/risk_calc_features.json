@@ -4,17 +4,17 @@
          "name":"SaO2",
          "index":1,
          "min_val":36.5,
-         "max_val":115.0,
+         "max_val":100.0,
          "default":94.11,
          "explanation":"Oxygen Saturation"
       },
       {
          "name":"Age",
          "index":3,
-         "min_val":20.0,
+         "min_val":18.0,
          "max_val":100.0,
          "default":71.0,
-         "explanation":"Age of the patient"
+         "explanation":"Age of the patient. Modeled only for adults."
       },
       {
          "name":"Cardiac Frequency",
@@ -44,7 +44,7 @@
          "name":"Systolic Blood Pressure",
          "index":27,
          "min_val":60.0,
-         "max_val":1382.5,
+         "max_val":250.0,
          "default":125.41,
          "explanation":"Systolic Blood Pressure in mmHg"
       },

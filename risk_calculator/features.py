@@ -65,8 +65,8 @@ def build_input_card(id, content_dict):
                 html.Div(
                     dcc.Dropdown(
                         id = 'calc-temp-f-c',
-                        options = [{'label': x, 'value': x} for x in ["F","C"]],
-                        value = "C",
+                        options = [{'label': x, 'value': x} for x in ["F°","C°"]],
+                        value = "F°",
                         style={"width":50}
                     ),
                 ),
