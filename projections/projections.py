@@ -232,7 +232,7 @@ body = dbc.Container(
                     id = 'map_projections',
                     children = [],
                 ),
-                html.P('* Gray countries correspond to no estimation attempted with our model.',
+                html.P('* Grey countries correspond to those that currently have insufficient data for projections or those in which the outbreak has ended.',
                         style={'color':'gray'}
                 ),
             ]
