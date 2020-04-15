@@ -106,6 +106,7 @@ body = dbc.Container(
         ],
         ),
 
+        html.Hr(),
         dbc.Row(
         [
 
@@ -151,7 +152,7 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("And for what location?"),
+                                dcc.Markdown("And for which area?"),
                                 dbc.Row(
                                     [
                                         dbc.Col(
@@ -293,10 +294,10 @@ body = dbc.Container(
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("For what location?"),
+                                dcc.Markdown("For what location in the previously chosen area?"),
                                 dbc.Row(
                                     [
-                                        dbc.Col([dcc.Markdown("**Country:**"),dcc.Markdown("**Province:**")]),
+                                        dbc.Col([dcc.Markdown("**Country:**"),dcc.Markdown("**Province / State:**")]),
                                         dbc.Col(
                                             html.Div(
                                                 [
