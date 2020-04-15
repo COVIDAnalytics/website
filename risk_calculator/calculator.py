@@ -144,9 +144,24 @@ def valid_input(feature_vals):
 
 def predict_risk(feature_vals):
     x = [0]*len(model.feature_importances_)
-    #TODO: create x from feature_vals
-    #score = model.predict(temp)
-    score = [0.5]
+    i = 0
+    for feat in features["numeric"]:
+        x[feat["index"]] = feature_vals[i]
+        i+=1
+    for feat in features["categorical"]:
+        x[feat["index"]] = feature_vals[i]
+        i+=1
+    symptoms = feature_vals[i]
+    comorbidities = feature_vals[i+1]
+    for s in symptoms:
+        ind = features["checkboxes"][0]["vals"].index(s)
+        x[ind] = 1
+    for c in comorbidities:
+        ind = features["multidrop"][0]["vals"].index(c)
+        x[ind] = 1
+    score = model.predict([x])
+    print(x)
+    print(score)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score[0],className="score-calculator-card-content"),
@@ -154,8 +169,23 @@ def predict_risk(feature_vals):
     return card_content
 
 def build_feature_importance_graph():
+    feature_list = ['']*len(model.feature_importances_)
+    i = 0
+    for feat in features["numeric"]:
+        feature_list[feat["index"]] = feat["name"]
+        i+=1
+    for feat in features["categorical"]:
+        feature_list[feat["index"]] = feat["name"]
+        i+=1
+    for feat in features["checkboxes"]:
+        for j,name in enumerate(feat["vals"]):
+            feature_list[feat["index"][j]] = name
+            i+=1
+    for feat in features["multidrop"]:
+        for j,name in enumerate(feat["vals"]):
+            feature_list[feat["index"][j]] = name
+            i+=1
     importances = list(model.feature_importances_)
-    feature_list = ["feature {}".format(i) for i in range(len(importances))]
     feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
     feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
     x,y = zip(*feature_importances)
@@ -168,7 +198,7 @@ def build_feature_importance_graph():
     fig.update_layout(
                 height=550,
                 title={
-                    'text':'<br>'.join(wrap('<b> Feature Importances (Top 10)" </b>', width=26)) ,
+                    'text':'<br>'.join(wrap('<b> Feature Importances (Top 10) </b>', width=26)) ,
                      'x': 0.5,
                     'xanchor': 'center',
                     'yanchor': 'top'},
