@@ -14,7 +14,6 @@ from homepage import Homepage
 from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces
-from projections.projections_documentation import Projections_documentation
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
@@ -63,8 +62,6 @@ def display_page(pathname):
         return Contact()
     if pathname == '/dataset':
         return Dataset()
-    if pathname == '/projections_documentation':
-        return Projections_documentation()
     if pathname == '/dataset_documentation':
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':

@@ -3,7 +3,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from projections.utils import oneWeekFromNow, cols, map_locations, df_us
-from projections.utils import build_card
+from projections.utils import build_card, add_cases
 
 top_visual = [
         dbc.Row(
@@ -116,7 +116,7 @@ top_visual = [
 
                     dcc.Dropdown(
                         id = 'us_map_dropdown',
-                        options = [{'label': x, 'value': x} for x in cols.keys()],
+                        options = [{'label': add_cases(x), 'value': x} for x in cols.keys()],
                         value = 'Active',
                     ),
 

@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from projections.utils import df_projections, cols, data_csv_string
+from projections.utils import df_projections, cols, data_csv_string, add_cases
 
 bottom_visual = \
     [
@@ -33,7 +33,7 @@ bottom_visual = \
                                             html.Div(
                                                 dcc.Dropdown(
                                                     id = 'predicted_timeline',
-                                                    options = [{'label': x, 'value': x} for x in cols.keys()],
+                                                    options = [{'label': add_cases(x), 'value': x} for x in cols.keys()],
                                                     value = ['Active'],
                                                     multi=True,
                                                 ),
@@ -72,8 +72,7 @@ bottom_visual = \
                                                 [
                                                 dcc.Dropdown(
                                                         id = 'country_dropdown',
-                                                        options = [{'label': x, 'value': x} for x in df_projections[df_projections['Continent'] == 'North America']['Country'].drop_duplicates()],
-                                                        #value = 'US',
+                                                        options = [{'label': x, 'value': x} for x in df_projections[df_projections['Continent'] == 'North America'].Country.unique()],
                                                 ),
 
                                                 dcc.Dropdown(
