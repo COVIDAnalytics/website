@@ -29,3 +29,39 @@
 #date-projections-picker-div{
   text-align: center;
 }
+
+#base-model-dropdown{
+    width:40%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+  }
+
+#calc-multidrop-0{
+  width:1000px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 1300px) {
+    #calc-multidrop-0 {
+        width:900px;
+    }
+}
+@media (max-width: 1000px) {
+    #calc-multidrop-0 {
+        width:600px;
+    }
+}
+@media (max-width: 800px) {
+    #calc-multidrop-0 {
+        width:400px;
+    }
+}
+@media (max-width: 600px) {
+    #calc-multidrop-0 {
+        width:300px;
+    }
+}

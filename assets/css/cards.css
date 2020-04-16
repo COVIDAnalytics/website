@@ -31,6 +31,27 @@
   color: #0000A0 !important;
 }
 
+.feat-options-body{
+  display: flex;
+  align-items: center;
+  padding-bottom: 40;
+}
+
+.feat-options{
+  border-color: #800020 !important;
+  height: 10rem;
+  padding-bottom: 40;
+}
+
+.score-calculator-card-content{
+  color: white;
+  text-align: center;
+}
+
+#calc-multidrop-0-wrapper{
+  width:100%;
+}
+
 
 #us-stats-cards{
   color: white;
