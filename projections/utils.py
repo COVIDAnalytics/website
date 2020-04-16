@@ -4,7 +4,7 @@ import urllib
 
 import dash_bootstrap_components as dbc
 
-df_projections = pd.read_csv('data/predicted/Global_20200414.csv', sep=",", parse_dates = ['Day'])
+df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
 today = pd.Timestamp('today')
 oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
 
@@ -19,7 +19,7 @@ map_locations = ['US', "Europe", "Asia", "North America", "South America", "Afri
 
 countries_with_provinces = ["US","Canada","Australia"]
 
-dataset = "data/predicted/Global_20200412.csv"
+dataset = "data/predicted/Global.csv"
 data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
 data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 
