@@ -55,7 +55,7 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
                 colorscale='inferno_r',
                 text=df_map['text'], # hover text
                 marker_line_color='black', # line markers between states
-                colorbar_title='{}'.format(add_cases(val))
+                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
             ))
 
     fig.update_layout(
@@ -121,7 +121,7 @@ def build_us_map(map_date,val='Active'):
                 autocolorscale=False,
                 text=df_map['text'], # hover text
                 marker_line_color='white' , # line markers between states
-                colorbar_title='{}'.format(add_cases(val))
+                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
             ))
 
     fig.update_layout(
@@ -195,10 +195,17 @@ def build_state_projection(state, country, continent, vals):
                 title_font_size=25,
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
+                legend_title='<b> Values Predicted </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
+                legend={
+                        "orientation": "h",
+                        "xanchor": "center",
+                        "y": -0.2,
+                        "x": 0.5
+                        },
                 modebar={
                     'orientation': 'v',
                     'bgcolor': 'rgba(0,0,0,0)',
