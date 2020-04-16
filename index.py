@@ -105,6 +105,11 @@ def set_display_children(selected_category):
 
 #Callbacks for projections
 
+@app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
+def download_delphi_documentation():
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
+                                     filename="DELPHI_Documentation.pdf")
+
 #Reset country_dropdown when main location (scope) changes
 @app.callback(
     [Output('country_dropdown', 'options'),
@@ -282,7 +287,7 @@ def update_download_link_transfers(chosen_model):
 
 @app.server.route('/ventilator_documentation_pdf', methods=['GET', 'POST'])
 def download_ventilator_documentation():
-    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
                                      filename="Ventilator_Documentation.pdf")
 
 
