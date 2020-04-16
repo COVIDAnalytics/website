@@ -11,12 +11,14 @@ from datetime import datetime as dt
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
-from projections.projections import ProjectState, build_state_projection, build_us_map, get_us_stat
+from projections.projections import ProjectState
+from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
+from projections.utils import df_projections, countries_with_provinces
+from projections.projections_documentation import Projections_documentation
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
-from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
@@ -102,51 +104,105 @@ def set_display_children(selected_category):
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
 #Callbacks for projections
+
+@app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
+def download_delphi_documentation():
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
+                                     filename="DELPHI_Documentation.pdf")
+
+#Reset country_dropdown when main location (scope) changes
+@app.callback(
+    [Output('country_dropdown', 'options'),
+     Output('country_dropdown', 'value'),
+     Output('country_dropdown', 'disabled')],
+    [Input('location_map_dropdown', 'value')])
+def set_countries_options(selected_continent):
+    if selected_continent == 'World':
+        df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
+        return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
+    if selected_continent != 'US':
+        df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
+        return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
+    else:
+        return [[{'label': 'US', 'value': 'US'}], 'US', True]
+
+@app.callback(
+    Output('grey-countries-text', 'children'),
+    [Input('location_map_dropdown', 'value')])
+def set_missing_country_text(selected_continent):
+    if selected_continent is None or selected_continent == "US":
+        return ''
+    else:
+        return "* Note and Disclaimer: These Plotly maps are only proposed to give an \
+        approximate visual of the expansion of the disease.  \
+        Borders are by definition subject to change, debate and dispute. \
+        Plotly includes data from Natural Earth and defers to \
+        the Natural Earth policy regarding disputed borders. \
+        Grey countries correspond to those that currently have insufficient \
+        data for projections or those in which the outbreak has ended."
+
+@app.callback(
+    Output('province-card-title', 'children'),
+    [Input('location_map_dropdown', 'value')])
+def set_province_card_title(selected_continent):
+    return "For which location in {}?".format(selected_continent)
+
+@app.callback(
+    [Output('province_dropdown', 'options'),
+     Output('province_dropdown', 'value'),
+     Output('province_dropdown', 'disabled')],
+    [Input('country_dropdown', 'value')])
+def set_province_options(selected_country):
+    if selected_country is None or selected_country not in countries_with_provinces:
+        return [[], None, True]
+    else:
+        df = df_projections[df_projections.Country == selected_country]
+        return [[{'label': i, 'value': i} for i in df.Province.unique()], None, False]
+
 @app.callback(
     Output('state_projection_graph', 'children'),
-    [Input('state_dropdown', 'value'),
-     Input('predicted_timeline', 'value')]
-)
-def update_projection(state,val):
-    return build_state_projection(state,val)
+    [Input('province_dropdown', 'value'),
+     Input('country_dropdown', 'value'),
+     Input('location_map_dropdown', 'value'),
+     Input('predicted_timeline', 'value')
+     ])
+def update_projection(state, country, continent, val):
+    state = 'None' if state == None else state
+    country = 'None' if country == None else country
+    return build_state_projection(state, country, continent, val)
 
 @app.callback(
-    Output('us_map_projections', 'children'),
+    Output('map_projections', 'children'),
     [Input('us-map-date-picker-range', 'date'),
-     Input('us_map_dropdown', 'value')])
-def update_us_map(chosen_date,val):
-    return build_us_map(chosen_date,val)
+     Input('us_map_dropdown', 'value'),
+     Input('location_map_dropdown', 'value')])
+def update_us_map(chosen_date,val, location):
+    if location == 'US':
+        return build_us_map(chosen_date,val)
+    else:
+        return build_continent_map(chosen_date,val, location)
+
 
 @app.callback(
-    Output('us_tot_det', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Total Detected')
-
-@app.callback(
-    Output('us_active', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Active')
-
-@app.callback(
-    Output('us_active_hosp', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Active Hospitalized')
-
-@app.callback(
-    Output('us_tot_death', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Total Detected Deaths')
+    [Output('us_tot_det', 'children'),
+     Output('us_active', 'children'),
+     Output('us_active_hosp', 'children'),
+     Output('us_tot_death', 'children')],
+    [Input('us-map-date-picker-range', 'date'),
+     Input('location_map_dropdown', 'value')])
+def update_stats(chosen_date, scope):
+    return [get_stat(chosen_date,'Total Detected', scope),
+            get_stat(chosen_date,'Active', scope),
+            get_stat(chosen_date,'Active Hospitalized', scope),
+            get_stat(chosen_date,'Total Detected Deaths', scope)]
 
 @app.callback(
     Output('us-stats-title', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def display_US_stats_title(d):
+    [Input('us-map-date-picker-range', 'date'),
+     Input('location_map_dropdown', 'value')])
+def display_US_stats_title(d, location):
     d = dt.strptime(d, '%Y-%m-%d').date()
-    return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
+    return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
 
 #Callbacks for ventilators
 @app.callback(
@@ -236,7 +292,7 @@ def update_download_link_transfers(chosen_model):
 
 @app.server.route('/ventilator_documentation_pdf', methods=['GET', 'POST'])
 def download_ventilator_documentation():
-    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
                                      filename="Ventilator_Documentation.pdf")
 
 
@@ -262,7 +318,7 @@ def get_feature_inputs():
     [Input('submit-features-calc', 'n_clicks')],
     get_feature_inputs()
 )
-def update_projection(*argv):
+def calc_risk_score(*argv):
     default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
     #if submit button was clicked
     if argv[0] > 0:
