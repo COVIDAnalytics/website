@@ -52,7 +52,7 @@ body = dbc.Container(
                                          for countries in which we have sufficient data and where \
                                          the pandemic is currently active. \
                                          In particular, it excludes some East Asian countries \
-                                         where the pandemic has passed."),
+                                         where the pandemic has largely passed."),
                             ]
                         ),
                     ],
