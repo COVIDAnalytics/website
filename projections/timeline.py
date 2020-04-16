@@ -46,7 +46,7 @@ bottom_visual = \
                             ],
                         ),
                     ],
-                    className="h-100",
+                    className="projections-general-card h-100",
                 ),
             ],
             xs=12,
@@ -60,7 +60,10 @@ bottom_visual = \
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("For what location in the previously chosen area?"),
+                                html.Div(
+                                    id = 'province-card-title',
+                                    style={'paddingBottom':10}
+                                ),
                                 dbc.Row(
                                     [
                                         dbc.Col([dcc.Markdown("**Country:**"),dcc.Markdown("**Province / State:**")]),
@@ -76,8 +79,6 @@ bottom_visual = \
                                                 dcc.Dropdown(
                                                         id = 'province_dropdown',
                                                 ),
-                                                #html.Hr(),
-
                                                 html.Div(id = "p2-transfer-dropdown-wrapper"),
 
                                             ]),
@@ -87,7 +88,7 @@ bottom_visual = \
                             ],
                         ),
                     ],
-                    className="h-100",
+                    className="projections-general-card h-100",
                 ),
             ],
             xs=12,
@@ -96,6 +97,7 @@ bottom_visual = \
             lg=6,
             ),
         ],
+        style={'marginBottom':20,'marginTop':20},
         )
     ] + \
     [

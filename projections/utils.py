@@ -17,6 +17,8 @@ cols={'Total Detected':0,'Active':1,'Active Hospitalized':2,
 
 map_locations = ['US', "Europe", "Asia", "North America", "South America", "Africa", 'World']
 
+countries_with_provinces = ["US","Canada","Australia"]
+
 dataset = "data/predicted/Global_20200412.csv"
 data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
 data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)

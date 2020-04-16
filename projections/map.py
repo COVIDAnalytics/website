@@ -25,7 +25,6 @@ top_visual = [
                                                     max_date_allowed=max(df_us.Day.values),
                                                     date=oneWeekFromNow,
                                                     initial_visible_month=oneWeekFromNow,
-                                                    style={'marginBottom':5,}
                                                 ),
                                                 id="date-projections-picker-div"
                                             ),
@@ -35,7 +34,7 @@ top_visual = [
                             ],
                         ),
                     ],
-                    className="h-100",
+                    className="projections-general-card h-100"
                 ),
             ],
             xs=12,
@@ -43,7 +42,6 @@ top_visual = [
             md=6,
             lg=6,
             ),
-
             dbc.Col(
             [
                 dbc.Card(
@@ -69,7 +67,7 @@ top_visual = [
                             ],
                         ),
                     ],
-                    className="h-100",
+                    className="projections-general-card h-100"
                 ),
             ],
             xs=12,
@@ -77,8 +75,8 @@ top_visual = [
             md=6,
             lg=6,
             ),
-
-        ]
+        ],
+        style={'marginBottom':20,'marginTop':20},
         )
     ] + \
     [
@@ -139,8 +137,10 @@ top_visual = [
                     id = 'map_projections',
                     children = [],
                 ),
-                html.P('* Grey countries correspond to those that currently have insufficient data for projections or those in which the outbreak has ended.',
-                        style={'color':'gray'}
+                html.P(
+                        children = [],
+                        style={'color':'gray'},
+                        id='grey-countries-text'
                 ),
             ]
             ),

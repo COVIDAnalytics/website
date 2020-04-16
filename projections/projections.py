@@ -48,12 +48,12 @@ body = dbc.Container(
                                          but does not always publish data on recovered cases, \
                                          which can lead to overestimating currently active \
                                          cases."),
-                            html.H5("Disclaimer on death counts:"),
-                            dcc.Markdown("The death counts for the non-US data is currently \
+                            dcc.Markdown("**Disclaimer on death counts:**The death counts for the non-US data is currently \
                             being refined and might be not accurate for some countries."),
                             ]
                         ),
-                    ]
+                    ],
+                    className='projections-general-card'
                 ),
             ]
             ),

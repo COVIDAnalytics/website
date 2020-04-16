@@ -74,6 +74,12 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
                 showcountries=True,
                 visible = False,
             ),
+            modebar={
+                'orientation': 'v',
+                'bgcolor': 'rgba(0,0,0,0)',
+                'color': 'lightgray',
+                'activecolor': 'gray'
+            }
         )
 
     graph = dcc.Graph(
@@ -127,6 +133,12 @@ def build_us_map(map_date,val='Active'):
                 showlakes=True, # lakes
                 lakecolor='rgb(255, 255, 255)'
             ),
+            modebar={
+                'orientation': 'v',
+                'bgcolor': 'rgba(0,0,0,0)',
+                'color': 'lightgray',
+                'activecolor': 'gray'
+            }
         )
 
     graph = dcc.Graph(

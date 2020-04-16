@@ -13,12 +13,12 @@ from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
 from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import df_projections
+from projections.utils import df_projections, countries_with_provinces
+from projections.projections_documentation import Projections_documentation
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
-from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
@@ -107,33 +107,47 @@ def set_display_children(selected_category):
 
 #Reset country_dropdown when main location (scope) changes
 @app.callback(
-    [Output('country_dropdown', 'options'), Output('country_dropdown', 'value')],
+    [Output('country_dropdown', 'options'),
+     Output('country_dropdown', 'value'),
+     Output('country_dropdown', 'disabled')],
     [Input('location_map_dropdown', 'value')])
-def set_cities_options(selected_continent):
+def set_countries_options(selected_continent):
     if selected_continent == 'World':
         df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
-        return [[{'label': i, 'value': i} for i in df['Country'].drop_duplicates()], None]
+        return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
     if selected_continent != 'US':
         df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
-        return [[{'label': i, 'value': i} for i in df['Country'].drop_duplicates()], None]
+        return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
     else:
-        return [[{'label': i, 'value': i} for i in ['US']], 'US']
+        return [[{'label': 'US', 'value': 'US'}], 'US', True]
 
-#Reset province_dropdown when country changes.
 @app.callback(
-    [Output('province_dropdown', 'options'),Output('province_dropdown', 'value')],
+    Output('grey-countries-text', 'children'),
+    [Input('location_map_dropdown', 'value')])
+def set_missing_country_text(selected_continent):
+    if selected_continent is None or selected_continent == "US":
+        return ''
+    else:
+        return "* Grey countries correspond to those that currently have insufficient \
+        data for projections or those in which the outbreak has ended."
+
+@app.callback(
+    Output('province-card-title', 'children'),
+    [Input('location_map_dropdown', 'value')])
+def set_province_card_title(selected_continent):
+    return "For which location in {}?".format(selected_continent)
+
+@app.callback(
+    [Output('province_dropdown', 'options'),
+     Output('province_dropdown', 'value'),
+     Output('province_dropdown', 'disabled')],
     [Input('country_dropdown', 'value')])
-def set_cities_options(selected_country):
-    if selected_country is None:
-        return [[], None]
+def set_province_options(selected_country):
+    if selected_country is None or selected_country not in countries_with_provinces:
+        return [[], None, True]
     else:
         df = df_projections[df_projections.Country == selected_country]
-        provinces = [i for i in df['Province'].drop_duplicates()]
-        if provinces == ['None']:
-            return [[], None]
-        else:
-            df = df_projections[df_projections.Country == selected_country]
-            return [[{'label': i, 'value': i} for i in df['Province'].drop_duplicates()], None]
+        return [[{'label': i, 'value': i} for i in df.Province.unique()], None, False]
 
 @app.callback(
     Output('state_projection_graph', 'children'),
@@ -143,10 +157,8 @@ def set_cities_options(selected_country):
      Input('predicted_timeline', 'value')
      ])
 def update_projection(state, country, continent, val):
-    if state == None:
-        state = 'None'
-    if country == None:
-        country = 'None'
+    state = 'None' if state == None else state
+    country = 'None' if country == None else country
     return build_state_projection(state, country, continent, val)
 
 @app.callback(
