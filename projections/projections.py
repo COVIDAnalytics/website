@@ -18,7 +18,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H2("DELPHI Epidemiological Case Predictions""),
+                html.H2("DELPHI Epidemiological Case Predictions"),
                 dcc.Markdown("""\
                         A critical tool for COVID-19 planning is charting out the progression \
                         of the pandemic across the United States and the world. \

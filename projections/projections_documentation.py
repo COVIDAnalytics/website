@@ -51,6 +51,7 @@ body = dbc.Container([
 				dcc.Markdown('''Detailed model specifications are available in the following \
                 [technical report](/DELPHI_documentation_pdf). The full source code can be accessed on\
                 [Github](https://github.com/COVIDAnalytics/epidemic-model).'''),
+				 ])
 		 ],
 	 ),
 ],
