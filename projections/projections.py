@@ -48,10 +48,10 @@ body = dbc.Container(
                                          but does not always publish data on recovered cases, \
                                          which can lead to overestimating currently active \
                                          cases."),
-                            dcc.Markdown("**Disclaimer on total counts:** Our predictions only accounts \
+                            dcc.Markdown("**Disclaimer on total counts:** Our predictions only account \
                                          for countries in which we have sufficient data and where \
                                          the pandemic is currently active. \
-                                         In particular it excludes some East Asian countries \
+                                         In particular, it excludes some East Asian countries \
                                          where the pandemic has passed."),
                             ]
                         ),
