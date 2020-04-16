@@ -139,7 +139,7 @@ def set_missing_country_text(selected_continent):
         Plotly includes data from Natural Earth and defers to \
         the Natural Earth policy regarding disputed borders. \
         Grey countries correspond to those that currently have insufficient \
-        data for projections or those in which the outbreak has ended."
+        data for projections or those in which the outbreak has largely passed."
 
 @app.callback(
     Output('province-card-title', 'children'),

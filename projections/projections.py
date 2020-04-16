@@ -48,11 +48,15 @@ body = dbc.Container(
                                          but does not always publish data on recovered cases, \
                                          which can lead to overestimating currently active \
                                          cases."),
-                            dcc.Markdown("**Disclaimer on total counts:** Our predictions only account \
-                                         for countries in which we have sufficient data and where \
-                                         the pandemic is currently active. \
-                                         In particular, it excludes some East Asian countries \
-                                         where the pandemic has passed."),
+                            dcc.Markdown("**Disclaimer:** Our total counts only account for \
+                                         countries in which we have sufficient data and where \
+                                         the pandemic is currently active. In particular, it \
+                                         excludes some East Asian countries where the pandemic \
+                                         has largely passed.\n \
+                                         \nCountry-level projections are modelled based on all \
+                                         historical data to increase the accuracy of future \
+                                         predictions. As such, daily counts extracted from \
+                                         the model may not exactly correspond with reports."),
                             ]
                         ),
                     ],
