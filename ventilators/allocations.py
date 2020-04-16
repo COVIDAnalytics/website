@@ -31,7 +31,8 @@ body = dbc.Container(
                           Fortunately, the dynamics of the pandemic differ from one state to \
                           another, creating opportunities to mitigate shortages by pooling some of \
                           the ventilator supply across states. Details on data and models can be found in the\
-                          [technical report](/ventilator_documentation_pdf), and our source code is available on [GitHub](https://github.com/COVIDAnalytics/ventilator-allocation).'''),
+                          [technical report](/ventilator_documentation_pdf), and our source code is available on \
+                          [GitHub](https://github.com/COVIDAnalytics/ventilator-allocation).'''),
                 html.H4("Why share ventilators between states?"),
                 dcc.Markdown('''As highlighted in the visuals below, the number of ventilators available \
                 across all 50 states - without even accounting for the federal stockpile - exceeds national demand. Yet with the current allocation of \
