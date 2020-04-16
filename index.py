@@ -11,7 +11,9 @@ from datetime import datetime as dt
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
-from projections.projections import ProjectState, build_state_projection, build_us_map, get_stat, df_projections, build_continent_map
+from projections.projections import ProjectState
+from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
+from projections.utils import df_projections
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
@@ -160,8 +162,8 @@ def update_us_map(chosen_date,val, location):
 
 
 @app.callback(
-    [Output('us_tot_det', 'children'), 
-     Output('us_active', 'children'), 
+    [Output('us_tot_det', 'children'),
+     Output('us_active', 'children'),
      Output('us_active_hosp', 'children'),
      Output('us_tot_death', 'children')],
     [Input('us-map-date-picker-range', 'date'),
@@ -294,7 +296,7 @@ def get_feature_inputs():
     [Input('submit-features-calc', 'n_clicks')],
     get_feature_inputs()
 )
-def update_projection(*argv):
+def calc_risk_score(*argv):
     default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
     #if submit button was clicked
     if argv[0] > 0:

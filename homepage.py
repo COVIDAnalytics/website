@@ -13,7 +13,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from projections.projections import build_us_map
+from projections.visuals_funcs import build_us_map
 from assets.mappings import states
 
 nav = Navbar()
