@@ -130,7 +130,12 @@ def set_missing_country_text(selected_continent):
     if selected_continent is None or selected_continent == "US":
         return ''
     else:
-        return "* Grey countries correspond to those that currently have insufficient \
+        return "* Note and Disclaimer: These Plotly maps are only proposed to give an \
+        approximate visual of the expansion of the disease.  \
+        Borders are by definition subject to change, debate and dispute. \
+        Plotly includes data from Natural Earth and defers to \
+        the Natural Earth policy regarding disputed borders. \
+        Grey countries correspond to those that currently have insufficient \
         data for projections or those in which the outbreak has ended."
 
 @app.callback(
