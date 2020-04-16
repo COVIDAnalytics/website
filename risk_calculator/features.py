@@ -52,22 +52,22 @@ def build_input_card(id, content_dict):
                         dcc.Input(
                             id="calc-numeric-{}".format(id),
                             type="number",
-                            placeholder="i.e. {}".format(int(content_dict['default'])),
+                            placeholder="e.g. {}".format(int(content_dict['default'])),
                             style={"width":80}
                         ),
                         id = "calc-numeric-{}-wrapper".format(id),
                     ),
                 ),
             ]
-    if content_dict["name"] == "Temperature":
+    if content_dict["name"] == "Body Temperature":
         insert_data.append(
             dbc.Col(
                 html.Div(
                     dcc.Dropdown(
                         id = 'calc-temp-f-c',
-                        options = [{'label': x, 'value': x} for x in ["F°","C°"]],
-                        value = "F°",
-                        style={"width":50}
+                        options = [{'label': x, 'value': x} for x in ["°F","°C"]],
+                        value = "°F",
+                        style={"width":70}
                     ),
                 ),
             ),

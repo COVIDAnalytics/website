@@ -49,12 +49,12 @@
          "explanation":"Systolic Blood Pressure in mmHg"
       },
       {
-         "name":"Temperature",
+         "name":"Body Temperature",
          "index":28,
          "min_val":0,
          "max_val":120,
-         "default":37.42,
-         "explanation":"Temperature measurement. Use the dropdown to select the unit (Fahrenheit or Celsius)."
+         "default":98,
+         "explanation":"Body temperature measurement. Use the dropdown to select the unit (Fahrenheit or Celsius)."
       }
    ],
    "categorical":[

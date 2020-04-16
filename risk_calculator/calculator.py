@@ -209,11 +209,11 @@ def convert_temp_units(x):
 def predict_risk(feature_vals):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
-    convert_temperature = feature_vals[-1] == "F°"
+    convert_temperature = feature_vals[-1] == "°F"
     #align order of feature vector so that values are in correct order
     i = 0
     for feat in features["numeric"]:
-        if feat["name"] == "Temperature" and convert_temperature:
+        if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
         else:
             x[feat["index"]] = feature_vals[i]
