@@ -79,8 +79,8 @@ insights_text = '''
       interactive summary.
       '''
 projections_text = '''
-    State-by-state predictions of COVID-19 infections, \
-    hospital stays, and deaths.
+    DELPHI epidemiological predictions of COVID-19 \
+    infections, hospital stays, and mortalities by location.
     '''
 
 ventilator_text = '''
@@ -111,7 +111,7 @@ body = dbc.Container(
             [
                 build_card(True,"Data",data_text,"assets/images/data-1.jpg","/dataset"),
                 build_card(False,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
-                build_card(True,"Projections",projections_text,"assets/images/forecast-1.png","/projections"),
+                build_card(True,"Case Predictions",projections_text,"assets/images/forecast-1.png","/projections"),
                 build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
                 build_card(True,"Risk calculator",calculator_text,"assets/images/tree-2.png","/calculator"),
             ],
