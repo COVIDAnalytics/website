@@ -16,7 +16,7 @@ body = dbc.Container([
 	dbc.Row(
         [
 			dbc.Col([
-            	html.H2("Epidemiological Model Documentation"),
+            	html.H2("DELPHI Epidemiological Model Documentation"),
                 html.P("""\
                         This page provides insights on a new epidemiological model developed by this team \
                         to provide estimates of the number of COVID-19 infections, hospitalizations, and \
