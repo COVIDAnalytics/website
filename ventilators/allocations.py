@@ -124,15 +124,16 @@ body = dbc.Container(
             ],
             justify="around",
         ),
-        dbc.Row(
-            [
-                html.Iframe(src="https://www.youtube.com/embed/nShiDeUpM4s",
-                            width="711",
-                            height="400"),
-            ],
-            justify="around",
-            style={"paddingBottom": "20px"},
-        ),
+        # can comment out until we figure out the secure connection, this is a placeholder
+        # dbc.Row(
+        #     [
+        #         html.Iframe(src="https://www.youtube.com/embed/nShiDeUpM4s",
+        #                     width="711",
+        #                     height="400"),
+        #     ],
+        #     justify="around",
+        #     style={"paddingBottom": "20px"},
+        # ),
         dbc.Row(
             [
                 dbc.Col(

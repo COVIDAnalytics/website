@@ -1,4 +1,168 @@
 "State_From","State_To","Date","Num_Units","Param1","Param2","Param3"
+"Federal","New Jersey",2020-04-15,"225","0",0,0.5
+"Federal","New York",2020-04-16,"225","0",0,0.5
+"Federal","New York",2020-04-17,"225","0",0,0.5
+"Federal","New York",2020-04-18,"225","0",0,0.5
+"Federal","New Jersey",2020-04-19,"225","0",0,0.5
+"Federal","New York",2020-04-20,"164","0",0,0.5
+"Federal","New Jersey",2020-04-20,"61","0",0,0.5
+"Federal","New Jersey",2020-04-21,"105","0",0,0.5
+"Federal","Rhode Island",2020-04-22,"<5","0",0,0.5
+"Federal","New Jersey",2020-04-15,"338","0",0,0.75
+"Federal","New Jersey",2020-04-16,"331","0",0,0.75
+"Federal","New York",2020-04-16,"7","0",0,0.75
+"Federal","New York",2020-04-17,"338","0",0,0.75
+"Federal","New York",2020-04-18,"338","0",0,0.75
+"Federal","New York",2020-04-19,"337","0",0,0.75
+"Federal","Rhode Island",2020-04-19,"<5","0",0,0.75
+"Federal","New Jersey",2020-04-15,"405","0",0,0.9
+"Federal","New York",2020-04-16,"405","0",0,0.9
+"Federal","New Jersey",2020-04-17,"264","0",0,0.9
+"Federal","New York",2020-04-17,"141","0",0,0.9
+"Federal","New York",2020-04-18,"405","0",0,0.9
+"Federal","New York",2020-04-19,"43","0",0,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0",0,0.9
+"Federal","New Jersey",2020-04-15,"450","0",0,1
+"Federal","New York",2020-04-16,"450","0",0,1
+"Federal","New York",2020-04-17,"231","0",0,1
+"Federal","New Jersey",2020-04-17,"219","0",0,1
+"Federal","New York",2020-04-18,"382","0",0,1
+"Federal","Rhode Island",2020-04-18,"<5","0",0,1
+"Federal","New York",2020-04-15,"225","0",0.05,0.5
+"Federal","New York",2020-04-16,"225","0",0.05,0.5
+"Federal","New Jersey",2020-04-17,"206","0",0.05,0.5
+"Federal","New York",2020-04-17,"19","0",0.05,0.5
+"Federal","New Jersey",2020-04-18,"225","0",0.05,0.5
+"Federal","New York",2020-04-19,"225","0",0.05,0.5
+"Federal","New York",2020-04-20,"225","0",0.05,0.5
+"Federal","New Jersey",2020-04-21,"207","0",0.05,0.5
+"Federal","Rhode Island",2020-04-21,"<5","0",0.05,0.5
+"Federal","Rhode Island",2020-04-22,"<5","0",0.05,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0",0.05,0.5
+"Federal","New York",2020-04-15,"338","0",0.05,0.75
+"Federal","New York",2020-04-16,"338","0",0.05,0.75
+"Federal","New Jersey",2020-04-17,"338","0",0.05,0.75
+"Federal","New Jersey",2020-04-18,"331","0",0.05,0.75
+"Federal","New York",2020-04-18,"7","0",0.05,0.75
+"Federal","New York",2020-04-19,"338","0",0.05,0.75
+"Federal","Rhode Island",2020-04-20,"<5","0",0.05,0.75
+"Federal","Rhode Island",2020-04-21,"<5","0",0.05,0.75
+"Federal","Rhode Island",2020-04-22,"<5","0",0.05,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0",0.05,0.75
+"Federal","New York",2020-04-15,"405","0",0.05,0.9
+"Federal","New York",2020-04-16,"253","0",0.05,0.9
+"Federal","New Jersey",2020-04-16,"152","0",0.05,0.9
+"Federal","New Jersey",2020-04-17,"405","0",0.05,0.9
+"Federal","New York",2020-04-18,"405","0",0.05,0.9
+"Federal","New Jersey",2020-04-19,"112","0",0.05,0.9
+"Federal","Rhode Island",2020-04-19,"6","0",0.05,0.9
+"Federal","New York",2020-04-15,"450","0",0.05,1
+"Federal","New York",2020-04-16,"450","0",0.05,1
+"Federal","New Jersey",2020-04-17,"229","0",0.05,1
+"Federal","New York",2020-04-17,"221","0",0.05,1
+"Federal","New Jersey",2020-04-18,"450","0",0.05,1
+"Federal","Rhode Island",2020-04-20,"<5","0",0.05,1
+"Federal","Rhode Island",2020-04-21,"<5","0",0.05,1
+"Federal","Rhode Island",2020-04-22,"<5","0",0.05,1
+"Federal","New Jersey",2020-04-15,"206","0",0.1,0.5
+"Federal","New York",2020-04-15,"19","0",0.1,0.5
+"Federal","New York",2020-04-16,"225","0",0.1,0.5
+"Federal","New York",2020-04-17,"225","0",0.1,0.5
+"Federal","New York",2020-04-18,"225","0",0.1,0.5
+"Federal","New York",2020-04-19,"225","0",0.1,0.5
+"Federal","New Jersey",2020-04-20,"225","0",0.1,0.5
+"Federal","New Jersey",2020-04-21,"217","0",0.1,0.5
+"Federal","Rhode Island",2020-04-21,"8","0",0.1,0.5
+"Federal","New Jersey",2020-04-22,"16","0",0.1,0.5
+"Federal","Rhode Island",2020-04-22,"<5","0",0.1,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0",0.1,0.5
+"Federal","New Jersey",2020-04-15,"338","0",0.1,0.75
+"Federal","New Jersey",2020-04-16,"331","0",0.1,0.75
+"Federal","New York",2020-04-16,"7","0",0.1,0.75
+"Federal","New York",2020-04-17,"338","0",0.1,0.75
+"Federal","New York",2020-04-18,"338","0",0.1,0.75
+"Federal","New York",2020-04-19,"338","0",0.1,0.75
+"Federal","New Jersey",2020-04-20,"58","0",0.1,0.75
+"Federal","Rhode Island",2020-04-20,"8","0",0.1,0.75
+"Federal","Connecticut",2020-04-20,"6","0",0.1,0.75
+"Federal","Massachusetts",2020-04-20,"<5","0",0.1,0.75
+"Federal","Rhode Island",2020-04-22,"<5","0",0.1,0.75
+"Federal","New Jersey",2020-04-15,"274","0",0.1,0.9
+"Federal","New York",2020-04-15,"131","0",0.1,0.9
+"Federal","New York",2020-04-16,"405","0",0.1,0.9
+"Federal","New York",2020-04-17,"405","0",0.1,0.9
+"Federal","New Jersey",2020-04-18,"405","0",0.1,0.9
+"Federal","New York",2020-04-19,"122","0",0.1,0.9
+"Federal","New Jersey",2020-04-19,"48","0",0.1,0.9
+"Federal","Connecticut",2020-04-19,"11","0",0.1,0.9
+"Federal","Massachusetts",2020-04-19,"10","0",0.1,0.9
+"Federal","Rhode Island",2020-04-19,"<5","0",0.1,0.9
+"Federal","Rhode Island",2020-04-20,"<5","0",0.1,0.9
+"Federal","Rhode Island",2020-04-22,"<5","0",0.1,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0",0.1,0.9
+"Federal","New York",2020-04-15,"450","0",0.1,1
+"Federal","New Jersey",2020-04-16,"450","0",0.1,1
+"Federal","New York",2020-04-17,"450","0",0.1,1
+"Federal","New Jersey",2020-04-18,"229","0",0.1,1
+"Federal","New York",2020-04-18,"221","0",0.1,1
+"Federal","New Jersey",2020-04-19,"48","0",0.1,1
+"Federal","Connecticut",2020-04-19,"11","0",0.1,1
+"Federal","Massachusetts",2020-04-19,"10","0",0.1,1
+"Federal","Rhode Island",2020-04-19,"<5","0",0.1,1
+"Federal","Rhode Island",2020-04-20,"7","0",0.1,1
+"Federal","New York",2020-04-15,"225","0",0.2,0.5
+"Federal","New York",2020-04-16,"225","0",0.2,0.5
+"Federal","New Jersey",2020-04-17,"206","0",0.2,0.5
+"Federal","New York",2020-04-17,"19","0",0.2,0.5
+"Federal","New York",2020-04-18,"225","0",0.2,0.5
+"Federal","New York",2020-04-19,"225","0",0.2,0.5
+"Federal","New Jersey",2020-04-20,"225","0",0.2,0.5
+"Federal","New Jersey",2020-04-21,"207","0",0.2,0.5
+"Federal","Rhode Island",2020-04-21,"18","0",0.2,0.5
+"Federal","New Jersey",2020-04-22,"117","0",0.2,0.5
+"Federal","New York",2020-04-22,"50","0",0.2,0.5
+"Federal","Massachusetts",2020-04-22,"42","0",0.2,0.5
+"Federal","Connecticut",2020-04-22,"15","0",0.2,0.5
+"Federal","Rhode Island",2020-04-22,"<5","0",0.2,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0",0.2,0.5
+"Federal","New York",2020-04-15,"338","0",0.2,0.75
+"Federal","New Jersey",2020-04-16,"338","0",0.2,0.75
+"Federal","New York",2020-04-17,"338","0",0.2,0.75
+"Federal","New York",2020-04-18,"338","0",0.2,0.75
+"Federal","New Jersey",2020-04-19,"331","0",0.2,0.75
+"Federal","New York",2020-04-19,"7","0",0.2,0.75
+"Federal","New Jersey",2020-04-20,"160","0",0.2,0.75
+"Federal","New York",2020-04-20,"68","0",0.2,0.75
+"Federal","Massachusetts",2020-04-20,"63","0",0.2,0.75
+"Federal","Connecticut",2020-04-20,"32","0",0.2,0.75
+"Federal","Rhode Island",2020-04-20,"15","0",0.2,0.75
+"Federal","New York",2020-04-21,"53","0",0.2,0.75
+"Federal","Rhode Island",2020-04-21,"6","0",0.2,0.75
+"Federal","New Jersey",2020-04-15,"274","0",0.2,0.9
+"Federal","New York",2020-04-15,"131","0",0.2,0.9
+"Federal","New York",2020-04-16,"405","0",0.2,0.9
+"Federal","New York",2020-04-17,"405","0",0.2,0.9
+"Federal","New Jersey",2020-04-18,"405","0",0.2,0.9
+"Federal","New Jersey",2020-04-19,"160","0",0.2,0.9
+"Federal","New York",2020-04-19,"122","0",0.2,0.9
+"Federal","Massachusetts",2020-04-19,"72","0",0.2,0.9
+"Federal","Connecticut",2020-04-19,"38","0",0.2,0.9
+"Federal","Rhode Island",2020-04-19,"13","0",0.2,0.9
+"Federal","New York",2020-04-20,"189","0",0.2,0.9
+"Federal","New Jersey",2020-04-20,"22","0",0.2,0.9
+"Federal","Rhode Island",2020-04-20,"<5","0",0.2,0.9
+"Federal","Rhode Island",2020-04-21,"6","0",0.2,0.9
+"Federal","New Jersey",2020-04-15,"229","0",0.2,1
+"Federal","New York",2020-04-15,"221","0",0.2,1
+"Federal","New York",2020-04-16,"450","0",0.2,1
+"Federal","New York",2020-04-17,"450","0",0.2,1
+"Federal","New Jersey",2020-04-18,"450","0",0.2,1
+"Federal","New Jersey",2020-04-19,"182","0",0.2,1
+"Federal","New York",2020-04-19,"145","0",0.2,1
+"Federal","Massachusetts",2020-04-19,"72","0",0.2,1
+"Federal","Connecticut",2020-04-19,"38","0",0.2,1
+"Federal","Rhode Island",2020-04-19,"13","0",0.2,1
+"Federal","Rhode Island",2020-04-20,"8","0",0.2,1
 "California","New York",2020-04-15,"175","0.05",0,0
 "Texas","New Jersey",2020-04-15,"157","0.05",0,0
 "Florida","New Jersey",2020-04-15,"123","0.05",0,0
@@ -32,9 +196,9 @@
 "Kansas","New York",2020-04-15,"14","0.05",0,0
 "Oregon","New York",2020-04-15,"14","0.05",0,0
 "West Virginia","New Jersey",2020-04-15,"14","0.05",0,0
-"Kentucky","New Jersey",2020-04-15,"13","0.05",0,0
+"Kentucky","New York",2020-04-15,"13","0.05",0,0
 "Nebraska","New York",2020-04-15,"13","0.05",0,0
-"Kentucky","New York",2020-04-15,"12","0.05",0,0
+"Kentucky","New Jersey",2020-04-15,"12","0.05",0,0
 "New Mexico","New York",2020-04-15,"10","0.05",0,0
 "Hawaii","New York",2020-04-15,"7","0.05",0,0
 "Delaware","New Jersey",2020-04-15,"6","0.05",0,0
@@ -47,7 +211,10 @@
 "Alaska","New York",2020-04-15,"<5","0.05",0,0
 "Vermont","New York",2020-04-15,"<5","0.05",0,0
 "Wyoming","New York",2020-04-15,"<5","0.05",0,0
+"Rhode Island","New Jersey",2020-04-15,"<5","0.05",0,0
+"Connecticut","Rhode Island",2020-04-24,"<5","0.05",0,0
 "Connecticut","Rhode Island",2020-04-25,"<5","0.05",0,0
+"Federal","New York",2020-04-15,"225","0.05",0,0.5
 "Florida","New Jersey",2020-04-15,"123","0.05",0,0.5
 "Texas","New Jersey",2020-04-15,"118","0.05",0,0.5
 "Pennsylvania","New York",2020-04-15,"76","0.05",0,0.5
@@ -83,6 +250,14 @@
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0,0.5
 "South Dakota","New York",2020-04-15,"5","0.05",0,0.5
 "Vermont","New York",2020-04-15,"<5","0.05",0,0.5
+"Federal","New York",2020-04-16,"217","0.05",0,0.5
+"Federal","New Jersey",2020-04-16,"8","0.05",0,0.5
+"Federal","New York",2020-04-17,"222","0.05",0,0.5
+"Federal","Connecticut",2020-04-17,"<5","0.05",0,0.5
+"Federal","Connecticut",2020-04-18,"<5","0.05",0,0.5
+"Federal","Rhode Island",2020-04-19,"<5","0.05",0,0.5
+"Federal","Rhode Island",2020-04-21,"5","0.05",0,0.5
+"Federal","New York",2020-04-15,"338","0.05",0,0.75
 "Florida","New Jersey",2020-04-15,"123","0.05",0,0.75
 "Pennsylvania","New York",2020-04-15,"76","0.05",0,0.75
 "Ohio","New York",2020-04-15,"70","0.05",0,0.75
@@ -111,7 +286,16 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0,0.75
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0,0.75
 "Vermont","New York",2020-04-15,"<5","0.05",0,0.75
+"Federal","New York",2020-04-16,"338","0.05",0,0.75
+"Federal","New Jersey",2020-04-17,"155","0.05",0,0.75
+"Federal","New York",2020-04-17,"46","0.05",0,0.75
+"Federal","Connecticut",2020-04-17,"<5","0.05",0,0.75
+"Federal","Connecticut",2020-04-18,"<5","0.05",0,0.75
+"Federal","Rhode Island",2020-04-20,"<5","0.05",0,0.75
+"Federal","Rhode Island",2020-04-21,"5","0.05",0,0.75
+"Federal","New York",2020-04-15,"317","0.05",0,0.9
 "Florida","New Jersey",2020-04-15,"123","0.05",0,0.9
+"Federal","New Jersey",2020-04-15,"88","0.05",0,0.9
 "Pennsylvania","New York",2020-04-15,"76","0.05",0,0.9
 "Ohio","New York",2020-04-15,"70","0.05",0,0.9
 "Georgia","New Jersey",2020-04-15,"58","0.05",0,0.9
@@ -139,6 +323,13 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0,0.9
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0,0.9
 "Vermont","New York",2020-04-15,"<5","0.05",0,0.9
+"Federal","New York",2020-04-16,"405","0.05",0,0.9
+"Federal","New Jersey",2020-04-17,"67","0.05",0,0.9
+"Federal","Connecticut",2020-04-17,"<5","0.05",0,0.9
+"Federal","Connecticut",2020-04-18,"<5","0.05",0,0.9
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0,0.9
+"Federal","Rhode Island",2020-04-21,"5","0.05",0,0.9
+"Federal","New York",2020-04-15,"450","0.05",0,1
 "Florida","New Jersey",2020-04-15,"123","0.05",0,1
 "Pennsylvania","New York",2020-04-15,"76","0.05",0,1
 "Ohio","New York",2020-04-15,"70","0.05",0,1
@@ -167,6 +358,12 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0,1
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0,1
 "Vermont","New York",2020-04-15,"<5","0.05",0,1
+"Federal","New York",2020-04-16,"290","0.05",0,1
+"Federal","New Jersey",2020-04-16,"160","0.05",0,1
+"Federal","Connecticut",2020-04-17,"<5","0.05",0,1
+"Federal","Rhode Island",2020-04-19,"<5","0.05",0,1
+"Federal","Rhode Island",2020-04-21,"<5","0.05",0,1
+"Federal","Rhode Island",2020-04-23,"<5","0.05",0,1
 "California","New York",2020-04-15,"175","0.05",0.05,0
 "Texas","New Jersey",2020-04-15,"157","0.05",0.05,0
 "Florida","New Jersey",2020-04-15,"123","0.05",0.05,0
@@ -194,16 +391,16 @@
 "Mississippi","New Jersey",2020-04-15,"20","0.05",0.05,0
 "Oklahoma","New York",2020-04-15,"20","0.05",0.05,0
 "Arkansas","New York",2020-04-15,"17","0.05",0.05,0
-"Kentucky","New York",2020-04-15,"17","0.05",0.05,0
 "Connecticut","New Jersey",2020-04-15,"16","0.05",0.05,0
 "Iowa","New York",2020-04-15,"15","0.05",0.05,0
 "Utah","New York",2020-04-15,"15","0.05",0.05,0
 "Kansas","New York",2020-04-15,"14","0.05",0.05,0
 "Oregon","New York",2020-04-15,"14","0.05",0.05,0
 "West Virginia","New Jersey",2020-04-15,"14","0.05",0.05,0
+"Kentucky","New York",2020-04-15,"13","0.05",0.05,0
 "Nebraska","New York",2020-04-15,"13","0.05",0.05,0
+"Kentucky","New Jersey",2020-04-15,"12","0.05",0.05,0
 "New Mexico","New York",2020-04-15,"10","0.05",0.05,0
-"Kentucky","New Jersey",2020-04-15,"8","0.05",0.05,0
 "Hawaii","New York",2020-04-15,"7","0.05",0.05,0
 "Delaware","New Jersey",2020-04-15,"6","0.05",0.05,0
 "Idaho","New York",2020-04-15,"6","0.05",0.05,0
@@ -217,6 +414,7 @@
 "Wyoming","New York",2020-04-15,"<5","0.05",0.05,0
 "Rhode Island","New Jersey",2020-04-15,"<5","0.05",0.05,0
 "New Jersey","Rhode Island",2020-04-27,"<5","0.05",0.05,0
+"Federal","New York",2020-04-15,"225","0.05",0.05,0.5
 "Texas","New Jersey",2020-04-15,"156","0.05",0.05,0.5
 "Florida","New Jersey",2020-04-15,"123","0.05",0.05,0.5
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.05,0.5
@@ -253,6 +451,15 @@
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.05,0.5
 "South Dakota","New York",2020-04-15,"5","0.05",0.05,0.5
 "Vermont","New York",2020-04-15,"<5","0.05",0.05,0.5
+"Federal","New York",2020-04-16,"225","0.05",0.05,0.5
+"Federal","New York",2020-04-17,"220","0.05",0.05,0.5
+"Federal","New Jersey",2020-04-17,"5","0.05",0.05,0.5
+"Federal","New Jersey",2020-04-18,"24","0.05",0.05,0.5
+"Federal","Massachusetts",2020-04-18,"15","0.05",0.05,0.5
+"Federal","Connecticut",2020-04-18,"13","0.05",0.05,0.5
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0.05,0.5
+"Federal","Rhode Island",2020-04-19,"9","0.05",0.05,0.5
+"Federal","New York",2020-04-15,"338","0.05",0.05,0.75
 "Florida","New Jersey",2020-04-15,"123","0.05",0.05,0.75
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.05,0.75
 "Ohio","New York",2020-04-15,"70","0.05",0.05,0.75
@@ -281,6 +488,16 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.05,0.75
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.05,0.75
 "Vermont","New York",2020-04-15,"<5","0.05",0.05,0.75
+"Federal","New York",2020-04-16,"178","0.05",0.05,0.75
+"Federal","New Jersey",2020-04-16,"160","0.05",0.05,0.75
+"Federal","New York",2020-04-17,"260","0.05",0.05,0.75
+"Federal","New Jersey",2020-04-17,"24","0.05",0.05,0.75
+"Federal","Connecticut",2020-04-17,"19","0.05",0.05,0.75
+"Federal","Massachusetts",2020-04-17,"9","0.05",0.05,0.75
+"Federal","Rhode Island",2020-04-17,"<5","0.05",0.05,0.75
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.05,0.75
+"Federal","Rhode Island",2020-04-19,"9","0.05",0.05,0.75
+"Federal","New York",2020-04-15,"405","0.05",0.05,0.9
 "Florida","New Jersey",2020-04-15,"123","0.05",0.05,0.9
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.05,0.9
 "Ohio","New York",2020-04-15,"70","0.05",0.05,0.9
@@ -309,6 +526,16 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.05,0.9
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.05,0.9
 "Vermont","New York",2020-04-15,"<5","0.05",0.05,0.9
+"Federal","New York",2020-04-16,"245","0.05",0.05,0.9
+"Federal","New Jersey",2020-04-16,"160","0.05",0.05,0.9
+"Federal","New York",2020-04-17,"126","0.05",0.05,0.9
+"Federal","New Jersey",2020-04-17,"24","0.05",0.05,0.9
+"Federal","Connecticut",2020-04-17,"19","0.05",0.05,0.9
+"Federal","Massachusetts",2020-04-17,"9","0.05",0.05,0.9
+"Federal","Rhode Island",2020-04-17,"<5","0.05",0.05,0.9
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.05,0.9
+"Federal","Rhode Island",2020-04-19,"9","0.05",0.05,0.9
+"Federal","New York",2020-04-15,"450","0.05",0.05,1
 "Florida","New Jersey",2020-04-15,"123","0.05",0.05,1
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.05,1
 "Ohio","New York",2020-04-15,"70","0.05",0.05,1
@@ -337,6 +564,15 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.05,1
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.05,1
 "Vermont","New York",2020-04-15,"<5","0.05",0.05,1
+"Federal","New York",2020-04-16,"290","0.05",0.05,1
+"Federal","New Jersey",2020-04-16,"160","0.05",0.05,1
+"Federal","New York",2020-04-17,"36","0.05",0.05,1
+"Federal","New Jersey",2020-04-17,"24","0.05",0.05,1
+"Federal","Connecticut",2020-04-17,"19","0.05",0.05,1
+"Federal","Massachusetts",2020-04-17,"9","0.05",0.05,1
+"Federal","Rhode Island",2020-04-17,"<5","0.05",0.05,1
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.05,1
+"Federal","Rhode Island",2020-04-19,"9","0.05",0.05,1
 "California","New York",2020-04-15,"175","0.05",0.1,0
 "Texas","New Jersey",2020-04-15,"157","0.05",0.1,0
 "Florida","New Jersey",2020-04-15,"123","0.05",0.1,0
@@ -387,6 +623,7 @@
 "Wyoming","New York",2020-04-15,"<5","0.05",0.1,0
 "New York","Rhode Island",2020-04-28,"<5","0.05",0.1,0
 "Connecticut","Rhode Island",2020-04-29,"5","0.05",0.1,0
+"Federal","New York",2020-04-15,"225","0.05",0.1,0.5
 "Texas","New Jersey",2020-04-15,"157","0.05",0.1,0.5
 "Florida","New Jersey",2020-04-15,"123","0.05",0.1,0.5
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.1,0.5
@@ -423,6 +660,15 @@
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.1,0.5
 "South Dakota","New York",2020-04-15,"5","0.05",0.1,0.5
 "Vermont","New York",2020-04-15,"<5","0.05",0.1,0.5
+"Federal","New York",2020-04-16,"225","0.05",0.1,0.5
+"Federal","New York",2020-04-17,"220","0.05",0.1,0.5
+"Federal","New Jersey",2020-04-17,"5","0.05",0.1,0.5
+"Federal","New Jersey",2020-04-18,"93","0.05",0.1,0.5
+"Federal","Massachusetts",2020-04-18,"49","0.05",0.1,0.5
+"Federal","Connecticut",2020-04-18,"25","0.05",0.1,0.5
+"Federal","Rhode Island",2020-04-18,"7","0.05",0.1,0.5
+"Federal","Rhode Island",2020-04-19,"9","0.05",0.1,0.5
+"Federal","New York",2020-04-15,"338","0.05",0.1,0.75
 "Florida","New Jersey",2020-04-15,"123","0.05",0.1,0.75
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.1,0.75
 "Ohio","New York",2020-04-15,"70","0.05",0.1,0.75
@@ -451,6 +697,18 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.1,0.75
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.1,0.75
 "Vermont","New York",2020-04-15,"<5","0.05",0.1,0.75
+"Federal","New York",2020-04-16,"338","0.05",0.1,0.75
+"Federal","New Jersey",2020-04-17,"183","0.05",0.1,0.75
+"Federal","New York",2020-04-17,"100","0.05",0.1,0.75
+"Federal","Massachusetts",2020-04-17,"35","0.05",0.1,0.75
+"Federal","Connecticut",2020-04-17,"16","0.05",0.1,0.75
+"Federal","Rhode Island",2020-04-17,"<5","0.05",0.1,0.75
+"Federal","New Jersey",2020-04-18,"65","0.05",0.1,0.75
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.1,0.75
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0.1,0.75
+"Federal","Rhode Island",2020-04-19,"6","0.05",0.1,0.75
+"Federal","Rhode Island",2020-04-22,"<5","0.05",0.1,0.75
+"Federal","New York",2020-04-15,"405","0.05",0.1,0.9
 "Florida","New Jersey",2020-04-15,"123","0.05",0.1,0.9
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.1,0.9
 "Ohio","New York",2020-04-15,"70","0.05",0.1,0.9
@@ -478,7 +736,18 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.1,0.9
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.1,0.9
 "Vermont","New York",2020-04-15,"<5","0.05",0.1,0.9
+"Federal","New York",2020-04-16,"405","0.05",0.1,0.9
+"Federal","New Jersey",2020-04-17,"296","0.05",0.1,0.9
+"Federal","Massachusetts",2020-04-17,"41","0.05",0.1,0.9
+"Federal","New York",2020-04-17,"26","0.05",0.1,0.9
+"Federal","Connecticut",2020-04-17,"19","0.05",0.1,0.9
+"Federal","Rhode Island",2020-04-17,"<5","0.05",0.1,0.9
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0.1,0.9
+"Federal","Rhode Island",2020-04-19,"6","0.05",0.1,0.9
+"Federal","Rhode Island",2020-04-22,"<5","0.05",0.1,0.9
+"Federal","New York",2020-04-15,"370","0.05",0.1,1
 "Florida","New Jersey",2020-04-15,"123","0.05",0.1,1
+"Federal","New Jersey",2020-04-15,"80","0.05",0.1,1
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.1,1
 "Ohio","New York",2020-04-15,"70","0.05",0.1,1
 "Georgia","New Jersey",2020-04-15,"58","0.05",0.1,1
@@ -505,6 +774,14 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.1,1
 "Rhode Island","New Jersey",2020-04-15,"5","0.05",0.1,1
 "Vermont","New York",2020-04-15,"<5","0.05",0.1,1
+"Federal","New York",2020-04-16,"450","0.05",0.1,1
+"Federal","New Jersey",2020-04-17,"216","0.05",0.1,1
+"Federal","Massachusetts",2020-04-17,"41","0.05",0.1,1
+"Federal","Connecticut",2020-04-17,"19","0.05",0.1,1
+"Federal","New York",2020-04-17,"16","0.05",0.1,1
+"Federal","Rhode Island",2020-04-17,"<5","0.05",0.1,1
+"Federal","Rhode Island",2020-04-18,"9","0.05",0.1,1
+"Federal","Rhode Island",2020-04-22,"<5","0.05",0.1,1
 "California","New York",2020-04-15,"175","0.05",0.2,0
 "Texas","New Jersey",2020-04-15,"157","0.05",0.2,0
 "Florida","New Jersey",2020-04-15,"123","0.05",0.2,0
@@ -554,6 +831,9 @@
 "Vermont","New York",2020-04-15,"<5","0.05",0.2,0
 "Wyoming","New York",2020-04-15,"<5","0.05",0.2,0
 "Louisiana","Rhode Island",2020-04-20,"<5","0.05",0.2,0
+"New York","Delaware",2020-05-01,"<5","0.05",0.2,0
+"Connecticut","Rhode Island",2020-05-02,"7","0.05",0.2,0
+"Federal","New York",2020-04-15,"225","0.05",0.2,0.5
 "Texas","New Jersey",2020-04-15,"157","0.05",0.2,0.5
 "Florida","New Jersey",2020-04-15,"123","0.05",0.2,0.5
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.2,0.5
@@ -592,6 +872,19 @@
 "South Dakota","New York",2020-04-15,"5","0.05",0.2,0.5
 "Vermont","New York",2020-04-15,"<5","0.05",0.2,0.5
 "Wyoming","New York",2020-04-15,"<5","0.05",0.2,0.5
+"Federal","New York",2020-04-16,"198","0.05",0.2,0.5
+"Federal","New Jersey",2020-04-16,"27","0.05",0.2,0.5
+"Federal","New York",2020-04-17,"225","0.05",0.2,0.5
+"Federal","New York",2020-04-18,"94","0.05",0.2,0.5
+"Federal","Massachusetts",2020-04-18,"77","0.05",0.2,0.5
+"Federal","Connecticut",2020-04-18,"38","0.05",0.2,0.5
+"Federal","Rhode Island",2020-04-18,"16","0.05",0.2,0.5
+"Federal","New Jersey",2020-04-19,"177","0.05",0.2,0.5
+"Federal","New York",2020-04-19,"46","0.05",0.2,0.5
+"Federal","Rhode Island",2020-04-19,"<5","0.05",0.2,0.5
+"Federal","Rhode Island",2020-04-20,"8","0.05",0.2,0.5
+"Federal","Delaware",2020-04-28,"<5","0.05",0.2,0.5
+"Federal","New York",2020-04-15,"338","0.05",0.2,0.75
 "Florida","New Jersey",2020-04-15,"123","0.05",0.2,0.75
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.2,0.75
 "Ohio","New York",2020-04-15,"70","0.05",0.2,0.75
@@ -623,6 +916,22 @@
 "South Dakota","New York",2020-04-15,"5","0.05",0.2,0.75
 "Rhode Island","New Jersey",2020-04-15,"<5","0.05",0.2,0.75
 "Vermont","New York",2020-04-15,"<5","0.05",0.2,0.75
+"Federal","New Jersey",2020-04-16,"195","0.05",0.2,0.75
+"Federal","New York",2020-04-16,"143","0.05",0.2,0.75
+"Federal","New York",2020-04-17,"243","0.05",0.2,0.75
+"Federal","Massachusetts",2020-04-17,"73","0.05",0.2,0.75
+"Federal","Connecticut",2020-04-17,"11","0.05",0.2,0.75
+"Federal","Rhode Island",2020-04-17,"11","0.05",0.2,0.75
+"Federal","New York",2020-04-18,"281","0.05",0.2,0.75
+"Federal","Connecticut",2020-04-18,"33","0.05",0.2,0.75
+"Federal","New Jersey",2020-04-18,"15","0.05",0.2,0.75
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.2,0.75
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0.2,0.75
+"Federal","New Jersey",2020-04-19,"162","0.05",0.2,0.75
+"Federal","Rhode Island",2020-04-19,"7","0.05",0.2,0.75
+"Federal","Rhode Island",2020-04-22,"<5","0.05",0.2,0.75
+"Federal","Delaware",2020-04-28,"<5","0.05",0.2,0.75
+"Federal","New York",2020-04-15,"405","0.05",0.2,0.9
 "Florida","New Jersey",2020-04-15,"123","0.05",0.2,0.9
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.2,0.9
 "Ohio","New York",2020-04-15,"70","0.05",0.2,0.9
@@ -650,6 +959,20 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.2,0.9
 "Rhode Island","New Jersey",2020-04-15,"<5","0.05",0.2,0.9
 "Vermont","New York",2020-04-15,"<5","0.05",0.2,0.9
+"Federal","New York",2020-04-16,"209","0.05",0.2,0.9
+"Federal","New Jersey",2020-04-16,"196","0.05",0.2,0.9
+"Federal","New York",2020-04-17,"272","0.05",0.2,0.9
+"Federal","Massachusetts",2020-04-17,"73","0.05",0.2,0.9
+"Federal","Connecticut",2020-04-17,"49","0.05",0.2,0.9
+"Federal","Rhode Island",2020-04-17,"11","0.05",0.2,0.9
+"Federal","New Jersey",2020-04-18,"206","0.05",0.2,0.9
+"Federal","New York",2020-04-18,"172","0.05",0.2,0.9
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.2,0.9
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0.2,0.9
+"Federal","Rhode Island",2020-04-19,"7","0.05",0.2,0.9
+"Federal","Rhode Island",2020-04-22,"<5","0.05",0.2,0.9
+"Federal","Delaware",2020-04-28,"<5","0.05",0.2,0.9
+"Federal","New York",2020-04-15,"450","0.05",0.2,1
 "Florida","New Jersey",2020-04-15,"123","0.05",0.2,1
 "Pennsylvania","New York",2020-04-15,"76","0.05",0.2,1
 "Ohio","New York",2020-04-15,"70","0.05",0.2,1
@@ -677,6 +1000,19 @@
 "New Hampshire","New York",2020-04-15,"6","0.05",0.2,1
 "Rhode Island","New Jersey",2020-04-15,"<5","0.05",0.2,1
 "Vermont","New York",2020-04-15,"<5","0.05",0.2,1
+"Federal","New York",2020-04-16,"365","0.05",0.2,1
+"Federal","New Jersey",2020-04-16,"85","0.05",0.2,1
+"Federal","New Jersey",2020-04-17,"317","0.05",0.2,1
+"Federal","Massachusetts",2020-04-17,"73","0.05",0.2,1
+"Federal","Connecticut",2020-04-17,"49","0.05",0.2,1
+"Federal","Rhode Island",2020-04-17,"11","0.05",0.2,1
+"Federal","New York",2020-04-18,"243","0.05",0.2,1
+"Federal","Massachusetts",2020-04-18,"6","0.05",0.2,1
+"Federal","Rhode Island",2020-04-18,"<5","0.05",0.2,1
+"Federal","Rhode Island",2020-04-19,"7","0.05",0.2,1
+"Federal","Rhode Island",2020-04-22,"<5","0.05",0.2,1
+"Federal","Rhode Island",2020-04-23,"<5","0.05",0.2,1
+"Federal","Delaware",2020-04-28,"<5","0.05",0.2,1
 "Florida","New Jersey",2020-04-15,"246","0.1",0,0
 "Pennsylvania","New York",2020-04-15,"152","0.1",0,0
 "Ohio","New York",2020-04-15,"139","0.1",0,0
@@ -711,6 +1047,7 @@
 "New Jersey","Rhode Island",2020-04-22,"<5","0.1",0,0
 "Connecticut","Rhode Island",2020-04-23,"<5","0.1",0,0
 "Connecticut","Rhode Island",2020-04-24,"<5","0.1",0,0
+"Federal","New York",2020-04-15,"225","0.1",0,0.5
 "Florida","New Jersey",2020-04-15,"154","0.1",0,0.5
 "Pennsylvania","New York",2020-04-15,"152","0.1",0,0.5
 "Ohio","New York",2020-04-15,"139","0.1",0,0.5
@@ -733,6 +1070,14 @@
 "Rhode Island","New Jersey",2020-04-15,"10","0.1",0,0.5
 "Tennessee","New York",2020-04-15,"9","0.1",0,0.5
 "Vermont","New York",2020-04-15,"5","0.1",0,0.5
+"Federal","New York",2020-04-16,"220","0.1",0,0.5
+"Federal","New Jersey",2020-04-16,"5","0.1",0,0.5
+"Federal","Massachusetts",2020-04-17,"8","0.1",0,0.5
+"Federal","Connecticut",2020-04-17,"<5","0.1",0,0.5
+"Federal","Rhode Island",2020-04-18,"11","0.1",0,0.5
+"Federal","Massachusetts",2020-04-18,"8","0.1",0,0.5
+"Federal","Connecticut",2020-04-18,"<5","0.1",0,0.5
+"Federal","New York",2020-04-15,"338","0.1",0,0.75
 "Pennsylvania","New York",2020-04-15,"152","0.1",0,0.75
 "Ohio","New York",2020-04-15,"139","0.1",0,0.75
 "Georgia","New Jersey",2020-04-15,"115","0.1",0,0.75
@@ -754,8 +1099,18 @@
 "New Hampshire","New York",2020-04-15,"11","0.1",0,0.75
 "Rhode Island","New Jersey",2020-04-15,"10","0.1",0,0.75
 "Vermont","New York",2020-04-15,"5","0.1",0,0.75
+"Federal","New York",2020-04-16,"333","0.1",0,0.75
+"Federal","New Jersey",2020-04-16,"5","0.1",0,0.75
+"Federal","Massachusetts",2020-04-17,"8","0.1",0,0.75
+"Federal","Connecticut",2020-04-17,"<5","0.1",0,0.75
+"Federal","Massachusetts",2020-04-18,"8","0.1",0,0.75
+"Federal","Rhode Island",2020-04-18,"<5","0.1",0,0.75
+"Federal","Rhode Island",2020-04-19,"8","0.1",0,0.75
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0,0.75
+"Federal","New York",2020-04-15,"289","0.1",0,0.9
 "Pennsylvania","New York",2020-04-15,"152","0.1",0,0.9
 "Ohio","New York",2020-04-15,"139","0.1",0,0.9
+"Federal","New Jersey",2020-04-15,"116","0.1",0,0.9
 "Georgia","New Jersey",2020-04-15,"115","0.1",0,0.9
 "North Carolina","New Jersey",2020-04-15,"98","0.1",0,0.9
 "Michigan","New York",2020-04-15,"94","0.1",0,0.9
@@ -772,6 +1127,12 @@
 "Maine","New York",2020-04-15,"11","0.1",0,0.9
 "New Hampshire","New York",2020-04-15,"11","0.1",0,0.9
 "Vermont","New York",2020-04-15,"5","0.1",0,0.9
+"Federal","New York",2020-04-16,"400","0.1",0,0.9
+"Federal","New Jersey",2020-04-16,"5","0.1",0,0.9
+"Federal","Connecticut",2020-04-17,"<5","0.1",0,0.9
+"Federal","Connecticut",2020-04-18,"<5","0.1",0,0.9
+"Federal","Rhode Island",2020-04-18,"<5","0.1",0,0.9
+"Federal","New York",2020-04-15,"450","0.1",0,1
 "Pennsylvania","New York",2020-04-15,"152","0.1",0,1
 "Ohio","New York",2020-04-15,"139","0.1",0,1
 "North Carolina","New Jersey",2020-04-15,"98","0.1",0,1
@@ -789,6 +1150,9 @@
 "Maine","New York",2020-04-15,"11","0.1",0,1
 "New Hampshire","New York",2020-04-15,"11","0.1",0,1
 "Vermont","New York",2020-04-15,"5","0.1",0,1
+"Federal","New York",2020-04-16,"239","0.1",0,1
+"Federal","New Jersey",2020-04-16,"211","0.1",0,1
+"Federal","Rhode Island",2020-04-22,"<5","0.1",0,1
 "Florida","New Jersey",2020-04-15,"246","0.1",0.05,0
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.05,0
 "Ohio","New York",2020-04-15,"139","0.1",0.05,0
@@ -821,6 +1185,7 @@
 "Vermont","New York",2020-04-15,"5","0.1",0.05,0
 "New York","Rhode Island",2020-04-23,"5","0.1",0.05,0
 "Florida","New Jersey",2020-04-15,"246","0.1",0.05,0.5
+"Federal","New York",2020-04-15,"225","0.1",0.05,0.5
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.05,0.5
 "Ohio","New York",2020-04-15,"139","0.1",0.05,0.5
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.05,0.5
@@ -842,6 +1207,15 @@
 "Vermont","New York",2020-04-15,"5","0.1",0.05,0.5
 "Wisconsin","New York",2020-04-15,"<5","0.1",0.05,0.5
 "West Virginia","New York",2020-04-15,"<5","0.1",0.05,0.5
+"Federal","New York",2020-04-16,"220","0.1",0.05,0.5
+"Federal","New Jersey",2020-04-16,"5","0.1",0.05,0.5
+"Federal","New Jersey",2020-04-17,"24","0.1",0.05,0.5
+"Federal","Massachusetts",2020-04-17,"14","0.1",0.05,0.5
+"Federal","Rhode Island",2020-04-17,"11","0.1",0.05,0.5
+"Federal","Rhode Island",2020-04-22,"<5","0.1",0.05,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.1",0.05,0.5
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.05,0.5
+"Federal","New York",2020-04-15,"338","0.1",0.05,0.75
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.05,0.75
 "Ohio","New York",2020-04-15,"139","0.1",0.05,0.75
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.05,0.75
@@ -862,6 +1236,14 @@
 "New Hampshire","New York",2020-04-15,"11","0.1",0.05,0.75
 "Rhode Island","New Jersey",2020-04-15,"8","0.1",0.05,0.75
 "Vermont","New York",2020-04-15,"5","0.1",0.05,0.75
+"Federal","New York",2020-04-16,"333","0.1",0.05,0.75
+"Federal","New Jersey",2020-04-16,"5","0.1",0.05,0.75
+"Federal","New Jersey",2020-04-17,"24","0.1",0.05,0.75
+"Federal","Massachusetts",2020-04-17,"14","0.1",0.05,0.75
+"Federal","Rhode Island",2020-04-17,"12","0.1",0.05,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.1",0.05,0.75
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.05,0.75
+"Federal","New York",2020-04-15,"405","0.1",0.05,0.9
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.05,0.9
 "Ohio","New York",2020-04-15,"139","0.1",0.05,0.9
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.05,0.9
@@ -881,6 +1263,14 @@
 "Rhode Island","New Jersey",2020-04-15,"8","0.1",0.05,0.9
 "Florida","New Jersey",2020-04-15,"5","0.1",0.05,0.9
 "Vermont","New York",2020-04-15,"5","0.1",0.05,0.9
+"Federal","New York",2020-04-16,"328","0.1",0.05,0.9
+"Federal","New Jersey",2020-04-16,"77","0.1",0.05,0.9
+"Federal","New Jersey",2020-04-17,"24","0.1",0.05,0.9
+"Federal","Massachusetts",2020-04-17,"14","0.1",0.05,0.9
+"Federal","Rhode Island",2020-04-17,"12","0.1",0.05,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0.1",0.05,0.9
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.05,0.9
+"Federal","New York",2020-04-15,"450","0.1",0.05,1
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.05,1
 "Ohio","New York",2020-04-15,"139","0.1",0.05,1
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.05,1
@@ -898,6 +1288,11 @@
 "Maine","New York",2020-04-15,"11","0.1",0.05,1
 "New Hampshire","New York",2020-04-15,"11","0.1",0.05,1
 "Vermont","New York",2020-04-15,"5","0.1",0.05,1
+"Federal","New York",2020-04-16,"283","0.1",0.05,1
+"Federal","New Jersey",2020-04-16,"167","0.1",0.05,1
+"Federal","New Jersey",2020-04-17,"24","0.1",0.05,1
+"Federal","Rhode Island",2020-04-17,"<5","0.1",0.05,1
+"Federal","Rhode Island",2020-04-22,"<5","0.1",0.05,1
 "Florida","New Jersey",2020-04-15,"246","0.1",0.1,0
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.1,0
 "Ohio","New York",2020-04-15,"139","0.1",0.1,0
@@ -922,16 +1317,16 @@
 "Iowa","New York",2020-04-15,"29","0.1",0.1,0
 "Kansas","New York",2020-04-15,"27","0.1",0.1,0
 "West Virginia","New York",2020-04-15,"27","0.1",0.1,0
-"Nebraska","New York",2020-04-15,"16","0.1",0.1,0
+"Nebraska","New York",2020-04-15,"24","0.1",0.1,0
 "Delaware","New Jersey",2020-04-15,"11","0.1",0.1,0
 "Maine","New York",2020-04-15,"11","0.1",0.1,0
-"New Hampshire","New York",2020-04-15,"11","0.1",0.1,0
 "Alabama","New York",2020-04-15,"9","0.1",0.1,0
+"New Hampshire","New York",2020-04-15,"6","0.1",0.1,0
 "Vermont","New York",2020-04-15,"5","0.1",0.1,0
-"Massachusetts","New York",2020-04-15,"<5","0.1",0.1,0
-"Massachusetts","Rhode Island",2020-04-15,"<5","0.1",0.1,0
-"New York","Rhode Island",2020-04-25,"8","0.1",0.1,0
+"New Hampshire","Rhode Island",2020-04-16,"5","0.1",0.1,0
+"Massachusetts","Rhode Island",2020-04-16,"<5","0.1",0.1,0
 "Florida","New Jersey",2020-04-15,"246","0.1",0.1,0.5
+"Federal","New York",2020-04-15,"225","0.1",0.1,0.5
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.1,0.5
 "Ohio","New York",2020-04-15,"139","0.1",0.1,0.5
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.1,0.5
@@ -953,6 +1348,16 @@
 "Massachusetts","New York",2020-04-15,"<5","0.1",0.1,0.5
 "Rhode Island","New Jersey",2020-04-15,"<5","0.1",0.1,0.5
 "Tennessee","New Jersey",2020-04-15,"<5","0.1",0.1,0.5
+"Federal","New York",2020-04-16,"220","0.1",0.1,0.5
+"Federal","New Jersey",2020-04-16,"5","0.1",0.1,0.5
+"Federal","New Jersey",2020-04-17,"93","0.1",0.1,0.5
+"Federal","Connecticut",2020-04-17,"19","0.1",0.1,0.5
+"Federal","New York",2020-04-17,"16","0.1",0.1,0.5
+"Federal","Massachusetts",2020-04-17,"9","0.1",0.1,0.5
+"Federal","Rhode Island",2020-04-17,"8","0.1",0.1,0.5
+"Federal","Massachusetts",2020-04-18,"6","0.1",0.1,0.5
+"Federal","Rhode Island",2020-04-20,"7","0.1",0.1,0.5
+"Federal","New York",2020-04-15,"338","0.1",0.1,0.75
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.1,0.75
 "Ohio","New York",2020-04-15,"139","0.1",0.1,0.75
 "Florida","New Jersey",2020-04-15,"118","0.1",0.1,0.75
@@ -973,6 +1378,17 @@
 "Vermont","New York",2020-04-15,"5","0.1",0.1,0.75
 "Massachusetts","New York",2020-04-15,"<5","0.1",0.1,0.75
 "Rhode Island","New Jersey",2020-04-15,"<5","0.1",0.1,0.75
+"Federal","New York",2020-04-16,"333","0.1",0.1,0.75
+"Federal","New Jersey",2020-04-16,"5","0.1",0.1,0.75
+"Federal","New Jersey",2020-04-17,"93","0.1",0.1,0.75
+"Federal","Connecticut",2020-04-17,"19","0.1",0.1,0.75
+"Federal","New York",2020-04-17,"16","0.1",0.1,0.75
+"Federal","Massachusetts",2020-04-17,"15","0.1",0.1,0.75
+"Federal","Rhode Island",2020-04-17,"<5","0.1",0.1,0.75
+"Federal","Rhode Island",2020-04-18,"5","0.1",0.1,0.75
+"Federal","Rhode Island",2020-04-20,"6","0.1",0.1,0.75
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.1,0.75
+"Federal","New York",2020-04-15,"405","0.1",0.1,0.9
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.1,0.9
 "Ohio","New York",2020-04-15,"139","0.1",0.1,0.9
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.1,0.9
@@ -992,6 +1408,14 @@
 "Vermont","New York",2020-04-15,"5","0.1",0.1,0.9
 "Massachusetts","New Jersey",2020-04-15,"<5","0.1",0.1,0.9
 "Rhode Island","New Jersey",2020-04-15,"<5","0.1",0.1,0.9
+"Federal","New York",2020-04-16,"328","0.1",0.1,0.9
+"Federal","New Jersey",2020-04-16,"77","0.1",0.1,0.9
+"Federal","New Jersey",2020-04-17,"93","0.1",0.1,0.9
+"Federal","Connecticut",2020-04-17,"19","0.1",0.1,0.9
+"Federal","New York",2020-04-17,"16","0.1",0.1,0.9
+"Federal","Massachusetts",2020-04-17,"15","0.1",0.1,0.9
+"Federal","Rhode Island",2020-04-17,"15","0.1",0.1,0.9
+"Federal","New York",2020-04-15,"450","0.1",0.1,1
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.1,1
 "Ohio","New York",2020-04-15,"139","0.1",0.1,1
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.1,1
@@ -1008,6 +1432,14 @@
 "Maine","New York",2020-04-15,"11","0.1",0.1,1
 "New Hampshire","New York",2020-04-15,"11","0.1",0.1,1
 "Vermont","New York",2020-04-15,"5","0.1",0.1,1
+"Federal","New York",2020-04-16,"283","0.1",0.1,1
+"Federal","New Jersey",2020-04-16,"167","0.1",0.1,1
+"Federal","New Jersey",2020-04-17,"93","0.1",0.1,1
+"Federal","Connecticut",2020-04-17,"19","0.1",0.1,1
+"Federal","New York",2020-04-17,"16","0.1",0.1,1
+"Federal","Massachusetts",2020-04-17,"11","0.1",0.1,1
+"Federal","Rhode Island",2020-04-18,"<5","0.1",0.1,1
+"Federal","Rhode Island",2020-04-20,"7","0.1",0.1,1
 "Florida","New Jersey",2020-04-15,"246","0.1",0.2,0
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.2,0
 "Ohio","New York",2020-04-15,"139","0.1",0.2,0
@@ -1045,7 +1477,9 @@
 "Louisiana","Rhode Island",2020-04-20,"<5","0.1",0.2,0
 "New York","Delaware",2020-04-27,"<5","0.1",0.2,0
 "New York","Delaware",2020-04-28,"<5","0.1",0.2,0
+"New Jersey","Delaware",2020-05-01,"<5","0.1",0.2,0
 "Florida","New Jersey",2020-04-15,"246","0.1",0.2,0.5
+"Federal","New York",2020-04-15,"225","0.1",0.2,0.5
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.2,0.5
 "Ohio","New York",2020-04-15,"139","0.1",0.2,0.5
 "Georgia","New Jersey",2020-04-15,"115","0.1",0.2,0.5
@@ -1066,6 +1500,22 @@
 "Maine","New York",2020-04-15,"11","0.1",0.2,0.5
 "New Hampshire","New York",2020-04-15,"11","0.1",0.2,0.5
 "Vermont","New York",2020-04-15,"5","0.1",0.2,0.5
+"Federal","New York",2020-04-16,"176","0.1",0.2,0.5
+"Federal","New Jersey",2020-04-16,"49","0.1",0.2,0.5
+"Federal","New Jersey",2020-04-17,"100","0.1",0.2,0.5
+"Federal","Massachusetts",2020-04-17,"73","0.1",0.2,0.5
+"Federal","Connecticut",2020-04-17,"44","0.1",0.2,0.5
+"Federal","Rhode Island",2020-04-17,"8","0.1",0.2,0.5
+"Federal","New York",2020-04-18,"154","0.1",0.2,0.5
+"Federal","New Jersey",2020-04-18,"62","0.1",0.2,0.5
+"Federal","Massachusetts",2020-04-18,"6","0.1",0.2,0.5
+"Federal","Rhode Island",2020-04-18,"<5","0.1",0.2,0.5
+"Federal","Rhode Island",2020-04-19,"9","0.1",0.2,0.5
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.2,0.5
+"Federal","Delaware",2020-04-26,"<5","0.1",0.2,0.5
+"Federal","Delaware",2020-04-28,"<5","0.1",0.2,0.5
+"Federal","Delaware",2020-04-30,"<5","0.1",0.2,0.5
+"Federal","New York",2020-04-15,"338","0.1",0.2,0.75
 "Florida","New Jersey",2020-04-15,"246","0.1",0.2,0.75
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.2,0.75
 "Ohio","New York",2020-04-15,"139","0.1",0.2,0.75
@@ -1086,6 +1536,20 @@
 "New Hampshire","New York",2020-04-15,"11","0.1",0.2,0.75
 "Tennessee","New Jersey",2020-04-15,"7","0.1",0.2,0.75
 "Vermont","New York",2020-04-15,"5","0.1",0.2,0.75
+"Federal","New Jersey",2020-04-16,"115","0.1",0.2,0.75
+"Federal","New York",2020-04-16,"111","0.1",0.2,0.75
+"Federal","Massachusetts",2020-04-16,"63","0.1",0.2,0.75
+"Federal","Connecticut",2020-04-16,"44","0.1",0.2,0.75
+"Federal","Rhode Island",2020-04-16,"5","0.1",0.2,0.75
+"Federal","New York",2020-04-17,"213","0.1",0.2,0.75
+"Federal","New Jersey",2020-04-17,"122","0.1",0.2,0.75
+"Federal","Rhode Island",2020-04-17,"<5","0.1",0.2,0.75
+"Federal","New York",2020-04-18,"25","0.1",0.2,0.75
+"Federal","Massachusetts",2020-04-18,"16","0.1",0.2,0.75
+"Federal","Rhode Island",2020-04-18,"11","0.1",0.2,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.1",0.2,0.75
+"Federal","Delaware",2020-04-26,"7","0.1",0.2,0.75
+"Federal","New York",2020-04-15,"405","0.1",0.2,0.9
 "Florida","New Jersey",2020-04-15,"226","0.1",0.2,0.9
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.2,0.9
 "Ohio","New York",2020-04-15,"139","0.1",0.2,0.9
@@ -1105,6 +1569,22 @@
 "Maine","New York",2020-04-15,"11","0.1",0.2,0.9
 "New Hampshire","New York",2020-04-15,"11","0.1",0.2,0.9
 "Vermont","New York",2020-04-15,"5","0.1",0.2,0.9
+"Federal","New Jersey",2020-04-16,"179","0.1",0.2,0.9
+"Federal","New York",2020-04-16,"109","0.1",0.2,0.9
+"Federal","Massachusetts",2020-04-16,"63","0.1",0.2,0.9
+"Federal","Connecticut",2020-04-16,"49","0.1",0.2,0.9
+"Federal","Rhode Island",2020-04-16,"5","0.1",0.2,0.9
+"Federal","New York",2020-04-17,"334","0.1",0.2,0.9
+"Federal","New Jersey",2020-04-17,"58","0.1",0.2,0.9
+"Federal","Massachusetts",2020-04-17,"10","0.1",0.2,0.9
+"Federal","Rhode Island",2020-04-17,"<5","0.1",0.2,0.9
+"Federal","Rhode Island",2020-04-18,"11","0.1",0.2,0.9
+"Federal","Massachusetts",2020-04-18,"6","0.1",0.2,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0.1",0.2,0.9
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.2,0.9
+"Federal","Delaware",2020-04-26,"<5","0.1",0.2,0.9
+"Federal","Delaware",2020-04-27,"6","0.1",0.2,0.9
+"Federal","New York",2020-04-15,"450","0.1",0.2,1
 "Pennsylvania","New York",2020-04-15,"152","0.1",0.2,1
 "Ohio","New York",2020-04-15,"139","0.1",0.2,1
 "Florida","New Jersey",2020-04-15,"122","0.1",0.2,1
@@ -1123,6 +1603,21 @@
 "Maine","New York",2020-04-15,"11","0.1",0.2,1
 "New Hampshire","New York",2020-04-15,"11","0.1",0.2,1
 "Vermont","New York",2020-04-15,"5","0.1",0.2,1
+"Federal","New York",2020-04-16,"328","0.1",0.2,1
+"Federal","Massachusetts",2020-04-16,"63","0.1",0.2,1
+"Federal","Connecticut",2020-04-16,"49","0.1",0.2,1
+"Federal","New Jersey",2020-04-16,"5","0.1",0.2,1
+"Federal","Rhode Island",2020-04-16,"5","0.1",0.2,1
+"Federal","New Jersey",2020-04-17,"232","0.1",0.2,1
+"Federal","New York",2020-04-17,"205","0.1",0.2,1
+"Federal","Massachusetts",2020-04-17,"10","0.1",0.2,1
+"Federal","Rhode Island",2020-04-17,"<5","0.1",0.2,1
+"Federal","Rhode Island",2020-04-18,"11","0.1",0.2,1
+"Federal","Massachusetts",2020-04-18,"6","0.1",0.2,1
+"Federal","Rhode Island",2020-04-23,"<5","0.1",0.2,1
+"Federal","Rhode Island",2020-04-24,"<5","0.1",0.2,1
+"Federal","Delaware",2020-04-26,"<5","0.1",0.2,1
+"Federal","Delaware",2020-04-27,"6","0.1",0.2,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0,0
 "Ohio","New York",2020-04-15,"208","0.15",0,0
 "Georgia","New Jersey",2020-04-15,"173","0.15",0,0
@@ -1146,6 +1641,7 @@
 "Vermont","New York",2020-04-15,"7","0.15",0,0
 "Connecticut","Rhode Island",2020-04-23,"<5","0.15",0,0
 "Pennsylvania","New York",2020-04-15,"228","0.15",0,0.5
+"Federal","New York",2020-04-15,"225","0.15",0,0.5
 "Ohio","New York",2020-04-15,"208","0.15",0,0.5
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0,0.5
 "Michigan","New York",2020-04-15,"140","0.15",0,0.5
@@ -1163,6 +1659,10 @@
 "Connecticut","New Jersey",2020-04-15,"12","0.15",0,0.5
 "Vermont","New York",2020-04-15,"7","0.15",0,0.5
 "Massachusetts","New York",2020-04-15,"<5","0.15",0,0.5
+"Federal","New York",2020-04-16,"220","0.15",0,0.5
+"Federal","New Jersey",2020-04-16,"5","0.15",0,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0,0.5
+"Federal","New York",2020-04-15,"338","0.15",0,0.75
 "Pennsylvania","New York",2020-04-15,"228","0.15",0,0.75
 "Ohio","New York",2020-04-15,"208","0.15",0,0.75
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0,0.75
@@ -1178,9 +1678,14 @@
 "New Hampshire","New York",2020-04-15,"17","0.15",0,0.75
 "Connecticut","New Jersey",2020-04-15,"12","0.15",0,0.75
 "Vermont","New York",2020-04-15,"7","0.15",0,0.75
+"Federal","New York",2020-04-16,"223","0.15",0,0.75
+"Federal","New Jersey",2020-04-16,"115","0.15",0,0.75
+"Federal","Rhode Island",2020-04-21,"<5","0.15",0,0.75
+"Federal","New York",2020-04-15,"258","0.15",0,0.9
 "Pennsylvania","New York",2020-04-15,"228","0.15",0,0.9
 "Ohio","New York",2020-04-15,"208","0.15",0,0.9
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0,0.9
+"Federal","New Jersey",2020-04-15,"147","0.15",0,0.9
 "Michigan","New York",2020-04-15,"140","0.15",0,0.9
 "Virginia","New Jersey",2020-04-15,"107","0.15",0,0.9
 "South Carolina","New Jersey",2020-04-15,"80","0.15",0,0.9
@@ -1192,9 +1697,14 @@
 "New Hampshire","New York",2020-04-15,"17","0.15",0,0.9
 "Connecticut","New Jersey",2020-04-15,"12","0.15",0,0.9
 "Vermont","New York",2020-04-15,"7","0.15",0,0.9
+"Federal","New York",2020-04-16,"303","0.15",0,0.9
+"Federal","New Jersey",2020-04-16,"5","0.15",0,0.9
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0,0.9
+"Federal","New York",2020-04-15,"303","0.15",0,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0,1
 "Ohio","New York",2020-04-15,"208","0.15",0,1
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0,1
+"Federal","New Jersey",2020-04-15,"147","0.15",0,1
 "Michigan","New York",2020-04-15,"140","0.15",0,1
 "Virginia","New Jersey",2020-04-15,"107","0.15",0,1
 "South Carolina","New Jersey",2020-04-15,"80","0.15",0,1
@@ -1206,6 +1716,9 @@
 "New Hampshire","New York",2020-04-15,"17","0.15",0,1
 "Connecticut","New Jersey",2020-04-15,"12","0.15",0,1
 "Vermont","New York",2020-04-15,"7","0.15",0,1
+"Federal","New York",2020-04-16,"258","0.15",0,1
+"Federal","New Jersey",2020-04-16,"5","0.15",0,1
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.05,0
 "Ohio","New York",2020-04-15,"208","0.15",0.05,0
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.05,0
@@ -1228,6 +1741,7 @@
 "Vermont","New York",2020-04-15,"7","0.15",0.05,0
 "New York","Rhode Island",2020-04-23,"5","0.15",0.05,0
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.05,0.5
+"Federal","New York",2020-04-15,"225","0.15",0.05,0.5
 "Ohio","New York",2020-04-15,"208","0.15",0.05,0.5
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.05,0.5
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.05,0.5
@@ -1244,10 +1758,18 @@
 "Maine","New York",2020-04-15,"17","0.15",0.05,0.5
 "New Hampshire","New York",2020-04-15,"17","0.15",0.05,0.5
 "Vermont","New York",2020-04-15,"7","0.15",0.05,0.5
+"Federal","New York",2020-04-16,"208","0.15",0.05,0.5
+"Federal","New Jersey",2020-04-16,"17","0.15",0.05,0.5
+"Federal","New Jersey",2020-04-17,"12","0.15",0.05,0.5
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0.05,0.5
+"Federal","Rhode Island",2020-04-22,"<5","0.15",0.05,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.05,0.5
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.05,0.75
+"Federal","New York",2020-04-15,"222","0.15",0.05,0.75
 "Ohio","New York",2020-04-15,"208","0.15",0.05,0.75
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.05,0.75
 "Michigan","New York",2020-04-15,"140","0.15",0.05,0.75
+"Federal","New Jersey",2020-04-15,"116","0.15",0.05,0.75
 "Virginia","New Jersey",2020-04-15,"107","0.15",0.05,0.75
 "Indiana","New York",2020-04-15,"93","0.15",0.05,0.75
 "South Carolina","New Jersey",2020-04-15,"80","0.15",0.05,0.75
@@ -1259,8 +1781,16 @@
 "Maine","New York",2020-04-15,"17","0.15",0.05,0.75
 "New Hampshire","New York",2020-04-15,"17","0.15",0.05,0.75
 "Vermont","New York",2020-04-15,"7","0.15",0.05,0.75
+"Federal","New York",2020-04-16,"290","0.15",0.05,0.75
+"Federal","New Jersey",2020-04-16,"47","0.15",0.05,0.75
+"Federal","Connecticut",2020-04-16,"<5","0.15",0.05,0.75
+"Federal","Connecticut",2020-04-17,"<5","0.15",0.05,0.75
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0.05,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.05,0.75
+"Federal","New York",2020-04-15,"248","0.15",0.05,0.9
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.05,0.9
 "Ohio","New York",2020-04-15,"208","0.15",0.05,0.9
+"Federal","New Jersey",2020-04-15,"157","0.15",0.05,0.9
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.05,0.9
 "Michigan","New York",2020-04-15,"140","0.15",0.05,0.9
 "Virginia","New Jersey",2020-04-15,"107","0.15",0.05,0.9
@@ -1273,8 +1803,17 @@
 "Maine","New York",2020-04-15,"17","0.15",0.05,0.9
 "New Hampshire","New York",2020-04-15,"17","0.15",0.05,0.9
 "Vermont","New York",2020-04-15,"7","0.15",0.05,0.9
+"Federal","New York",2020-04-16,"357","0.15",0.05,0.9
+"Federal","New Jersey",2020-04-16,"47","0.15",0.05,0.9
+"Federal","Connecticut",2020-04-16,"<5","0.15",0.05,0.9
+"Federal","Connecticut",2020-04-17,"<5","0.15",0.05,0.9
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0.05,0.9
+"Federal","Rhode Island",2020-04-22,"<5","0.15",0.05,0.9
+"Federal","Rhode Island",2020-04-24,"<5","0.15",0.05,0.9
+"Federal","New York",2020-04-15,"257","0.15",0.05,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.05,1
 "Ohio","New York",2020-04-15,"208","0.15",0.05,1
+"Federal","New Jersey",2020-04-15,"193","0.15",0.05,1
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.05,1
 "Michigan","New York",2020-04-15,"140","0.15",0.05,1
 "Virginia","New Jersey",2020-04-15,"107","0.15",0.05,1
@@ -1286,6 +1825,12 @@
 "Maine","New York",2020-04-15,"17","0.15",0.05,1
 "New Hampshire","New York",2020-04-15,"17","0.15",0.05,1
 "Vermont","New York",2020-04-15,"7","0.15",0.05,1
+"Federal","New York",2020-04-16,"348","0.15",0.05,1
+"Federal","New Jersey",2020-04-16,"47","0.15",0.05,1
+"Federal","Connecticut",2020-04-16,"<5","0.15",0.05,1
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0.05,1
+"Federal","Rhode Island",2020-04-22,"<5","0.15",0.05,1
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.05,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.1,0
 "Ohio","New York",2020-04-15,"208","0.15",0.1,0
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.1,0
@@ -1301,15 +1846,17 @@
 "Kentucky","New York",2020-04-15,"74","0.15",0.1,0
 "Wisconsin","New York",2020-04-15,"67","0.15",0.1,0
 "West Virginia","New York",2020-04-15,"40","0.15",0.1,0
-"Alabama","New York",2020-04-15,"24","0.15",0.1,0
+"Alabama","New York",2020-04-15,"23","0.15",0.1,0
 "Delaware","New Jersey",2020-04-15,"17","0.15",0.1,0
 "New Hampshire","New York",2020-04-15,"16","0.15",0.1,0
-"Maine","Rhode Island",2020-04-15,"9","0.15",0.1,0
-"Maine","New York",2020-04-15,"8","0.15",0.1,0
+"Maine","New York",2020-04-15,"9","0.15",0.1,0
 "Vermont","New York",2020-04-15,"7","0.15",0.1,0
 "New Hampshire","Connecticut",2020-04-15,"<5","0.15",0.1,0
+"Maine","Rhode Island",2020-04-17,"8","0.15",0.1,0
+"New York","Rhode Island",2020-04-25,"<5","0.15",0.1,0
 "New Jersey","Delaware",2020-04-28,"<5","0.15",0.1,0
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.1,0.5
+"Federal","New York",2020-04-15,"225","0.15",0.1,0.5
 "Ohio","New York",2020-04-15,"208","0.15",0.1,0.5
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.1,0.5
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.1,0.5
@@ -1326,6 +1873,18 @@
 "New Hampshire","New York",2020-04-15,"17","0.15",0.1,0.5
 "Tennessee","New Jersey",2020-04-15,"11","0.15",0.1,0.5
 "Vermont","New York",2020-04-15,"7","0.15",0.1,0.5
+"Federal","New York",2020-04-16,"220","0.15",0.1,0.5
+"Federal","New Jersey",2020-04-16,"5","0.15",0.1,0.5
+"Federal","New Jersey",2020-04-17,"93","0.15",0.1,0.5
+"Federal","Connecticut",2020-04-17,"16","0.15",0.1,0.5
+"Federal","New York",2020-04-17,"16","0.15",0.1,0.5
+"Federal","Massachusetts",2020-04-17,"11","0.15",0.1,0.5
+"Federal","Rhode Island",2020-04-18,"<5","0.15",0.1,0.5
+"Federal","Rhode Island",2020-04-19,"8","0.15",0.1,0.5
+"Federal","Rhode Island",2020-04-24,"<5","0.15",0.1,0.5
+"Federal","Delaware",2020-04-28,"<5","0.15",0.1,0.5
+"Federal","Delaware",2020-04-30,"<5","0.15",0.1,0.5
+"Federal","New York",2020-04-15,"338","0.15",0.1,0.75
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.1,0.75
 "Ohio","New York",2020-04-15,"208","0.15",0.1,0.75
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.1,0.75
@@ -1342,12 +1901,23 @@
 "Maine","New York",2020-04-15,"17","0.15",0.1,0.75
 "New Hampshire","New York",2020-04-15,"17","0.15",0.1,0.75
 "Vermont","New York",2020-04-15,"7","0.15",0.1,0.75
+"Federal","New York",2020-04-16,"204","0.15",0.1,0.75
+"Federal","New Jersey",2020-04-16,"117","0.15",0.1,0.75
+"Federal","Connecticut",2020-04-16,"17","0.15",0.1,0.75
+"Federal","Massachusetts",2020-04-17,"11","0.15",0.1,0.75
+"Federal","Rhode Island",2020-04-18,"<5","0.15",0.1,0.75
+"Federal","Rhode Island",2020-04-20,"7","0.15",0.1,0.75
+"Federal","Delaware",2020-04-28,"<5","0.15",0.1,0.75
+"Federal","Delaware",2020-04-30,"<5","0.15",0.1,0.75
+"Federal","Delaware",2020-05-01,"<5","0.15",0.1,0.75
+"Federal","New York",2020-04-15,"317","0.15",0.1,0.9
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.1,0.9
 "Ohio","New York",2020-04-15,"208","0.15",0.1,0.9
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.1,0.9
 "Michigan","New York",2020-04-15,"140","0.15",0.1,0.9
 "Indiana","New York",2020-04-15,"115","0.15",0.1,0.9
 "Virginia","New Jersey",2020-04-15,"107","0.15",0.1,0.9
+"Federal","New Jersey",2020-04-15,"88","0.15",0.1,0.9
 "South Carolina","New Jersey",2020-04-15,"80","0.15",0.1,0.9
 "Maryland","New Jersey",2020-04-15,"75","0.15",0.1,0.9
 "Kentucky","New Jersey",2020-04-15,"74","0.15",0.1,0.9
@@ -1357,9 +1927,18 @@
 "Maine","New York",2020-04-15,"17","0.15",0.1,0.9
 "New Hampshire","New York",2020-04-15,"17","0.15",0.1,0.9
 "Vermont","New York",2020-04-15,"7","0.15",0.1,0.9
+"Federal","New York",2020-04-16,"271","0.15",0.1,0.9
+"Federal","New Jersey",2020-04-16,"117","0.15",0.1,0.9
+"Federal","Connecticut",2020-04-16,"17","0.15",0.1,0.9
+"Federal","Massachusetts",2020-04-17,"11","0.15",0.1,0.9
+"Federal","Rhode Island",2020-04-18,"<5","0.15",0.1,0.9
+"Federal","Rhode Island",2020-04-20,"7","0.15",0.1,0.9
+"Federal","Delaware",2020-04-28,"<5","0.15",0.1,0.9
+"Federal","New York",2020-04-15,"307","0.15",0.1,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.1,1
 "Ohio","New York",2020-04-15,"208","0.15",0.1,1
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.1,1
+"Federal","New Jersey",2020-04-15,"143","0.15",0.1,1
 "Michigan","New York",2020-04-15,"140","0.15",0.1,1
 "Virginia","New Jersey",2020-04-15,"107","0.15",0.1,1
 "Indiana","New York",2020-04-15,"80","0.15",0.1,1
@@ -1371,6 +1950,12 @@
 "New Hampshire","New York",2020-04-15,"17","0.15",0.1,1
 "Delaware","New Jersey",2020-04-15,"13","0.15",0.1,1
 "Vermont","New York",2020-04-15,"7","0.15",0.1,1
+"Federal","New York",2020-04-16,"316","0.15",0.1,1
+"Federal","New Jersey",2020-04-16,"117","0.15",0.1,1
+"Federal","Connecticut",2020-04-16,"17","0.15",0.1,1
+"Federal","Massachusetts",2020-04-17,"11","0.15",0.1,1
+"Federal","Rhode Island",2020-04-18,"<5","0.15",0.1,1
+"Federal","Rhode Island",2020-04-20,"7","0.15",0.1,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.2,0
 "Florida","New Jersey",2020-04-15,"208","0.15",0.2,0
 "Ohio","New York",2020-04-15,"208","0.15",0.2,0
@@ -1381,12 +1966,12 @@
 "Tennessee","New York",2020-04-15,"123","0.15",0.2,0
 "Indiana","New York",2020-04-15,"115","0.15",0.2,0
 "Virginia","New Jersey",2020-04-15,"107","0.15",0.2,0
-"South Carolina","New Jersey",2020-04-15,"76","0.15",0.2,0
+"South Carolina","New Jersey",2020-04-15,"80","0.15",0.2,0
 "Kentucky","New York",2020-04-15,"74","0.15",0.2,0
 "Alabama","New York",2020-04-15,"71","0.15",0.2,0
 "Wisconsin","New York",2020-04-15,"67","0.15",0.2,0
 "West Virginia","New York",2020-04-15,"40","0.15",0.2,0
-"Maryland","New Jersey",2020-04-15,"33","0.15",0.2,0
+"Maryland","New Jersey",2020-04-15,"29","0.15",0.2,0
 "Maryland","Connecticut",2020-04-15,"23","0.15",0.2,0
 "Florida","Rhode Island",2020-04-15,"18","0.15",0.2,0
 "Maryland","New York",2020-04-15,"18","0.15",0.2,0
@@ -1395,9 +1980,10 @@
 "Delaware","New Jersey",2020-04-15,"7","0.15",0.2,0
 "Vermont","Massachusetts",2020-04-15,"7","0.15",0.2,0
 "Maryland","Massachusetts",2020-04-15,"<5","0.15",0.2,0
-"South Carolina","New Jersey",2020-04-17,"<5","0.15",0.2,0
+"Maryland","New Jersey",2020-04-17,"<5","0.15",0.2,0
 "New Jersey","Delaware",2020-04-30,"<5","0.15",0.2,0
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.2,0.5
+"Federal","New York",2020-04-15,"225","0.15",0.2,0.5
 "Ohio","New York",2020-04-15,"208","0.15",0.2,0.5
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.2,0.5
 "North Carolina","New Jersey",2020-04-15,"147","0.15",0.2,0.5
@@ -1415,6 +2001,21 @@
 "Maine","New York",2020-04-15,"17","0.15",0.2,0.5
 "New Hampshire","New York",2020-04-15,"17","0.15",0.2,0.5
 "Vermont","New York",2020-04-15,"7","0.15",0.2,0.5
+"Federal","New Jersey",2020-04-16,"113","0.15",0.2,0.5
+"Federal","Massachusetts",2020-04-16,"63","0.15",0.2,0.5
+"Federal","Connecticut",2020-04-16,"49","0.15",0.2,0.5
+"Federal","New York",2020-04-17,"204","0.15",0.2,0.5
+"Federal","Massachusetts",2020-04-17,"10","0.15",0.2,0.5
+"Federal","Rhode Island",2020-04-17,"8","0.15",0.2,0.5
+"Federal","New Jersey",2020-04-17,"<5","0.15",0.2,0.5
+"Federal","New Jersey",2020-04-18,"95","0.15",0.2,0.5
+"Federal","Massachusetts",2020-04-18,"6","0.15",0.2,0.5
+"Federal","Rhode Island",2020-04-18,"<5","0.15",0.2,0.5
+"Federal","Rhode Island",2020-04-19,"8","0.15",0.2,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.2,0.5
+"Federal","Delaware",2020-04-24,"<5","0.15",0.2,0.5
+"Federal","Delaware",2020-04-25,"11","0.15",0.2,0.5
+"Federal","New York",2020-04-15,"338","0.15",0.2,0.75
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.2,0.75
 "Ohio","New York",2020-04-15,"208","0.15",0.2,0.75
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.2,0.75
@@ -1433,6 +2034,23 @@
 "Maine","New York",2020-04-15,"17","0.15",0.2,0.75
 "New Hampshire","New York",2020-04-15,"17","0.15",0.2,0.75
 "Vermont","New York",2020-04-15,"7","0.15",0.2,0.75
+"Federal","New Jersey",2020-04-16,"226","0.15",0.2,0.75
+"Federal","Massachusetts",2020-04-16,"63","0.15",0.2,0.75
+"Federal","Connecticut",2020-04-16,"49","0.15",0.2,0.75
+"Federal","New York",2020-04-17,"309","0.15",0.2,0.75
+"Federal","New Jersey",2020-04-17,"11","0.15",0.2,0.75
+"Federal","Massachusetts",2020-04-17,"10","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-17,"8","0.15",0.2,0.75
+"Federal","Massachusetts",2020-04-18,"6","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-18,"<5","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-19,"<5","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-20,"<5","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-21,"<5","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-22,"<5","0.15",0.2,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.2,0.75
+"Federal","Delaware",2020-04-24,"<5","0.15",0.2,0.75
+"Federal","Delaware",2020-04-25,"11","0.15",0.2,0.75
+"Federal","New York",2020-04-15,"405","0.15",0.2,0.9
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.2,0.9
 "Ohio","New York",2020-04-15,"208","0.15",0.2,0.9
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.2,0.9
@@ -1449,6 +2067,19 @@
 "Maine","New York",2020-04-15,"17","0.15",0.2,0.9
 "New Hampshire","New York",2020-04-15,"17","0.15",0.2,0.9
 "Vermont","New York",2020-04-15,"7","0.15",0.2,0.9
+"Federal","New Jersey",2020-04-16,"237","0.15",0.2,0.9
+"Federal","Massachusetts",2020-04-16,"63","0.15",0.2,0.9
+"Federal","New York",2020-04-16,"55","0.15",0.2,0.9
+"Federal","Connecticut",2020-04-16,"50","0.15",0.2,0.9
+"Federal","New York",2020-04-17,"379","0.15",0.2,0.9
+"Federal","Massachusetts",2020-04-17,"16","0.15",0.2,0.9
+"Federal","Rhode Island",2020-04-17,"8","0.15",0.2,0.9
+"Federal","Connecticut",2020-04-17,"<5","0.15",0.2,0.9
+"Federal","Rhode Island",2020-04-18,"11","0.15",0.2,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.2,0.9
+"Federal","Delaware",2020-04-24,"<5","0.15",0.2,0.9
+"Federal","Delaware",2020-04-25,"11","0.15",0.2,0.9
+"Federal","New York",2020-04-15,"450","0.15",0.2,1
 "Pennsylvania","New York",2020-04-15,"228","0.15",0.2,1
 "Ohio","New York",2020-04-15,"208","0.15",0.2,1
 "Georgia","New Jersey",2020-04-15,"173","0.15",0.2,1
@@ -1465,6 +2096,18 @@
 "Maine","New York",2020-04-15,"17","0.15",0.2,1
 "New Hampshire","New York",2020-04-15,"17","0.15",0.2,1
 "Vermont","New York",2020-04-15,"7","0.15",0.2,1
+"Federal","New Jersey",2020-04-16,"237","0.15",0.2,1
+"Federal","New York",2020-04-16,"100","0.15",0.2,1
+"Federal","Massachusetts",2020-04-16,"63","0.15",0.2,1
+"Federal","Connecticut",2020-04-16,"50","0.15",0.2,1
+"Federal","New York",2020-04-17,"240","0.15",0.2,1
+"Federal","Massachusetts",2020-04-17,"16","0.15",0.2,1
+"Federal","Rhode Island",2020-04-17,"8","0.15",0.2,1
+"Federal","Connecticut",2020-04-17,"<5","0.15",0.2,1
+"Federal","Rhode Island",2020-04-18,"11","0.15",0.2,1
+"Federal","Rhode Island",2020-04-23,"<5","0.15",0.2,1
+"Federal","Delaware",2020-04-24,"<5","0.15",0.2,1
+"Federal","Delaware",2020-04-25,"11","0.15",0.2,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0,0
 "Ohio","New York",2020-04-15,"277","0.2",0,0
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0,0
@@ -1486,6 +2129,7 @@
 "Massachusetts","Rhode Island",2020-04-24,"<5","0.2",0,0
 "Pennsylvania","New York",2020-04-15,"304","0.2",0,0.5
 "Ohio","New York",2020-04-15,"277","0.2",0,0.5
+"Federal","New York",2020-04-15,"225","0.2",0,0.5
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0,0.5
 "Michigan","New York",2020-04-15,"187","0.2",0,0.5
 "Virginia","New Jersey",2020-04-15,"143","0.2",0,0.5
@@ -1499,6 +2143,10 @@
 "Connecticut","New Jersey",2020-04-15,"12","0.2",0,0.5
 "Vermont","New York",2020-04-15,"9","0.2",0,0.5
 "Massachusetts","New York",2020-04-15,"8","0.2",0,0.5
+"Federal","New York",2020-04-16,"124","0.2",0,0.5
+"Federal","New Jersey",2020-04-16,"5","0.2",0,0.5
+"Federal","Rhode Island",2020-04-24,"<5","0.2",0,0.5
+"Federal","New York",2020-04-15,"338","0.2",0,0.75
 "Pennsylvania","New York",2020-04-15,"304","0.2",0,0.75
 "Ohio","New York",2020-04-15,"277","0.2",0,0.75
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0,0.75
@@ -1514,6 +2162,10 @@
 "Connecticut","New Jersey",2020-04-15,"12","0.2",0,0.75
 "Vermont","New York",2020-04-15,"9","0.2",0,0.75
 "Massachusetts","New York",2020-04-15,"8","0.2",0,0.75
+"Federal","New York",2020-04-16,"11","0.2",0,0.75
+"Federal","New Jersey",2020-04-16,"5","0.2",0,0.75
+"Federal","Rhode Island",2020-04-21,"<5","0.2",0,0.75
+"Federal","New York",2020-04-15,"405","0.2",0,0.9
 "Pennsylvania","New York",2020-04-15,"304","0.2",0,0.9
 "Ohio","New York",2020-04-15,"277","0.2",0,0.9
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0,0.9
@@ -1529,6 +2181,9 @@
 "Connecticut","New Jersey",2020-04-15,"12","0.2",0,0.9
 "Vermont","New York",2020-04-15,"9","0.2",0,0.9
 "Massachusetts","New York",2020-04-15,"8","0.2",0,0.9
+"Federal","New Jersey",2020-04-16,"5","0.2",0,0.9
+"Federal","Rhode Island",2020-04-19,"<5","0.2",0,0.9
+"Federal","New York",2020-04-15,"450","0.2",0,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0,1
 "Ohio","New York",2020-04-15,"277","0.2",0,1
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0,1
@@ -1544,27 +2199,30 @@
 "Connecticut","New Jersey",2020-04-15,"12","0.2",0,1
 "Vermont","New York",2020-04-15,"9","0.2",0,1
 "Massachusetts","New York",2020-04-15,"8","0.2",0,1
+"Federal","New Jersey",2020-04-16,"5","0.2",0,1
+"Federal","Rhode Island",2020-04-21,"<5","0.2",0,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.05,0
 "Ohio","New York",2020-04-15,"277","0.2",0.05,0
-"Georgia","New Jersey",2020-04-15,"199","0.2",0.05,0
+"Georgia","New Jersey",2020-04-15,"200","0.2",0.05,0
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.05,0
 "Michigan","New York",2020-04-15,"187","0.2",0.05,0
 "Indiana","New York",2020-04-15,"153","0.2",0.05,0
 "Virginia","New Jersey",2020-04-15,"143","0.2",0.05,0
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.05,0
 "Kentucky","New York",2020-04-15,"98","0.2",0.05,0
-"Maryland","New York",2020-04-15,"77","0.2",0.05,0
+"Maryland","New York",2020-04-15,"78","0.2",0.05,0
 "West Virginia","New York",2020-04-15,"54","0.2",0.05,0
-"Maryland","New Jersey",2020-04-15,"23","0.2",0.05,0
 "Maine","New York",2020-04-15,"22","0.2",0.05,0
+"Maryland","New Jersey",2020-04-15,"22","0.2",0.05,0
 "New Hampshire","New York",2020-04-15,"22","0.2",0.05,0
-"Massachusetts","New York",2020-04-15,"19","0.2",0.05,0
+"Massachusetts","New York",2020-04-15,"18","0.2",0.05,0
 "Delaware","New Jersey",2020-04-15,"17","0.2",0.05,0
 "Vermont","New York",2020-04-15,"9","0.2",0.05,0
-"Massachusetts","Rhode Island",2020-04-15,"<5","0.2",0.05,0
+"Massachusetts","Rhode Island",2020-04-20,"<5","0.2",0.05,0
 "New York","Rhode Island",2020-04-23,"<5","0.2",0.05,0
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.05,0.5
 "Ohio","New York",2020-04-15,"277","0.2",0.05,0.5
+"Federal","New York",2020-04-15,"224","0.2",0.05,0.5
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.05,0.5
 "Michigan","New York",2020-04-15,"187","0.2",0.05,0.5
 "Virginia","New Jersey",2020-04-15,"143","0.2",0.05,0.5
@@ -1577,7 +2235,15 @@
 "Massachusetts","New Jersey",2020-04-15,"20","0.2",0.05,0.5
 "Delaware","New Jersey",2020-04-15,"17","0.2",0.05,0.5
 "Vermont","New York",2020-04-15,"9","0.2",0.05,0.5
+"Federal","New Jersey",2020-04-15,"<5","0.2",0.05,0.5
+"Federal","New York",2020-04-16,"177","0.2",0.05,0.5
+"Federal","New Jersey",2020-04-16,"47","0.2",0.05,0.5
+"Federal","Connecticut",2020-04-16,"<5","0.2",0.05,0.5
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.05,0.5
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.05,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.05,0.5
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.05,0.75
+"Federal","New York",2020-04-15,"295","0.2",0.05,0.75
 "Ohio","New York",2020-04-15,"277","0.2",0.05,0.75
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.05,0.75
 "Michigan","New York",2020-04-15,"187","0.2",0.05,0.75
@@ -1585,11 +2251,20 @@
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.05,0.75
 "Maryland","New Jersey",2020-04-15,"100","0.2",0.05,0.75
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.05,0.75
+"Federal","New Jersey",2020-04-15,"43","0.2",0.05,0.75
 "Maine","New York",2020-04-15,"22","0.2",0.05,0.75
 "New Hampshire","New York",2020-04-15,"22","0.2",0.05,0.75
 "Massachusetts","New Jersey",2020-04-15,"20","0.2",0.05,0.75
 "Delaware","New Jersey",2020-04-15,"17","0.2",0.05,0.75
 "Vermont","New York",2020-04-15,"9","0.2",0.05,0.75
+"Federal","New York",2020-04-16,"106","0.2",0.05,0.75
+"Federal","New Jersey",2020-04-16,"47","0.2",0.05,0.75
+"Federal","Connecticut",2020-04-16,"<5","0.2",0.05,0.75
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.05,0.75
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.05,0.75
+"Federal","Rhode Island",2020-04-22,"<5","0.2",0.05,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.05,0.75
+"Federal","New York",2020-04-15,"362","0.2",0.05,0.9
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.05,0.9
 "Ohio","New York",2020-04-15,"277","0.2",0.05,0.9
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.05,0.9
@@ -1598,11 +2273,19 @@
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.05,0.9
 "Maryland","New Jersey",2020-04-15,"100","0.2",0.05,0.9
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.05,0.9
+"Federal","New Jersey",2020-04-15,"43","0.2",0.05,0.9
 "Maine","New York",2020-04-15,"22","0.2",0.05,0.9
 "New Hampshire","New York",2020-04-15,"22","0.2",0.05,0.9
 "Massachusetts","New Jersey",2020-04-15,"20","0.2",0.05,0.9
 "Delaware","New Jersey",2020-04-15,"17","0.2",0.05,0.9
 "Vermont","New York",2020-04-15,"9","0.2",0.05,0.9
+"Federal","New Jersey",2020-04-16,"47","0.2",0.05,0.9
+"Federal","New York",2020-04-16,"39","0.2",0.05,0.9
+"Federal","Connecticut",2020-04-16,"<5","0.2",0.05,0.9
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.05,0.9
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.05,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.05,0.9
+"Federal","New York",2020-04-15,"409","0.2",0.05,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.05,1
 "Ohio","New York",2020-04-15,"277","0.2",0.05,1
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.05,1
@@ -1611,12 +2294,17 @@
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.05,1
 "Maryland","New Jersey",2020-04-15,"100","0.2",0.05,1
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.05,1
+"Federal","New Jersey",2020-04-15,"41","0.2",0.05,1
 "Maine","New York",2020-04-15,"22","0.2",0.05,1
 "New Hampshire","New York",2020-04-15,"22","0.2",0.05,1
 "Massachusetts","New Jersey",2020-04-15,"20","0.2",0.05,1
 "Delaware","New Jersey",2020-04-15,"17","0.2",0.05,1
 "Vermont","New York",2020-04-15,"9","0.2",0.05,1
 "Connecticut","New Jersey",2020-04-15,"<5","0.2",0.05,1
+"Federal","New Jersey",2020-04-16,"47","0.2",0.05,1
+"Federal","Connecticut",2020-04-16,"5","0.2",0.05,1
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.05,1
+"Federal","Rhode Island",2020-04-22,"<5","0.2",0.05,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.1,0
 "Ohio","New York",2020-04-15,"277","0.2",0.1,0
 "Georgia","New Jersey",2020-04-15,"230","0.2",0.1,0
@@ -1631,16 +2319,14 @@
 "West Virginia","New York",2020-04-15,"54","0.2",0.1,0
 "Maryland","New Jersey",2020-04-15,"39","0.2",0.1,0
 "New Hampshire","New York",2020-04-15,"16","0.2",0.1,0
-"Maine","New York",2020-04-15,"14","0.2",0.1,0
 "Delaware","New Jersey",2020-04-15,"13","0.2",0.1,0
+"Maine","New York",2020-04-15,"13","0.2",0.1,0
 "Vermont","New York",2020-04-15,"9","0.2",0.1,0
 "New Hampshire","Connecticut",2020-04-15,"6","0.2",0.1,0
-"Maine","Rhode Island",2020-04-17,"<5","0.2",0.1,0
-"Maine","Rhode Island",2020-04-19,"<5","0.2",0.1,0
-"Maine","Rhode Island",2020-04-20,"<5","0.2",0.1,0
-"New York","Rhode Island",2020-04-24,"<5","0.2",0.1,0
+"Maine","Rhode Island",2020-04-18,"9","0.2",0.1,0
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.1,0.5
 "Ohio","New York",2020-04-15,"277","0.2",0.1,0.5
+"Federal","New York",2020-04-15,"225","0.2",0.1,0.5
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.1,0.5
 "Michigan","New York",2020-04-15,"187","0.2",0.1,0.5
 "Indiana","New York",2020-04-15,"152","0.2",0.1,0.5
@@ -1654,7 +2340,18 @@
 "New Hampshire","New York",2020-04-15,"22","0.2",0.1,0.5
 "Delaware","New Jersey",2020-04-15,"13","0.2",0.1,0.5
 "Vermont","New York",2020-04-15,"9","0.2",0.1,0.5
+"Federal","New Jersey",2020-04-16,"117","0.2",0.1,0.5
+"Federal","New York",2020-04-16,"91","0.2",0.1,0.5
+"Federal","Connecticut",2020-04-16,"17","0.2",0.1,0.5
+"Federal","Massachusetts",2020-04-17,"11","0.2",0.1,0.5
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.1,0.5
+"Federal","Rhode Island",2020-04-18,"<5","0.2",0.1,0.5
+"Federal","Rhode Island",2020-04-19,"<5","0.2",0.1,0.5
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.1,0.5
+"Federal","Rhode Island",2020-04-21,"<5","0.2",0.1,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.1,0.5
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.1,0.75
+"Federal","New York",2020-04-15,"295","0.2",0.1,0.75
 "Ohio","New York",2020-04-15,"277","0.2",0.1,0.75
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.1,0.75
 "Michigan","New York",2020-04-15,"187","0.2",0.1,0.75
@@ -1662,11 +2359,22 @@
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.1,0.75
 "Maryland","New Jersey",2020-04-15,"100","0.2",0.1,0.75
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.1,0.75
+"Federal","New Jersey",2020-04-15,"43","0.2",0.1,0.75
 "Kentucky","New Jersey",2020-04-15,"24","0.2",0.1,0.75
 "Maine","New York",2020-04-15,"22","0.2",0.1,0.75
 "New Hampshire","New York",2020-04-15,"22","0.2",0.1,0.75
 "Delaware","New Jersey",2020-04-15,"13","0.2",0.1,0.75
 "Vermont","New York",2020-04-15,"9","0.2",0.1,0.75
+"Federal","New York",2020-04-16,"204","0.2",0.1,0.75
+"Federal","New Jersey",2020-04-16,"117","0.2",0.1,0.75
+"Federal","Connecticut",2020-04-16,"17","0.2",0.1,0.75
+"Federal","Massachusetts",2020-04-17,"11","0.2",0.1,0.75
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.1,0.75
+"Federal","Rhode Island",2020-04-18,"<5","0.2",0.1,0.75
+"Federal","Rhode Island",2020-04-19,"<5","0.2",0.1,0.75
+"Federal","Rhode Island",2020-04-21,"<5","0.2",0.1,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.1,0.75
+"Federal","New York",2020-04-15,"338","0.2",0.1,0.9
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.1,0.9
 "Ohio","New York",2020-04-15,"277","0.2",0.1,0.9
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.1,0.9
@@ -1674,11 +2382,22 @@
 "Virginia","New Jersey",2020-04-15,"143","0.2",0.1,0.9
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.1,0.9
 "Maryland","New Jersey",2020-04-15,"100","0.2",0.1,0.9
+"Federal","New Jersey",2020-04-15,"67","0.2",0.1,0.9
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.1,0.9
 "Maine","New York",2020-04-15,"22","0.2",0.1,0.9
 "New Hampshire","New York",2020-04-15,"22","0.2",0.1,0.9
 "Delaware","New Jersey",2020-04-15,"13","0.2",0.1,0.9
 "Vermont","New York",2020-04-15,"9","0.2",0.1,0.9
+"Federal","New York",2020-04-16,"161","0.2",0.1,0.9
+"Federal","New Jersey",2020-04-16,"117","0.2",0.1,0.9
+"Federal","Connecticut",2020-04-16,"17","0.2",0.1,0.9
+"Federal","Massachusetts",2020-04-16,"11","0.2",0.1,0.9
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.1,0.9
+"Federal","Rhode Island",2020-04-18,"<5","0.2",0.1,0.9
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.1,0.9
+"Federal","Rhode Island",2020-04-21,"<5","0.2",0.1,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.1,0.9
+"Federal","New York",2020-04-15,"383","0.2",0.1,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.1,1
 "Ohio","New York",2020-04-15,"277","0.2",0.1,1
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.1,1
@@ -1686,11 +2405,21 @@
 "Virginia","New Jersey",2020-04-15,"143","0.2",0.1,1
 "South Carolina","New Jersey",2020-04-15,"106","0.2",0.1,1
 "Maryland","New Jersey",2020-04-15,"100","0.2",0.1,1
+"Federal","New Jersey",2020-04-15,"67","0.2",0.1,1
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.1,1
 "Maine","New York",2020-04-15,"22","0.2",0.1,1
 "New Hampshire","New York",2020-04-15,"22","0.2",0.1,1
 "Delaware","New Jersey",2020-04-15,"13","0.2",0.1,1
 "Vermont","New York",2020-04-15,"9","0.2",0.1,1
+"Federal","New Jersey",2020-04-16,"117","0.2",0.1,1
+"Federal","New York",2020-04-16,"116","0.2",0.1,1
+"Federal","Connecticut",2020-04-16,"17","0.2",0.1,1
+"Federal","Massachusetts",2020-04-16,"11","0.2",0.1,1
+"Federal","Connecticut",2020-04-17,"<5","0.2",0.1,1
+"Federal","Rhode Island",2020-04-18,"<5","0.2",0.1,1
+"Federal","Rhode Island",2020-04-20,"<5","0.2",0.1,1
+"Federal","Rhode Island",2020-04-21,"<5","0.2",0.1,1
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.1,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.2,0
 "Ohio","New York",2020-04-15,"277","0.2",0.2,0
 "Georgia","New Jersey",2020-04-15,"230","0.2",0.2,0
@@ -1710,12 +2439,13 @@
 "West Virginia","Connecticut",2020-04-15,"11","0.2",0.2,0
 "Vermont","Massachusetts",2020-04-15,"9","0.2",0.2,0
 "North Carolina","Rhode Island",2020-04-15,"8","0.2",0.2,0
-"Delaware","Rhode Island",2020-04-16,"7","0.2",0.2,0
-"Maine","Rhode Island",2020-04-16,"<5","0.2",0.2,0
+"Delaware","Rhode Island",2020-04-17,"7","0.2",0.2,0
 "South Carolina","New Jersey",2020-04-17,"<5","0.2",0.2,0
+"Maine","Rhode Island",2020-04-20,"<5","0.2",0.2,0
 "New Jersey","Delaware",2020-04-30,"<5","0.2",0.2,0
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.2,0.5
 "Ohio","New York",2020-04-15,"277","0.2",0.2,0.5
+"Federal","New York",2020-04-15,"225","0.2",0.2,0.5
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.2,0.5
 "Michigan","New York",2020-04-15,"187","0.2",0.2,0.5
 "Indiana","New York",2020-04-15,"153","0.2",0.2,0.5
@@ -1730,6 +2460,19 @@
 "New Hampshire","New York",2020-04-15,"22","0.2",0.2,0.5
 "Georgia","New Jersey",2020-04-15,"17","0.2",0.2,0.5
 "Vermont","New York",2020-04-15,"9","0.2",0.2,0.5
+"Federal","New Jersey",2020-04-16,"121","0.2",0.2,0.5
+"Federal","Massachusetts",2020-04-16,"60","0.2",0.2,0.5
+"Federal","Connecticut",2020-04-16,"44","0.2",0.2,0.5
+"Federal","New York",2020-04-17,"204","0.2",0.2,0.5
+"Federal","Massachusetts",2020-04-17,"13","0.2",0.2,0.5
+"Federal","Rhode Island",2020-04-17,"8","0.2",0.2,0.5
+"Federal","New Jersey",2020-04-18,"90","0.2",0.2,0.5
+"Federal","Massachusetts",2020-04-18,"6","0.2",0.2,0.5
+"Federal","Rhode Island",2020-04-18,"<5","0.2",0.2,0.5
+"Federal","Rhode Island",2020-04-19,"8","0.2",0.2,0.5
+"Federal","Delaware",2020-04-22,"18","0.2",0.2,0.5
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.2,0.5
+"Federal","New York",2020-04-15,"338","0.2",0.2,0.75
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.2,0.75
 "Ohio","New York",2020-04-15,"277","0.2",0.2,0.75
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.2,0.75
@@ -1745,6 +2488,17 @@
 "New Hampshire","New York",2020-04-15,"22","0.2",0.2,0.75
 "Vermont","New York",2020-04-15,"9","0.2",0.2,0.75
 "Delaware","New Jersey",2020-04-15,"<5","0.2",0.2,0.75
+"Federal","New Jersey",2020-04-16,"237","0.2",0.2,0.75
+"Federal","Massachusetts",2020-04-16,"63","0.2",0.2,0.75
+"Federal","Connecticut",2020-04-16,"38","0.2",0.2,0.75
+"Federal","New York",2020-04-17,"300","0.2",0.2,0.75
+"Federal","Massachusetts",2020-04-17,"16","0.2",0.2,0.75
+"Federal","Connecticut",2020-04-17,"11","0.2",0.2,0.75
+"Federal","Rhode Island",2020-04-17,"11","0.2",0.2,0.75
+"Federal","Rhode Island",2020-04-19,"8","0.2",0.2,0.75
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.2,0.75
+"Federal","Rhode Island",2020-04-24,"<5","0.2",0.2,0.75
+"Federal","New York",2020-04-15,"405","0.2",0.2,0.9
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.2,0.9
 "Ohio","New York",2020-04-15,"277","0.2",0.2,0.9
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.2,0.9
@@ -1760,6 +2514,18 @@
 "Vermont","New York",2020-04-15,"9","0.2",0.2,0.9
 "Indiana","New York",2020-04-15,"8","0.2",0.2,0.9
 "Delaware","New Jersey",2020-04-15,"<5","0.2",0.2,0.9
+"Federal","New Jersey",2020-04-16,"237","0.2",0.2,0.9
+"Federal","Massachusetts",2020-04-16,"63","0.2",0.2,0.9
+"Federal","New York",2020-04-16,"51","0.2",0.2,0.9
+"Federal","Connecticut",2020-04-16,"49","0.2",0.2,0.9
+"Federal","Rhode Island",2020-04-16,"5","0.2",0.2,0.9
+"Federal","New York",2020-04-17,"249","0.2",0.2,0.9
+"Federal","Rhode Island",2020-04-17,"14","0.2",0.2,0.9
+"Federal","Massachusetts",2020-04-17,"10","0.2",0.2,0.9
+"Federal","Massachusetts",2020-04-18,"6","0.2",0.2,0.9
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.2,0.9
+"Federal","Rhode Island",2020-04-24,"<5","0.2",0.2,0.9
+"Federal","New York",2020-04-15,"435","0.2",0.2,1
 "Pennsylvania","New York",2020-04-15,"304","0.2",0.2,1
 "Ohio","New York",2020-04-15,"277","0.2",0.2,1
 "North Carolina","New Jersey",2020-04-15,"196","0.2",0.2,1
@@ -1771,5 +2537,17 @@
 "West Virginia","New Jersey",2020-04-15,"54","0.2",0.2,1
 "Maine","New York",2020-04-15,"22","0.2",0.2,1
 "New Hampshire","New York",2020-04-15,"22","0.2",0.2,1
+"Federal","New Jersey",2020-04-15,"15","0.2",0.2,1
 "Vermont","New York",2020-04-15,"9","0.2",0.2,1
 "Delaware","New Jersey",2020-04-15,"<5","0.2",0.2,1
+"Federal","New Jersey",2020-04-16,"237","0.2",0.2,1
+"Federal","New York",2020-04-16,"96","0.2",0.2,1
+"Federal","Massachusetts",2020-04-16,"63","0.2",0.2,1
+"Federal","Connecticut",2020-04-16,"49","0.2",0.2,1
+"Federal","Rhode Island",2020-04-16,"5","0.2",0.2,1
+"Federal","New York",2020-04-17,"204","0.2",0.2,1
+"Federal","Rhode Island",2020-04-17,"14","0.2",0.2,1
+"Federal","Massachusetts",2020-04-17,"10","0.2",0.2,1
+"Federal","Massachusetts",2020-04-18,"6","0.2",0.2,1
+"Federal","Rhode Island",2020-04-23,"<5","0.2",0.2,1
+"Federal","Rhode Island",2020-04-24,"<5","0.2",0.2,1
