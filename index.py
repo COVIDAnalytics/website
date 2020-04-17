@@ -13,7 +13,7 @@ from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
 from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import df_projections, countries_with_provinces
+from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
 from about_us.team import Team
 from dataset.dataset import Dataset
@@ -133,13 +133,7 @@ def set_missing_country_text(selected_continent):
     if selected_continent is None or selected_continent == "US":
         return ''
     else:
-        return "* Note and Disclaimer: These Plotly maps are only proposed to give an \
-        approximate visual of the expansion of the disease.  \
-        Borders are by definition subject to change, debate and dispute. \
-        Plotly includes data from Natural Earth and defers to \
-        the Natural Earth policy regarding disputed borders. \
-        Grey countries correspond to those that currently have insufficient \
-        data for projections or those in which the outbreak has largely passed."
+        return world_map_text
 
 @app.callback(
     Output('province-card-title', 'children'),

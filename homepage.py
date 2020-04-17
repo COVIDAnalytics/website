@@ -13,7 +13,8 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from projections.visuals_funcs import build_us_map
+from projections.visuals_funcs import build_continent_map
+from projections.utils import world_map_text
 from assets.mappings import states
 
 nav = Navbar()
@@ -21,7 +22,7 @@ footer = Footer()
 
 def build_tom_us_map():
     tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-    return build_us_map(tomorrow)
+    return build_continent_map(tomorrow)
 
 
 def build_card(imgTop,title,text,img,link):
@@ -125,6 +126,10 @@ body = dbc.Container(
               html.Div(
                   id = 'us_map_homepage',
                   children = build_tom_us_map(),
+              ),
+              html.P(
+                      children = world_map_text,
+                      style={'color':'gray'},
               ),
             ]
             )
