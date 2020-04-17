@@ -52,6 +52,9 @@
   width:100%;
 }
 
+.projections-general-card{
+  border-color: #800020 !important;
+}
 
 #us-stats-cards{
   color: white;

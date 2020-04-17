@@ -16,7 +16,7 @@ body = dbc.Container([
 	dbc.Row(
         [
 			dbc.Col([
-            	html.H2("Epidemiological Model Documentation"),
+            	html.H2("DELPHI Epidemiological Model Documentation"),
                 html.P("""\
                         This page provides insights on a new epidemiological model developed by this team \
                         to provide estimates of the number of COVID-19 infections, hospitalizations, and \
@@ -48,9 +48,9 @@ body = dbc.Container([
                   awareness and reduced travel among the general population. This function is calibrated for every state to account \
                   for the differing responses in different states.
                 '''),
-				dcc.Markdown('''
-                  Additional documentation and the source code can be found [here](https://github.com/COVIDAnalytics/epidemic-model).
-                '''),
+				dcc.Markdown('''Detailed model specifications are available in the following \
+                [technical report](/DELPHI_documentation_pdf). The full source code can be accessed on\
+                [Github](https://github.com/COVIDAnalytics/epidemic-model).'''),
 				 ])
 		 ],
 	 ),
