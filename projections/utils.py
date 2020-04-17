@@ -23,6 +23,14 @@ dataset = "data/predicted/Global.csv"
 data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
 data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 
+world_map_text = "* Note and Disclaimer: These Plotly maps are only proposed to give an \
+approximate visual of the expansion of the disease.  \
+Borders are by definition subject to change, debate and dispute. \
+Plotly includes data from Natural Earth and defers to \
+the Natural Earth policy regarding disputed borders. \
+Grey countries correspond to those that currently have insufficient \
+data for projections or those in which the outbreak has largely passed."
+
 def add_cases(w):
     if 'Deaths' not in w:
         w += ' Cases'
