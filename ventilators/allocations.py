@@ -56,6 +56,7 @@ body = dbc.Container(
                                            HealthCare to ensure that ventilator demand is met \
                                            across hospitals in their network."),
                                 ],
+                                className="h-100",
                             )
                         ],
                         style={"borderColor": "#800020"},
@@ -81,6 +82,7 @@ body = dbc.Container(
                                            states can solve the US shortage, even without \
                                            federal intervention."),
                                 ],
+                                className="h-100",
                             ),
                         ],
                         style={"borderColor": "#800020"},
@@ -109,6 +111,7 @@ body = dbc.Container(
                                            blueprint for international collaboration on \
                                            ventilator inventory management.")
                                 ],
+                                className="h-100",
                             )
                         ],
                         style={"borderColor": "#800020"},
@@ -141,7 +144,9 @@ body = dbc.Container(
                         dcc.Markdown('''Details on data and models can be found in the \
                                      [technical report](/ventilator_documentation_pdf), \
                                      and our source code is available on [GitHub]\
-                                     (https://github.com/COVIDAnalytics/ventilator-allocation).
+                                     (https://github.com/COVIDAnalytics/ventilator-allocation). \
+                                     Check out this [short video](https://youtu.be/SwiOFEZc0Gs) \
+                                     explaining our model.
                                      '''),
                     ],
                 ),
