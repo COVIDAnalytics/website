@@ -45,3 +45,12 @@ P {
   color: #0000A0;
   text-decoration: none;
 }
+
+.press-source{
+  font-style: italic;
+}
+
+.press-title{
+  color: #800020;
+  font-style: bold;
+}
