@@ -9,23 +9,24 @@ import os
 
 from datetime import datetime as dt
 
-from interactive_graphs.interactive import InteractiveGraph, build_graph
+from about_us.team import Team
+from about_us.press import Press
+from about_us.contact import Contact
+from assets.mappings import data_cols,all_options
+from dataset.dataset import Dataset
+from dataset.dataset_documentation import Dataset_documentation
 from homepage import Homepage
+from interactive_graphs.interactive import InteractiveGraph, build_graph
 from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
-from about_us.team import Team
-from dataset.dataset import Dataset
-from about_us.contact import Contact
-from dataset.dataset_documentation import Dataset_documentation
+from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
+from risk_calculator.features import features
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
-from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
-from risk_calculator.features import features
-from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
         __name__,
@@ -71,6 +72,8 @@ def display_page(pathname):
         return VentilatorAllocations()
     if pathname == '/calculator':
         return RickCalc()
+    if pathname == '/press':
+        return Press()
     else:
         return Homepage()
 
