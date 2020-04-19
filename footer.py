@@ -32,6 +32,7 @@ def Footer():
                                                 'width' : '40px',
                                                 'position' : 'relative',
                                                 'marginTop' : 15,
+                                                'marginRight': 15,
                                                 'paddingTop' : 0,
                                                 'paddingRight' : 0
                                             }
@@ -45,6 +46,7 @@ def Footer():
                                                 'width' : '40px',
                                                 'position' : 'relative',
                                                 'marginTop' : 15,
+                                                'marginRight': 15,
                                                 'paddingTop' : 0,
                                                 'paddingRight' : 0
                                             }
