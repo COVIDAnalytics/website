@@ -1,58 +1,16 @@
-### Data
-import pandas as pd
-import datetime
-import urllib
-### Graphing
-import plotly.graph_objects as go
-import plotly.express as px
-from textwrap import wrap
 ### Dash
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from navbar import Navbar
 from footer import Footer
-from assets.mappings import states, colors
+
+from projections.map import top_visual
+from projections.timeline import bottom_visual
 
 nav = Navbar()
 footer = Footer()
-
-df_projections = pd.read_csv('data/predicted/Allstates.csv', sep=",", parse_dates = ['Day'])
-today = pd.Timestamp('today')
-oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
-df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
-df_projections = df_projections.loc[df_projections['Day']>=today]
-
-cols = ['Active','Active Hospitalized','Total Detected','Cumulative Hospitalized','Total Detected Deaths']
-
-
-dataset = "data/predicted/Allstates.csv"
-data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
-data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
-
-def add_cases(w):
-    if 'Deaths' not in w:
-        w += ' Cases'
-    return w
-
-def build_card(id):
-    return dbc.Col(
-                [
-                dbc.Card(
-                    [],
-                    id = id,
-                    color="dark",
-                    inverse=True,
-                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
-                    ),
-                ],
-                xs=12,
-                sm=6,
-                md=6,
-                lg=3,
-            )
 
 body = dbc.Container(
     [
@@ -60,7 +18,7 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-                html.H2("Projections"),
+                html.H2("DELPHI Epidemiological Case Predictions"),
                 dcc.Markdown("""\
                         A critical tool for COVID-19 planning is charting out the progression \
                         of the pandemic across the United States and the world. \
@@ -90,324 +48,30 @@ body = dbc.Container(
                                          but does not always publish data on recovered cases, \
                                          which can lead to overestimating currently active \
                                          cases."),
+                            dcc.Markdown("**Disclaimer:** Our total counts only account for \
+                                         countries in which we have sufficient data and where \
+                                         the pandemic is currently active. In particular, it \
+                                         excludes some East Asian countries where the pandemic \
+                                         has largely passed.\n \
+                                         \nCountry-level projections are modelled based on all \
+                                         historical data to increase the accuracy of future \
+                                         predictions. As such, daily counts extracted from \
+                                         the model may not exactly correspond with reports."),
                             ]
                         ),
-                    ]
-                ),
-            ]
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.H6('Date of Projection:',id="date-projections"),
-                html.Div(
-                    dcc.DatePickerSingle(
-                        id='us-map-date-picker-range',
-                        min_date_allowed=min(df_projections.Day.values),
-                        max_date_allowed=max(df_projections.Day.values),
-                        date=oneWeekFromNow,
-                        initial_visible_month=oneWeekFromNow,
-                        style={'marginBottom':20}
-                    ),
-                    id="date-projections-picker-div"
-                ),
-            ],
-            ),
-        ]
-        ),
-        dbc.Row(
-        [
-            html.Div(
-                id='us-stats-title',
-                style={
-                    'width': '100%',
-                    'color': 'black',
-                    'textAlign': 'center',
-                    'fontSize': 30,
-                    'fontWeight':'bold'
-                    }
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            build_card('us_tot_det'),
-            build_card('us_tot_death'),
-            build_card('us_active'),
-            build_card('us_active_hosp')
-        ],
-        align="center"
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.H6('Predicted Value:',id="date-projections"),
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'us_map_dropdown',
-                            options = [{'label': x, 'value': x} for x in cols],
-                            value = 'Active',
-                        ),
-                    ),
-            ],
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.Div(
-                    id = 'us_map_projections',
-                    children = [],
-                ),
-            ]
-            )
-        ],
-        ),
-        dbc.Row(
-            [
-                dbc.Col(
-                [
-                    html.H5('Use the tool below to explore our predictions for different locations.'),
-                ]
-                ),
-            ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            [
-                                dcc.Markdown("What value would you like to plot?"),
-                                dbc.Row(
-                                    [
-                                        dbc.Col(dcc.Markdown("**Predicted  \n Value:**"),width="auto"),
-                                        dbc.Col(
-                                            html.Div(
-                                                dcc.Dropdown(
-                                                    id = 'predicted_timeline',
-                                                    options = [{'label': x, 'value': x} for x in cols],
-                                                    value = 'Total Detected',
-                                                    style={'width':'100%'}
-                                                ),
-                                                id = "p2-transfer-dropdown-wrapper",
-                                            ),
-                                        width=True
-                                        ),
-                                    ]
-                                ),
-                            ],
-                        ),
                     ],
-                    className="h-100",
+                    className='projections-general-card'
                 ),
-            ],
-            xs=12,
-            sm=12,
-            md=6,
-            lg=6,
-            ),
-            dbc.Col(
-            [
-                dbc.Card(
-                    [
-                        dbc.CardBody(
-                            [
-                                dcc.Markdown("For what location?"),
-                                dbc.Row(
-                                    [
-                                        dbc.Col(dcc.Markdown("**State:**")),
-                                        dbc.Col(
-                                            html.Div(
-                                                dcc.Dropdown(
-                                                    id = 'state_dropdown',
-                                                    options = [{'label': x, 'value': x} for x in df_projections.State.unique()],
-                                                    value = 'US',
-                                                ),
-                                                id = "p2-transfer-dropdown-wrapper",
-                                            ),
-                                        ),
-                                    ]
-                                ),
-                            ],
-                        ),
-                    ],
-                    className="h-100",
-                ),
-            ],
-            xs=12,
-            sm=12,
-            md=6,
-            lg=6,
+            ]
             ),
         ],
-        ),
-         dbc.Row(
-         [
-               dbc.Col(
-               [
-                     html.Div(
-                         id = 'state_projection_graph',
-                         children = [],
-                         style={
-                             'width': '100%',
-                             'display': 'inline-block',
-                             'paddingTop': 20,
-                             }
-                     ),
-                ]
-                )
-          ],
-          ),
-         dbc.Row([
-            dbc.Col(
-                html.Div(
-                    html.A(
-                        "Download the Data",
-                        id="download-link",
-                        download="covid_analytics_projections.csv",
-                        href=data_csv_string,
-                        target="_blank"
-                    ),
-                    style={'textAlign':"center"}
-                )
-            ),
-            ]
-        ),
-   ],
+        )
+    ] + \
+        top_visual + \
+        bottom_visual,
    className="page-body"
 )
 
 def ProjectState():
     layout = html.Div([nav, body, footer],className="site")
     return layout
-
-def build_us_map(map_date,val='Active'):
-
-    global df_projections
-
-    if isinstance(map_date, str):
-        map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
-
-    df_map = df_projections.loc[df_projections['Day']==map_date]
-    df_map = df_map.loc[df_projections['State']!='US']
-    df_map = df_map.applymap(str)
-
-    df_map.loc[:,'code'] = df_map.State.apply(lambda x: states[x])
-
-    fig = go.Figure()
-
-    if (val is not None) and (val in cols):
-
-        df_map.loc[:,'text'] = df_map['State'] + '<br>' + \
-                    'Total Detected ' + df_map['Total Detected'] + '<br>' + \
-                    'Active ' + df_map['Active'] + '<br>' + \
-                    'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
-                    'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
-                    'Total Detected Deaths ' + df_map['Total Detected Deaths']
-
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['code'],
-                z=df_map[val].astype(float),
-                locationmode='USA-states',
-                colorscale='Inferno_r',
-                autocolorscale=False,
-                text=df_map['text'], # hover text
-                marker_line_color='white', # line markers between states
-                colorbar_title='{}'.format(add_cases(val))
-            ))
-
-    fig.update_layout(
-            title_text=add_cases('{} Predicted {}'.format(map_date.strftime('%b %d,%Y'), val)),
-            geo = dict(
-                scope='usa',
-                projection=go.layout.geo.Projection(type = 'albers usa'),
-                showlakes=True, # lakes
-                lakecolor='rgb(255, 255, 255)'
-            ),
-        )
-
-    graph = dcc.Graph(
-        id='projection-map',
-        figure=fig
-    )
-
-    return graph
-
-
-def build_state_projection(state,val='Total Detected'):
-    global df_projections
-
-    df_projections_sub = df_projections.loc[df_projections.State == state]
-    fig = go.Figure()
-
-    color_dict={'Total Detected':0,'Active':1,'Active Hospitalized':2,
-                'Cumulative Hospitalized':3,'Total Detected Deaths':4};
-
-    if (val is not None) and (val in cols):
-        i = color_dict[val]
-        fig.add_trace(go.Scatter(
-            x=df_projections_sub['Day'],
-            y=df_projections_sub[val].values,
-            mode="lines+markers",
-            marker=dict(color=colors[i]),
-            line=dict(color=colors[i])
-        ))
-    title = '<br>'.join(wrap('<b> Predicted {} for {} </b>'.format(add_cases(val),state), width=26))
-    fig.update_layout(
-                height=550,
-                title={
-                    'text': title,
-                    'y':0.95,
-                    'x':0.5,
-                    'xanchor': 'center',
-                    'yanchor': 'top'},
-                title_font_size=25,
-                xaxis={'title': "Date",'linecolor': 'lightgrey'},
-                yaxis={'title': "Count",'linecolor': 'lightgrey'},
-                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest',
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                modebar={
-                    'orientation': 'v',
-                    'bgcolor': 'rgba(0,0,0,0)',
-                    'color': 'lightgray',
-                    'activecolor': 'gray'
-                }
-            )
-
-    graph = dcc.Graph(
-        id='projection-graph',
-        figure=fig
-    )
-    return graph
-
-def get_us_stat(d, val):
-    global df_projections
-
-    if isinstance(d, str):
-        d = datetime.datetime.strptime(d, '%Y-%m-%d').date()
-
-    us_date = df_projections.loc[(df_projections['Day']==d) & (df_projections['State']=='US')].reset_index()
-
-    card_content = [
-        dbc.CardHeader(
-            f'{us_date.iloc[0][val]:,}',
-            style={"textAlign":"center","fontSize":30,"fontWeight": "bold","color":"#1E74F0"}
-        ),
-        dbc.CardBody(
-            [
-                html.H5(add_cases(val),id='us-stats-cards'),
-            ]
-        ),
-    ]
-    return card_content

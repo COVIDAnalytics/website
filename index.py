@@ -11,17 +11,20 @@ from datetime import datetime as dt
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
 from homepage import Homepage
-from projections.projections import ProjectState, build_state_projection, build_us_map, get_us_stat
+from projections.projections import ProjectState
+from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
+from projections.utils import df_projections, countries_with_provinces, world_map_text
+from projections.projections_documentation import Projections_documentation
 from about_us.team import Team
 from dataset.dataset import Dataset
 from about_us.contact import Contact
 from dataset.dataset_documentation import Dataset_documentation
-from projections.projections_documentation import Projections_documentation
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
 from ventilators.utils import build_download_link_demand, build_download_link_transfers
-from ventilators.ventilators_documentation import Ventilator_documentation
+from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
+from risk_calculator.features import features
 from assets.mappings import data_cols,all_options
 
 app = dash.Dash(
@@ -66,8 +69,8 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    if pathname == '/ventilator_allocation_documentation':
-        return Ventilator_documentation()
+    if pathname == '/calculator':
+        return RickCalc()
     else:
         return Homepage()
 
@@ -101,51 +104,99 @@ def set_display_children(selected_category):
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
 #Callbacks for projections
+
+@app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
+def download_delphi_documentation():
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
+                                     filename="DELPHI_Documentation.pdf")
+
+#Reset country_dropdown when main location (scope) changes
+@app.callback(
+    [Output('country_dropdown', 'options'),
+     Output('country_dropdown', 'value'),
+     Output('country_dropdown', 'disabled')],
+    [Input('location_map_dropdown', 'value')])
+def set_countries_options(selected_continent):
+    if selected_continent == 'World':
+        df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
+        return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
+    if selected_continent != 'US':
+        df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
+        return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
+    else:
+        return [[{'label': 'US', 'value': 'US'}], 'US', True]
+
+@app.callback(
+    Output('grey-countries-text', 'children'),
+    [Input('location_map_dropdown', 'value')])
+def set_missing_country_text(selected_continent):
+    if selected_continent is None or selected_continent == "US":
+        return ''
+    else:
+        return world_map_text
+
+@app.callback(
+    Output('province-card-title', 'children'),
+    [Input('location_map_dropdown', 'value')])
+def set_province_card_title(selected_continent):
+    return "For which location in {}?".format(selected_continent)
+
+@app.callback(
+    [Output('province_dropdown', 'options'),
+     Output('province_dropdown', 'value'),
+     Output('province_dropdown', 'disabled')],
+    [Input('country_dropdown', 'value')])
+def set_province_options(selected_country):
+    if selected_country is None or selected_country not in countries_with_provinces:
+        return [[], None, True]
+    else:
+        df = df_projections[df_projections.Country == selected_country]
+        return [[{'label': i, 'value': i} for i in df.Province.unique()], None, False]
+
 @app.callback(
     Output('state_projection_graph', 'children'),
-    [Input('state_dropdown', 'value'),
-     Input('predicted_timeline', 'value')]
-)
-def update_projection(state,val):
-    return build_state_projection(state,val)
+    [Input('province_dropdown', 'value'),
+     Input('country_dropdown', 'value'),
+     Input('location_map_dropdown', 'value'),
+     Input('predicted_timeline', 'value')
+     ])
+def update_projection(state, country, continent, val):
+    state = 'None' if state == None else state
+    country = 'None' if country == None else country
+    return build_state_projection(state, country, continent, val)
 
 @app.callback(
-    Output('us_map_projections', 'children'),
+    Output('map_projections', 'children'),
     [Input('us-map-date-picker-range', 'date'),
-     Input('us_map_dropdown', 'value')])
-def update_us_map(chosen_date,val):
-    return build_us_map(chosen_date,val)
+     Input('us_map_dropdown', 'value'),
+     Input('location_map_dropdown', 'value')])
+def update_us_map(chosen_date,val, location):
+    if location == 'US':
+        return build_us_map(chosen_date,val)
+    else:
+        return build_continent_map(chosen_date,val, location)
+
 
 @app.callback(
-    Output('us_tot_det', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Total Detected')
-
-@app.callback(
-    Output('us_active', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Active')
-
-@app.callback(
-    Output('us_active_hosp', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Active Hospitalized')
-
-@app.callback(
-    Output('us_tot_death', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def update_us_tot_det(chosen_date):
-    return get_us_stat(chosen_date,'Total Detected Deaths')
+    [Output('us_tot_det', 'children'),
+     Output('us_active', 'children'),
+     Output('us_active_hosp', 'children'),
+     Output('us_tot_death', 'children')],
+    [Input('us-map-date-picker-range', 'date'),
+     Input('location_map_dropdown', 'value')])
+def update_stats(chosen_date, scope):
+    return [get_stat(chosen_date,'Total Detected', scope),
+            get_stat(chosen_date,'Active', scope),
+            get_stat(chosen_date,'Active Hospitalized', scope),
+            get_stat(chosen_date,'Total Detected Deaths', scope)]
 
 @app.callback(
     Output('us-stats-title', 'children'),
-    [Input('us-map-date-picker-range', 'date')])
-def display_US_stats_title(d):
+    [Input('us-map-date-picker-range', 'date'),
+     Input('location_map_dropdown', 'value')])
+def display_US_stats_title(d, location):
     d = dt.strptime(d, '%Y-%m-%d').date()
-    return u'{} Predicted US Counts'.format(d.strftime('%b %d,%Y'))
+    return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
 
 #Callbacks for ventilators
 @app.callback(
@@ -235,8 +286,44 @@ def update_download_link_transfers(chosen_model):
 
 @app.server.route('/ventilator_documentation_pdf', methods=['GET', 'POST'])
 def download_ventilator_documentation():
-    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets"),
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
                                      filename="Ventilator_Documentation.pdf")
+
+
+#callback for risk calculator
+def get_type_inputs(amount,name):
+    inputs = [None]*amount
+    for k in range(amount):
+        inputs[k] = State('calc-{}-{}'.format(name,k), 'value')
+    return inputs
+
+def get_feature_inputs():
+    inputs = get_type_inputs(len(features['numeric']),'numeric')
+    inputs += get_type_inputs(len(features['categorical']),'categorical')
+    inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
+    inputs += get_type_inputs(len(features['multidrop']),'multidrop')
+    inputs += [State('calc-temp-f-c', 'value')]
+    return inputs
+
+@app.callback(
+    [Output('score-calculator-card-body', 'children'),
+    Output('calc-input-error', 'displayed'),
+    Output('calc-input-error', 'message')],
+    [Input('submit-features-calc', 'n_clicks')],
+    get_feature_inputs()
+)
+def calc_risk_score(*argv):
+    default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
+    #if submit button was clicked
+    if argv[0] > 0:
+        x = argv[1:]
+        valid, err = valid_input(x)
+        if valid:
+            return predict_risk(x),False,''
+        else:
+            return default,True,err
+    #user has not clicked submit
+    return default,False,''
 
 #Callbacks for navbar
 @app.callback(

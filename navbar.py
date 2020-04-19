@@ -6,35 +6,25 @@ def Navbar():
         [
                 dbc.DropdownMenu(
                    color="link",
-                   label="Data",
+                   label="Dataset",
                    children=[
-                      dbc.DropdownMenuItem("Data Access", href="/dataset"),
+                      dbc.DropdownMenuItem("Data", href="/dataset"),
                       dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/dataset_documentation"),
+                      dbc.DropdownMenuItem("Insights", href="/interactive-graph"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
-                dbc.NavLink("Insights", href="/interactive-graph",style={"paddingTop": 30,"paddingBottom": 20}),
                 dbc.DropdownMenu(
                    color="link",
                    label="Projections",
                    children=[
-                      dbc.DropdownMenuItem("Results", href="/projections"),
+                      dbc.DropdownMenuItem("Case Predictions", href="/projections"),
                       dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/projections_documentation"),
+                      dbc.DropdownMenuItem("Ventilator Allocation", href="/ventilator_allocation"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
-                dbc.DropdownMenu(
-                   color="link",
-                   label="Ventilator Allocation",
-                   children=[
-                      dbc.DropdownMenuItem("Results", href="/ventilator_allocation"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Documentation", href="/ventilator_allocation_documentation"),
-                    ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
-                ),
+                dbc.NavLink("Mortality Risk Calculator", href="/calculator",style={"paddingTop": 30,"paddingBottom": 20}),
                 dbc.DropdownMenu(
                    color="link",
                    label="About Us",
