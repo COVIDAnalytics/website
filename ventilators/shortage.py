@@ -62,7 +62,7 @@ shortage = \
                                 id="date-projections-picker-div"
                             ),
                         ],
-                        xs=4,
+                        xs=12,
                         sm=4,
                         md='auto',
                         lg='auto',
@@ -75,10 +75,11 @@ shortage = \
                                     id = 'us_map_dropdown-vent',
                                     options = [{'label': no_model_visual[x], 'value': x} for x in state_cols],
                                     value = 'Shortage',
+                                    style={'marginBottom':20}
                                 ),
                             ),
                         ],
-                        xs=8,
+                        xs=12,
                         sm=8,
                         md=True,
                         lg=True,
