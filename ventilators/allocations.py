@@ -21,18 +21,20 @@ body = dbc.Container(
     [
         dbc.Row(
             [
-                dbc.Col(
+                dbc.Jumbotron(
                     [
-                        html.H2("Optimization can solve the ventilator shortage"),
-                        dcc.Markdown('''
-                                     For severe COVID-19 patients, medical ventilators can spell \
-                                     the difference between life and death. These devices are \
-                                     increasingly in demand, with many locations already \
-                                     experiencing shortages. Fortunately, the dynamics of the \
-                                     pandemic differ from one country to another, from one \
-                                     state to another, or even from one hospital to another, \
-                                     creating opportunities to mitigate shortages by efficiently \
-                                     and dynamically allocating the global ventilator supply.'''),
+                        html.H1("Optimization can solve the ventilator shortage"),
+                        html.P('''
+                               For severe COVID-19 patients, medical ventilators can spell \
+                               the difference between life and death, but many locations are \
+                               already experiencing shortages. 
+                               ''',
+                               className="lead"),
+                        html.Hr(),
+                        dcc.Markdown('''Fortunately, the dynamics of the \
+                                     pandemic differ from one place to another, \
+                                     creating opportunities to mitigate shortages by \
+                                     dynamically allocating the global ventilator supply.'''),
                     ],
                 ),
             ],
@@ -67,7 +69,7 @@ body = dbc.Container(
                     md=6,
                     lg=4,
                     xl=4,
-                    style={"paddingBottom": "20px"},
+                    style={"padding": "20px"},
                 ),
                 dbc.Col(
                     dbc.Card(
@@ -93,7 +95,7 @@ body = dbc.Container(
                     md=6,
                     lg=4,
                     xl=4,
-                    style={"paddingBottom": "20px"},
+                    style={"padding": "20px"},
                 ),
                 dbc.Col(
                     dbc.Card(
@@ -122,31 +124,28 @@ body = dbc.Container(
                     md=6,
                     lg=4,
                     xl=4,
-                    style={"paddingBottom": "20px"},
+                    style={"padding": "20px"},
                 ),
             ],
             justify="around",
         ),
-        # can comment out until we figure out the secure connection, this is a placeholder
-        # dbc.Row(
-        #     [
-        #         html.Iframe(src="https://www.youtube.com/embed/nShiDeUpM4s",
-        #                     width="711",
-        #                     height="400"),
-        #     ],
-        #     justify="around",
-        #     style={"paddingBottom": "20px"},
-        # ),
+        dbc.Row(
+            [
+                html.Iframe(src="https://www.youtube.com/embed/SwiOFEZc0Gs",
+                            width="711",
+                            height="400"),
+            ],
+            justify="around",
+            style={"paddingBottom": "20px"},
+        ),
         dbc.Row(
             [
                 dbc.Col(
                     [
-                        dcc.Markdown('''Details on data and models can be found in the \
+                        dcc.Markdown('''Interested in more details? Check out this \
                                      [technical report](/ventilator_documentation_pdf), \
-                                     and our source code is available on [GitHub]\
-                                     (https://github.com/COVIDAnalytics/ventilator-allocation). \
-                                     Check out this [short video](https://youtu.be/SwiOFEZc0Gs) \
-                                     explaining our model.
+                                     or take a look at our [code]\
+                                     (https://github.com/COVIDAnalytics/ventilator-allocation)!
                                      '''),
                     ],
                 ),
@@ -154,16 +153,19 @@ body = dbc.Container(
         ),
         dbc.Row(
         [
-            dbc.Col(
+            dbc.Jumbotron(
             [
-                html.H4("Why share ventilators between states?"),
-                dcc.Markdown('''As highlighted in the visuals below, the number of ventilators \
-                             available across all 50 states - without even accounting for the \
-                             federal stockpile - exceeds national demand. Yet with the current \
+                html.H2("Why share ventilators between states?"),
+                html.P('''As highlighted in the visuals below, the number of ventilators \
+                          available across all 50 states - without even accounting for the \
+                          federal stockpile - exceeds national demand.''',
+                       className="lead"),
+                html.Hr(),
+                dcc.Markdown('''Yet with the current \
                              allocation of ventilators, some states are expected to face strong \
                              shortages over time. And this is true for different pandemic \
-                             projection models, including [our own forecasts](/projections) \
-                             and those of the [University of Washington’s IHME model]\
+                             projection models, including our own [DELPHI](/projections) \
+                             forecasts and those from the [University of Washington’s IHME model]\
                              (https://covid19.healthdata.org/united-states-of-america).
                              '''),
             ]
@@ -193,16 +195,17 @@ body = dbc.Container(
     [
         dbc.Row(
             [
-                dbc.Col(
+                dbc.Jumbotron(
                 [
-                    html.H4("How can states share ventilators optimally?"),
+                    html.H2("How can states share ventilators optimally?"),
                     dcc.Markdown('''
                         We know how many ventilators are in each state from public data, and we \
                         estimate that up to 450 ventilators per day could be made available \
                         through a federal surge \
                         (see [documentation](/ventilator_allocation_documentation) for details). \
                         Our optimization model recommends surge supply allocations and interstate transfers to reduce ventilator shortage as quickly and efficiently as possible.'''),
-                    html.H5('Use the interactive tool below to experiment with different reallocation policies.'),
+                    html.Hr(),
+                    html.P('Use the interactive tool below to experiment with different reallocation policies.', className="lead"),
                 ]
                 ),
             ],
