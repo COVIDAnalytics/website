@@ -62,3 +62,11 @@
   font-size: 20px;
   font-weight: bold;
 }
+
+.press-card{
+  border-color: #800020 !important;
+  border-width: medium !important;
+}
+.press-card:hover{
+  border-color: #0000A0 !important;
+}

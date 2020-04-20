@@ -24,7 +24,14 @@ def Navbar():
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
-                dbc.NavLink("Mortality Risk Calculator", href="/calculator",style={"paddingTop": 30,"paddingBottom": 20}),
+                dbc.DropdownMenu(
+                   color="link",
+                   label="Risk Calculators",
+                   children=[
+                      dbc.DropdownMenuItem("Mortality Risk Calculator", href="/calculator"),
+                    ],
+                    style={"paddingTop": 30,"paddingBottom": 20}
+                ),
                 dbc.DropdownMenu(
                    color="link",
                    label="About Us",
@@ -32,14 +39,16 @@ def Navbar():
                       dbc.DropdownMenuItem("The Team", href="/team"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Contact Us", href="/contact"),
+                      dbc.DropdownMenuItem(divider=True),
+                      dbc.DropdownMenuItem("In the Press", href="/press"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
             ],
             id="navbar-links",
+            style={"position":"static"},
             no_gutters=True,
-            className="ml-auto flex-nowrap mt-3 mt-md-0",
-            align="center",
+            className="ml-auto",
         )
 
     navbar = dbc.Navbar(

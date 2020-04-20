@@ -3943,14 +3943,11 @@ input[type=button].btn-block {
 }
 
 .navbar {
-  position: relative;
+  position: auto;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 1rem;
-  max-height: 320;
-  overflow: auto;
+  width: 100%;
 }
 .navbar .container,
 .navbar .container-fluid,
