@@ -134,6 +134,28 @@ top_visual = [
             dbc.Col(
             [
                 html.Div(
+                    dcc.RadioItems(
+                    options=[
+                        {'label': 'Full population', 'value': 1},
+                        {'label': 'Value per million', 'value': 2}
+                    ],
+                    value=1,
+                    id = 'radio_botton',
+                    labelStyle={'display': 'inline-block'}
+                    ),
+                ),
+            ]
+            ),
+
+        ],
+        )
+    ] + \
+    [
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                html.Div(
                     id = 'map_projections',
                     children = [],
                 ),

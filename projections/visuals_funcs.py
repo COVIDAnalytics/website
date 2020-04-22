@@ -17,11 +17,19 @@ from navbar import Navbar
 from footer import Footer
 from assets.mappings import states, colors
 
-from projections.utils import cols, df_us, add_cases, df_projections
+from projections.utils import cols, df_us, add_cases, df_projections, PopInfo
+
+import numpy as np
 
 
-def build_continent_map(map_date,val='Active', continent = 'World'):
+
+
+
+
+
+def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     global df_projections
+    global popInfo
 
     df_continent = df_projections
     if continent !='World':
@@ -34,10 +42,24 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
     df_map = df_map.loc[df_map['Province'] == 'None'] #exclude province data
     df_map = df_map.loc[df_map['Country'] != 'None'] #exclude global world data
     df_map = df_map.applymap(str)
+    population = np.array([])
+    for i in df_map['Country']:
+        ind1 = np.logical_and(PopInfo['Country']==i, PopInfo['Province']=='None')
+        pop_val = PopInfo.loc[ind1,'pop'].values
+        population = np.concatenate((population, pop_val),0)
+
+    df_map['Population'] =population
+
+    df_map['Active Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Total Detected Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Active Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Cumulative Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Total Detected Deaths Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected Deaths'])/df_map['Population'], decimals = 2)).astype(str)
+    
 
     fig = go.Figure()
 
-    if (val is not None) and (val in cols):
+    if (val is not None) and (val in cols) and  pop == 1:
 
         df_map.loc[:,'text'] = df_map['Country'] + '<br>' + \
                     'Total Detected ' + df_map['Total Detected'] + '<br>' + \
@@ -57,6 +79,28 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
                 marker_line_color='black', # line markers between states
                 colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
             ))
+            
+    if (val is not None) and (val in cols) and  pop != 1:
+
+        df_map.loc[:,'text'] = df_map['Country'] + '<br>' + \
+                    'Total Detected Per Million ' + df_map['Total Detected Per Million'] + '<br>' + \
+                    'Active Per Million ' + df_map['Active Per Million'] + '<br>' + \
+                    'Active Hospitalized Per Million ' + df_map['Active Hospitalized Per Million'] + '<br>' + \
+                    'Cumulative Hospitalized Per Million ' + df_map['Cumulative Hospitalized Per Million'] + '<br>' + \
+                    'Total Detected Deaths Per Million ' + df_map['Total Detected Deaths Per Million']
+
+
+        fig = go.Figure(data=go.Choropleth(
+                locations=df_map['Country'],
+                z=df_map[val+ " Per Million"].astype(float),
+                locationmode="country names",
+                autocolorscale=False,
+                colorscale='inferno_r',
+                text=df_map['text'], # hover text
+                marker_line_color='black', # line markers between states
+                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
+            ))
+
 
     fig.update_layout(
             margin=dict(l=10, r=10, t=50, b=50),
@@ -89,7 +133,15 @@ def build_continent_map(map_date,val='Active', continent = 'World'):
 
     return graph
 
-def build_us_map(map_date,val='Active'):
+
+
+
+
+
+
+
+
+def build_us_map(map_date,val='Active', pop = 1):
 
     global df_us
 
@@ -101,10 +153,22 @@ def build_us_map(map_date,val='Active'):
     df_map = df_map.applymap(str)
 
     df_map.loc[:,'code'] = df_map.Province.apply(lambda x: states[x])
+    population = np.array([])
+    for i in df_map['Province']:
+        pop_val = PopInfo.loc[PopInfo['Province']==i,'pop'].values
+        population = np.concatenate((population, pop_val),0)
+
+    df_map['Population'] =population
+    df_map['Active Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Total Detected Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Active Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Cumulative Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Total Detected Deaths Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected Deaths'])/df_map['Population'], decimals = 2)).astype(str)
+
 
     fig = go.Figure()
 
-    if (val is not None) and (val in cols):
+    if (val is not None) and (val in cols) and pop == 1:
 
         df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
                     'Total Detected ' + df_map['Total Detected'] + '<br>' + \
@@ -116,6 +180,26 @@ def build_us_map(map_date,val='Active'):
         fig = go.Figure(data=go.Choropleth(
                 locations=df_map['code'],
                 z=df_map[val].astype(float),
+                locationmode='USA-states',
+                colorscale='inferno_r',
+                autocolorscale=False,
+                text=df_map['text'], # hover text
+                marker_line_color='white' , # line markers between states
+                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
+            ))
+            
+    if (val is not None) and (val in cols) and pop != 1:
+
+        df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
+            'Total Detected Per Million ' + df_map['Total Detected Per Million'] + '<br>' + \
+            'Active Per Million ' + df_map['Active Per Million'] + '<br>' + \
+            'Active Hospitalized Per Million ' + df_map['Active Hospitalized Per Million'] + '<br>' + \
+            'Cumulative Hospitalized Per Million ' + df_map['Cumulative Hospitalized Per Million'] + '<br>' + \
+            'Total Detected Deaths Per Million ' + df_map['Total Detected Deaths Per Million']
+
+        fig = go.Figure(data=go.Choropleth(
+                locations=df_map['code'],
+                z=df_map[val+ " Per Million"].astype(float),
                 locationmode='USA-states',
                 colorscale='inferno_r',
                 autocolorscale=False,
