@@ -21,12 +21,6 @@ from projections.utils import cols, df_us, add_cases, df_projections, PopInfo
 
 import numpy as np
 
-
-
-
-
-
-
 def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     global df_projections
     global popInfo
@@ -41,7 +35,7 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     df_map = df_continent.loc[df_continent['Day'] == map_date]
     df_map = df_map.loc[df_map['Province'] == 'None'] #exclude province data
     df_map = df_map.loc[df_map['Country'] != 'None'] #exclude global world data
-    df_map = df_map.applymap(str)
+    
     population = np.array([])
     for i in df_map['Country']:
         ind1 = np.logical_and(PopInfo['Country']==i, PopInfo['Province']=='None')
@@ -50,11 +44,12 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 
     df_map['Population'] =population
 
-    df_map['Active Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Total Detected Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Active Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Cumulative Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Total Detected Deaths Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected Deaths'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Active Per Million'] = (np.round(1000000*df_map['Active']/df_map['Population'], decimals = 2))
+    df_map['Total Detected Per Million'] = (np.round(1000000*df_map['Total Detected']/df_map['Population'], decimals = 2))
+    df_map['Active Hospitalized Per Million'] = (np.round(1000000*df_map['Active Hospitalized']/df_map['Population'], decimals = 2))
+    df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*df_map['Cumulative Hospitalized']/df_map['Population'], decimals = 2))
+    df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
+    df_map = df_map.applymap(str)
     
 
     fig = go.Figure()
@@ -133,14 +128,6 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 
     return graph
 
-
-
-
-
-
-
-
-
 def build_us_map(map_date,val='Active', pop = 1):
 
     global df_us
@@ -150,7 +137,7 @@ def build_us_map(map_date,val='Active', pop = 1):
 
     df_map = df_us.loc[df_us['Day']==map_date]
     df_map = df_map.loc[df_us['Province']!='US']
-    df_map = df_map.applymap(str)
+    
 
     df_map.loc[:,'code'] = df_map.Province.apply(lambda x: states[x])
     population = np.array([])
@@ -159,11 +146,12 @@ def build_us_map(map_date,val='Active', pop = 1):
         population = np.concatenate((population, pop_val),0)
 
     df_map['Population'] =population
-    df_map['Active Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Total Detected Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Active Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Active Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Cumulative Hospitalized'])/df_map['Population'], decimals = 2)).astype(str)
-    df_map['Total Detected Deaths Per Million'] = (np.round(1000000*pd.to_numeric(df_map['Total Detected Deaths'])/df_map['Population'], decimals = 2)).astype(str)
+    df_map['Active Per Million'] = (np.round(1000000*df_map['Active']/df_map['Population'], decimals = 2))
+    df_map['Total Detected Per Million'] = (np.round(1000000*df_map['Total Detected']/df_map['Population'], decimals = 2))
+    df_map['Active Hospitalized Per Million'] = (np.round(1000000*df_map['Active Hospitalized']/df_map['Population'], decimals = 2))
+    df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*df_map['Cumulative Hospitalized']/df_map['Population'], decimals = 2))
+    df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
+    df_map = df_map.applymap(str)
 
 
     fig = go.Figure()
