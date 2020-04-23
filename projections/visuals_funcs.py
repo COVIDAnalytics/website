@@ -131,6 +131,7 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 def build_us_map(map_date,val='Active', pop = 1):
 
     global df_us
+    global popInfo
 
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()

@@ -122,29 +122,20 @@ top_visual = [
 
                     id="predicted-value-projections-picker-div",
                 ),
-            ],
-            ),
-
-        ],
-        )
-    ] + \
-    [
-        dbc.Row(
-        [
-            dbc.Col(
-            [
                 html.Div(
                     dcc.RadioItems(
                     options=[
-                        {'label': 'Full population', 'value': 1},
-                        {'label': 'Value per million', 'value': 2}
+                        {'label': '  Full population', 'value': 1},
+                        {'label': '  Value per million', 'value': 2}
                     ],
                     value=1,
                     id = 'radio_botton',
-                    labelStyle={'display': 'inline-block'}
+                    labelStyle={'display': 'inline-block',
+                    'margin-right': '20px'
+                                   }
                     ),
-                ),
-            ]
+                )
+            ],
             ),
 
         ],

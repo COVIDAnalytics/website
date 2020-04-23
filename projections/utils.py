@@ -18,7 +18,7 @@ cols={'Total Detected':0,'Active':1,'Active Hospitalized':2,
 map_locations = ['US', "Europe", "Asia", "North America", "South America", "Africa", 'World']
 
 countries_with_provinces = ["US","Canada","Australia"]
-PopInfo = pd.read_csv('data/predicted/WorldPopulationInformation_new.csv', sep=",")
+PopInfo = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
 
 
 dataset = "data/predicted/Global.csv"

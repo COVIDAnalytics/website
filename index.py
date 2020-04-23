@@ -176,7 +176,6 @@ def update_projection(state, country, continent, val):
      Input('radio_botton', 'value')])
 def update_us_map(chosen_date,val, location,pop):
     if location == 'US':
-        print(pop)
         return build_us_map(chosen_date,val,pop)
     else:
         return build_continent_map(chosen_date,val, location,pop)
