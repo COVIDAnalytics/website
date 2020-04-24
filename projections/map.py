@@ -109,40 +109,83 @@ top_visual = [
     [
         dbc.Row(
         [
-            dbc.Col([
-                html.H6('Predicted Value:',id="date-projections"),
-                html.Div(
+            dbc.Col(
+            [
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Markdown('Predicted Value:'),
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            html.Div(
+                                                dcc.Dropdown(
+                                                    id = 'us_map_dropdown',
+                                                    options = [{'label': add_cases(x), 'value': x} for x in cols.keys()],
+                                                    value = 'Active',
+                                                ),
 
-                    dcc.Dropdown(
-                        id = 'us_map_dropdown',
-                        options = [{'label': add_cases(x), 'value': x} for x in cols.keys()],
-                        value = 'Active',
-                    ),
-
-                    id="predicted-value-projections-picker-div",
-                )
-                ],
-                width = 8),
-                
-                dbc.Col([
-                html.Div(
-                    dcc.RadioItems(
-                    options=[
-                        {'label': '  Full population', 'value': 1},
-                        {'label': '  Value per million', 'value': 2}
+                                                id="predicted-value-projections-picker-div",
+                                            ),
+                                        ),
+                                    ]
+                                ),
+                            ],
+                        ),
                     ],
-                    value=1,
-                    id = 'radio_botton',
-                    labelStyle={'margin-right': '20px'
-                                   },
-                    style={'marginTop': '2.7em'}
-                    ),
-                )
-            ])
+                    className="projections-general-card h-100"
+                ),
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
+            ),
+            dbc.Col(
+            [
+                dbc.Card(
+                    [
+                        dbc.CardBody(
+                            [
+                                dcc.Markdown("And for which population type?"),
+                                dbc.Row(
+                                    [
+                                        dbc.Col(
+                                            html.Div(
+                                                [
+                                                dcc.RadioItems(
+                                                options=[
+                                                    {'label': '  Full population', 'value': 1},
+                                                    {'label': '  Value per million', 'value': 2}
+                                                ],
+                                                value=1,
+                                                id = 'radio_botton',
+                                                labelStyle={'display': 'inline-block',
+                                                'margin-right': '20px'
+                                                               },
+                                                style={'textAlign': 'center'}
+                                                ),
 
+                                            ]),
+                                        ),
+                                    ]
+                                ),
+                            ],
+                        ),
+                    ],
+                    className="projections-general-card h-100"
+                ),
+            ],
+            xs=12,
+            sm=12,
+            md=6,
+            lg=6,
+            ),
         ],
+        style={'marginBottom':20,'marginTop':20},
         )
-    ] + \
+    ]  + \
     [
         dbc.Row(
         [
