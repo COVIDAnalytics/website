@@ -109,8 +109,7 @@ top_visual = [
     [
         dbc.Row(
         [
-            dbc.Col(
-            [
+            dbc.Col([
                 html.H6('Predicted Value:',id="date-projections"),
                 html.Div(
 
@@ -121,7 +120,11 @@ top_visual = [
                     ),
 
                     id="predicted-value-projections-picker-div",
-                ),
+                )
+                ],
+                width = 8),
+                
+                dbc.Col([
                 html.Div(
                     dcc.RadioItems(
                     options=[
@@ -130,13 +133,12 @@ top_visual = [
                     ],
                     value=1,
                     id = 'radio_botton',
-                    labelStyle={'display': 'inline-block',
-                    'margin-right': '20px'
-                                   }
+                    labelStyle={'margin-right': '20px'
+                                   },
+                    style={'marginTop': '2.7em'}
                     ),
                 )
-            ],
-            ),
+            ])
 
         ],
         )

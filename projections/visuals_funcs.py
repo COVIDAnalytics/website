@@ -23,7 +23,7 @@ import numpy as np
 
 def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     global df_projections
-    global popInfo
+    global PopInfo
 
     df_continent = df_projections
     if continent !='World':
@@ -50,9 +50,6 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*df_map['Cumulative Hospitalized']/df_map['Population'], decimals = 2))
     df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
     df_map = df_map.applymap(str)
-    
-
-    fig = go.Figure()
 
     if (val is not None) and (val in cols) and  pop == 1:
 
@@ -131,7 +128,7 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 def build_us_map(map_date,val='Active', pop = 1):
 
     global df_us
-    global popInfo
+    global PopInfo
 
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
@@ -153,9 +150,6 @@ def build_us_map(map_date,val='Active', pop = 1):
     df_map['Cumulative Hospitalized Per Million'] = (np.round(1000000*df_map['Cumulative Hospitalized']/df_map['Population'], decimals = 2))
     df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
     df_map = df_map.applymap(str)
-
-
-    fig = go.Figure()
 
     if (val is not None) and (val in cols) and pop == 1:
 
