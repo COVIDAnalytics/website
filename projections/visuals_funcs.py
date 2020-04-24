@@ -59,19 +59,8 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
                     'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
                     'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
                     'Total Detected Deaths ' + df_map['Total Detected Deaths']
-
-
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['Country'],
-                z=df_map[val].astype(float),
-                locationmode="country names",
-                autocolorscale=False,
-                colorscale='inferno_r',
-                text=df_map['text'], # hover text
-                marker_line_color='black', # line markers between states
-                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
-            ))
-            
+        zval = df_map[val].astype(float)
+        
     if (val is not None) and (val in cols) and  pop != 1:
 
         df_map.loc[:,'text'] = df_map['Country'] + '<br>' + \
@@ -82,17 +71,19 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
                     'Total Detected Deaths Per Million ' + df_map['Total Detected Deaths Per Million']
 
 
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['Country'],
-                z=df_map[val+ " Per Million"].astype(float),
-                locationmode="country names",
-                autocolorscale=False,
-                colorscale='inferno_r',
-                text=df_map['text'], # hover text
-                marker_line_color='black', # line markers between states
-                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
-            ))
-
+        zval = df_map[val+ " Per Million"].astype(float)
+            
+            
+    fig = go.Figure(data=go.Choropleth(
+        locations=df_map['Country'],
+        z= zval,
+        locationmode="country names",
+        autocolorscale=False,
+        colorscale='inferno_r',
+        text=df_map['text'], # hover text
+        marker_line_color='black', # line markers between states
+        colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
+    ))
 
     fig.update_layout(
             margin=dict(l=10, r=10, t=50, b=50),
@@ -151,6 +142,7 @@ def build_us_map(map_date,val='Active', pop = 1):
     df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
     df_map = df_map.applymap(str)
 
+
     if (val is not None) and (val in cols) and pop == 1:
 
         df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
@@ -159,17 +151,9 @@ def build_us_map(map_date,val='Active', pop = 1):
                     'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
                     'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
                     'Total Detected Deaths ' + df_map['Total Detected Deaths']
-
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['code'],
-                z=df_map[val].astype(float),
-                locationmode='USA-states',
-                colorscale='inferno_r',
-                autocolorscale=False,
-                text=df_map['text'], # hover text
-                marker_line_color='white' , # line markers between states
-                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
-            ))
+                    
+        z_val = df_map[val].astype(float)
+                    
             
     if (val is not None) and (val in cols) and pop != 1:
 
@@ -179,17 +163,19 @@ def build_us_map(map_date,val='Active', pop = 1):
             'Active Hospitalized Per Million ' + df_map['Active Hospitalized Per Million'] + '<br>' + \
             'Cumulative Hospitalized Per Million ' + df_map['Cumulative Hospitalized Per Million'] + '<br>' + \
             'Total Detected Deaths Per Million ' + df_map['Total Detected Deaths Per Million']
+        z_val =df_map[val+ " Per Million"].astype(float)
+            
+    fig = go.Figure(data=go.Choropleth(
+        locations=df_map['code'],
+        z=z_val,
+        locationmode='USA-states',
+        colorscale='inferno_r',
+        autocolorscale=False,
+        text=df_map['text'], # hover text
+        marker_line_color='white' , # line markers between states
+        colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
+    ))
 
-        fig = go.Figure(data=go.Choropleth(
-                locations=df_map['code'],
-                z=df_map[val+ " Per Million"].astype(float),
-                locationmode='USA-states',
-                colorscale='inferno_r',
-                autocolorscale=False,
-                text=df_map['text'], # hover text
-                marker_line_color='white' , # line markers between states
-                colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
-            ))
 
     fig.update_layout(
             margin=dict(l=10, r=10, t=50, b=50),
