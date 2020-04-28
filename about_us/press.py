@@ -10,7 +10,7 @@ from footer import Footer
 with open("assets/press/press.yml") as f:
     article = yaml.load(f, Loader=yaml.FullLoader)
 num_articles = len(article)
-print(num_articles)
+
 nav = Navbar()
 footer = Footer()
 

@@ -172,13 +172,15 @@ def update_projection(state, country, continent, val):
     Output('map_projections', 'children'),
     [Input('us-map-date-picker-range', 'date'),
      Input('us_map_dropdown', 'value'),
-     Input('location_map_dropdown', 'value')])
-def update_us_map(chosen_date,val, location):
+     Input('location_map_dropdown', 'value'),
+     Input('radio_botton', 'value')])
+def update_us_map(chosen_date,val, location,pop):
     if location == 'US':
-        return build_us_map(chosen_date,val)
+        return build_us_map(chosen_date,val,pop)
     else:
-        return build_continent_map(chosen_date,val, location)
+        return build_continent_map(chosen_date,val, location,pop)
 
+#
 
 @app.callback(
     [Output('us_tot_det', 'children'),
