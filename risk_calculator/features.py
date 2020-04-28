@@ -1,16 +1,74 @@
-import json
+import plotly.graph_objects as go
+from textwrap import wrap
 
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-from risk_calculator.mortality.calculator import no_labs_features, labs_features
+from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort, labs_model_mort, no_labs_model_mort
+from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec, labs_model_infec, no_labs_model_infec
 
 from navbar import Navbar
 from footer import Footer
 
-with open('assets/risk_calculators/mortality/risk_calc_features.json','r') as f:
-    mortality_features = json.load(f)
+def build_feature_importance_graph(m=True,labs=False):
+    if m:
+        model = labs_model_mort if labs else no_labs_model_mort
+        features = labs_features_mort if labs else no_labs_features_mort
+    else:
+        model = labs_model_infec if labs else no_labs_model_infec
+        features = labs_features_infec if labs else no_labs_features_infec
+
+    feature_list = ['']*len(model.feature_importances_)
+    i = 0
+    for feat in features["numeric"]:
+        feature_list[feat["index"]] = feat["name"]
+        i+=1
+    for feat in features["categorical"]:
+        feature_list[feat["index"]] = feat["name"]
+        i+=1
+    for feat in features["checkboxes"]:
+        for j,name in enumerate(feat["vals"]):
+            feature_list[feat["index"][j]] = name
+            i+=1
+    for feat in features["multidrop"]:
+        for j,name in enumerate(feat["vals"]):
+            feature_list[feat["index"][j]] = name
+            i+=1
+    importances = list(model.feature_importances_)
+    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
+    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
+    x,y = zip(*feature_importances)
+    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
+    graph = dcc.Graph(
+        id='feature-importance-graph',
+        figure=fig,
+    )
+
+    fig.update_layout(
+                height=450,
+                title={
+                    'text':'<br>'.join(wrap('<b> Feature Importance Graph </b>', width=30)) ,
+                     'x': 0.5,
+                    'xanchor': 'center',
+                    'yanchor': 'top'},
+                title_font_color='black',
+                title_font_size=18,
+                xaxis={'title': "Features",'linecolor': 'lightgrey'},
+                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
+                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
+                hovermode='closest',
+                paper_bgcolor='rgba(0,0,0,0)',
+                plot_bgcolor='rgba(0,0,0,0)',
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
+            )
+    return graph
+
 
 def gender_map(x,name):
     if name == "Gender":
@@ -136,11 +194,14 @@ def build_multidrop_card(id, content_dict):
     ]
     return card
 
-def build_feature_cards(m="mortality",labs="No"):
-    if m == "mortality":
-        features = mortality_features
+def build_feature_cards(m=True,labs=False):
+    print("mama")
+    if m:
+        features = labs_features_mort if labs else no_labs_features_mort
     else:
-        features = no_labs_features if labs == "No" else labs_features
+        print("in")
+        features = labs_features_infec if labs else no_labs_features_infec
+    model_id = "-mort" if m else "-infec"
     card_content = []
     cards = []
     inputs = features["numeric"]
@@ -148,13 +209,13 @@ def build_feature_cards(m="mortality",labs="No"):
     checkboxes = features["checkboxes"]
     multidrop = features["multidrop"]
     for id, content_dict in enumerate(dropdowns):
-        card_content.append((content_dict['name'],build_dropdown_card(id, content_dict)))
+        card_content.append((content_dict['name'],build_dropdown_card(str(id)+model_id, content_dict)))
     for id, content_dict in enumerate(inputs):
-        card_content.append((content_dict['name'],build_input_card(id, content_dict)))
+        card_content.append((content_dict['name'],build_input_card(str(id)+model_id, content_dict)))
     for id, content_dict in enumerate(checkboxes):
-        card_content.append((content_dict['name'],build_checkbox_card(id, content_dict)))
+        card_content.append((content_dict['name'],build_checkbox_card(str(id)+model_id, content_dict)))
     for id, content_dict in enumerate(multidrop):
-        card_content.append((content_dict['name'],build_multidrop_card(id, content_dict)))
+        card_content.append((content_dict['name'],build_multidrop_card(str(id)+model_id, content_dict)))
 
     for name,c in card_content:
         content = dbc.Card(

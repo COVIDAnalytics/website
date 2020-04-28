@@ -1,65 +1,49 @@
-from textwrap import wrap
-import plotly.graph_objects as go
 import dash_core_components as dcc
-
-from risk_calculator.mortality.calculator import model as mortality_model
-from risk_calculator.infection.calculator import labs_model, no_labs_model
 
 def convert_temp_units(x):
     return (x-32)/1.8
 
+def valid_input(features,imputer,feature_vals):
+    numeric = len(features["numeric"])
+    indexes = [0] * len(feature_vals)
+    for feat in range(numeric):
+        val = feature_vals[feat]
+        if val is None:
+            feature_vals[feat] = np.nan
+            indexes[feat] = 1
+        else:
+            content = features["numeric"][feat]
+            name = content["name"]
+            min_val = content["min_val"]
+            max_val = content["max_val"]
+            if val < min_val or val > max_val:
+                return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val)
+    res = imputer.transform(feature_vals)
+    return True,"",res,np.multiply(indexes,res)
 
-def build_feature_importance_graph(m="mortality",labs="No"):
-    if m == "mortality":
-        model = mortality_model
-    else:
-        model = no_labs_model if labs == "No" else labs_model
-    feature_list = ['']*len(model.feature_importances_)
+def predict_risk(model,features,feature_vals,missing):
+    x = [0]*len(model.feature_importances_)
+    #if temperature is in F, switch measurement to Celsius
+    convert_temperature = feature_vals[-1] == "°F"
+    #align order of feature vector so that values are in correct order
     i = 0
     for feat in features["numeric"]:
-        feature_list[feat["index"]] = feat["name"]
+        if feat["name"] == "Body Temperature" and convert_temperature:
+            x[feat["index"]] = convert_temp_units(feature_vals[i])
+        else:
+            x[feat["index"]] = feature_vals[i]
         i+=1
     for feat in features["categorical"]:
-        feature_list[feat["index"]] = feat["name"]
+        x[feat["index"]] = feature_vals[i]
         i+=1
-    for feat in features["checkboxes"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    for feat in features["multidrop"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    importances = list(model.feature_importances_)
-    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
-    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
-    x,y = zip(*feature_importances)
-    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
-    graph = dcc.Graph(
-        id='feature-importance-graph',
-        figure=fig,
-    )
-
-    fig.update_layout(
-                height=450,
-                title={
-                    'text':'<br>'.join(wrap('<b> Feature Importance Graph </b>', width=30)) ,
-                     'x': 0.5,
-                    'xanchor': 'center',
-                    'yanchor': 'top'},
-                title_font_color='black',
-                title_font_size=18,
-                xaxis={'title': "Features",'linecolor': 'lightgrey'},
-                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
-                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest',
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                modebar={
-                    'orientation': 'v',
-                    'bgcolor': 'rgba(0,0,0,0)',
-                    'color': 'lightgray',
-                    'activecolor': 'gray'
-                }
-            )
-    return graph
+    symptoms = feature_vals[i]
+    comorbidities = feature_vals[i+1]
+    for s in symptoms:
+        ind = features["checkboxes"][0]["vals"].index(s)
+        x[ind] = 1
+    for c in comorbidities:
+        ind = features["multidrop"][0]["vals"].index(c)
+        x[ind] = 1
+    score = model.predict_proba([x])[:,1]
+    score = str(int(100*round(1 - score[0], 2)))+"%"
+    return dash_core_components

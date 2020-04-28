@@ -48,7 +48,10 @@
   text-align: center;
 }
 
-#calc-multidrop-0-wrapper{
+#calc-multidrop-0-mort-wrapper{
+  width:100%;
+}
+#calc-multidrop-0-infec-wrapper{
   width:100%;
 }
 

@@ -28,7 +28,9 @@ def Navbar():
                    color="link",
                    label="Risk Calculators",
                    children=[
-                      dbc.DropdownMenuItem("Mortality Risk Calculator", href="/calculator"),
+                      dbc.DropdownMenuItem("Mortality Risk Calculator", href="/mortality_calculator"),
+                      dbc.DropdownMenuItem(divider=True),
+                      dbc.DropdownMenuItem("Infection Risk Calculator", href="/infection_calculator"),
                     ],
                     style={"paddingTop": 30,"paddingBottom": 20}
                 ),
