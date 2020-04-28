@@ -1,6 +1,4 @@
 import pickle
-import plotly.graph_objects as go
-from textwrap import wrap
 
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -10,63 +8,13 @@ from navbar import Navbar
 from footer import Footer
 
 from risk_calculator.features import build_feature_cards,features
+from risk_calculator.utils import convert_temp_units
 
 nav = Navbar()
 footer = Footer()
 
-with open('assets/risk_calculators/rf_model.pkl', 'rb') as file:
+with open('assets/risk_calculators/mortality/rf_model.pkl', 'rb') as file:
     model = pickle.load(file)
-
-def build_feature_importance_graph():
-    feature_list = ['']*len(model.feature_importances_)
-    i = 0
-    for feat in features["numeric"]:
-        feature_list[feat["index"]] = feat["name"]
-        i+=1
-    for feat in features["categorical"]:
-        feature_list[feat["index"]] = feat["name"]
-        i+=1
-    for feat in features["checkboxes"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    for feat in features["multidrop"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    importances = list(model.feature_importances_)
-    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
-    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
-    x,y = zip(*feature_importances)
-    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
-    graph = dcc.Graph(
-        id='feature-importance-graph',
-        figure=fig,
-    )
-
-    fig.update_layout(
-                height=450,
-                title={
-                    'text':'<br>'.join(wrap('<b> Feature Importance Graph </b>', width=30)) ,
-                     'x': 0.5,
-                    'xanchor': 'center',
-                    'yanchor': 'top'},
-                title_font_color='black',
-                title_font_size=18,
-                xaxis={'title': "Features",'linecolor': 'lightgrey'},
-                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
-                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest',
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                modebar={
-                    'orientation': 'v',
-                    'bgcolor': 'rgba(0,0,0,0)',
-                    'color': 'lightgray',
-                    'activecolor': 'gray'
-                }
-            )
-    return graph
 
 body = dbc.Container(
     [
@@ -203,8 +151,6 @@ def valid_input(feature_vals):
             return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val)
     return True,""
 
-def convert_temp_units(x):
-    return (x-32)/1.8
 
 def predict_risk(feature_vals):
     x = [0]*len(model.feature_importances_)

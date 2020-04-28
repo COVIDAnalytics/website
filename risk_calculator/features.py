@@ -4,11 +4,13 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
+from risk_calculator.mortality.calculator import no_labs_features, labs_features
+
 from navbar import Navbar
 from footer import Footer
 
-with open('assets/risk_calculators/risk_calc_features.json','r') as f:
-    features = json.load(f)
+with open('assets/risk_calculators/mortality/risk_calc_features.json','r') as f:
+    mortality_features = json.load(f)
 
 def gender_map(x,name):
     if name == "Gender":
@@ -134,7 +136,11 @@ def build_multidrop_card(id, content_dict):
     ]
     return card
 
-def build_feature_cards():
+def build_feature_cards(m="mortality",labs="No"):
+    if m == "mortality":
+        features = mortality_features
+    else:
+        features = no_labs_features if labs == "No" else labs_features
     card_content = []
     cards = []
     inputs = features["numeric"]

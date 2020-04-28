@@ -21,8 +21,10 @@ from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
-from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
-from risk_calculator.features import features
+from risk_calculator.mortality.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
+from risk_calculator.infection.calculator import InfectionRickCalc, labs_features, no_labs_features, valid_input_infec, predict_risk_infec
+from risk_calculator.features import build_feature_cards, mortality_features
+from risk_calculator.utils import build_feature_importance_graph
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
@@ -70,8 +72,10 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    if pathname == '/calculator':
+    if pathname == '/mortality_calculator':
         return RickCalc()
+    if pathname == '/infection_calculator':
+        return InfectionRickCalc()
     if pathname == '/press':
         return Press()
     else:
@@ -295,14 +299,36 @@ def download_ventilator_documentation():
                                      filename="Ventilator_Documentation.pdf")
 
 
-#callback for risk calculator
+#callback for risk calculators
+@app.callback(
+    Output('infection-model-desc', 'children'),
+    [Input('lab_values_indicator_infection', 'value')])
+def get_infection_model_desc(labs):
+    return 'this is a dynamic description that depends on the model chosen above'
+
+@app.callback(
+    Output('feature-importance-bar-graph-infection', 'children'),
+    [Input('lab_values_indicator_infection', 'value')])
+def get_infection_model_feat_importance(labs):
+    return build_feature_importance_graph("infection",labs)
+
+@app.callback(
+    Output('features-infection', 'children'),
+    [Input('lab_values_indicator_infection', 'value')])
+def get_infection_model_feat_importance(labs):
+    return build_feature_cards("infection",labs)
+
 def get_type_inputs(amount,name):
     inputs = [None]*amount
     for k in range(amount):
         inputs[k] = State('calc-{}-{}'.format(name,k), 'value')
     return inputs
 
-def get_feature_inputs():
+def get_feature_inputs(model="mortality",labs="No"):
+    if model == "mortality":
+        features = mortality_features
+    else:
+        features = no_labs_features if labs == "No" else labs_features
     inputs = get_type_inputs(len(features['numeric']),'numeric')
     inputs += get_type_inputs(len(features['categorical']),'categorical')
     inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
@@ -325,6 +351,29 @@ def calc_risk_score(*argv):
         valid, err = valid_input(x)
         if valid:
             return predict_risk(x),False,''
+        else:
+            return default,True,err
+    #user has not clicked submit
+    return default,False,''
+
+@app.callback(
+    [Output('score-calculator-card-body-infection', 'children'),
+    Output('calc-input-error-infection', 'displayed'),
+    Output('calc-input-error-infection', 'message')],
+    [Input('submit-features-calc', 'n_clicks'),
+    Input('lab_values_indicator_infection', 'value')],
+    get_feature_inputs("infection",Input('lab_values_indicator_infection', 'value'))
+)
+def calc_risk_score_infection(*argv):
+    default = html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
+    submit = argv[0]
+    labs = argv[1]
+    #if submit button was clicked
+    if submit > 0:
+        x = argv[2:]
+        valid, err, x, missing = valid_input_infec(labs,x)
+        if valid:
+            return predict_risk_infec(labs,x,missing),False,''
         else:
             return default,True,err
     #user has not clicked submit
