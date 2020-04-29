@@ -239,7 +239,8 @@ def build_feature_cards(m=True,labs=False):
                         ],
                         className="feat-options"
                     )
-        w = 12 if name == "Comorbidities" else 4
+        w2 = 12 if name == "Comorbidities" else 4
+        w1 = 12 if name == "Comorbidities" else 6
         card = \
             dbc.Col([content],
             style={
@@ -247,9 +248,9 @@ def build_feature_cards(m=True,labs=False):
                 'borderColor':'red'
                 },
             xs=12,
-            sm=w,
-            md=w,
-            lg=w,
+            sm=w1,
+            md=w2,
+            lg=w2,
             )
         cards.append(card)
     return cards

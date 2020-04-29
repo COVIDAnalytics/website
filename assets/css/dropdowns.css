@@ -38,48 +38,49 @@
     padding-bottom: 20px;
   }
 
-#calc-multidrop-0-mort{
+#\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"mortality\"\}{
   width:1000px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
-#calc-multidrop-0-infec{
+#\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"infection\"\}{
   width:1000px;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
 
+
 @media (max-width: 1300px) {
-    #calc-multidrop-0-mort {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"mortality\"\} {
         width:900px;
     }
-    #calc-multidrop-0-infec {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"infection\"\} {
         width:900px;
     }
 }
 @media (max-width: 1000px) {
-    #calc-multidrop-0-mort {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"mortality\"\} {
         width:600px;
     }
-    #calc-multidrop-0-infec {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"infection\"\} {
         width:600px;
     }
 }
 @media (max-width: 800px) {
-    #calc-multidrop-0-mort {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"mortality\"\} {
         width:400px;
     }
-    #calc-multidrop-0-infec {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"infection\"\} {
         width:400px;
     }
 }
 @media (max-width: 600px) {
-    #calc-multidrop-0-mort {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"mortality\"\} {
         width:300px;
     }
-    #calc-multidrop-0-infec {
+    #\{\"index\"\:\"calc-multidrop-0\"\,\"type\"\:\"infection\"\} {
         width:300px;
     }
 }

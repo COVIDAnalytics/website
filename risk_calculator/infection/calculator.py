@@ -93,15 +93,18 @@ def valid_input_infec(labs,feature_vals):
     else:
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    return valid_input(features,imputer,feature_vals)
+    length = len(features["numeric"])
+    return valid_input(features["numeric"],feature_vals[0],length)
 
-def predict_risk_infec(labs,feature_vals,missing):
+def predict_risk_infec(labs,feature_vals):
     if labs:
         model = labs_model_infec
         features = labs_features_infec
+        mputer = labs_imputer_infec
     else:
         model = no_labs_model_infec
         features = no_labs_features_infec
+        imputer = no_labs_imputer_infec
     score = predict_risk(model,features,feature_vals,missing)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),

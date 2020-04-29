@@ -327,7 +327,6 @@ def get_mortality_model_feat_importance(labs):
     Output('features-infection', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
 def get_infection_model_feat_cards(labs):
-    print("0000")
     return build_feature_cards(False,labs)
 
 @app.callback(

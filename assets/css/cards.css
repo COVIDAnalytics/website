@@ -43,7 +43,12 @@
   padding-bottom: 40;
 }
 
-.score-calculator-card-content{
+.score-calculator-card-content-infection{
+  color: white;
+  text-align: center;
+}
+
+.score-calculator-card-content-mortality{
   color: white;
   text-align: center;
 }

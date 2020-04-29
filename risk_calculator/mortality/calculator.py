@@ -122,5 +122,4 @@ def predict_risk_mort(labs,feature_vals):
         html.H4(score,className="score-calculator-card-content"),
     ]
     impute_text = 'None'
-    #impute text
     return card_content,impute_text

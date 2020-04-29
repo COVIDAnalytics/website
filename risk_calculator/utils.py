@@ -34,12 +34,12 @@ def predict_risk(model,features,imputer,feature_vals):
     for feat in features["categorical"]:
         x[feat["index"]] = feature_vals[i]
         i+=1
-    print(feature_vals,i)
     comorbidities = feature_vals[i]
     for c in comorbidities:
         ind = features["multidrop"][0]["vals"].index(c)
         x[ind] = 1
     x = imputer.transform([x])
+    print(x)
     score = model.predict_proba(x)[:,1]
     score = str(int(100*round(1 - score[0], 2)))+"%"
     return dash_core_components
