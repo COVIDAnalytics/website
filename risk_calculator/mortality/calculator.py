@@ -114,7 +114,7 @@ def get_model_desc_mortality(labs):
     if labs:
         auc = html.Div(
              [
-             "The calculator is based on [XGBoost classifier](https://xgboost.readthedocs.io/).", html.Br(),
+             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on 213 patients (out of whom 24% deceased) is ",
              html.Span(' 0.96', style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "When features are missing, the calculator will impute and report their values."
@@ -123,7 +123,7 @@ def get_model_desc_mortality(labs):
     else:
         auc = html.Div(
             [
-             "The calculator is based on [XGBoost classifier](https://xgboost.readthedocs.io/).", html.Br(),
+             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on 213 patients (out of whom 24% deceased) is ",
              html.Span(' 0.90', style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "When features are missing, the calculator will impute and report their values."
