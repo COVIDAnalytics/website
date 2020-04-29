@@ -98,6 +98,13 @@ def valid_input_infec(labs,feature_vals):
 
 def predict_risk_infec(labs,feature_vals):
     if labs:
+        cols = ['C-Reactive Protein (CRP)', 'Blood Calcium', 'CBC: Leukocytes', 'Aspartate Aminotransferase (AST)', \
+        'ABG: PaO2', 'Age', 'Prothrombin Time (INR)', 'CBC: Hemoglobin', 'ABG: pH', 'Cholinesterase', 'Respiratory Frequency', \
+        'Blood Urea Nitrogen (BUN)', 'ABG: MetHb', 'Temperature Celsius', 'Total Bilirubin', 'Systolic Blood Pressure', \
+        'CBC: Mean Corpuscular Volume (MCV)', 'Glycemia', 'Cardiac Frequency', 'Sex']
+    else:
+        cols = ['Age', 'Cardiac Frequency', 'Respiratory Frequency', 'SaO2', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
+    if labs:
         model = labs_model_infec
         features = labs_features_infec
         imputer = labs_imputer_infec
@@ -105,7 +112,7 @@ def predict_risk_infec(labs,feature_vals):
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    score = predict_risk(False,model,features,imputer,feature_vals)
+    score = predict_risk(False,model,features,imputer,feature_vals,cols)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(score,className="score-calculator-card-content-infection"),

@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 import dash_core_components as dcc
 
 def convert_temp_units(x):
@@ -19,7 +20,7 @@ def valid_input(features,feature_vals,length):
                 return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val),feature_vals
     return True,"",feature_vals
 
-def predict_risk(m,model,features,imputer,feature_vals):
+def predict_risk(m,model,features,imputer,feature_vals,columns):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
     convert_temperature = feature_vals[-1] == "°F"
@@ -40,6 +41,8 @@ def predict_risk(m,model,features,imputer,feature_vals):
             ind = features["multidrop"][0]["vals"].index(c)
             x[ind] = 1
     x = imputer.transform([x])
-    score = model.predict_proba(x)[:,1]
+    X = pd.DataFrame(columns = columns, index = range(1), dtype=np.float)
+    X.loc[0]=x[0]
+    score = model.predict_proba(X)[:,1]
     score = str(int(100*round(1 - score[0], 2)))+"%"
-    return dash_core_components
+    return score

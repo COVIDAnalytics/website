@@ -109,6 +109,14 @@ def valid_input_mort(labs,feature_vals):
 
 def predict_risk_mort(labs,feature_vals):
     if labs:
+        cols = ['ABG: Oxygen Saturation (SaO2)', 'Age', 'Alanine Aminotransferase (ALT)', 'Aspartate Aminotransferase (AST)', \
+        'Blood Creatinine', 'Blood Sodium', 'Blood Urea Nitrogen (BUN)', 'C-Reactive Protein (CRP)', 'CBC: Hemoglobin', \
+        'CBC: Leukocytes', 'CBC: Mean Corpuscular Volume (MCV)', 'CBC: Platelets', 'Cardiac Frequency', 'Cardiac dysrhythmias', \
+        'Chronic kidney disease', 'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', \
+        'Glycemia', 'Potassium Blood Level', 'Prothrombin Time (INR)', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
+    else:
+        cols = ['Age', 'Cardiac Frequency', 'Cardiac dysrhythmias', 'Chronic kidney disease', 'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
+    if labs:
         model = labs_model_mort
         features = labs_features_mort
         imputer = labs_imputer_mort
@@ -116,7 +124,7 @@ def predict_risk_mort(labs,feature_vals):
         model = no_labs_model_mort
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
-    score = predict_risk(True,model,features,imputer,feature_vals)
+    score = predict_risk(True,model,features,imputer,feature_vals,cols)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),
