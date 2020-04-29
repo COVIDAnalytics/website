@@ -86,8 +86,9 @@ def get_feature_cards(id):
                         html.H5('Insert the features below into the risk calculator.')
                     ),
                 ]),
-                html.Div(
-                    id = id
+                dbc.Row(
+                    id = id,
+                    justify="center"
                 )
             ]
 

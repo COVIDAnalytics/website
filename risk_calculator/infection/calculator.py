@@ -10,7 +10,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from risk_calculator.utils import convert_temp_units, predict_risk
+from risk_calculator.utils import convert_temp_units, predict_risk, valid_input
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
 from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
 
@@ -88,10 +88,10 @@ def InfectionRiskCalc():
 
 def valid_input_infec(labs,feature_vals):
     if labs:
-        features = labs_model_infec
+        features = labs_features_infec
         imputer = labs_imputer_infec
     else:
-        features = no_labs_model_infec
+        features = no_labs_features_infec
         imputer = no_labs_imputer_infec
     return valid_input(features,imputer,feature_vals)
 

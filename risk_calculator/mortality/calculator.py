@@ -7,7 +7,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from risk_calculator.utils import convert_temp_units, predict_risk
+from risk_calculator.utils import convert_temp_units, predict_risk, valid_input
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
 from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
 
@@ -99,21 +99,24 @@ def RiskCalc():
 
 def valid_input_mort(labs,feature_vals):
     if labs:
-        features = labs_model_mort
+        features = labs_features_mort
         imputer = labs_imputer_mort
     else:
-        features = no_labs_model_mort
+        features = no_labs_features_mort
         imputer = no_labs_imputer_mort
-    return valid_input(features,imputer,feature_vals)
+    length = len(features["numeric"])
+    return valid_input(features["numeric"],feature_vals[0],length)
 
-def predict_risk_mort(labs,feature_vals,missing):
+def predict_risk_mort(labs,feature_vals):
     if labs:
         model = labs_model_mort
         features = labs_features_mort
+        imputer = labs_imputer_mort
     else:
         model = no_labs_model_mort
         features = no_labs_features_mort
-    score = predict_risk(model,features,feature_vals,missing)
+        imputer = no_labs_imputer_mort
+    score = predict_risk(model,features,imputer,feature_vals)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),

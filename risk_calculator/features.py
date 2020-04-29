@@ -71,20 +71,23 @@ def build_feature_importance_graph(m=True,labs=False):
 
 
 def gender_map(x,name):
-    if name == "Gender":
+    if name == "Sex":
         if x == 0:
             return "Female"
         else:
             return "Male"
     return x
 
-def build_dropdown_card(id, content_dict):
+def build_dropdown_card(id, m, content_dict):
     insert_data = \
             [
                 dbc.Col(
                     html.Div(
                         dcc.Dropdown(
-                            id = 'calc-categorical-{}'.format(id),
+                            id={
+                                'type': 'mortality' if m else 'infections',
+                                'index': 'calc-categorical-{}'.format(id),
+                            },
                             options = [{'label': gender_map(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
                             value = 0,
                             style={"width":110}
@@ -104,13 +107,16 @@ def build_dropdown_card(id, content_dict):
     ]
     return card
 
-def build_input_card(id, content_dict):
+def build_input_card(id, m, content_dict):
     insert_data = \
             [
                 dbc.Col(
                     html.Div(
                         dcc.Input(
-                            id="calc-numeric-{}".format(id),
+                            id={
+                                'type': 'mortality' if m else 'infections',
+                                'index': "calc-numeric-{}".format(id),
+                            },
                             type="number",
                             placeholder="e.g. {}".format(int(content_dict['default'])),
                             style={"width":80}
@@ -119,7 +125,7 @@ def build_input_card(id, content_dict):
                     ),
                 ),
             ]
-    if content_dict["name"] == "Body Temperature":
+    if content_dict["name"] == "Temperature Celsius":
         insert_data.append(
             dbc.Col(
                 html.Div(
@@ -143,7 +149,7 @@ def build_input_card(id, content_dict):
     ]
     return card
 
-def build_checkbox_card(id, content_dict):
+def build_checkbox_card(id, m, content_dict):
     insert_data = \
             [
                 dbc.Col(
@@ -151,7 +157,10 @@ def build_checkbox_card(id, content_dict):
                         dbc.Checklist(
                             options=[{'label': x, 'value': x} for x in content_dict['vals']],
                             value=[],
-                            id="calc-checkboxes-{}".format(id),
+                            id={
+                                'type': 'mortality' if m else 'infections',
+                                'index': "calc-checkboxes-{}".format(id),
+                            },
                         ),
                         id = "calc-checkboxes-{}-wrapper".format(id),
                     ),
@@ -168,7 +177,7 @@ def build_checkbox_card(id, content_dict):
     ]
     return card
 
-def build_multidrop_card(id, content_dict):
+def build_multidrop_card(id, m, content_dict):
     insert_data = \
             [
                 dbc.Col(
@@ -176,7 +185,10 @@ def build_multidrop_card(id, content_dict):
                         dcc.Dropdown(
                             options=[{'label': x, 'value': x} for x in content_dict['vals']],
                             value=[],
-                            id="calc-multidrop-{}".format(id),
+                            id={
+                                'type': 'mortality' if m else 'infections',
+                                'index': "calc-multidrop-{}".format(id)
+                            },
                             multi=True,
                         )],
                         id = "calc-multidrop-{}-wrapper".format(id),
@@ -194,33 +206,35 @@ def build_multidrop_card(id, content_dict):
     ]
     return card
 
+def fix_title(name):
+    if name == "Temperature Celsius":
+        return "Body Temeperature"
+    if name == "Sex":
+        return "Gender"
+    return name
+
 def build_feature_cards(m=True,labs=False):
-    print("mama")
     if m:
         features = labs_features_mort if labs else no_labs_features_mort
     else:
-        print("in")
         features = labs_features_infec if labs else no_labs_features_infec
-    model_id = "-mort" if m else "-infec"
     card_content = []
     cards = []
     inputs = features["numeric"]
     dropdowns = features["categorical"]
-    checkboxes = features["checkboxes"]
     multidrop = features["multidrop"]
-    for id, content_dict in enumerate(dropdowns):
-        card_content.append((content_dict['name'],build_dropdown_card(str(id)+model_id, content_dict)))
     for id, content_dict in enumerate(inputs):
-        card_content.append((content_dict['name'],build_input_card(str(id)+model_id, content_dict)))
-    for id, content_dict in enumerate(checkboxes):
-        card_content.append((content_dict['name'],build_checkbox_card(str(id)+model_id, content_dict)))
-    for id, content_dict in enumerate(multidrop):
-        card_content.append((content_dict['name'],build_multidrop_card(str(id)+model_id, content_dict)))
+        card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
+    for id, content_dict in enumerate(dropdowns):
+        card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict)))
+    if m:
+        for id, content_dict in enumerate(multidrop):
+            card_content.append((content_dict['name'],build_multidrop_card(str(id),m, content_dict)))
 
     for name,c in card_content:
         content = dbc.Card(
                         [
-                            dbc.CardHeader(name,style={"fontWeight": "bold"}),
+                            dbc.CardHeader(fix_title(name),style={"fontWeight": "bold"}),
                             dbc.CardBody(c,className="feat-options-body")
                         ],
                         className="feat-options"

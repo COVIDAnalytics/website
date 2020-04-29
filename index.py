@@ -2,7 +2,7 @@ import dash
 import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State, ALL
 import dash_bootstrap_components as dbc
 import flask
 import os
@@ -360,22 +360,24 @@ def get_feature_inputs(mortality=True,labs=False):
     Output('calc-input-error', 'message'),
     Output('imputed-text-mortality', 'children')],
     [Input('submit-features-calc', 'n_clicks'),
-    Input('lab_values_indicator_infection', 'value')],
-    get_feature_inputs(True,Input('lab_values_indicator_infection', 'value'))
+    Input('lab_values_indicator', 'value')],
+    [State({'type': 'mortality', 'index': ALL}, 'value')]
 )
 def calc_risk_score(*argv):
-    default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
+    default = html.H4("The mortality risk score is:",className="score-calculator-card-content-infection"),
+    submit = argv[0]
+    labs = argv[1]
     #if submit button was clicked
-    if argv[0] > 0:
-        x = argv[1:]
-        valid, err = valid_input_mort(x)
+    if submit > 0:
+        x = argv[2:]
+        valid, err, x = valid_input_mort(labs,x)
         if valid:
-            score, imputed = predict_risk_mort(labs,x,missing)
+            score, imputed = predict_risk_mort(labs,x)
             return score,False,'',imputed
         else:
-            return default,True,err
+            return default,True,err,''
     #user has not clicked submit
-    return default,False,''
+    return default,False,'',''
 
 @app.callback(
     [Output('score-calculator-card-body-infection', 'children'),
@@ -384,7 +386,7 @@ def calc_risk_score(*argv):
     Output('imputed-text-infection', 'children')],
     [Input('submit-features-calc-infection', 'n_clicks'),
     Input('lab_values_indicator_infection', 'value')],
-    get_feature_inputs(False,Input('lab_values_indicator_infection', 'value'))
+    [State({'type': 'infection', 'index': ALL}, 'value')]
 )
 def calc_risk_score_infection(*argv):
     default = html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
