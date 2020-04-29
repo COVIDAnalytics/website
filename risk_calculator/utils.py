@@ -66,9 +66,17 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     impute_text = [''] * len(imputed)
     for i,ind in enumerate(imputed):
         ind = int(ind)
-        if columns[ind] == 'Temperature Celsius':
-            impute_text[i] = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as ' + str(round(x_full[0][ind],2)) + '°C.'
+        text = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as '
+        if columns[ind] == 'SaO2':
+            if x_full[0][ind] == 1:
+                text += '>92'
+            else:
+                text += '<92'
         else:
-            impute_text[i] = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as ' + str(round(x_full[0][ind],2)) + '.'
+            text += str(round(x_full[0][ind],2))
+        if columns[ind] == 'Temperature Celsius':
+            impute_text[i] = text + '°C.'
+        else:
+            impute_text[i] = text + '.'
     impute_text = '  \n'.join(impute_text)
     return score,impute_text

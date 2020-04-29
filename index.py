@@ -21,8 +21,8 @@ from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
-from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, no_labs_features_mort
-from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, no_labs_features_infec
+from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, no_labs_features_mort, get_model_desc_mortality
+from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, no_labs_features_infec, get_model_desc_infection
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
@@ -303,21 +303,13 @@ def download_ventilator_documentation():
     Output('infection-model-desc', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
 def get_infection_model_desc(labs):
-    return ['this is a dynamic description that depends on the model chosen above']
+    return get_model_desc_infection(labs)
 
 @app.callback(
     Output('mortality-model-desc', 'children'),
     [Input('lab_values_indicator', 'value')])
 def get_mortality_model_desc(labs):
-    if labs:
-        return ['this is a dynamic description that depends on the model chosen above']
-    else:
-        return [
-            'We utilized random forest to predict a mortality risk score for patients hospitalized due to COVID-19. \
-            The out of sample area under the curve (AUC) on 124 patients (out of whom 50 deceased) is',
-            html.Span(' 0.92 ', style={'color': '#800020',"fontWeight":"bold"}),
-            ' and the importance of the features is as follows:'
-        ]
+    return get_model_desc_mortality(labs)
 
 @app.callback(
     Output('feature-importance-bar-graph-infection', 'children'),

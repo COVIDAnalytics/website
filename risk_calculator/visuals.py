@@ -53,11 +53,7 @@ def get_model_desc(id):
                 dbc.Row(
                 [
                     dbc.Jumbotron(
-                    [
-                        html.Div(
                             id = id
-                        )
-                    ],
                     ),
                 ],
                 justify="center"
@@ -137,15 +133,15 @@ def get_results_card(id,err_id):
             ]
 
 def get_inputed_vals(id):
-    return [
-                dbc.Row(
-                    dbc.Col(
-                    [
-                        dcc.Markdown(
-                            id = id
-                        )
-                    ],
-                    ),
-                    justify="center",
+     return [
+             dbc.Row(
+                dbc.Col(
+                [
+                    dcc.Markdown(
+                         id = id
+                    )
+                ],
                 ),
-            ]
+                justify="center",
+             ),
+             ]

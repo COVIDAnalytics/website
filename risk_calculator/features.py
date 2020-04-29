@@ -74,14 +74,8 @@ def build_feature_importance_graph(m=True,labs=False):
 def map_feat_vals(x,name):
     if name == "Sex":
         return "Male" if x == 0 else "Female"
-
-        else:
-            return
     if name == "SaO2":
-        if x > 92:
-            return 1
-        else:
-
+        return 1 if x > 92 else 0
     return x
 
 def build_dropdown_card(id, m, content_dict):
