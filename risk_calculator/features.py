@@ -85,7 +85,7 @@ def build_dropdown_card(id, m, content_dict):
                     html.Div(
                         dcc.Dropdown(
                             id={
-                                'type': 'mortality' if m else 'infections',
+                                'type': 'mortality' if m else 'infection',
                                 'index': 'calc-categorical-{}'.format(id),
                             },
                             options = [{'label': gender_map(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
@@ -114,7 +114,7 @@ def build_input_card(id, m, content_dict):
                     html.Div(
                         dcc.Input(
                             id={
-                                'type': 'mortality' if m else 'infections',
+                                'type': 'mortality' if m else 'infection',
                                 'index': "calc-numeric-{}".format(id),
                             },
                             type="number",
@@ -158,7 +158,7 @@ def build_checkbox_card(id, m, content_dict):
                             options=[{'label': x, 'value': x} for x in content_dict['vals']],
                             value=[],
                             id={
-                                'type': 'mortality' if m else 'infections',
+                                'type': 'mortality' if m else 'infection',
                                 'index': "calc-checkboxes-{}".format(id),
                             },
                         ),
@@ -186,7 +186,7 @@ def build_multidrop_card(id, m, content_dict):
                             options=[{'label': x, 'value': x} for x in content_dict['vals']],
                             value=[],
                             id={
-                                'type': 'mortality' if m else 'infections',
+                                'type': 'mortality' if m else 'infection',
                                 'index': "calc-multidrop-{}".format(id)
                             },
                             multi=True,

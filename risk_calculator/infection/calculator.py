@@ -100,12 +100,12 @@ def predict_risk_infec(labs,feature_vals):
     if labs:
         model = labs_model_infec
         features = labs_features_infec
-        mputer = labs_imputer_infec
+        imputer = labs_imputer_infec
     else:
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    score = predict_risk(model,features,feature_vals,missing)
+    score = predict_risk(False,model,features,imputer,feature_vals)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(score,className="score-calculator-card-content-infection"),

@@ -5,6 +5,7 @@ def convert_temp_units(x):
     return (x-32)/1.8
 
 def valid_input(features,feature_vals,length):
+    print(feature_vals,length)
     numerics = feature_vals[:length]
     for feat in range(length):
         val = numerics[feat]
@@ -19,7 +20,7 @@ def valid_input(features,feature_vals,length):
                 return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val),feature_vals
     return True,"",feature_vals
 
-def predict_risk(model,features,imputer,feature_vals):
+def predict_risk(m,model,features,imputer,feature_vals):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
     convert_temperature = feature_vals[-1] == "°F"
@@ -34,10 +35,11 @@ def predict_risk(model,features,imputer,feature_vals):
     for feat in features["categorical"]:
         x[feat["index"]] = feature_vals[i]
         i+=1
-    comorbidities = feature_vals[i]
-    for c in comorbidities:
-        ind = features["multidrop"][0]["vals"].index(c)
-        x[ind] = 1
+    if m:
+        comorbidities = feature_vals[i]
+        for c in comorbidities:
+            ind = features["multidrop"][0]["vals"].index(c)
+            x[ind] = 1
     x = imputer.transform([x])
     print(x)
     score = model.predict_proba(x)[:,1]

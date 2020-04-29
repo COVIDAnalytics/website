@@ -394,9 +394,9 @@ def calc_risk_score_infection(*argv):
     #if submit button was clicked
     if submit > 0:
         x = argv[2:]
-        valid, err, x, missing = valid_input_infec(labs,x)
+        valid, err, x  = valid_input_infec(labs,x)
         if valid:
-            score, imputed = predict_risk_infec(labs,x,missing)
+            score, imputed = predict_risk_infec(labs,x)
             return score,False,'',imputed
         else:
             return default,True,err,''
