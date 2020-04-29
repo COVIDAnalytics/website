@@ -112,11 +112,9 @@ def predict_risk_infec(labs,feature_vals):
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    score = predict_risk(False,model,features,imputer,feature_vals,cols)
+    score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(score,className="score-calculator-card-content-infection"),
     ]
-    impute_text = 'None'
-    #impute text
     return card_content,impute_text

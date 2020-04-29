@@ -138,14 +138,13 @@ def get_results_card(id,err_id):
 def get_inputed_vals(id):
     return [
                 dbc.Row(
-                [
                     dbc.Col(
                     [
-                        html.Div(
+                        dcc.Markdown(
                             id = id
                         )
                     ],
                     ),
-                ]
+                    justify="center",
                 ),
             ]

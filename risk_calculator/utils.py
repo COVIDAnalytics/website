@@ -40,9 +40,15 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
         for c in comorbidities:
             ind = features["multidrop"][0]["vals"].index(c)
             x[ind] = 1
-    x = imputer.transform([x])
+    imputed = np.argwhere(np.isnan(x))
+    x_full = imputer.transform([x])
     X = pd.DataFrame(columns = columns, index = range(1), dtype=np.float)
-    X.loc[0]=x[0]
+    X.loc[0]=x_full[0]
     score = model.predict_proba(X)[:,1]
     score = str(int(100*round(1 - score[0], 2)))+"%"
-    return score
+    impute_text = [''] * len(imputed)
+    for i,ind in enumerate(imputed):
+        ind = int(ind)
+        impute_text[i] = 'The missing feature, ' + columns[ind] + ', was calculated as ' + str(round(x_full[0][ind],2)) + '.'
+    impute_text = '  \n'.join(impute_text)
+    return score,impute_text

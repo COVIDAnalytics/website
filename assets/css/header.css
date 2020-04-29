@@ -54,3 +54,11 @@ P {
   color: #800020;
   font-style: bold;
 }
+
+#imputed-text-infection{
+  text-align: center;
+}
+
+#imputed-text-mortality{
+  text-align: center;
+}

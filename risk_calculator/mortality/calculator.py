@@ -124,10 +124,9 @@ def predict_risk_mort(labs,feature_vals):
         model = no_labs_model_mort
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
-    score = predict_risk(True,model,features,imputer,feature_vals,cols)
+    score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),
     ]
-    impute_text = 'None'
-    return card_content,impute_text
+    return card_content,imputed_text
