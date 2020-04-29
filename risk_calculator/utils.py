@@ -5,7 +5,6 @@ def convert_temp_units(x):
     return (x-32)/1.8
 
 def valid_input(features,feature_vals,length):
-    print(feature_vals,length)
     numerics = feature_vals[:length]
     for feat in range(length):
         val = numerics[feat]
@@ -41,7 +40,6 @@ def predict_risk(m,model,features,imputer,feature_vals):
             ind = features["multidrop"][0]["vals"].index(c)
             x[ind] = 1
     x = imputer.transform([x])
-    print(x)
     score = model.predict_proba(x)[:,1]
     score = str(int(100*round(1 - score[0], 2)))+"%"
     return dash_core_components
