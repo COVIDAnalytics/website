@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import math
 import dash_core_components as dcc
 
 def convert_temp_units(x):
@@ -7,10 +8,14 @@ def convert_temp_units(x):
 
 def valid_input(features,feature_vals,length):
     numerics = feature_vals[:length]
+    missing = 0
     for feat in range(length):
         val = numerics[feat]
         if val is None:
+            if features[feat]["name"] == "Age":
+                return False, "Please insert a value for Age.", feature_vals
             feature_vals[feat] = np.nan
+            missing += 1
         else:
             content = features[feat]
             name = content["name"]
@@ -18,6 +23,9 @@ def valid_input(features,feature_vals,length):
             max_val = content["max_val"]
             if val < min_val or val > max_val:
                 return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val),feature_vals
+    threshold = math.floor(2*length/3)
+    if missing > threshold:
+        return False, "Please insert at least {} numeric values.".format(threshold), feature_vals
     return True,"",feature_vals
 
 def predict_risk(m,model,features,imputer,feature_vals,columns):
