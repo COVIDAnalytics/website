@@ -375,7 +375,7 @@ def get_feature_inputs(mortality=True,labs=False):
     [State({'type': 'mortality', 'index': ALL}, 'value')]
 )
 def calc_risk_score(*argv):
-    default = html.H4("The mortality risk score is:",className="score-calculator-card-content-infection"),
+    default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
     submit = argv[0]
     labs = argv[1]
     #if submit button was clicked
