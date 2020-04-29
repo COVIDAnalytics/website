@@ -37,34 +37,40 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H2("Infection Risk Calculator")
-            ]
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.Div(
+                dbc.Jumbotron(
                 [
+                    html.H2("Infection Risk Calculator"),
                     dcc.Markdown(
-                         """blah
+                         """Severe COVID-19 patients require our most limited health care resources,\
+                          ventilators and intensive care beds. As a result, physicians have the hard \
+                          responsibility to decide which patients should have priority access to these \
+                          resources. To help them make an informed decision, we construct and publish \
+                          patient risk calculators tailored for COVID-19 patients.
+                         """,
+                    ),
+                    html.Hr(),
+                    dcc.Markdown(
+                         """ **Disclaimer:** A model is only as good as the data it is trained on. We will \
+                         release new versions of the calculator as the amount of data we receive from \
+                         our partner institutions increases. If you are a medical institution and are \
+                         willing to contribute to our effort, feel free to reach out to us [here](/contact).
                          """,
                     ),
                     dcc.Markdown(
-                         """ **Disclaimer:** blah
-                         """,
-                    ),
-                    dcc.Markdown(
-                         """ **Data** blah \
+                         """ **Data** (as of 04/15/2020): Our model is trained on 496 patients (out of whom 201 deceased) hospitalized due to COVID-19 at the Azienda \
+                         Socio-Sanitaria Territoriale di Cremona [ASST Cremona](https://www.asst-cremona.it/) which includes the Ospedale \
+                         di Cremona, Ospedale Oglio Po and other minor public hospitals in the Province of \
+                         Cremona. Cremona is one of the most hit italian provinces in Lombardy in the Italian \
+                         COVID-19 crisis with a total of several thousand positive cases to date. Given our training \
+                         population, we are most confident about the relevance of our model to: (a) Western population; \
+                         (b) Severe to acute patients; (c) Congested hospitals. \
                          """,
                     ),
                     dcc.Markdown(
                          """ **This is a developmental version. It is not intended for patient or clinician use.\
                           It is available only to solicit input about its future development.**
                          """,
-                         )
+                         ),
                 ]
                 )
             ]

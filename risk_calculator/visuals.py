@@ -52,14 +52,15 @@ def get_model_desc(id):
     return [
                 dbc.Row(
                 [
-                    dbc.Col(
+                    dbc.Jumbotron(
                     [
                         html.Div(
                             id = id
                         )
                     ],
                     ),
-                ]
+                ],
+                justify="center"
                 ),
             ]
 

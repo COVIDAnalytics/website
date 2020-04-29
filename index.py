@@ -303,13 +303,21 @@ def download_ventilator_documentation():
     Output('infection-model-desc', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
 def get_infection_model_desc(labs):
-    return 'this is a dynamic description that depends on the model chosen above'
+    return ['this is a dynamic description that depends on the model chosen above']
 
 @app.callback(
     Output('mortality-model-desc', 'children'),
     [Input('lab_values_indicator', 'value')])
 def get_mortality_model_desc(labs):
-    return 'this is a dynamic description that depends on the model chosen above'
+    if labs:
+        return ['this is a dynamic description that depends on the model chosen above']
+    else:
+        return [
+            'We utilized random forest to predict a mortality risk score for patients hospitalized due to COVID-19. \
+            The out of sample area under the curve (AUC) on 124 patients (out of whom 50 deceased) is',
+            html.Span(' 0.92 ', style={'color': '#800020',"fontWeight":"bold"}),
+            ' and the importance of the features is as follows:'
+        ]
 
 @app.callback(
     Output('feature-importance-bar-graph-infection', 'children'),

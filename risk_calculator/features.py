@@ -74,9 +74,9 @@ def build_feature_importance_graph(m=True,labs=False):
 def gender_map(x,name):
     if name == "Sex":
         if x == 0:
-            return "Female"
-        else:
             return "Male"
+        else:
+            return "Female"
     return x
 
 def build_dropdown_card(id, m, content_dict):

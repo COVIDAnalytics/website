@@ -60,7 +60,7 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     X = pd.DataFrame(columns = columns, index = range(1), dtype=np.float)
     X.loc[0]=x_full[0]
     score = model.predict_proba(X)[:,1]
-    score = str(int(100*round(1 - score[0], 2)))+"%"
+    score = str(int(100*round(score[0], 2)))+"%"
     impute_text = [''] * len(imputed)
     for i,ind in enumerate(imputed):
         ind = int(ind)

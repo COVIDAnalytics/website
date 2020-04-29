@@ -34,17 +34,9 @@ body = dbc.Container(
         [
             dbc.Col(
             [
-              html.H2("Mortality Risk Calculator")
-            ]
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.Div(
+                dbc.Jumbotron(
                 [
+                    html.H2("Mortality Risk Calculator"),
                     dcc.Markdown(
                          """Severe COVID-19 patients require our most limited health care resources,\
                           ventilators and intensive care beds. As a result, physicians have the hard \
@@ -53,6 +45,7 @@ body = dbc.Container(
                           patient risk calculators tailored for COVID-19 patients.
                          """,
                     ),
+                    html.Hr(),
                     dcc.Markdown(
                          """ **Disclaimer:** A model is only as good as the data it is trained on. We will \
                          release new versions of the calculator as the amount of data we receive from \
