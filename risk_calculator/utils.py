@@ -11,6 +11,8 @@ def fix_title(name):
         return "Body Temperature"
     if name == "Sex":
         return "Gender"
+    if name == "SaO2":
+        return "SpO2"
     return name
 
 def valid_input(features,feature_vals,length):

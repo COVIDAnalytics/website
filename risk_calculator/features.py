@@ -23,10 +23,10 @@ def build_feature_importance_graph(m=True,labs=False):
     feature_list = ['']*len(model.feature_importances_)
     i = 0
     for feat in features["numeric"]:
-        feature_list[feat["index"]] = feat["name"]
+        feature_list[feat["index"]] = fix_title(feat["name"])
         i+=1
     for feat in features["categorical"]:
-        feature_list[feat["index"]] = feat["name"]
+        feature_list[feat["index"]] = fix_title(feat["name"])
         i+=1
     for feat in features["checkboxes"]:
         for j,name in enumerate(feat["vals"]):
@@ -71,12 +71,17 @@ def build_feature_importance_graph(m=True,labs=False):
     return graph
 
 
-def gender_map(x,name):
+def map_feat_vals(x,name):
     if name == "Sex":
-        if x == 0:
-            return "Male"
+        return "Male" if x == 0 else "Female"
+
         else:
-            return "Female"
+            return
+    if name == "SaO2":
+        if x > 92:
+            return 1
+        else:
+
     return x
 
 def build_dropdown_card(id, m, content_dict):
@@ -89,7 +94,7 @@ def build_dropdown_card(id, m, content_dict):
                                 'type': 'mortality' if m else 'infection',
                                 'index': 'calc-categorical-{}'.format(id),
                             },
-                            options = [{'label': gender_map(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
+                            options = [{'label': map_feat_vals(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
                             value = 0,
                             style={"width":110}
                         ),
