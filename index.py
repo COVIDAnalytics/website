@@ -335,6 +335,18 @@ def get_infection_model_feat_cards(labs):
 def get_mortality_model_feat_cards(labs):
     return build_feature_cards(True,labs)
 
+@app.callback(
+    Output('submit-features-calc-infection', 'n_clicks'),
+    [Input('lab_values_indicator_infection', 'value')])
+def reset_submit_button_infection(labs):
+    return 0
+
+@app.callback(
+    Output('submit-features-calc', 'n_clicks'),
+    [Input('lab_values_indicator', 'value')])
+def reset_submit_button_mortality(labs):
+    return 0
+
 def get_type_inputs(amount,name):
     inputs = [None]*amount
     for k in range(amount):

@@ -6,6 +6,13 @@ import dash_core_components as dcc
 def convert_temp_units(x):
     return (x-32)/1.8
 
+def fix_title(name):
+    if name == "Temperature Celsius":
+        return "Body Temperature"
+    if name == "Sex":
+        return "Gender"
+    return name
+
 def valid_input(features,feature_vals,length):
     numerics = feature_vals[:length]
     missing = 0
@@ -57,6 +64,9 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     impute_text = [''] * len(imputed)
     for i,ind in enumerate(imputed):
         ind = int(ind)
-        impute_text[i] = 'The missing feature, ' + columns[ind] + ', was calculated as ' + str(round(x_full[0][ind],2)) + '.'
+        if columns[ind] == 'Temperature Celsius':
+            impute_text[i] = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as ' + str(round(x_full[0][ind],2)) + '°C.'
+        else:
+            impute_text[i] = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as ' + str(round(x_full[0][ind],2)) + '.'
     impute_text = '  \n'.join(impute_text)
     return score,impute_text

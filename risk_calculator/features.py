@@ -7,6 +7,7 @@ import dash_html_components as html
 
 from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort, labs_model_mort, no_labs_model_mort
 from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec, labs_model_infec, no_labs_model_infec
+from risk_calculator.utils import fix_title
 
 from navbar import Navbar
 from footer import Footer
@@ -206,12 +207,6 @@ def build_multidrop_card(id, m, content_dict):
     ]
     return card
 
-def fix_title(name):
-    if name == "Temperature Celsius":
-        return "Body Temeperature"
-    if name == "Sex":
-        return "Gender"
-    return name
 
 def build_feature_cards(m=True,labs=False):
     if m:
