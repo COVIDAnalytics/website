@@ -15,6 +15,10 @@ with open("assets/team_members/team.yml") as f:
     members = yaml.load(f, Loader=yaml.FullLoader)
 num_members = len(members)
 
+with open("assets/team_members/faculty.yml") as f:
+    faculty = yaml.load(f, Loader=yaml.FullLoader)
+num_faculty = len(faculty)
+
 with open("assets/collaborators/organizations.yml") as f:
     collaborators = yaml.load(f, Loader=yaml.FullLoader)
 num_collaborators = len(collaborators)
@@ -82,6 +86,16 @@ member_rows = \
         )
     ]
 
+faculty_rows = \
+    [
+        dbc.Row(
+            [
+                member_pic(faculty[i]) for i in range(num_faculty)
+            ],
+            justify="around",
+        )
+    ]
+
 collab_rows = \
     [
         dbc.Row(
@@ -108,6 +122,17 @@ body = dbc.Container(
                 style={'marginBottom': 20}
             )
         ] + member_rows +
+        [dbc.Row(
+            [
+                dbc.Col(
+                [
+                    html.H2("Collaborating Faculty"),
+                ]
+                )
+            ],
+            style={'marginBottom': 20,'marginTop': 40}
+        )
+        ] + faculty_rows +
         [dbc.Row(
             [
                 dbc.Col(

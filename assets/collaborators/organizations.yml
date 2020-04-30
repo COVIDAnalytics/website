@@ -1,12 +1,12 @@
 - name: "ASST-Cremona"
   photo: "cremona_logo2.png"
   website: "https://www.asst-cremona.it/"
+- name: "Fundación HM"
+  photo: "fundacionhm.png"
+  website: "https://www.fundacionhm.com/"
 - name: "Hartford Hospital"
   photo: "Hartford_logo.jpg"
   website: "https://hartfordhospital.org/"
 - name: "Sotiria Thoracic Diseases Hospital of Athens"
   photo: "sotiria_logo.jpg"
   website: "https://www.sotiria.gr/"
-
-
-

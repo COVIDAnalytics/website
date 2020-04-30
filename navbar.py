@@ -5,47 +5,49 @@ def Navbar():
     links = dbc.Row(
         [
                 dbc.DropdownMenu(
-                   color="link",
-                   label="Dataset",
-                   children=[
+                    className = "nav-links-dd",
+                    color="link",
+                    label="Dataset",
+                    children=[
                       dbc.DropdownMenuItem("Data", href="/dataset"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Insights", href="/interactive-graph"),
                     ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
                 dbc.DropdownMenu(
-                   color="link",
-                   label="Projections",
-                   children=[
+                    className = "nav-links-dd",
+                    color="link",
+                    label="Projections",
+                    children=[
                       dbc.DropdownMenuItem("Case Predictions", href="/projections"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Ventilator Allocation", href="/ventilator_allocation"),
                     ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
                 dbc.DropdownMenu(
-                   color="link",
-                   label="Risk Calculators",
-                   children=[
-                      dbc.DropdownMenuItem("Mortality Risk Calculator", href="/mortality_calculator"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Infection Risk Calculator", href="/infection_calculator"),
-                    ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
+                    className = "nav-links-dd",
+                    color="link",
+                    label="Risk Calculators",
+                    children=[
+                       dbc.DropdownMenuItem("Mortality Risk Calculator", href="/mortality_calculator"),
+                       dbc.DropdownMenuItem(divider=True),
+                       dbc.DropdownMenuItem("Infection Risk Calculator", href="/infection_calculator"),
                 ),
                 dbc.DropdownMenu(
-                   color="link",
-                   label="About Us",
-                   children=[
+                    className = "nav-links-dd",
+                    color="link",
+                    label="About Us",
+                    children=[
                       dbc.DropdownMenuItem("The Team", href="/team"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Contact Us", href="/contact"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("In the Press", href="/press"),
                     ],
-                    style={"paddingTop": 30,"paddingBottom": 20}
                 ),
+                dbc.Button(
+                    "In the Press",
+                    className = "nav-links-dd",
+                     color="link", href="/press",
+                    ),
             ],
             id="navbar-links",
             style={"position":"static"},
