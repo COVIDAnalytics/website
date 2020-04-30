@@ -400,16 +400,18 @@ def get_feature_inputs(mortality=True,labs=False):
     return inputs
 
 def switch_oxygen(vec,ind):
-    vec = vec[0]
-    if len(vec) > 0:
-        vec = vec
-        oxygen = vec[-1]
-        n = len(vec)-1
+    vec = list(vec)
+    vals = vec[0]
+    if len(vals) > 0:
+        oxygen = vals[-1]
+        n = len(vals)-1
         for i in range(n,ind,-1):
-            vec[i] = vec[i-1]
-        vec[ind] = oxygen
-        return vec
-    return vec
+            vals[i] = vals[i-1]
+        vals[ind] = oxygen
+        vec[0] = vals
+        return tuple(vec)
+    vec[0] = vals
+    return tuple(vec)
 
 @app.callback(
     [Output('score-calculator-card-body', 'children'),
@@ -462,7 +464,6 @@ def calc_risk_score_infection(*argv):
     #if submit button was clicked
     if submit > 0:
         x = feats
-        print(x)
         valid, err, x  = valid_input_infec(labs,x)
         if valid:
             score, imputed = predict_risk_infec(labs,x)

@@ -90,7 +90,7 @@ def valid_input_infec(labs,feature_vals):
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
     length = len(features["numeric"])
-    return valid_input(features["numeric"],feature_vals,length)
+    return valid_input(features["numeric"],feature_vals[0],length)
 
 def predict_risk_infec(labs,feature_vals):
     if labs:

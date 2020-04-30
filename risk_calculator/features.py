@@ -115,23 +115,31 @@ def oxygen_options(id,m,have_val):
             }
     if have_val:
         return [
-            html.Div("Insert the value."),
-            dcc.Input(
-                id=id_full,
-                type="number",
-                placeholder="e.g. 92",
-                style={"width":80}
-                )
+            dbc.Col(
+                    html.Div("Insert the value."),
+            ),
+            dbc.Col(
+                    dcc.Input(
+                        id=id_full,
+                        type="number",
+                        placeholder="e.g. 92",
+                        style={"width":80}
+                        )
+            )
         ]
     else:
         return [
-            html.Div("Do you have shortness of breath?"),
-            dcc.Dropdown(
-                id=id_full,
-                options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
-                value = 0,
-                style={"width":80}
+            dbc.Col(
+                    html.Div("Do you have shortness of breath?"),
             ),
+            dbc.Col(
+                    dcc.Dropdown(
+                        id=id_full,
+                        options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
+                        value = 0,
+                        style={"width":80}
+                    ),
+            )
         ]
 
 def build_oxygen_card(id, m, content_dict):
@@ -154,11 +162,7 @@ def build_oxygen_card(id, m, content_dict):
     ]
     insert_data.append(
         dbc.Row(
-            dbc.Col(
-                html.Div(
-                    id = "calc-numeric-{}-wrapper-{}".format(id,model),
-                ),
-            ),
+                id = "calc-numeric-{}-wrapper-{}".format(id,model),
         ),
     )
 
@@ -305,7 +309,7 @@ def build_feature_cards(m=True,labs=False):
         if name == "Comorbidities":
             w2 = 12
         elif name == "SaO2":
-            w2 = 6
+            w2 = 5
         else:
             w2 = 4
         if name == "Comorbidities" or name == "SaO2":
@@ -320,7 +324,7 @@ def build_feature_cards(m=True,labs=False):
                 },
             xs=12,
             sm=w1,
-            md=w2,
+            md=w1,
             lg=w2,
             )
         cards.append(card)

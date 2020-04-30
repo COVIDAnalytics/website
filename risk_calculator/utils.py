@@ -25,7 +25,6 @@ def get_oxygen_ind(feats):
     return None
 
 def valid_input(features,feature_vals,length):
-    print(feature_vals)
     numerics = feature_vals[:length]
     missing = 0
     for feat in range(length):
