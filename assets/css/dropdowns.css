@@ -65,3 +65,11 @@
         width:300px;
     }
 }
+
+.nav-links-dd{
+  padding-bottom: 0.1rem  !important;
+  padding-top: 0.05rem  !important;
+  margin-top: 0  !important;
+  margin-bottom: 0  !important;
+  line-height: 50px !important;
+}
