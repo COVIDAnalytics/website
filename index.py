@@ -392,14 +392,16 @@ def get_feature_inputs(mortality=True,labs=False):
         features = labs_features_mort if labs else no_labs_features_mort
     else:
         features = labs_features_infec if labs else no_labs_features_infec
-    inputs = get_type_inputs(len(features['numeric']),'numeric')
-    inputs += get_type_inputs(len(features['categorical']),'categorical')
+    inputs = get_type_inputs(len(features['categorical']),'categorical')
+    inputs += get_type_inputs(len(features['numeric']),'numeric')
     inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
     inputs += get_type_inputs(len(features['multidrop']),'multidrop')
     inputs += [State('calc-temp-f-c', 'value')]
     return inputs
 
 def switch_oxygen(vec,ind):
+    #assume there is only 1 categorical variable
+    ind = ind + 1
     vec = list(vec)
     vals = vec[0]
     if len(vals) > 0:
@@ -409,6 +411,7 @@ def switch_oxygen(vec,ind):
             vals[i] = vals[i-1]
         vals[ind] = oxygen
         vec[0] = vals
+        print(vec)
         return tuple(vec)
     vec[0] = vals
     return tuple(vec)

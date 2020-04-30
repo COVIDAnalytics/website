@@ -22,10 +22,10 @@ def build_feature_importance_graph(m=True,labs=False):
 
     feature_list = ['']*len(model.feature_importances_)
     i = 0
-    for feat in features["numeric"]:
+    for feat in features["categorical"]:
         feature_list[feat["index"]] = title_mapping[feat["name"]]
         i+=1
-    for feat in features["categorical"]:
+    for feat in features["numeric"]:
         feature_list[feat["index"]] = title_mapping[feat["name"]]
         i+=1
     for feat in features["checkboxes"]:
@@ -149,7 +149,7 @@ def build_oxygen_card(id, labs, m, content_dict):
     [
         dbc.Row(
         [
-            dbc.Col(html.Div("Do you have the value for SpO2?")),
+            dbc.Col(html.Div("Do you have the value for SpO2 or SaO2?")),
             dbc.Col(
                     dcc.Dropdown(
                         id="oxygen-answer-{}".format(model),
@@ -288,13 +288,13 @@ def build_feature_cards(m=True,labs=False):
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
+    for id, content_dict in enumerate(dropdowns):
+        card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict)))
     for id, content_dict in enumerate(inputs):
         if title_mapping[content_dict['name']] == oxygen:
             card_content.append((content_dict['name'],build_oxygen_card(str(id), labs, m, content_dict)))
         else:
             card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
-    for id, content_dict in enumerate(dropdowns):
-        card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict)))
     if m:
         for id, content_dict in enumerate(multidrop):
             card_content.append((content_dict['name'],build_multidrop_card(str(id),m, content_dict)))

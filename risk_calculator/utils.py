@@ -4,30 +4,30 @@ import math
 import dash_core_components as dcc
 
 
-oxygen = 'Oxygen Saturation (SaO2 or SpO2)'
+oxygen = 'Oxygen Saturation'
 
 title_mapping = {
-    'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation (SaO2 or SpO2)',
+    'ABG: Oxygen Saturation (SaO2)': oxygen,
     'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase (ALT)',
     'Age': 'Age',
-    'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase (AST)',
+    'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase',
     'Blood Creatinine': 'Creatinine',
     'Blood Sodium': 'Sodium',
-    'Blood Urea Nitrogen (BUN)': 'Urea Nitrogen (BUN)',
+    'Blood Urea Nitrogen (BUN)': 'Urea Nitrogen',
     'Body Temperature': 'Temperature',
-    'C-Reactive Protein (CRP)':  'C-Reactive Protein (CRP)',
+    'C-Reactive Protein (CRP)':  'C-Reactive Protein',
     'CBC: Hemoglobin': 'Hemoglobin',
     'CBC: Leukocytes': 'Leukocytes',
-    'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume (MCV)',
+    'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume',
     'CBC: Platelets': 'Platelets',
     'Cardiac Frequency': 'Heart Rate',
     'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
     'Gender' : 'Gender',
     'Glycemia': 'Glycemia',
     'Potassium Blood Level': 'Potassium',
-    'Prothrombin Time (INR)': 'Prothrombin Time (INR)',
+    'Prothrombin Time (INR)': 'Prothrombin Time',
     'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
-    'SaO2': 'Oxygen Saturation (SaO2 or SpO2)',
+    'SaO2': oxygen,
     'Blood Calcium': 'Calcium',
     'ABG: PaO2': 'Partial Pressure Oxygen (PaO2)',
     'ABG: pH': 'Arterial Blood Gas pH',
@@ -51,14 +51,15 @@ def get_oxygen_ind(feats):
     return None
 
 def valid_input(features,feature_vals,length):
-    numerics = feature_vals[:length]
+    #assume theres only one categorical
+    numerics = feature_vals[1:length+1]
     missing = 0
     for feat in range(length):
         val = numerics[feat]
         if val is None:
             if features[feat]["name"] == "Age":
                 return False, "Please insert a value for Age.", feature_vals
-            feature_vals[feat] = np.nan
+            feature_vals[feat+1] = np.nan
             missing += 1
         else:
             content = features[feat]
@@ -79,22 +80,22 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     #if temperature is in F, switch measurement to Celsius
     convert_temperature = feature_vals[-1] == "°C"
     #align order of feature vector so that values are in correct order
-
     i = 0
+    for feat in features["categorical"]:
+        x[feat["index"]] = feature_vals[i]
+        i+=1
     for f,feat in enumerate(features["numeric"]):
         if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
         else:
             x[feat["index"]] = feature_vals[i]
         i+=1
-    for feat in features["categorical"]:
-        x[feat["index"]] = feature_vals[i]
-        i+=1
     if m:
         comorbidities = feature_vals[i]
         for c in comorbidities:
             ind = features["multidrop"][0]["vals"].index(c)
             x[ind] = 1
+    print("nan",x)
     imputed = np.argwhere(np.isnan(x))
     x_full = imputer.transform([x])
     X = pd.DataFrame(columns = columns, index = range(1), dtype=np.float)
