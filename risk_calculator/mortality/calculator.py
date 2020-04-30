@@ -28,8 +28,17 @@ no_labs_model_mort = no_labs["model"]
 no_labs_imputer_mort = no_labs["imputer"]
 no_labs_features_mort = no_labs["json"]
 
-oxygen_in_mort = False
-oxygen_in_mort_labs = False
+#hard coded columns
+cols_labs = ['ABG: Oxygen Saturation (SaO2)', 'Age', 'Alanine Aminotransferase (ALT)', 'Aspartate Aminotransferase (AST)', \
+    'Blood Creatinine', 'Blood Sodium', 'Blood Urea Nitrogen (BUN)', 'C-Reactive Protein (CRP)', 'CBC: Hemoglobin', \
+    'CBC: Leukocytes', 'CBC: Mean Corpuscular Volume (MCV)', 'CBC: Platelets', 'Cardiac Frequency', 'Cardiac dysrhythmias', \
+    'Chronic kidney disease', 'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', \
+    'Glycemia', 'Potassium Blood Level', 'Prothrombin Time (INR)', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
+cols_no_labs = ['Age', 'Cardiac Frequency', 'Cardiac dysrhythmias', 'Chronic kidney disease', \
+    'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', 'Sex', \
+    'Systolic Blood Pressure', 'Temperature Celsius']
+oxygen_in_mort = "SaO2" in cols_no_labs
+oxygen_in_mort_labs = "SaO2" in cols_labs
 oxygen_labs_mort_ind = get_oxygen_ind(labs_features_mort["numeric"])
 oxygen_mort_ind = get_oxygen_ind(no_labs_features_mort["numeric"])
 

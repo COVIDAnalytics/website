@@ -31,8 +31,16 @@ no_labs_model_infec = no_labs["model"]
 no_labs_imputer_infec = no_labs["imputer"]
 no_labs_features_infec = no_labs["json"]
 
-oxygen_in_infec = True
-oxygen_in_infec_labs = False
+#hard coded columns
+cols_labs = [
+    'C-Reactive Protein (CRP)', 'Blood Calcium', 'CBC: Leukocytes', 'Aspartate Aminotransferase (AST)', \
+    'ABG: PaO2', 'Age', 'Prothrombin Time (INR)', 'CBC: Hemoglobin', 'ABG: pH', 'Cholinesterase', 'Respiratory Frequency', \
+    'Blood Urea Nitrogen (BUN)', 'ABG: MetHb', 'Temperature Celsius', 'Total Bilirubin', 'Systolic Blood Pressure', \
+    'CBC: Mean Corpuscular Volume (MCV)', 'Glycemia', 'Cardiac Frequency', 'Sex']
+cols_no_labs = ['Age', 'Cardiac Frequency', 'Respiratory Frequency', 'SaO2', 'Sex', 'Systolic Blood Pressure', \
+    'Temperature Celsius']
+oxygen_in_infec = "SaO2" in cols_no_labs
+oxygen_in_infec_labs = "SaO2" in cols_labs
 oxygen_labs_infec_ind = get_oxygen_ind(labs_features_infec["numeric"])
 oxygen_infec_ind = get_oxygen_ind(no_labs_features_infec["numeric"])
 
@@ -94,17 +102,12 @@ def valid_input_infec(labs,feature_vals):
 
 def predict_risk_infec(labs,feature_vals):
     if labs:
-        cols = ['C-Reactive Protein (CRP)', 'Blood Calcium', 'CBC: Leukocytes', 'Aspartate Aminotransferase (AST)', \
-        'ABG: PaO2', 'Age', 'Prothrombin Time (INR)', 'CBC: Hemoglobin', 'ABG: pH', 'Cholinesterase', 'Respiratory Frequency', \
-        'Blood Urea Nitrogen (BUN)', 'ABG: MetHb', 'Temperature Celsius', 'Total Bilirubin', 'Systolic Blood Pressure', \
-        'CBC: Mean Corpuscular Volume (MCV)', 'Glycemia', 'Cardiac Frequency', 'Sex']
-    else:
-        cols = ['Age', 'Cardiac Frequency', 'Respiratory Frequency', 'SaO2', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
-    if labs:
+        cols = cols_labs
         model = labs_model_infec
         features = labs_features_infec
         imputer = labs_imputer_infec
     else:
+        cols = cols_no_labs
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
