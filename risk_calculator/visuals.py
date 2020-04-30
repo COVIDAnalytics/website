@@ -1,9 +1,8 @@
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
+from risk_calculator.utils import labs_ques
 
-def labs_ques(val):
-    return "Yes" if val else "No"
 
 def get_labs_indicator(id):
     return  [

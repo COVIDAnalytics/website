@@ -7,7 +7,7 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from risk_calculator.utils import convert_temp_units, predict_risk, valid_input
+from risk_calculator.utils import convert_temp_units, predict_risk, valid_input, get_oxygen_ind
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
 from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
 
@@ -27,6 +27,11 @@ labs_features_mort = labs["json"]
 no_labs_model_mort = no_labs["model"]
 no_labs_imputer_mort = no_labs["imputer"]
 no_labs_features_mort = no_labs["json"]
+
+oxygen_in_mort = False
+oxygen_in_mort_labs = False
+oxygen_labs_mort_ind = get_oxygen_ind(labs_features_mort["numeric"])
+oxygen_mort_ind = get_oxygen_ind(no_labs_features_mort["numeric"])
 
 body = dbc.Container(
     [
@@ -84,7 +89,7 @@ def valid_input_mort(labs,feature_vals):
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
     length = len(features["numeric"])
-    return valid_input(features["numeric"],feature_vals[0],length)
+    return valid_input(features["numeric"],feature_vals,length)
 
 def predict_risk_mort(labs,feature_vals):
     if labs:

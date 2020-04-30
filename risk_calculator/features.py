@@ -7,7 +7,7 @@ import dash_html_components as html
 
 from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort, labs_model_mort, no_labs_model_mort
 from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec, labs_model_infec, no_labs_model_infec
-from risk_calculator.utils import fix_title
+from risk_calculator.utils import fix_title,labs_ques
 
 from navbar import Navbar
 from footer import Footer
@@ -75,7 +75,8 @@ def map_feat_vals(x,name):
     if name == "Sex":
         return "Male" if x == 0 else "Female"
     if name == "SaO2":
-        return 1 if x > 92 else 0
+        if x > 1:
+            return 1 if x > 92 else 0
     return x
 
 def build_dropdown_card(id, m, content_dict):
@@ -103,6 +104,71 @@ def build_dropdown_card(id, m, content_dict):
         dbc.Tooltip(
             content_dict['explanation'],
             target='calc-categorical-{}-wrapper'.format(id),
+        ),
+    ]
+    return card
+
+def oxygen_options(id,m,have_val):
+    id_full = {
+                'type': 'mortality' if m else 'infection',
+                'index': "calc-numeric-{}".format(id),
+            }
+    if have_val:
+        return [
+            html.Div("Insert the value."),
+            dcc.Input(
+                id=id_full,
+                type="number",
+                placeholder="e.g. 92",
+                style={"width":80}
+                )
+        ]
+    else:
+        return [
+            html.Div("Do you have shortness of breath?"),
+            dcc.Dropdown(
+                id=id_full,
+                options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
+                value = 0,
+                style={"width":80}
+            ),
+        ]
+
+def build_oxygen_card(id, m, content_dict):
+    model = 'mortality' if m else 'infection'
+    insert_data = \
+    [
+        dbc.Row(
+        [
+            dbc.Col(html.Div("Do you have the value for SpO2?")),
+            dbc.Col(
+                    dcc.Dropdown(
+                        id="oxygen-answer-{}".format(model),
+                        options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
+                        value = 0,
+                        style={"width":80}
+                ),
+            )
+        ]
+        )
+    ]
+    insert_data.append(
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    id = "calc-numeric-{}-wrapper-{}".format(id,model),
+                ),
+            ),
+        ),
+    )
+
+    card = [
+        dbc.Row(
+            insert_data,
+        ),
+        dbc.Tooltip(
+            content_dict['explanation'],
+            target="calc-numeric-{}-wrapper-{}".format(id,model),
         ),
     ]
     return card
@@ -218,7 +284,10 @@ def build_feature_cards(m=True,labs=False):
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
     for id, content_dict in enumerate(inputs):
-        card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
+        if content_dict['name'] == "SaO2":
+            card_content.append(("SaO2",build_oxygen_card(str(id),m, content_dict)))
+        else:
+            card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
     for id, content_dict in enumerate(dropdowns):
         card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict)))
     if m:
@@ -233,8 +302,16 @@ def build_feature_cards(m=True,labs=False):
                         ],
                         className="feat-options"
                     )
-        w2 = 12 if name == "Comorbidities" else 4
-        w1 = 12 if name == "Comorbidities" else 6
+        if name == "Comorbidities":
+            w2 = 12
+        elif name == "SaO2":
+            w2 = 6
+        else:
+            w2 = 4
+        if name == "Comorbidities" or name == "SaO2":
+            w1 = 12
+        else:
+            w1 = 6
         card = \
             dbc.Col([content],
             style={

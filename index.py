@@ -21,9 +21,11 @@ from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
-from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, no_labs_features_mort, get_model_desc_mortality
-from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, no_labs_features_infec, get_model_desc_infection
-from risk_calculator.features import build_feature_cards, build_feature_importance_graph
+from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort, oxygen_in_mort_labs
+from risk_calculator.mortality.calculator import oxygen_labs_mort_ind, oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
+from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec, oxygen_in_infec_labs
+from risk_calculator.infection.calculator import oxygen_labs_infec_ind, oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
+from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
@@ -311,6 +313,38 @@ def get_infection_model_desc(labs):
 def get_mortality_model_desc(labs):
     return get_model_desc_mortality(labs)
 
+if oxygen_in_mort:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-mortailty".format(oxygen_mort_ind), 'children'),
+        [Input('lab_values_indicator', 'value'),
+        Input('oxygen-answer-mortality', 'value')])
+    def get_oxygen_mortality(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,True,have_val)
+
+if oxygen_in_mort_labs:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-mortailty".format(oxygen_mort_labs_ind), 'children'),
+        [Input('lab_values_indicator', 'value'),
+        Input('oxygen-answer-mortality', 'value')])
+    def get_oxygen_mortality(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,True,have_val)
+
+if oxygen_in_infec:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-infection".format(oxygen_infec_ind), 'children'),
+        [Input('lab_values_indicator_infection', 'value'),
+        Input('oxygen-answer-infection', 'value')])
+    def get_oxygen_infection(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,False,have_val)
+
+if oxygen_in_infec_labs:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-infection".format(oxygen_infec_labs_ind), 'children'),
+        [Input('lab_values_indicator_infection', 'value'),
+        Input('oxygen-answer-infection', 'value')])
+    def get_oxygen_infection(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,False,have_val)
+
 @app.callback(
     Output('feature-importance-bar-graph-infection', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
@@ -365,6 +399,18 @@ def get_feature_inputs(mortality=True,labs=False):
     inputs += [State('calc-temp-f-c', 'value')]
     return inputs
 
+def switch_oxygen(vec,ind):
+    vec = vec[0]
+    if len(vec) > 0:
+        vec = vec
+        oxygen = vec[-1]
+        n = len(vec)-1
+        for i in range(n,ind,-1):
+            vec[i] = vec[i-1]
+        vec[ind] = oxygen
+        return vec
+    return vec
+
 @app.callback(
     [Output('score-calculator-card-body', 'children'),
     Output('calc-input-error', 'displayed'),
@@ -378,9 +424,14 @@ def calc_risk_score(*argv):
     default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
     submit = argv[0]
     labs = argv[1]
+    feats = argv[2:]
+    if labs and oxygen_in_mort_labs:
+        feats = switch_oxygen(feats,oxygen_labs_infec_ind)
+    if not labs and oxygen_in_mort:
+        feats = switch_oxygen(feats,oxygen_infec_ind)
     #if submit button was clicked
     if submit > 0:
-        x = argv[2:]
+        x = feats
         valid, err, x = valid_input_mort(labs,x)
         if valid:
             score, imputed = predict_risk_mort(labs,x)
@@ -403,9 +454,15 @@ def calc_risk_score_infection(*argv):
     default = html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
     submit = argv[0]
     labs = argv[1]
+    feats = argv[2:]
+    if labs and oxygen_in_infec_labs:
+        feats = switch_oxygen(feats,oxygen_labs_infec_ind)
+    if not labs and oxygen_in_infec:
+        feats = switch_oxygen(feats,oxygen_infec_ind)
     #if submit button was clicked
     if submit > 0:
-        x = argv[2:]
+        x = feats
+        print(x)
         valid, err, x  = valid_input_infec(labs,x)
         if valid:
             score, imputed = predict_risk_infec(labs,x)

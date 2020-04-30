@@ -15,7 +15,17 @@ def fix_title(name):
         return "SpO2"
     return name
 
+def labs_ques(val):
+    return "Yes" if val else "No"
+
+def get_oxygen_ind(feats):
+    for i,f in enumerate(feats):
+        if f["name"] == "SaO2":
+            return i
+    return None
+
 def valid_input(features,feature_vals,length):
+    print(feature_vals)
     numerics = feature_vals[:length]
     missing = 0
     for feat in range(length):
@@ -30,8 +40,10 @@ def valid_input(features,feature_vals,length):
             name = content["name"]
             min_val = content["min_val"]
             max_val = content["max_val"]
+            if name == "SaO2" and (val == 1 or val == 0):
+                continue
             if val < min_val or val > max_val:
-                return False, "Please insert a numeric value for {} between {} and {}".format(name,min_val,max_val),feature_vals
+                return False, "Please insert a numeric value for {} between {} and {}".format(fix_title(name),min_val,max_val),feature_vals
     threshold = math.floor(2*length/3)
     if missing > threshold:
         return False, "Please insert at least {} numeric values.".format(threshold), feature_vals
@@ -42,6 +54,7 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     #if temperature is in F, switch measurement to Celsius
     convert_temperature = feature_vals[-1] == "°F"
     #align order of feature vector so that values are in correct order
+
     i = 0
     for f,feat in enumerate(features["numeric"]):
         if feat["name"] == "Body Temperature" and convert_temperature:
@@ -69,9 +82,9 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
         text = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as '
         if columns[ind] == 'SaO2':
             if x_full[0][ind] == 1:
-                text += '>92'
+                text += '>92 (Shortness of breath)'
             else:
-                text += '<92'
+                text += '<92 (No shortness of breath)'
         else:
             text += str(round(x_full[0][ind],2))
         if columns[ind] == 'Temperature Celsius':
