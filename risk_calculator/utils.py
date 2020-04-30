@@ -3,24 +3,50 @@ import pandas as pd
 import math
 import dash_core_components as dcc
 
-def convert_temp_units(x):
-    return (x-32)/1.8
 
-def fix_title(name):
-    if name == "Temperature Celsius":
-        return "Body Temperature"
-    if name == "Sex":
-        return "Gender"
-    if name == "SaO2":
-        return "SpO2"
-    return name
+oxygen = 'Oxygen Saturation (SaO2 or SpO2)'
+
+title_mapping = {
+    'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation (SaO2 or SpO2)',
+    'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase (ALT)',
+    'Age': 'Age',
+    'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase (AST)',
+    'Blood Creatinine': 'Creatinine',
+    'Blood Sodium': 'Sodium',
+    'Blood Urea Nitrogen (BUN)': 'Urea Nitrogen (BUN)',
+    'Body Temperature': 'Temperature',
+    'C-Reactive Protein (CRP)':  'C-Reactive Protein (CRP)',
+    'CBC: Hemoglobin': 'Hemoglobin',
+    'CBC: Leukocytes': 'Leukocytes',
+    'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume (MCV)',
+    'CBC: Platelets': 'Platelets',
+    'Cardiac Frequency': 'Heart Rate',
+    'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
+    'Gender' : 'Gender',
+    'Glycemia': 'Glycemia',
+    'Potassium Blood Level': 'Potassium',
+    'Prothrombin Time (INR)': 'Prothrombin Time (INR)',
+    'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
+    'SaO2': 'Oxygen Saturation (SaO2 or SpO2)',
+    'Blood Calcium': 'Calcium',
+    'ABG: PaO2': 'Partial Pressure Oxygen (PaO2)',
+    'ABG: pH': 'Arterial Blood Gas pH',
+    'Cholinesterase': 'Cholinesterase',
+    'Respiratory Frequency': 'Respiratory Frequency',
+    'ABG: MetHb': 'Arterial Blood Gas Methemoglobinemia',
+    'Total Bilirubin': 'Total Bilirubin',
+    'Comorbidities':'Comorbidities'
+}
+
+def convert_temp_units(x):
+    return x*9/5+32
 
 def labs_ques(val):
     return "Yes" if val else "No"
 
 def get_oxygen_ind(feats):
     for i,f in enumerate(feats):
-        if f["name"] == "SaO2":
+        if title_mapping[f["name"]] == oxygen:
             return i
     return None
 
@@ -39,10 +65,10 @@ def valid_input(features,feature_vals,length):
             name = content["name"]
             min_val = content["min_val"]
             max_val = content["max_val"]
-            if name == "SaO2" and (val == 1 or val == 0):
+            if title_mapping[name] == oxygen and (val == 1 or val == 0):
                 continue
             if val < min_val or val > max_val:
-                return False, "Please insert a numeric value for {} between {} and {}".format(fix_title(name),min_val,max_val),feature_vals
+                return False, "Please insert a numeric value for {} between {} and {}".format(title_mapping[name],min_val,max_val),feature_vals
     threshold = math.floor(2*length/3)
     if missing > threshold:
         return False, "Please insert at least {} numeric values.".format(threshold), feature_vals
@@ -51,7 +77,7 @@ def valid_input(features,feature_vals,length):
 def predict_risk(m,model,features,imputer,feature_vals,columns):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
-    convert_temperature = feature_vals[-1] == "°F"
+    convert_temperature = feature_vals[-1] == "°C"
     #align order of feature vector so that values are in correct order
 
     i = 0
@@ -78,16 +104,16 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     impute_text = [''] * len(imputed)
     for i,ind in enumerate(imputed):
         ind = int(ind)
-        text = 'The missing feature, ' + fix_title(columns[ind]) + ', was calculated as '
-        if columns[ind] == 'SaO2':
+        text = 'The missing feature, ' + title_mapping[columns[ind]] + ', was calculated as '
+        if title_mapping[columns[ind]] == oxygen:
             if x_full[0][ind] == 1:
                 text += '>92 (Shortness of breath)'
             else:
                 text += '<92 (No shortness of breath)'
         else:
             text += str(round(x_full[0][ind],2))
-        if columns[ind] == 'Temperature Celsius':
-            impute_text[i] = text + '°C.'
+        if columns[ind] == 'Body Temperature':
+            impute_text[i] = text + '°F.'
         else:
             impute_text[i] = text + '.'
     impute_text = '  \n'.join(impute_text)

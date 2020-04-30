@@ -32,15 +32,17 @@ no_labs_imputer_infec = no_labs["imputer"]
 no_labs_features_infec = no_labs["json"]
 
 #hard coded columns
-cols_labs = [
-    'C-Reactive Protein (CRP)', 'Blood Calcium', 'CBC: Leukocytes', 'Aspartate Aminotransferase (AST)', \
-    'ABG: PaO2', 'Age', 'Prothrombin Time (INR)', 'CBC: Hemoglobin', 'ABG: pH', 'Cholinesterase', 'Respiratory Frequency', \
-    'Blood Urea Nitrogen (BUN)', 'ABG: MetHb', 'Temperature Celsius', 'Total Bilirubin', 'Systolic Blood Pressure', \
-    'CBC: Mean Corpuscular Volume (MCV)', 'Glycemia', 'Cardiac Frequency', 'Sex']
-cols_no_labs = ['Age', 'Cardiac Frequency', 'Respiratory Frequency', 'SaO2', 'Sex', 'Systolic Blood Pressure', \
-    'Temperature Celsius']
-oxygen_in_infec = "SaO2" in cols_no_labs
-oxygen_in_infec_labs = "SaO2" in cols_labs
+cols_labs = ['C-Reactive Protein (CRP)', 'Blood Calcium', 'CBC: Leukocytes',
+       'Aspartate Aminotransferase (AST)', 'ABG: PaO2', 'Age',
+       'Prothrombin Time (INR)', 'CBC: Hemoglobin', 'ABG: pH',
+       'Cholinesterase', 'Respiratory Frequency', 'Blood Urea Nitrogen (BUN)',
+       'ABG: MetHb', 'Body Temperature', 'Total Bilirubin',
+       'Systolic Blood Pressure', 'CBC: Mean Corpuscular Volume (MCV)',
+       'Glycemia', 'Cardiac Frequency', 'Gender']
+cols_no_labs = ['Age', 'Body Temperature', 'Cardiac Frequency', 'Gender',
+       'Respiratory Frequency', 'SaO2', 'Systolic Blood Pressure']
+oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
+oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
 oxygen_labs_infec_ind = get_oxygen_ind(labs_features_infec["numeric"])
 oxygen_infec_ind = get_oxygen_ind(no_labs_features_infec["numeric"])
 

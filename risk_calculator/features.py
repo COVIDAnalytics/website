@@ -7,7 +7,7 @@ import dash_html_components as html
 
 from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort, labs_model_mort, no_labs_model_mort
 from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec, labs_model_infec, no_labs_model_infec
-from risk_calculator.utils import fix_title,labs_ques
+from risk_calculator.utils import title_mapping,labs_ques, oxygen
 
 from navbar import Navbar
 from footer import Footer
@@ -23,10 +23,10 @@ def build_feature_importance_graph(m=True,labs=False):
     feature_list = ['']*len(model.feature_importances_)
     i = 0
     for feat in features["numeric"]:
-        feature_list[feat["index"]] = fix_title(feat["name"])
+        feature_list[feat["index"]] = title_mapping[feat["name"]]
         i+=1
     for feat in features["categorical"]:
-        feature_list[feat["index"]] = fix_title(feat["name"])
+        feature_list[feat["index"]] = title_mapping[feat["name"]]
         i+=1
     for feat in features["checkboxes"]:
         for j,name in enumerate(feat["vals"]):
@@ -72,9 +72,9 @@ def build_feature_importance_graph(m=True,labs=False):
 
 
 def map_feat_vals(x,name):
-    if name == "Sex":
+    if name == "Gender":
         return "Male" if x == 0 else "Female"
-    if name == "SaO2":
+    if title_mapping[name] == oxygen:
         if x > 1:
             return 1 if x > 92 else 0
     return x
@@ -142,8 +142,9 @@ def oxygen_options(id,m,have_val):
             )
         ]
 
-def build_oxygen_card(id, m, content_dict):
+def build_oxygen_card(id, labs, m, content_dict):
     model = 'mortality' if m else 'infection'
+    l = "labs" if labs else "nolabs"
     insert_data = \
     [
         dbc.Row(
@@ -162,7 +163,7 @@ def build_oxygen_card(id, m, content_dict):
     ]
     insert_data.append(
         dbc.Row(
-                id = "calc-numeric-{}-wrapper-{}".format(id,model),
+                id = "calc-numeric-{}-wrapper-{}-{}".format(id,model,l),
         ),
     )
 
@@ -172,7 +173,7 @@ def build_oxygen_card(id, m, content_dict):
         ),
         dbc.Tooltip(
             content_dict['explanation'],
-            target="calc-numeric-{}-wrapper-{}".format(id,model),
+            target="calc-numeric-{}-wrapper-{}-{}".format(id,model,l),
         ),
     ]
     return card
@@ -195,7 +196,7 @@ def build_input_card(id, m, content_dict):
                     ),
                 ),
             ]
-    if content_dict["name"] == "Temperature Celsius":
+    if content_dict["name"] == "Body Temperature":
         insert_data.append(
             dbc.Col(
                 html.Div(
@@ -288,8 +289,8 @@ def build_feature_cards(m=True,labs=False):
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
     for id, content_dict in enumerate(inputs):
-        if content_dict['name'] == "SaO2":
-            card_content.append(("SaO2",build_oxygen_card(str(id),m, content_dict)))
+        if title_mapping[content_dict['name']] == oxygen:
+            card_content.append((content_dict['name'],build_oxygen_card(str(id), labs, m, content_dict)))
         else:
             card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
     for id, content_dict in enumerate(dropdowns):
@@ -301,18 +302,18 @@ def build_feature_cards(m=True,labs=False):
     for name,c in card_content:
         content = dbc.Card(
                         [
-                            dbc.CardHeader(fix_title(name),style={"fontWeight": "bold"}),
+                            dbc.CardHeader(title_mapping[name],style={"fontWeight": "bold"}),
                             dbc.CardBody(c,className="feat-options-body")
                         ],
                         className="feat-options"
                     )
         if name == "Comorbidities":
             w2 = 12
-        elif name == "SaO2":
+        elif title_mapping[name] == oxygen:
             w2 = 5
         else:
             w2 = 4
-        if name == "Comorbidities" or name == "SaO2":
+        if name == "Comorbidities" or title_mapping[name] == oxygen:
             w1 = 12
         else:
             w1 = 6

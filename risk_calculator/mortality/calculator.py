@@ -29,17 +29,27 @@ no_labs_imputer_mort = no_labs["imputer"]
 no_labs_features_mort = no_labs["json"]
 
 #hard coded columns
-cols_labs = ['ABG: Oxygen Saturation (SaO2)', 'Age', 'Alanine Aminotransferase (ALT)', 'Aspartate Aminotransferase (AST)', \
-    'Blood Creatinine', 'Blood Sodium', 'Blood Urea Nitrogen (BUN)', 'C-Reactive Protein (CRP)', 'CBC: Hemoglobin', \
-    'CBC: Leukocytes', 'CBC: Mean Corpuscular Volume (MCV)', 'CBC: Platelets', 'Cardiac Frequency', 'Cardiac dysrhythmias', \
-    'Chronic kidney disease', 'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', \
-    'Glycemia', 'Potassium Blood Level', 'Prothrombin Time (INR)', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
-cols_no_labs = ['Age', 'Cardiac Frequency', 'Cardiac dysrhythmias', 'Chronic kidney disease', \
-    'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', 'Sex', \
-    'Systolic Blood Pressure', 'Temperature Celsius']
-oxygen_in_mort = "SaO2" in cols_no_labs
-oxygen_in_mort_labs = "SaO2" in cols_labs
-oxygen_labs_mort_ind = get_oxygen_ind(labs_features_mort["numeric"])
+# cols_labs = ['ABG: Oxygen Saturation (SaO2)', 'Age',
+#        'Alanine Aminotransferase (ALT)', 'Aspartate Aminotransferase (AST)',
+#        'Blood Creatinine', 'Blood Sodium', 'Blood Urea Nitrogen (BUN)',
+#        'Body Temperature', 'C-Reactive Protein (CRP)', 'CBC: Hemoglobin',
+#        'CBC: Leukocytes', 'CBC: Mean Corpuscular Volume (MCV)',
+#        'CBC: Platelets', 'Cardiac Frequency', 'Cardiac dysrhythmias',
+#        'Chronic kidney disease',
+#        'Coronary atherosclerosis and other heart disease', 'Diabetes',
+#        'Essential hypertension', 'Gender', 'Glycemia', 'Potassium Blood Level',
+#        'Prothrombin Time (INR)', 'Systolic Blood Pressure']
+cols_labs = ['Age', 'Body Temperature', 'Cardiac Frequency', 'Cardiac dysrhythmias',
+       'Chronic kidney disease',
+       'Coronary atherosclerosis and other heart disease', 'Diabetes',
+       'Essential hypertension', 'Gender', 'SaO2', 'Systolic Blood Pressure']
+cols_no_labs = ['Age', 'Body Temperature', 'Cardiac Frequency', 'Cardiac dysrhythmias',
+       'Chronic kidney disease',
+       'Coronary atherosclerosis and other heart disease', 'Diabetes',
+       'Essential hypertension', 'Gender', 'SaO2', 'Systolic Blood Pressure']
+oxygen_in_mort = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
+oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
+oxygen_mort_labs_ind = get_oxygen_ind(labs_features_mort["numeric"])
 oxygen_mort_ind = get_oxygen_ind(no_labs_features_mort["numeric"])
 
 body = dbc.Container(
@@ -102,18 +112,12 @@ def valid_input_mort(labs,feature_vals):
 
 def predict_risk_mort(labs,feature_vals):
     if labs:
-        cols = ['ABG: Oxygen Saturation (SaO2)', 'Age', 'Alanine Aminotransferase (ALT)', 'Aspartate Aminotransferase (AST)', \
-        'Blood Creatinine', 'Blood Sodium', 'Blood Urea Nitrogen (BUN)', 'C-Reactive Protein (CRP)', 'CBC: Hemoglobin', \
-        'CBC: Leukocytes', 'CBC: Mean Corpuscular Volume (MCV)', 'CBC: Platelets', 'Cardiac Frequency', 'Cardiac dysrhythmias', \
-        'Chronic kidney disease', 'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', \
-        'Glycemia', 'Potassium Blood Level', 'Prothrombin Time (INR)', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
-    else:
-        cols = ['Age', 'Cardiac Frequency', 'Cardiac dysrhythmias', 'Chronic kidney disease', 'Coronary atherosclerosis and other heart disease', 'Diabetes', 'Essential hypertension', 'Sex', 'Systolic Blood Pressure', 'Temperature Celsius']
-    if labs:
+        cols = cols_labs
         model = labs_model_mort
         features = labs_features_mort
         imputer = labs_imputer_mort
     else:
+        cols = cols_no_labs
         model = no_labs_model_mort
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort

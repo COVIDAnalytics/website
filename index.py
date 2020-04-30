@@ -22,7 +22,7 @@ from projections.visuals_funcs import build_us_map, get_stat, build_continent_ma
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
 from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort, oxygen_in_mort_labs
-from risk_calculator.mortality.calculator import oxygen_labs_mort_ind, oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
+from risk_calculator.mortality.calculator import oxygen_mort_labs_ind, oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
 from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec, oxygen_in_infec_labs
 from risk_calculator.infection.calculator import oxygen_labs_infec_ind, oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
@@ -315,7 +315,7 @@ def get_mortality_model_desc(labs):
 
 if oxygen_in_mort:
     @app.callback(
-        Output("calc-numeric-{}-wrapper-mortailty".format(oxygen_mort_ind), 'children'),
+        Output("calc-numeric-{}-wrapper-mortality-nolabs".format(oxygen_mort_ind), 'children'),
         [Input('lab_values_indicator', 'value'),
         Input('oxygen-answer-mortality', 'value')])
     def get_oxygen_mortality(labs,have_val):
@@ -323,7 +323,7 @@ if oxygen_in_mort:
 
 if oxygen_in_mort_labs:
     @app.callback(
-        Output("calc-numeric-{}-wrapper-mortailty".format(oxygen_mort_labs_ind), 'children'),
+        Output("calc-numeric-{}-wrapper-mortality-labs".format(oxygen_mort_labs_ind), 'children'),
         [Input('lab_values_indicator', 'value'),
         Input('oxygen-answer-mortality', 'value')])
     def get_oxygen_mortality(labs,have_val):
@@ -331,7 +331,7 @@ if oxygen_in_mort_labs:
 
 if oxygen_in_infec:
     @app.callback(
-        Output("calc-numeric-{}-wrapper-infection".format(oxygen_infec_ind), 'children'),
+        Output("calc-numeric-{}-wrapper-infection-nolabs".format(oxygen_infec_ind), 'children'),
         [Input('lab_values_indicator_infection', 'value'),
         Input('oxygen-answer-infection', 'value')])
     def get_oxygen_infection(labs,have_val):
@@ -339,7 +339,7 @@ if oxygen_in_infec:
 
 if oxygen_in_infec_labs:
     @app.callback(
-        Output("calc-numeric-{}-wrapper-infection".format(oxygen_infec_labs_ind), 'children'),
+        Output("calc-numeric-{}-wrapper-infection-labs".format(oxygen_infec_labs_ind), 'children'),
         [Input('lab_values_indicator_infection', 'value'),
         Input('oxygen-answer-infection', 'value')])
     def get_oxygen_infection(labs,have_val):
@@ -428,9 +428,9 @@ def calc_risk_score(*argv):
     labs = argv[1]
     feats = argv[2:]
     if labs and oxygen_in_mort_labs:
-        feats = switch_oxygen(feats,oxygen_labs_infec_ind)
+        feats = switch_oxygen(feats,oxygen_mort_labs_ind)
     if not labs and oxygen_in_mort:
-        feats = switch_oxygen(feats,oxygen_infec_ind)
+        feats = switch_oxygen(feats,oxygen_mort_ind)
     #if submit button was clicked
     if submit > 0:
         x = feats
