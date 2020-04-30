@@ -95,7 +95,6 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
         for c in comorbidities:
             ind = features["multidrop"][0]["vals"].index(c)
             x[ind] = 1
-    print("nan",x)
     imputed = np.argwhere(np.isnan(x))
     x_full = imputer.transform([x])
     X = pd.DataFrame(columns = columns, index = range(1), dtype=np.float)

@@ -32,13 +32,12 @@ no_labs_imputer_infec = no_labs["imputer"]
 no_labs_features_infec = no_labs["json"]
 
 #hard coded columns
-cols_labs = ['C-Reactive Protein (CRP)', 'Blood Calcium', 'CBC: Leukocytes',
-       'Aspartate Aminotransferase (AST)', 'ABG: PaO2', 'Age',
-       'Prothrombin Time (INR)', 'CBC: Hemoglobin', 'ABG: pH',
-       'Cholinesterase', 'Respiratory Frequency', 'Blood Urea Nitrogen (BUN)',
-       'ABG: MetHb', 'Body Temperature', 'Total Bilirubin',
-       'Systolic Blood Pressure', 'CBC: Mean Corpuscular Volume (MCV)',
-       'Glycemia', 'Cardiac Frequency', 'Gender']
+cols_labs = ['Age', 'Gender', 'Body Temperature', 'Systolic Blood Pressure',
+            'Respiratory Frequency', 'Cardiac Frequency', 'C-Reactive Protein (CRP)',
+            'Blood Calcium', 'CBC: Leukocytes','Aspartate Aminotransferase (AST)',
+            'ABG: PaO2','Prothrombin Time (INR)','CBC: Hemoglobin','ABG: pH',
+            'Cholinesterase', 'Blood Urea Nitrogen (BUN)', 'ABG: MetHb',
+            'Total Bilirubin','CBC: Mean Corpuscular Volume (MCV)','Glycemia']
 cols_no_labs = ['Age', 'Body Temperature', 'Cardiac Frequency', 'Gender',
        'Respiratory Frequency', 'SaO2', 'Systolic Blood Pressure']
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
@@ -128,7 +127,7 @@ def get_model_desc_infection(labs):
              [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
-             html.Span(' 0.91', style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
+             html.Span(' 0.88', style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )

@@ -411,7 +411,6 @@ def switch_oxygen(vec,ind):
             vals[i] = vals[i-1]
         vals[ind] = oxygen
         vec[0] = vals
-        print(vec)
         return tuple(vec)
     vec[0] = vals
     return tuple(vec)
