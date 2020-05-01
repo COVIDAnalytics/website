@@ -69,7 +69,8 @@ body = dbc.Container(
                          to us [here](https://www.covidanalytics.io/contact).
                          """,
                     )
-                ]
+                ],
+                style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
                 )
             ]
             ),

@@ -190,10 +190,10 @@ def build_input_card(id, m, content_dict):
                             },
                             type="number",
                             placeholder="e.g. {}".format(int(content_dict['default'])),
-                            style={"width":80}
+                            style={"width":90}
                         ),
                         id = "calc-numeric-{}-wrapper".format(id),
-                    ),
+                        ),
                 ),
             ]
     if content_dict["name"] == "Body Temperature":
@@ -204,7 +204,7 @@ def build_input_card(id, m, content_dict):
                         id = 'calc-temp-f-c',
                         options = [{'label': x, 'value': x} for x in ["°F","°C"]],
                         value = "°F",
-                        style={"width":70}
+                        style={"width":80}
                     ),
                 ),
             ),

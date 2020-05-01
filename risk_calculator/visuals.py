@@ -52,7 +52,8 @@ def get_model_desc(id):
                 dbc.Row(
                 [
                     dbc.Jumbotron(
-                            id = id
+                            id = id,
+                            style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
                     ),
                 ],
                 justify="center"
