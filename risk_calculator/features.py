@@ -309,13 +309,12 @@ def build_feature_cards(m=True,labs=False):
                     )
         if name == "Comorbidities":
             w2 = 12
+            w1 = 12
         elif title_mapping[name] == oxygen:
-            w2 = 5
-        else:
-            w2 = 4
-        if name == "Comorbidities" or title_mapping[name] == oxygen:
+            w2 = 6
             w1 = 12
         else:
+            w2 = 3
             w1 = 6
         card = \
             dbc.Col([content],
@@ -323,7 +322,7 @@ def build_feature_cards(m=True,labs=False):
                 'paddingBottom':20,
                 'borderColor':'red'
                 },
-            xs=12,
+            xs=w1,
             sm=w1,
             md=w1,
             lg=w2,
