@@ -23,27 +23,12 @@ with open('assets/risk_calculators/mortality/model_without_lab.pkl', 'rb') as fi
 labs_model_mort = labs["model"]
 labs_imputer_mort = labs["imputer"]
 labs_features_mort = labs["json"]
+cols_labs = labs["columns"]
 
 no_labs_model_mort = no_labs["model"]
 no_labs_imputer_mort = no_labs["imputer"]
 no_labs_features_mort = no_labs["json"]
 cols_no_labs = no_labs["columns"]
-
-#hard coded columns
-# cols_labs = ['ABG: Oxygen Saturation (SaO2)', 'Age',
-#        'Alanine Aminotransferase (ALT)', 'Aspartate Aminotransferase (AST)',
-#        'Blood Creatinine', 'Blood Sodium', 'Blood Urea Nitrogen (BUN)',
-#        'Body Temperature', 'C-Reactive Protein (CRP)', 'CBC: Hemoglobin',
-#        'CBC: Leukocytes', 'CBC: Mean Corpuscular Volume (MCV)',
-#        'CBC: Platelets', 'Cardiac Frequency', 'Cardiac dysrhythmias',
-#        'Chronic kidney disease',
-#        'Coronary atherosclerosis and other heart disease', 'Diabetes',
-#        'Essential hypertension', 'Gender', 'Glycemia', 'Potassium Blood Level',
-#        'Prothrombin Time (INR)', 'Systolic Blood Pressure']
-cols_labs = ['Age', 'Body Temperature', 'Cardiac Frequency', 'Cardiac dysrhythmias',
-       'Chronic kidney disease',
-       'Coronary atherosclerosis and other heart disease', 'Diabetes',
-       'Essential hypertension', 'Gender', 'SaO2', 'Systolic Blood Pressure']
 
 oxygen_in_mort = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
