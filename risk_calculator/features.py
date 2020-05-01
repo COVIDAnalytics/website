@@ -201,7 +201,10 @@ def build_input_card(id, m, content_dict):
             dbc.Col(
                 html.Div(
                     dcc.Dropdown(
-                        id = 'calc-temp-f-c',
+                        id={
+                            'type': 'temperature',
+                            'index': "units",
+                        },
                         options = [{'label': x, 'value': x} for x in ["°F","°C"]],
                         value = "°F",
                         style={"width":80}

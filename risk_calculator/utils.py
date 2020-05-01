@@ -74,10 +74,10 @@ def valid_input(features,feature_vals,length):
         return False, "Please insert at least {} numeric values.".format(threshold), feature_vals
     return True,"",feature_vals
 
-def predict_risk(m,model,features,imputer,feature_vals,columns):
+def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
-    convert_temperature = feature_vals[-1] == "°C"
+    convert_temperature = temp_unit[0] == "°C"
     #align order of feature vector so that values are in correct order
     i = 0
     for feat in features["categorical"]:

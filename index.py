@@ -422,13 +422,15 @@ def switch_oxygen(vec,ind):
     Output('imputed-text-mortality', 'children')],
     [Input('submit-features-calc', 'n_clicks'),
     Input('lab_values_indicator', 'value')],
-    [State({'type': 'mortality', 'index': ALL}, 'value')]
+    [State({'type': 'mortality', 'index': ALL}, 'value'),
+    State({'type': 'temperature', 'index': ALL}, 'value')]
 )
 def calc_risk_score(*argv):
     default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
     submit = argv[0]
     labs = argv[1]
     feats = argv[2:]
+    temp_unit = argv[-1]
     if labs and oxygen_in_mort_labs:
         feats = switch_oxygen(feats,oxygen_mort_labs_ind)
     if not labs and oxygen_in_mort:
@@ -438,7 +440,7 @@ def calc_risk_score(*argv):
         x = feats
         valid, err, x = valid_input_mort(labs,x)
         if valid:
-            score, imputed = predict_risk_mort(labs,x)
+            score, imputed = predict_risk_mort(labs,x,temp_unit)
             return score,False,'',imputed
         else:
             return default,True,err,''
@@ -452,13 +454,15 @@ def calc_risk_score(*argv):
     Output('imputed-text-infection', 'children')],
     [Input('submit-features-calc-infection', 'n_clicks'),
     Input('lab_values_indicator_infection', 'value')],
-    [State({'type': 'infection', 'index': ALL}, 'value')]
+    [State({'type': 'infection', 'index': ALL}, 'value'),
+    State({'type': 'temperature', 'index': ALL}, 'value')]
 )
 def calc_risk_score_infection(*argv):
     default = html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
     submit = argv[0]
     labs = argv[1]
-    feats = argv[2:]
+    feats = argv[2:-1]
+    temp_unit = argv[-1]
     if labs and oxygen_in_infec_labs:
         feats = switch_oxygen(feats,oxygen_labs_infec_ind)
     if not labs and oxygen_in_infec:
@@ -468,7 +472,7 @@ def calc_risk_score_infection(*argv):
         x = feats
         valid, err, x  = valid_input_infec(labs,x)
         if valid:
-            score, imputed = predict_risk_infec(labs,x)
+            score, imputed = predict_risk_infec(labs,x,temp_unit)
             return score,False,'',imputed
         else:
             return default,True,err,''

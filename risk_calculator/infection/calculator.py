@@ -101,7 +101,7 @@ def valid_input_infec(labs,feature_vals):
     length = len(features["numeric"])
     return valid_input(features["numeric"],feature_vals[0],length)
 
-def predict_risk_infec(labs,feature_vals):
+def predict_risk_infec(labs,feature_vals,temp_unit):
     if labs:
         cols = cols_labs
         model = labs_model_infec
@@ -112,7 +112,7 @@ def predict_risk_infec(labs,feature_vals):
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols)
+    score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(score,className="score-calculator-card-content-infection"),

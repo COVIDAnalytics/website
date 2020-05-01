@@ -109,7 +109,7 @@ def valid_input_mort(labs,feature_vals):
     length = len(features["numeric"])
     return valid_input(features["numeric"],feature_vals[0],length)
 
-def predict_risk_mort(labs,feature_vals):
+def predict_risk_mort(labs,feature_vals,temp_unit):
     if labs:
         cols = cols_labs
         model = labs_model_mort
@@ -120,7 +120,7 @@ def predict_risk_mort(labs,feature_vals):
         model = no_labs_model_mort
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
-    score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols)
+    score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols,temp_unit)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),
