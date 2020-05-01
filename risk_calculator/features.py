@@ -135,8 +135,8 @@ def oxygen_options(id,m,have_val):
             dbc.Col(
                     dcc.Dropdown(
                         id=id_full,
-                        options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
-                        value = 0,
+                        options = [{'label': labs_ques(1-x), 'value': x} for x in [1,0]],
+                        value = 1,
                         style={"width":80}
                     ),
             )
