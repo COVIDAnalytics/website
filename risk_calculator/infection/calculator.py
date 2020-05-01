@@ -30,16 +30,15 @@ labs_features_infec = labs["json"]
 no_labs_model_infec = no_labs["model"]
 no_labs_imputer_infec = no_labs["imputer"]
 no_labs_features_infec = no_labs["json"]
+cols_no_labs = no_labs["columns"]
 
-#hard coded columns
 cols_labs = ['Age', 'Gender', 'Body Temperature', 'Systolic Blood Pressure',
             'Respiratory Frequency', 'Cardiac Frequency', 'C-Reactive Protein (CRP)',
             'Blood Calcium', 'CBC: Leukocytes','Aspartate Aminotransferase (AST)',
             'ABG: PaO2','Prothrombin Time (INR)','CBC: Hemoglobin','ABG: pH',
             'Cholinesterase', 'Blood Urea Nitrogen (BUN)', 'ABG: MetHb',
             'Total Bilirubin','CBC: Mean Corpuscular Volume (MCV)','Glycemia']
-cols_no_labs = ['Age', 'Body Temperature', 'Cardiac Frequency', 'Gender',
-       'Respiratory Frequency', 'SaO2', 'Systolic Blood Pressure']
+
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
 oxygen_labs_infec_ind = get_oxygen_ind(labs_features_infec["numeric"])
