@@ -87,7 +87,10 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
         if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
         elif title_mapping[feat["name"]] == oxygen:
-            x[feat["index"]] = 1 if feature_vals[i] > 92 else 0
+            if feature_vals[i] > 1: #numeric value inserted
+                x[feat["index"]] = 1 if feature_vals[i] > 92 else 0
+            else: #binary value inserted
+                x[feat["index"]] = feature_vals[i]
         else:
             x[feat["index"]] = feature_vals[i]
         i+=1
