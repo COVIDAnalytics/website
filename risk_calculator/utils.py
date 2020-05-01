@@ -3,7 +3,6 @@ import pandas as pd
 import math
 import dash_core_components as dcc
 
-
 oxygen = 'Oxygen Saturation'
 
 title_mapping = {
@@ -13,7 +12,7 @@ title_mapping = {
     'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase',
     'Blood Creatinine': 'Creatinine',
     'Blood Sodium': 'Sodium',
-    'Blood Urea Nitrogen (BUN)': 'Urea Nitrogen',
+    'Blood Urea Nitrogen (BUN)': 'Blood Urea Nitrogen (BUN)',
     'Body Temperature': 'Temperature',
     'C-Reactive Protein (CRP)':  'C-Reactive Protein',
     'CBC: Hemoglobin': 'Hemoglobin',
@@ -87,6 +86,8 @@ def predict_risk(m,model,features,imputer,feature_vals,columns):
     for f,feat in enumerate(features["numeric"]):
         if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
+        elif title_mapping[feat["name"]] == oxygen:
+            x[feat["index"]] = 1 if feature_vals[i] > 92 else 0
         else:
             x[feat["index"]] = feature_vals[i]
         i+=1
