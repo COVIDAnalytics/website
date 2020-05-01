@@ -63,11 +63,11 @@ def build_card(imgTop,title,text,img,link):
 
     return dbc.Col(
                     [card],
-                    style={"margin": "0.5rem"},
+                    style={"margin": "0.1rem"},
                     xs=12,
                     sm=5,
                     md=5,
-                    lg=2,
+                    lg=3,
                 )
 
 
@@ -89,9 +89,15 @@ ventilator_text = '''
        optimally re-use ventilators.
        '''
 
-calculator_text = '''
-      Personalized calculator predicting mortality given hospitalization.
+mortality_calculator_text = '''
+      Personalized calculator predicting mortality given hospitalization. \
+      Option to use with or without lab results.
       '''
+
+infection_calculator_text = '''
+    Personalized calculator predicting risk of infection. Option to use with \
+    or without lab results.
+    '''
 
 body = dbc.Container(
     [
@@ -110,11 +116,12 @@ body = dbc.Container(
         ),
         dbc.Row(
             [
-                build_card(True,"Data",data_text,"assets/images/data-1.jpg","/dataset"),
-                build_card(False,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
                 build_card(True,"Case Predictions",projections_text,"assets/images/forecast-1.png","/projections"),
-                build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
-                build_card(True,"Risk calculator",calculator_text,"assets/images/tree-2.png","/calculator"),
+                build_card(False,"Infection risk calculator",infection_calculator_text,"assets/images/infection.png","/infection_calculator"),
+                build_card(True,"Mortality risk calculator",mortality_calculator_text,"assets/images/mortality.png","/mortality_calculator"),
+                build_card(True,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
+                build_card(False,"Data",data_text,"assets/images/data-1.jpg","/dataset"),
+                build_card(True,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
             ],
             justify="around",
             no_gutters=True,
