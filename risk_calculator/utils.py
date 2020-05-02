@@ -19,6 +19,7 @@ title_mapping = {
     'CBC: Leukocytes': 'Leukocytes',
     'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume',
     'CBC: Platelets': 'Platelets',
+    'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width (RDW)',
     'Cardiac Frequency': 'Heart Rate',
     'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
     'Gender' : 'Gender',

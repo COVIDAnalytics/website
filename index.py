@@ -339,7 +339,7 @@ if oxygen_in_infec:
 
 if oxygen_in_infec_labs:
     @app.callback(
-        Output("calc-numeric-{}-wrapper-infection-labs".format(oxygen_infec_labs_ind), 'children'),
+        Output("calc-numeric-{}-wrapper-infection-labs".format(oxygen_labs_infec_ind), 'children'),
         [Input('lab_values_indicator_infection', 'value'),
         Input('oxygen-answer-infection', 'value')])
     def get_oxygen_infection(labs,have_val):
