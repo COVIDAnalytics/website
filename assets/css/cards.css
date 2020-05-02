@@ -17,6 +17,7 @@
 
 .home-card{
   border-color: #800020 !important;
+  border-width: medium !important;
 }
 
 .home-card-body{
@@ -43,12 +44,20 @@
   padding-bottom: 40;
 }
 
+.score-calculator-card-content-infection{
+  color: white;
+  text-align: center;
+}
+
 .score-calculator-card-content{
   color: white;
   text-align: center;
 }
 
-#calc-multidrop-0-wrapper{
+#calc-multidrop-0-mort-wrapper{
+  width:100%;
+}
+#calc-multidrop-0-infec-wrapper{
   width:100%;
 }
 

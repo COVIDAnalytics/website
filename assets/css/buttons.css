@@ -3,6 +3,11 @@
   background-color: #800020 !important;
 }
 
+#submit-features-calc-infection{
+  color: white;
+  background-color: #800020 !important;
+}
+
 #submit-features-calc-wrapper{
   display: flex;
   justify-content: center;

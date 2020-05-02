@@ -2,7 +2,7 @@ import dash
 import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
+from dash.dependencies import Input, Output, State, ALL
 import dash_bootstrap_components as dbc
 import flask
 import os
@@ -21,8 +21,11 @@ from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
-from risk_calculator.calculator import RickCalc, valid_input, predict_risk,build_feature_importance_graph
-from risk_calculator.features import features
+from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort, oxygen_in_mort_labs
+from risk_calculator.mortality.calculator import oxygen_mort_labs_ind, oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
+from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec, oxygen_in_infec_labs
+from risk_calculator.infection.calculator import oxygen_labs_infec_ind, oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
+from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
@@ -70,8 +73,10 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
-    if pathname == '/calculator':
-        return RickCalc()
+    if pathname == '/mortality_calculator':
+        return RiskCalc()
+    if pathname == '/328602685_infection_calculator':
+        return InfectionRiskCalc()
     if pathname == '/press':
         return Press()
     else:
@@ -295,40 +300,184 @@ def download_ventilator_documentation():
                                      filename="Ventilator_Documentation.pdf")
 
 
-#callback for risk calculator
+#callback for risk calculators
+@app.callback(
+    Output('infection-model-desc', 'children'),
+    [Input('lab_values_indicator_infection', 'value')])
+def get_infection_model_desc(labs):
+    return get_model_desc_infection(labs)
+
+@app.callback(
+    Output('mortality-model-desc', 'children'),
+    [Input('lab_values_indicator', 'value')])
+def get_mortality_model_desc(labs):
+    return get_model_desc_mortality(labs)
+
+if oxygen_in_mort:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-mortality-nolabs".format(oxygen_mort_ind), 'children'),
+        [Input('lab_values_indicator', 'value'),
+        Input('oxygen-answer-mortality', 'value')])
+    def get_oxygen_mortality(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,True,have_val)
+
+if oxygen_in_mort_labs:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-mortality-labs".format(oxygen_mort_labs_ind), 'children'),
+        [Input('lab_values_indicator', 'value'),
+        Input('oxygen-answer-mortality', 'value')])
+    def get_oxygen_mortality(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,True,have_val)
+
+if oxygen_in_infec:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-infection-nolabs".format(oxygen_infec_ind), 'children'),
+        [Input('lab_values_indicator_infection', 'value'),
+        Input('oxygen-answer-infection', 'value')])
+    def get_oxygen_infection(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,False,have_val)
+
+if oxygen_in_infec_labs:
+    @app.callback(
+        Output("calc-numeric-{}-wrapper-infection-labs".format(oxygen_labs_infec_ind), 'children'),
+        [Input('lab_values_indicator_infection', 'value'),
+        Input('oxygen-answer-infection', 'value')])
+    def get_oxygen_infection(labs,have_val):
+        return oxygen_options(oxygen_labs_infec_ind,False,have_val)
+
+@app.callback(
+    Output('feature-importance-bar-graph-infection', 'children'),
+    [Input('lab_values_indicator_infection', 'value')])
+def get_infection_model_feat_importance(labs):
+    return build_feature_importance_graph(False,labs)
+
+@app.callback(
+    Output('feature-importance-bar-graph', 'children'),
+    [Input('lab_values_indicator', 'value')])
+def get_mortality_model_feat_importance(labs):
+    return build_feature_importance_graph(True,labs)
+
+@app.callback(
+    Output('features-infection', 'children'),
+    [Input('lab_values_indicator_infection', 'value')])
+def get_infection_model_feat_cards(labs):
+    return build_feature_cards(False,labs)
+
+@app.callback(
+    Output('features-mortality', 'children'),
+    [Input('lab_values_indicator', 'value')])
+def get_mortality_model_feat_cards(labs):
+    return build_feature_cards(True,labs)
+
+@app.callback(
+    Output('submit-features-calc-infection', 'n_clicks'),
+    [Input('lab_values_indicator_infection', 'value')])
+def reset_submit_button_infection(labs):
+    return 0
+
+@app.callback(
+    Output('submit-features-calc', 'n_clicks'),
+    [Input('lab_values_indicator', 'value')])
+def reset_submit_button_mortality(labs):
+    return 0
+
 def get_type_inputs(amount,name):
     inputs = [None]*amount
     for k in range(amount):
         inputs[k] = State('calc-{}-{}'.format(name,k), 'value')
     return inputs
 
-def get_feature_inputs():
-    inputs = get_type_inputs(len(features['numeric']),'numeric')
-    inputs += get_type_inputs(len(features['categorical']),'categorical')
+def get_feature_inputs(mortality=True,labs=False):
+    if mortality:
+        features = labs_features_mort if labs else no_labs_features_mort
+    else:
+        features = labs_features_infec if labs else no_labs_features_infec
+    inputs = get_type_inputs(len(features['categorical']),'categorical')
+    inputs += get_type_inputs(len(features['numeric']),'numeric')
     inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
     inputs += get_type_inputs(len(features['multidrop']),'multidrop')
     inputs += [State('calc-temp-f-c', 'value')]
     return inputs
 
+def switch_oxygen(vec,ind):
+    #assume there is only 1 categorical variable
+    ind = ind + 1
+    vec = list(vec)
+    vals = vec[0]
+    if len(vals) > 0:
+        oxygen = vals[-1]
+        n = len(vals)-1
+        for i in range(n,ind,-1):
+            vals[i] = vals[i-1]
+        vals[ind] = oxygen
+        vec[0] = vals
+        return tuple(vec)
+    vec[0] = vals
+    return tuple(vec)
+
 @app.callback(
     [Output('score-calculator-card-body', 'children'),
     Output('calc-input-error', 'displayed'),
-    Output('calc-input-error', 'message')],
-    [Input('submit-features-calc', 'n_clicks')],
-    get_feature_inputs()
+    Output('calc-input-error', 'message'),
+    Output('imputed-text-mortality', 'children')],
+    [Input('submit-features-calc', 'n_clicks'),
+    Input('lab_values_indicator', 'value')],
+    [State({'type': 'mortality', 'index': ALL}, 'value'),
+    State({'type': 'temperature', 'index': ALL}, 'value')]
 )
 def calc_risk_score(*argv):
     default = html.H4("The mortality risk score is:",className="score-calculator-card-content"),
+    submit = argv[0]
+    labs = argv[1]
+    feats = argv[2:]
+    temp_unit = argv[-1]
+    if labs and oxygen_in_mort_labs:
+        feats = switch_oxygen(feats,oxygen_mort_labs_ind)
+    if not labs and oxygen_in_mort:
+        feats = switch_oxygen(feats,oxygen_mort_ind)
     #if submit button was clicked
-    if argv[0] > 0:
-        x = argv[1:]
-        valid, err = valid_input(x)
+    if submit > 0:
+        x = feats
+        valid, err, x = valid_input_mort(labs,x)
         if valid:
-            return predict_risk(x),False,''
+            score, imputed = predict_risk_mort(labs,x,temp_unit)
+            return score,False,'',imputed
         else:
-            return default,True,err
+            return default,True,err,''
     #user has not clicked submit
-    return default,False,''
+    return default,False,'',''
+
+@app.callback(
+    [Output('score-calculator-card-body-infection', 'children'),
+    Output('calc-input-error-infection', 'displayed'),
+    Output('calc-input-error-infection', 'message'),
+    Output('imputed-text-infection', 'children')],
+    [Input('submit-features-calc-infection', 'n_clicks'),
+    Input('lab_values_indicator_infection', 'value')],
+    [State({'type': 'infection', 'index': ALL}, 'value'),
+    State({'type': 'temperature', 'index': ALL}, 'value')]
+)
+def calc_risk_score_infection(*argv):
+    default = html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
+    submit = argv[0]
+    labs = argv[1]
+    feats = argv[2:-1]
+    temp_unit = argv[-1]
+    if labs and oxygen_in_infec_labs:
+        feats = switch_oxygen(feats,oxygen_labs_infec_ind)
+    if not labs and oxygen_in_infec:
+        feats = switch_oxygen(feats,oxygen_infec_ind)
+    #if submit button was clicked
+    if submit > 0:
+        x = feats
+        valid, err, x  = valid_input_infec(labs,x)
+        if valid:
+            score, imputed = predict_risk_infec(labs,x,temp_unit)
+            return score,False,'',imputed
+        else:
+            return default,True,err,''
+    #user has not clicked submit
+    return default,False,'',''
 
 #Callbacks for navbar
 @app.callback(
