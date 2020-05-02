@@ -26,18 +26,18 @@ with open('assets/risk_calculators/infection/model_without_lab.pkl', 'rb') as fi
 labs_model_infec = labs["model"]
 labs_imputer_infec = labs["imputer"]
 labs_features_infec = labs["json"]
-
-no_labs_model_infec = no_labs["model"]
-no_labs_imputer_infec = no_labs["imputer"]
-no_labs_features_infec = no_labs["json"]
-cols_no_labs = no_labs["columns"]
-
+#cols_labs = labs["columns"]
 cols_labs = ['Age', 'Gender', 'Body Temperature', 'Systolic Blood Pressure',
             'Respiratory Frequency', 'Cardiac Frequency', 'C-Reactive Protein (CRP)',
             'Blood Calcium', 'CBC: Leukocytes','Aspartate Aminotransferase (AST)',
             'ABG: PaO2','Prothrombin Time (INR)','CBC: Hemoglobin','ABG: pH',
             'Cholinesterase', 'Blood Urea Nitrogen (BUN)', 'ABG: MetHb',
             'Total Bilirubin','CBC: Mean Corpuscular Volume (MCV)','Glycemia']
+
+no_labs_model_infec = no_labs["model"]
+no_labs_imputer_infec = no_labs["imputer"]
+no_labs_features_infec = no_labs["json"]
+cols_no_labs = no_labs["columns"]
 
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
