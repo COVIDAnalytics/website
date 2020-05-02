@@ -118,7 +118,7 @@ def get_model_desc_mortality(labs):
              [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on 213 patients (out of whom 24% deceased) is ",
-             html.Span(' 0.96', style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
+             html.Span(' 0.95', style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )
