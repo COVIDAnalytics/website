@@ -35,7 +35,6 @@ cols_no_labs = no_labs["columns"]
 
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
-oxygen_labs_infec_ind = get_oxygen_ind(labs_features_infec["numeric"])
 oxygen_infec_ind = get_oxygen_ind(no_labs_features_infec["numeric"])
 
 body = dbc.Container(
@@ -106,14 +105,12 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit)
+    score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(score,className="score-calculator-card-content-infection"),
     ]
     return card_content,impute_text
-
-
 
 def get_model_desc_infection(labs):
     if labs:

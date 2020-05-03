@@ -32,7 +32,6 @@ cols_no_labs = no_labs["columns"]
 
 oxygen_in_mort = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
-oxygen_mort_labs_ind = get_oxygen_ind(labs_features_mort["numeric"])
 oxygen_mort_ind = get_oxygen_ind(no_labs_features_mort["numeric"])
 
 body = dbc.Container(
@@ -54,10 +53,33 @@ body = dbc.Container(
                     ),
                     html.Hr(),
                     dcc.Markdown(
-                         """ **NOTE (This is a developmental version!):** A model is only as good as the data \
-                         it is trained on. We will release new versions of the calculator as the amount of data \
-                         we receive from our partner institutions increases. If you are a medical institution and \
-                         are willing to contribute to our effort, please reach out to \
+                         """ Severe COVID-19 patients require the most scarce health care resources, \
+                         ventilators and intensive care beds. When the number of patients exceeds the \
+                         availability of these resources, physicians have the difficult responsibility \
+                         to prioritize between patients. To help them make an informed decision, we \
+                         developed the mortality calculator for admitted COVID-19 patients.
+                         """,
+                    ),
+                    dcc.Markdown(
+                         """ We have developed two calculators that predict **the probability of mortality \
+                         of a COVID-19 patient who arrives at a hospital:**"""),
+                    dcc.Markdown(
+                         """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
+                          We envision that this model will be used at the time of triage for a COVID-19 patient who \
+                          arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
+                          The out of sample AUC is 0.93.
+                         """,
+                    ),
+                    dcc.Markdown(
+                         """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
+                         be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
+                         patient’s condition. The out of sample AUC is 0.95.
+                         """,
+                    ),
+                    dcc.Markdown(
+                         """ Models are only as good as the data they are trained on. We will release new versions of \
+                         the calculator as the amount of data we receive from our partner institutions increases. If you \
+                         are a medical institution and are willing to contribute to our effort, please reach out to \
                          us [here](https://www.covidanalytics.io/contact).
                          """,
                     ),
@@ -105,7 +127,7 @@ def predict_risk_mort(labs,feature_vals,temp_unit):
         model = no_labs_model_mort
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
-    score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols,temp_unit)
+    score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(score,className="score-calculator-card-content"),

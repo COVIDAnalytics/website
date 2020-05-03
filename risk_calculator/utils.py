@@ -75,7 +75,7 @@ def valid_input(features,feature_vals,length):
         return False, "Please insert at least {} numeric values.".format(threshold), feature_vals
     return True,"",feature_vals
 
-def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit):
+def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
     convert_temperature = temp_unit[0] == "°C"
@@ -87,7 +87,7 @@ def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit):
     for f,feat in enumerate(features["numeric"]):
         if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
-        elif title_mapping[feat["name"]] == oxygen:
+        elif not labs and title_mapping[feat["name"]] == oxygen:
             if feature_vals[i] > 1: #numeric value inserted
                 x[feat["index"]] = 1 if feature_vals[i] > 92 else 0
             else: #binary value inserted
