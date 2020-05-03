@@ -22,9 +22,9 @@ from projections.visuals_funcs import build_us_map, get_stat, build_continent_ma
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
 from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort
-from risk_calculator.mortality.calculator import oxygen_mort_labs_ind, oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
+from risk_calculator.mortality.calculator import oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
 from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec
-from risk_calculator.infection.calculator import oxygen_labs_infec_ind, oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
+from risk_calculator.infection.calculator import oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
@@ -319,7 +319,7 @@ if oxygen_in_mort:
         [Input('lab_values_indicator', 'value'),
         Input('oxygen-answer-mortality', 'value')])
     def get_oxygen_mortality(labs,have_val):
-        return oxygen_options(oxygen_labs_infec_ind,True,have_val)
+        return oxygen_options(oxygen_mort_ind,True,have_val)
 
 
 if oxygen_in_infec:
@@ -328,7 +328,7 @@ if oxygen_in_infec:
         [Input('lab_values_indicator_infection', 'value'),
         Input('oxygen-answer-infection', 'value')])
     def get_oxygen_infection(labs,have_val):
-        return oxygen_options(oxygen_labs_infec_ind,False,have_val)
+        return oxygen_options(oxygen_infec_ind,False,have_val)
 
 @app.callback(
     Output('feature-importance-bar-graph-infection', 'children'),

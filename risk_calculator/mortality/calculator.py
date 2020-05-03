@@ -32,7 +32,6 @@ cols_no_labs = no_labs["columns"]
 
 oxygen_in_mort = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
-oxygen_mort_labs_ind = get_oxygen_ind(labs_features_mort["numeric"])
 oxygen_mort_ind = get_oxygen_ind(no_labs_features_mort["numeric"])
 
 body = dbc.Container(
