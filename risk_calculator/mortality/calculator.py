@@ -64,14 +64,14 @@ body = dbc.Container(
                          """ We have developed two calculators that predict **the probability of mortality \
                          of a COVID-19 patient who arrives at a hospital:**"""),
                     dcc.Markdown(
-                         """* A calculator that uses demographics, vitals and comorbidities, but without lab values. \
+                         """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
                           We envision that this model will be used at the time of triage for a COVID-19 patient who \
                           arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
                           The out of sample AUC is 0.93.
                          """,
                     ),
                     dcc.Markdown(
-                         """* A calculator that uses demographics, vitals, comorbidities and lab values. This risk score can \
+                         """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
                          be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
                          patient’s condition. The out of sample AUC is 0.95.
                          """,
