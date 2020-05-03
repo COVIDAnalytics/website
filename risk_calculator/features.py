@@ -294,7 +294,7 @@ def build_feature_cards(m=True,labs=False):
     for id, content_dict in enumerate(dropdowns):
         card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict)))
     for id, content_dict in enumerate(inputs):
-        if title_mapping[content_dict['name']] == oxygen:
+        if not labs and title_mapping[content_dict['name']] == oxygen:
             card_content.append((content_dict['name'],build_oxygen_card(str(id), labs, m, content_dict)))
         else:
             card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
@@ -313,7 +313,7 @@ def build_feature_cards(m=True,labs=False):
         if name == "Comorbidities":
             w2 = 12
             w1 = 12
-        elif title_mapping[name] == oxygen:
+        elif not labs and title_mapping[name] == oxygen:
             w2 = 6
             w1 = 12
         else:

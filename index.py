@@ -21,9 +21,9 @@ from projections.projections import ProjectState
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import df_projections, countries_with_provinces, world_map_text
 from projections.projections_documentation import Projections_documentation
-from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort, oxygen_in_mort_labs
+from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort
 from risk_calculator.mortality.calculator import oxygen_mort_labs_ind, oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
-from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec, oxygen_in_infec_labs
+from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec
 from risk_calculator.infection.calculator import oxygen_labs_infec_ind, oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
@@ -321,25 +321,10 @@ if oxygen_in_mort:
     def get_oxygen_mortality(labs,have_val):
         return oxygen_options(oxygen_labs_infec_ind,True,have_val)
 
-if oxygen_in_mort_labs:
-    @app.callback(
-        Output("calc-numeric-{}-wrapper-mortality-labs".format(oxygen_mort_labs_ind), 'children'),
-        [Input('lab_values_indicator', 'value'),
-        Input('oxygen-answer-mortality', 'value')])
-    def get_oxygen_mortality(labs,have_val):
-        return oxygen_options(oxygen_labs_infec_ind,True,have_val)
 
 if oxygen_in_infec:
     @app.callback(
         Output("calc-numeric-{}-wrapper-infection-nolabs".format(oxygen_infec_ind), 'children'),
-        [Input('lab_values_indicator_infection', 'value'),
-        Input('oxygen-answer-infection', 'value')])
-    def get_oxygen_infection(labs,have_val):
-        return oxygen_options(oxygen_labs_infec_ind,False,have_val)
-
-if oxygen_in_infec_labs:
-    @app.callback(
-        Output("calc-numeric-{}-wrapper-infection-labs".format(oxygen_labs_infec_ind), 'children'),
         [Input('lab_values_indicator_infection', 'value'),
         Input('oxygen-answer-infection', 'value')])
     def get_oxygen_infection(labs,have_val):
@@ -381,24 +366,6 @@ def reset_submit_button_infection(labs):
 def reset_submit_button_mortality(labs):
     return 0
 
-def get_type_inputs(amount,name):
-    inputs = [None]*amount
-    for k in range(amount):
-        inputs[k] = State('calc-{}-{}'.format(name,k), 'value')
-    return inputs
-
-def get_feature_inputs(mortality=True,labs=False):
-    if mortality:
-        features = labs_features_mort if labs else no_labs_features_mort
-    else:
-        features = labs_features_infec if labs else no_labs_features_infec
-    inputs = get_type_inputs(len(features['categorical']),'categorical')
-    inputs += get_type_inputs(len(features['numeric']),'numeric')
-    inputs += get_type_inputs(len(features['checkboxes']),'checkboxes')
-    inputs += get_type_inputs(len(features['multidrop']),'multidrop')
-    inputs += [State('calc-temp-f-c', 'value')]
-    return inputs
-
 def switch_oxygen(vec,ind):
     #assume there is only 1 categorical variable
     ind = ind + 1
@@ -431,8 +398,6 @@ def calc_risk_score(*argv):
     labs = argv[1]
     feats = argv[2:]
     temp_unit = argv[-1]
-    if labs and oxygen_in_mort_labs:
-        feats = switch_oxygen(feats,oxygen_mort_labs_ind)
     if not labs and oxygen_in_mort:
         feats = switch_oxygen(feats,oxygen_mort_ind)
     #if submit button was clicked
@@ -463,8 +428,6 @@ def calc_risk_score_infection(*argv):
     labs = argv[1]
     feats = argv[2:-1]
     temp_unit = argv[-1]
-    if labs and oxygen_in_infec_labs:
-        feats = switch_oxygen(feats,oxygen_labs_infec_ind)
     if not labs and oxygen_in_infec:
         feats = switch_oxygen(feats,oxygen_infec_ind)
     #if submit button was clicked
