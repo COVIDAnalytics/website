@@ -55,33 +55,13 @@ body = dbc.Container(
                     ),
                     html.Hr(),
                     dcc.Markdown(
-                         """ Severe COVID-19 patients require the most scarce health care resources, \
-                         ventilators and intensive care beds. When the number of patients exceeds the \
-                         availability of these resources, physicians have the difficult responsibility \
-                         to prioritize between patients. To help them make an informed decision, we \
-                         developed the mortality calculator for admitted COVID-19 patients.
+                         """ **NOTE (This is a developmental version!):** A model is only as good as the \
+                         data it is trained on. We will release new versions of the calculator as the \
+                         amount of data we receive from our partner institutions increases. If you are a \
+                         medical institution and are willing to contribute to our effort, please reach out \
+                         to us [here](https://www.covidanalytics.io/contact).
                          """,
-                    ),
-                    dcc.Markdown(
-                         """ We have developed two calculators that predict **the probability of mortality \
-                         of a COVID-19 patient who arrives at a hospital:**
-
-                         a. A calculator that uses demographics, vitals and comorbidities, but without lab values. \
-                          We envision that this model will be used at the time of triage for a COVID-19 patient who \
-                          arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
-                          The out of sample AUC is 0.93.
-                         b. A calculator that uses demographics, vitals, comorbidities and lab values. This risk score can \
-                         be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
-                         patient’s condition. The out of sample AUC is 0.95.
-                         """,
-                    ),
-                    dcc.Markdown(
-                         """ *Models are only as good as the data they are trained on. We will release new versions of \
-                         the calculator as the amount of data we receive from our partner institutions increases. If you \
-                         are a medical institution and are willing to contribute to our effort, please reach out to \
-                         us [here](https://www.covidanalytics.io/contact).
-                         """,
-                    ),
+                    )
                 ],
                 style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
                 )
