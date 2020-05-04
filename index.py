@@ -12,6 +12,7 @@ from datetime import datetime as dt
 from about_us.team import Team
 from about_us.press import Press
 from about_us.contact import Contact
+from about_us.collaborators import Collaborators
 from assets.mappings import data_cols,all_options
 from dataset.dataset import Dataset
 from dataset.dataset_documentation import Dataset_documentation
@@ -79,6 +80,8 @@ def display_page(pathname):
         return InfectionRiskCalc()
     if pathname == '/press':
         return Press()
+    if pathname == '/collaborators':
+        return Collaborators()
     else:
         return Homepage()
 

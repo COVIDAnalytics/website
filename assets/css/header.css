@@ -55,6 +55,15 @@ P {
   font-style: bold;
 }
 
+.collab-name{
+  text-align: center;
+  color: black;
+}
+.collab-name:hover{
+  color: black;
+  text-decoration: none;
+}
+
 #imputed-text-infection{
   text-align: center;
 }
