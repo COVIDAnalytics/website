@@ -111,7 +111,7 @@ def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
     for i,ind in enumerate(imputed):
         ind = int(ind)
         text = 'The missing feature, ' + title_mapping[columns[ind]] + ', was calculated as '
-        if title_mapping[columns[ind]] == oxygen:
+        if not labs and not m and title_mapping[columns[ind]] == oxygen:
             if x_full[0][ind] == 1:
                 text += '>92 (Shortness of breath)'
             else:
