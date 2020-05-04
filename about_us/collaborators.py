@@ -47,7 +47,19 @@ def get_card(collab):
         )
 
 body = dbc.Container(
-    [
+    [   dbc.Row(
+                [
+                    dbc.Col(
+                    [
+                        html.H2("Our Collaborators"),
+                        html.P('Our models would not have been possible without the valuable data and insights provided \
+                                by our partners. Our aspiration is to develop tools that they can positively affect the \
+                                care they provide to their patients.')
+                    ]
+                    )
+                ],
+                style={'marginBottom': 20}
+            ),
         dbc.Row(
             [
                 get_card(collaborators[i]) for i in range(num_collaborators)
