@@ -132,7 +132,7 @@ def predict_risk_mort(labs,feature_vals,temp_unit):
     score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
-        html.H4(score,className="score-calculator-card-content"),
+        html.H4(str(score)+"%",className="score-calculator-card-content"),
     ]
     return card_content,imputed_text
 

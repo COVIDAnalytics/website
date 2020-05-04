@@ -75,7 +75,7 @@ def display_page(pathname):
         return VentilatorAllocations()
     if pathname == '/mortality_calculator':
         return RiskCalc()
-    if pathname == '/328602685_infection_calculator':
+    if pathname == '/infection_calculator':
         return InfectionRiskCalc()
     if pathname == '/press':
         return Press()

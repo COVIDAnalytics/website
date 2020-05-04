@@ -94,6 +94,13 @@ def valid_input_infec(labs,feature_vals):
     length = len(features["numeric"])
     return valid_input(features["numeric"],feature_vals[0],length)
 
+def get_bucket(score):
+    if score <= 60:
+        return "Low"
+    elif score <= 80:
+        return "Medium"
+    return "High"
+
 def predict_risk_infec(labs,feature_vals,temp_unit):
     if labs:
         cols = cols_labs
@@ -108,7 +115,7 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
     score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
-        html.H4(score,className="score-calculator-card-content-infection"),
+        html.H4(get_bucket(score),className="score-calculator-card-content-infection"),
     ]
     return card_content,impute_text
 
