@@ -44,6 +44,9 @@ def convert_temp_units(x):
 def labs_ques(val):
     return "Yes" if val else "No"
 
+def oxygen_vals(val):
+    return "Yes" if val == 92 else "No"
+
 def get_oxygen_ind(feats):
     for i,f in enumerate(feats):
         if title_mapping[f["name"]] == oxygen:
@@ -87,11 +90,8 @@ def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
     for f,feat in enumerate(features["numeric"]):
         if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
-        elif not labs and title_mapping[feat["name"]] == oxygen:
-            if feature_vals[i] > 1: #numeric value inserted
-                x[feat["index"]] = 1 if feature_vals[i] > 92 else 0
-            else: #binary value inserted
-                x[feat["index"]] = feature_vals[i]
+        elif not labs and not m and title_mapping[feat["name"]] == oxygen:
+            x[feat["index"]] =  1 if feature_vals[i] == 92 else 0
         else:
             x[feat["index"]] = feature_vals[i]
         i+=1

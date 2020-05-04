@@ -24,11 +24,13 @@ labs_model_mort = labs["model"]
 labs_imputer_mort = labs["imputer"]
 labs_features_mort = labs["json"]
 cols_labs = labs["columns"]
+labs_auc = 0.95
 
 no_labs_model_mort = no_labs["model"]
 no_labs_imputer_mort = no_labs["imputer"]
 no_labs_features_mort = no_labs["json"]
 cols_no_labs = no_labs["columns"]
+no_labs_auc = no_labs["AUC"]
 
 oxygen_in_mort = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
@@ -140,7 +142,7 @@ def get_model_desc_mortality(labs):
              [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on 213 patients (out of whom 24% deceased) is ",
-             html.Span(' 0.95', style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
+             html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )
@@ -149,7 +151,7 @@ def get_model_desc_mortality(labs):
             [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on 213 patients (out of whom 24% deceased) is ",
-             html.Span(' 0.93', style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
+             html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )
