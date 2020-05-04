@@ -1,12 +1,20 @@
 - name: "ASST-Cremona"
   photo: "cremona_logo2.png"
   website: "https://www.asst-cremona.it/"
+  text: "ASST Cremona includes the Ospedale di Cremona, Ospedale Oglio Po and other minor public hospitals in the Province of Cremona. Cremona is one of the most hit Italian provinces in Lombardy in the Italian COVID-19 crisis. Ospedale di Cremona has around 750 beds."
+  padding: 20
 - name: "Fundación HM"
   photo: "fundacionhm.png"
   website: "https://www.fundacionhm.com/"
+  text: "Fundacion HM is a leading Hospital Group in Spain with 15 general hospitals and 21 clinical centers that cover the regions of Madrid, Galicia, and León."
+  padding: 30
 - name: "Hartford Hospital"
   photo: "Hartford_logo.jpg"
   website: "https://hartfordhospital.org/"
-- name: "Sotiria Thoracic Diseases Hospital of Athens"
+  text: "Hartford Hospital is a 938-bed acute care teaching hospital located in the South End of Hartford, Connecticut. It was established in 1854 and today, it includes seven different clinical centers across the state of Connecticut. The emergency room receives about 96,000 visits per year."
+  padding: 30
+- name: "Sotiria Hospital"
   photo: "sotiria_logo.jpg"
   website: "https://www.sotiria.gr/"
+  text: "Sotiria Thoracic Diseases Hospital of Athens is the principal hospital of Greece managing COVID-19 cases. Located at the city center of Athens, it has a history of over 120 years. Nowadays, it is considered the biggest national hospital for lung disease and one of the most renowned institutions in Europe for this type of patients."
+  padding: 10

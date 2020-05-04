@@ -11,17 +11,17 @@ nav = Navbar()
 footer = Footer()
 
 # Load team members
-with open("assets/team_members/team.yml") as f:
-    members = yaml.load(f, Loader=yaml.FullLoader)
-num_members = len(members)
+with open("assets/team_members/core_team.yml") as f:
+    core_members = yaml.load(f, Loader=yaml.FullLoader)
+num_core_members = len(core_members)
+
+with open("assets/team_members/associated_team.yml") as f:
+    associated_members = yaml.load(f, Loader=yaml.FullLoader)
+num_associated_members = len(associated_members)
 
 with open("assets/team_members/faculty.yml") as f:
     faculty = yaml.load(f, Loader=yaml.FullLoader)
 num_faculty = len(faculty)
-
-with open("assets/collaborators/organizations.yml") as f:
-    collaborators = yaml.load(f, Loader=yaml.FullLoader)
-num_collaborators = len(collaborators)
 
 # Single member pic
 def member_pic(member):
@@ -48,31 +48,12 @@ def member_pic(member):
         style={'marginBottom': 7}
     )
 
-# Single collaborator pic
-def collab_pic(collaborator):
-    return dbc.Col(
-        [
-        html.A([
-            html.Div(
-            [
-                html.Img(
-                    src='assets/collaborators/photos/%s' % collaborator['photo'],
-                    className="collabs"
-                ),
-             ],
-             style={'display': 'inline-block'}
-            )
-            ], href=collaborator['website'])
-        ],
-        width='auto',
-    )
-
 # Table rows
-member_rows = \
+core_member_rows = \
     [
         dbc.Row(
             [
-                member_pic(members[0])
+                member_pic(core_members[0])
             ],
             justify="around"
         )
@@ -80,7 +61,7 @@ member_rows = \
     [
         dbc.Row(
             [
-                member_pic(members[i]) for i in range(1,num_members)
+                member_pic(core_members[i]) for i in range(1,num_core_members)
             ],
             justify="around",
         )
@@ -96,11 +77,11 @@ faculty_rows = \
         )
     ]
 
-collab_rows = \
+associated_member_rows = \
     [
         dbc.Row(
             [
-                collab_pic(collaborators[i]) for i in range(num_collaborators)
+                member_pic(associated_members[i]) for i in range(num_associated_members)
             ],
             justify="around",
         )
@@ -121,29 +102,13 @@ body = dbc.Container(
                 ],
                 style={'marginBottom': 20}
             )
-        ] + member_rows +
-        [dbc.Row(
-            [
-                dbc.Col(
-                [
-                    html.H2("Collaborating Faculty"),
-                ]
-                )
-            ],
-            style={'marginBottom': 20,'marginTop': 40}
-        )
-        ] + faculty_rows +
-        [dbc.Row(
-            [
-                dbc.Col(
-                [
-                    html.H2("Our Collaborators"),
-                ]
-                )
-            ],
-            style={'marginBottom': 20,'marginTop': 40}
-        )
-        ] + collab_rows,
+        ] + \
+        [dbc.Row([dbc.Col([html.H3("Core Team Members")])],style={'marginBottom': 20})] + \
+        core_member_rows + \
+        [dbc.Row([dbc.Col([html.H3("Collaborating Faculty")])],style={'marginBottom': 20,'marginTop': 40})] + \
+        faculty_rows + \
+        [dbc.Row([dbc.Col([html.H3("Associated Team Members")])],style={'marginBottom': 20,'marginTop': 40})] + \
+        associated_member_rows,
         className="page-body"
     )
 
