@@ -115,7 +115,7 @@ body = dbc.Container(
         dbc.Row(
             [
                 build_card(False,"Data and Insights",data_text + insights_text,"assets/images/data-1.jpg","/interactive-graph"),
-                build_card(True,"Infection risk calculator",infection_calculator_text,"assets/images/infection.png","/infection_calculator"),
+                build_card(True,"Infection risk calculator",infection_calculator_text,"assets/images/infection_logo.jpg","/infection_calculator"),
                 build_card(False,"Mortality risk calculator",mortality_calculator_text,"assets/images/mortality_logo.png","/mortality_calculator"),
                 build_card(True,"Case predictions",projections_text,"assets/images/forecast-1.png","/projections"),
                 build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
