@@ -73,12 +73,10 @@ def build_card(imgTop,title,text,img,link):
 
 data_text = '''
        130+ international Covid-19 clinical studies,
-       aggregated into a single dataset.
+       aggregated into a single dataset. Key characteristics of COVID-19 patients in an
+       interactive summary.
        '''
-insights_text = '''
-      Key characteristics of COVID-19 patients in an
-      interactive summary.
-      '''
+
 projections_text = '''
     DELPHI epidemiological predictions of COVID-19 \
     infections, hospital stays, and mortalities by location.
@@ -114,12 +112,12 @@ body = dbc.Container(
         ),
         dbc.Row(
             [
-                build_card(False,"Data",data_text,"assets/images/data-1.jpg","/dataset"),
-                build_card(True,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
-                build_card(False,"Case predictions",projections_text,"assets/images/forecast-1.png","/projections"),
-                build_card(True,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
-                #build_card(False,"Infection risk calculator",infection_calculator_text,"assets/images/infection.png","/infection_calculator"),
+                build_card(False,"Data and Insights",data_text,"assets/images/insights-4.png","/interactive-graph"),
+                build_card(True,"Infection risk calculator",infection_calculator_text,"assets/images/infection_logo.jpg","/infection_calculator"),
                 build_card(False,"Mortality risk calculator",mortality_calculator_text,"assets/images/mortality_logo.png","/mortality_calculator"),
+                build_card(True,"Case predictions",projections_text,"assets/images/forecast-1.png","/projections"),
+                build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
+
             ],
             justify="around",
             no_gutters=True,
