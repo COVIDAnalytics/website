@@ -88,7 +88,7 @@ def get_policy_card(ind):
                                                     'index': ind,
                                                 },
                                                 options=[
-                                                    {'label': '  No Restrictions', 'value': 'No_Measure',},
+                                                    {'label': '  No Restrictions', 'value': 'No_Measure', 'disabled': False},
                                                 ],
                                             ),
                                         ),
@@ -103,7 +103,7 @@ def get_policy_card(ind):
                                                     'index': ind,
                                                 },
                                                 options=[
-                                                    {'label': '  Lockdown', 'value': 'Lockdown',},
+                                                    {'label': '  Lockdown', 'value': 'Lockdown', 'disabled': False},
                                                 ],
                                             ),
                                         ),
@@ -117,7 +117,7 @@ def get_policy_card(ind):
                                                     'index': ind,
                                                 },
                                                 options=[
-                                                    {'label': '  Restrict Mass Gatherings', 'value': 'Mass_Gatherings'},
+                                                    {'label': '  Restrict Mass Gatherings', 'value': 'Mass_Gatherings', 'disabled': False},
                                                 ],
                                             ),
                                         ),
@@ -130,7 +130,7 @@ def get_policy_card(ind):
                                                     'index': ind,
                                                 },
                                                 options=[
-                                                    {'label': '  Restrict Schools', 'value': 'Schools'},
+                                                    {'label': '  Restrict Schools', 'value': 'Schools', 'disabled': True},
                                                 ],
                                             ),
                                         ),
@@ -143,7 +143,7 @@ def get_policy_card(ind):
                                                     'index': ind,
                                                 },
                                                 options=[
-                                                    {'label': '  Restrict Non-Essential Businesses, Travel Restriction and Workplaces', 'value': 'Others'},
+                                                    {'label': '  Restrict Non-Essential Businesses, Travel Restriction and Workplaces', 'value': 'Others', 'disabled': False},
                                                 ],
                                             )
                                         ),

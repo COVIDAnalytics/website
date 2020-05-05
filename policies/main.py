@@ -76,13 +76,13 @@ def build_policy_projections(state, policies, times, value):
             t = map_time[times[p]]
             y = data[code][t][value]
             fig.add_trace(go.Scatter(
-                name='<br>'.join(wrap(name, width=60)),
+                name='<br>'.join(wrap(name + "," + str(t), width=60)),
                 showlegend=True,
                 x=x,
                 y=y,
-                mode="lines+markers",
+                mode="lines",
                 marker=dict(color=colors[p]),
-                line=dict(color=colors[p])
+                line=dict(color=colors[p],width=4)
             ))
     i= 0
     y = []
@@ -96,9 +96,9 @@ def build_policy_projections(state, policies, times, value):
         showlegend=True,
         x=x,
         y=y,
-        mode="lines+markers",
+        mode="lines",
         marker=dict(color='grey'),
-        line=dict(color='grey')
+        line=dict(color='grey',width=4)
     ))
 
 
@@ -115,14 +115,14 @@ def build_policy_projections(state, policies, times, value):
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
                 legend_title='<b> Values Predicted </b>',
-                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
+                margin={'l': 40, 'b': 80, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
                 plot_bgcolor='rgba(0,0,0,0)',
                 legend={
                         "orientation": "v",
                         "xanchor": "center",
-                        "y": -0.44,
+                        "y": -0.6,
                         "x": 0.5
                         },
                 modebar={

@@ -517,17 +517,26 @@ for p in range(num_policies):
     Input({'type': 'mass', 'index': ALL}, "value"),
     Input({'type': 'schools', 'index': ALL}, "value"),
     Input({'type': 'others', 'index': ALL}, "value"),
+    Input({'type': 'none', 'index': ALL}, "options"),
+    Input({'type': 'lockdown', 'index': ALL}, "options"),
+    Input({'type': 'mass', 'index': ALL}, "options"),
+    Input({'type': 'schools', 'index': ALL}, "options"),
+    Input({'type': 'others', 'index': ALL}, "options"),
     Input({'type': 'timeline', 'index': ALL}, "value")]
 )
 def get_policy_projections(*argv):
+    # for a in argv:
+    #     print(a)
     policy_options = 5
-    input_policies = argv[1:-1]
+    input_policies = argv[1:policy_options+1]
+    input_options = argv[policy_options+1:-1]
     times = argv[-1]
     policies = [[0,0,0,0,0] for i in range(num_policies)]
     for p in range(num_policies):
         for i in range(policy_options):
-            if input_policies[i][p]:
-                policies[p][i] = 1
+            if input_options[i][p]:
+                if input_policies[i][p] and not input_options[i][p][0]["disabled"]:
+                    policies[p][i] = 1
     return [build_policy_projections(argv[0],policies,times,"Total Detected"),
                 build_policy_projections(argv[0],policies,times,"Total Detected Deaths")]
 
