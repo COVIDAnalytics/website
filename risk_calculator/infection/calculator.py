@@ -27,11 +27,13 @@ labs_model_infec = labs["model"]
 labs_imputer_infec = labs["imputer"]
 labs_features_infec = labs["json"]
 cols_labs = labs["columns"]
+labs_auc = labs["AUC"]
 
 no_labs_model_infec = no_labs["model"]
 no_labs_imputer_infec = no_labs["imputer"]
 no_labs_features_infec = no_labs["json"]
 cols_no_labs = no_labs["columns"]
+no_labs_auc = no_labs["AUC"]
 
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
@@ -115,7 +117,7 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
     score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
-        html.H4(get_bucket(score),className="score-calculator-card-content-infection"),
+        html.H4(str(score)+"%",className="score-calculator-card-content-infection"),
     ]
     return card_content,impute_text
 
@@ -125,9 +127,9 @@ def get_model_desc_infection(labs):
              [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
-             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(), 
+             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
              "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
-             html.Span(' 0.88', style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
+             html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )
@@ -136,9 +138,9 @@ def get_model_desc_infection(labs):
             [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
-             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(), 
+             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
              "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
-             html.Span(' 0.85', style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
+             html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )
