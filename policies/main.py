@@ -86,8 +86,8 @@ def build_policy_projections(state, policies, times, value):
             ))
     i= 0
     y = []
-    while not math.isnan(data[code][t][value + " True"][i]):
-        y.append(data[code][t][value + " True"][i])
+    while not math.isnan(data[value + " True"][i]):
+        y.append(data[value + " True"][i])
         i+=1
     x = x[:len(y)]
 
