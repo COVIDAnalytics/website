@@ -58,26 +58,28 @@ def favicon():
 # redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
 def display_page(pathname):
+    if pathname == '/dataset':
+        return Dataset()
+    if pathname == '/dataset_documentation':
+        return Dataset_documentation()
     if pathname == '/interactive-graph':
         return InteractiveGraph()
     if pathname == '/projections':
         return ProjectState()
-    if pathname == '/team':
-        return Team()
-    if pathname == '/contact':
-        return Contact()
-    if pathname == '/dataset':
-        return Dataset()
     if pathname == '/projections_documentation':
         return Projections_documentation()
-    if pathname == '/dataset_documentation':
-        return Dataset_documentation()
+    if pathname == '/policies':
+        return Policies()
     if pathname == '/ventilator_allocation':
         return VentilatorAllocations()
     if pathname == '/mortality_calculator':
         return RiskCalc()
     if pathname == '/infection_calculator':
         return InfectionRiskCalc()
+    if pathname == '/team':
+        return Team()
+    if pathname == '/contact':
+        return Contact()
     if pathname == '/press':
         return Press()
     if pathname == '/collaborators':
