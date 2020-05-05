@@ -73,12 +73,10 @@ def build_card(imgTop,title,text,img,link):
 
 data_text = '''
        130+ international Covid-19 clinical studies,
-       aggregated into a single dataset.
+       aggregated into a single dataset. Key characteristics of COVID-19 patients in an
+       interactive summary.
        '''
-insights_text = '''
-      Key characteristics of COVID-19 patients in an
-      interactive summary.
-      '''
+
 projections_text = '''
     DELPHI epidemiological predictions of COVID-19 \
     infections, hospital stays, and mortalities by location.
@@ -106,20 +104,20 @@ body = dbc.Container(
                      We are a group of researchers from the [MIT](http://mit.edu/) [Operations Research Center](https://orc.mit.edu/), \
                      led by Professor [Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). \
                      We aim to quickly develop and deliver tools for hospitals and policymakers in the US to combat the spread of COVID-19. \
-                     This work represents a collaborative effort with [Hartford HealthCare](https://hartfordhealthcare.org/) \
-                     and [ASST Cremona](https://www.asst-cremona.it) which have been providing us with data and support through the model creation process.
+                     This work represents a collaborative effort with [multiple hospitals](/collaborators) which have been providing us with \
+                     data and support throughout the model creation process.
                      '''
                 ),
             ),
         ),
         dbc.Row(
             [
-                build_card(False,"Data",data_text,"assets/images/data-1.jpg","/dataset"),
-                build_card(True,"Insights",insights_text,"assets/images/insights-4.png","/interactive-graph"),
-                build_card(False,"Case predictions",projections_text,"assets/images/forecast-1.png","/projections"),
-                build_card(True,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
-                #build_card(False,"Infection risk calculator",infection_calculator_text,"assets/images/infection.png","/infection_calculator"),
+                build_card(False,"Data and Insights",data_text,"assets/images/insights-4.png","/interactive-graph"),
+                build_card(True,"Infection risk calculator",infection_calculator_text,"assets/images/infection_logo.jpg","/infection_calculator"),
                 build_card(False,"Mortality risk calculator",mortality_calculator_text,"assets/images/mortality_logo.png","/mortality_calculator"),
+                build_card(True,"Case predictions",projections_text,"assets/images/forecast-1.png","/projections"),
+                build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
+
             ],
             justify="around",
             no_gutters=True,

@@ -14,6 +14,14 @@
   border-color: #0000A0;
 }
 
+.collab-card{
+  border-color: #800020;
+  border-width: medium !important;
+}
+.collab-card:hover{
+  border-color: #0000A0 !important;
+}
+
 
 .home-card{
   border-color: #800020 !important;
