@@ -7,6 +7,10 @@ import dash_bootstrap_components as dbc
 from navbar import Navbar
 from footer import Footer
 
+with open("assets/press/important_press.yml") as f:
+    key_article = yaml.load(f, Loader=yaml.FullLoader)
+num_key_articles = len(key_article)
+
 with open("assets/press/press.yml") as f:
     article = yaml.load(f, Loader=yaml.FullLoader)
 num_articles = len(article)
@@ -19,7 +23,7 @@ def build_card(a):
             [
                 dbc.CardHeader(
                         [
-                            html.H6(a['date'],className="press-date"),
+                            html.H6(a['date'],className="press-date") if a['date'] != "ongoing" else None,
                             html.H5(a['title'],className="press-title"),
                             html.H5(a['source'],className="press-source"),
                         ],
@@ -49,6 +53,13 @@ def build_card(a):
                 )
 articles = \
     [
+        dbc.Row(
+            [
+                build_card(key_article[i]) for i in range(num_key_articles)
+            ],
+            justify="around",
+        ),
+        dbc.Row(dbc.Col(html.Hr())),
         dbc.Row(
             [
                 build_card(article[i]) for i in range(num_articles)

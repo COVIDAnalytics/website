@@ -106,8 +106,8 @@ body = dbc.Container(
                      We are a group of researchers from the [MIT](http://mit.edu/) [Operations Research Center](https://orc.mit.edu/), \
                      led by Professor [Dimitris Bertsimas](https://www.mit.edu/~dbertsim/). \
                      We aim to quickly develop and deliver tools for hospitals and policymakers in the US to combat the spread of COVID-19. \
-                     This work represents a collaborative effort with [Hartford HealthCare](https://hartfordhealthcare.org/) \
-                     and [ASST Cremona](https://www.asst-cremona.it) which have been providing us with data and support through the model creation process.
+                     This work represents a collaborative effort with [multiple hospitals](/collaborators) which have been providing us with \
+                     data and support throughout the model creation process.
                      '''
                 ),
             ),

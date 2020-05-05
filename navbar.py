@@ -30,8 +30,8 @@ def Navbar():
                     label="Risk Calculators",
                     children=[
                        dbc.DropdownMenuItem("Mortality Risk Calculator", href="/mortality_calculator"),
-                       # dbc.DropdownMenuItem(divider=True),
-                       # dbc.DropdownMenuItem("Infection Risk Calculator", href="/infection_calculator")
+                       dbc.DropdownMenuItem(divider=True),
+                       dbc.DropdownMenuItem("Infection Risk Calculator", href="/infection_calculator")
                        ]
                 ),
                 dbc.DropdownMenu(
@@ -40,6 +40,8 @@ def Navbar():
                     label="About Us",
                     children=[
                       dbc.DropdownMenuItem("The Team", href="/team"),
+                      dbc.DropdownMenuItem(divider=True),
+                      dbc.DropdownMenuItem("Collaborators", href="/collaborators"),
                       dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Contact Us", href="/contact"),
                     ],

@@ -94,6 +94,13 @@ def valid_input_infec(labs,feature_vals):
     length = len(features["numeric"])
     return valid_input(features["numeric"],feature_vals[0],length)
 
+def get_bucket(score):
+    if score <= 60:
+        return "Low"
+    elif score <= 80:
+        return "Medium"
+    return "High"
+
 def predict_risk_infec(labs,feature_vals,temp_unit):
     if labs:
         cols = cols_labs
@@ -108,7 +115,7 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
     score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
-        html.H4(score,className="score-calculator-card-content-infection"),
+        html.H4(get_bucket(score),className="score-calculator-card-content-infection"),
     ]
     return card_content,impute_text
 
@@ -117,6 +124,8 @@ def get_model_desc_infection(labs):
         auc = html.Div(
              [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
+             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(), 
              "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
              html.Span(' 0.88', style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
@@ -126,6 +135,8 @@ def get_model_desc_infection(labs):
         auc = html.Div(
             [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
+             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(), 
              "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
              html.Span(' 0.85', style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
