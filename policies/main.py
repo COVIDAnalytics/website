@@ -2,6 +2,7 @@ import json
 import plotly.graph_objects as go
 import plotly.express as px
 from textwrap import wrap
+import math
 
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
@@ -83,6 +84,23 @@ def build_policy_projections(state, policies, times, value):
                 marker=dict(color=colors[p]),
                 line=dict(color=colors[p])
             ))
+    i= 0
+    y = []
+    while not math.isnan(data[code][t][value + " True"][i]):
+        y.append(data[code][t][value + " True"][i])
+        i+=1
+    x = x[:len(y)]
+
+    fig.add_trace(go.Scatter(
+        name='<br>'.join(wrap("Truth", width=60)),
+        showlegend=True,
+        x=x,
+        y=y,
+        mode="lines+markers",
+        marker=dict(color='grey'),
+        line=dict(color='grey')
+    ))
+
 
     title = '<br>'.join(wrap('<b> {} for {} </b>'.format(value,state), width=26))
     fig.update_layout(
