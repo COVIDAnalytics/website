@@ -90,8 +90,6 @@ def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
     for f,feat in enumerate(features["numeric"]):
         if feat["name"] == "Body Temperature" and convert_temperature:
             x[feat["index"]] = convert_temp_units(feature_vals[i])
-        elif not labs and not m and title_mapping[feat["name"]] == oxygen:
-            x[feat["index"]] =  1 if feature_vals[i] == 92 else 0
         else:
             x[feat["index"]] = feature_vals[i]
         i+=1
@@ -111,13 +109,7 @@ def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
     for i,ind in enumerate(imputed):
         ind = int(ind)
         text = 'The missing feature, ' + title_mapping[columns[ind]] + ', was calculated as '
-        if not labs and not m and title_mapping[columns[ind]] == oxygen:
-            if x_full[0][ind] == 1:
-                text += '>92 (Shortness of breath)'
-            else:
-                text += '<92 (No shortness of breath)'
-        else:
-            text += str(round(x_full[0][ind],2))
+        text += str(round(x_full[0][ind],2))
         if columns[ind] == 'Body Temperature':
             impute_text[i] = text + '°F.'
         else:

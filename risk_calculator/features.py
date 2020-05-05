@@ -74,9 +74,6 @@ def build_feature_importance_graph(m=True,labs=False):
 def map_feat_vals(x,name):
     if name == "Gender":
         return "Male" if x == 0 else "Female"
-    if title_mapping[name] == oxygen:
-        if x > 1:
-            return 1 if x > 92 else 0
     return x
 
 def build_dropdown_card(id, m, content_dict):
@@ -135,8 +132,8 @@ def oxygen_options(id,m,have_val):
             dbc.Col(
                     dcc.Dropdown(
                         id=id_full,
-                        options = [{'label': oxygen_vals(x), 'value': x} for x in [92,97]],
-                        value = 97,
+                        options = [{'label': oxygen_vals(x), 'value': x} for x in [92,98]],
+                        value = 98,
                         style={"width":80}
                     ),
             )
