@@ -1,6 +1,7 @@
 
-["Mass Gatherings", "Schools", "Others", "Lockdown"]
 
+["Mass Gatherings", "Schools", "Others", "Lockdown"]
+#Missing: only schools, schools+others
 policy_mapping = {
     [0,0,0,0]: 'No_Measure',
     [1,0,0,0]: 'Restrict_Mass_Gatherings',
