@@ -12,7 +12,7 @@ from navbar import Navbar
 from footer import Footer
 
 from policies.cards import get_state_num_policy_card, get_policy_cards, colors
-from policies.graphs import get_projections, map_time, map_policy, no_policy_chosen, name_to_json
+from policies.graphs import get_projections, map_time, map_policy, no_policy_chosen, name_to_json, get_start
 
 nav = Navbar()
 footer = Footer()
@@ -68,7 +68,7 @@ def build_policy_projections(state, policies, times, value):
 
     data = projections[state]
     x = data["Day"]
-
+    max_y = 0
     for p,policy in enumerate(policies):
         if sum(policy) > 0:
             name = map_policy(policy)
@@ -83,6 +83,20 @@ def build_policy_projections(state, policies, times, value):
                 mode="lines",
                 marker=dict(color=colors[p]),
                 line=dict(color=colors[p],width=4)
+            ))
+            temp = math.ceil(max(data[code][t][value]))
+            if temp > max_y:
+                max_y = temp
+
+    for p,policy in enumerate(policies):
+        if sum(policy) > 0:
+            y = list(range(0,max_y,1000))
+            x_vertical = [get_start(times[p])] * len(y)
+            fig.add_trace(go.Scatter(
+                showlegend=False,
+                x=x_vertical,
+                y=y,
+                line=dict(color=colors[p], width=2, dash='dot')
             ))
     i= 0
     y = []
@@ -101,8 +115,7 @@ def build_policy_projections(state, policies, times, value):
         line=dict(color='grey',width=4)
     ))
 
-
-    title = '<br>'.join(wrap('<b> {} for {} </b>'.format(value,state), width=26))
+    title = '<br>'.join(wrap('<b> {} for {} </b>'.format(value,state), width=35))
     fig.update_layout(
                 height=550,
                 title={
