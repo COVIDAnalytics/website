@@ -31,14 +31,18 @@ body = dbc.Container(
             [
                 dbc.Jumbotron(
                 [
-                    html.H2("Title"),
+                    html.H2("Predictions of infections and deaths under a variety of policies"),
                     dcc.Markdown(
-                         """text
+                         """Using an extension of our [DELPHI model](/projections), we make predictions \
+                         until September 2020 for infections and deaths for all states of the US. \
+                         By selecting the state,  the collection of policies imposed and their timing, \
+                         the user can compare up to 3 policies simultaneously.
                          """,
                     ),
                     html.Hr(),
                     dcc.Markdown(
-                         """text
+                         """The methodology of the model is explained here. \
+                         We are currently developing an extension of the model for the world.
                          """,
                     )
                 ],

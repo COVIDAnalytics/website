@@ -77,7 +77,7 @@ projections_text = '''
     '''
 
 policy_text = '''
-    Predicting cases and mortalities based on various policy \
+    Predicting infections and deaths based on various policy \
     implementations'''
 
 
