@@ -512,6 +512,21 @@ for p in range(num_policies):
             return [options['none']['disabled'],options['lockdown']['disabled'],options['mass']['enabled'],options['schools']['disabled'],options['others']['enabled']]
         return [options['none']['enabled'],options['lockdown']['enabled'],options['mass']['enabled'],options['schools']['disabled'],options['others']['enabled']]
 
+    @app.callback(
+        Output('policy-week-text-{}'.format(p), 'children'),
+        [Input({'type': 'timeline', 'index': p}, "value")]
+    )
+    def get_text_for_timeline(t):
+        if t == 0:
+            return "Policy change taking effect now."
+        if t == 1:
+            return "Policy change taking effect 1 week from now."
+        if t == 2:
+            return "Policy change taking effect 2 weeks from now."
+        if t == 3:
+            return "Policy change taking effect 4 weeks from now."
+        return "Policy change taking effect 6 weeks from now."
+
 @app.callback(
     [Output('policy_projection_graph', 'children'),
     Output('policy_deaths_projection_graph', 'children')],
@@ -529,8 +544,6 @@ for p in range(num_policies):
     Input({'type': 'timeline', 'index': ALL}, "value")]
 )
 def get_policy_projections(*argv):
-    # for a in argv:
-    #     print(a)
     policy_options = 5
     input_policies = argv[1:policy_options+1]
     input_options = argv[policy_options+1:-1]
@@ -543,8 +556,6 @@ def get_policy_projections(*argv):
                     policies[p][i] = 1
     return [build_policy_projections(argv[0],policies,times,"Total Detected"),
                 build_policy_projections(argv[0],policies,times,"Total Detected Deaths")]
-
-
 
 if __name__ == '__main__':
     app.run_server(debug=True)
