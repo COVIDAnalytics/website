@@ -41,7 +41,7 @@ body = dbc.Container(
                     ),
                     html.Hr(),
                     dcc.Markdown(
-                         """The methodology of the model is explained here. \
+                         """The methodology of the model is explained [here](/DELPHI_documentation_pdf). \
                          We are currently developing an extension of the model for the world.
                          """,
                     )
