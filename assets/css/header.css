@@ -32,7 +32,7 @@ P {
 
 .card-title{
   color: #800020;
-  font-size: 21px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -70,4 +70,14 @@ P {
 
 #imputed-text-mortality{
   text-align: center;
+}
+
+#policy-header-0{
+  color: #000004;
+}
+#policy-header-1{
+  color: #a52c60;
+}
+#policy-header-2{
+  color: #ed6925;
 }

@@ -21,6 +21,8 @@ def Navbar():
                     children=[
                       dbc.DropdownMenuItem("Case Predictions", href="/projections"),
                       dbc.DropdownMenuItem(divider=True),
+                      dbc.DropdownMenuItem("Policy Evaluation", href="/policies"),
+                      dbc.DropdownMenuItem(divider=True),
                       dbc.DropdownMenuItem("Ventilator Allocation", href="/ventilator_allocation"),
                     ],
                 ),
