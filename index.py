@@ -125,7 +125,7 @@ def download_delphi_documentation():
                                      filename="DELPHI_Documentation.pdf")
 
 @app.server.route('/Policy_evaluation_documentation', methods=['GET', 'POST'])
-def download_delphi_documentation():
+def download_policy_eval_documentation():
     return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
                                      filename="Policy_Eval_Documentation.pdf")
 
