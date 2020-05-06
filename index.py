@@ -119,11 +119,15 @@ def set_display_children(selected_category):
     return u'Select the {} (Vertical Axis)'.format(mapping[selected_category])
 
 #Callbacks for projections
-
 @app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
 def download_delphi_documentation():
     return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
                                      filename="DELPHI_Documentation.pdf")
+
+@app.server.route('/Policy_evaluation_documentation', methods=['GET', 'POST'])
+def download_delphi_documentation():
+    return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
+                                     filename="Policy_Eval_Documentation.pdf")
 
 #Reset country_dropdown when main location (scope) changes
 @app.callback(
