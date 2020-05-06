@@ -150,7 +150,10 @@ def get_policy_card(ind):
                                 ),
                                 dbc.Row(
                                     [
-                                        dcc.Markdown("In how many weeks?"),
+                                        html.Div(
+                                            id="policy-week-text-{}".format(ind),
+                                            style={"paddingBottom": 20, "paddingLeft":10}
+                                            ),
                                     ],
                                     style={"paddingTop":10}
                                 ),

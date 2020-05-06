@@ -94,7 +94,7 @@ def build_policy_projections(state, policies, times, value):
 
     for p,policy in enumerate(policies):
         if sum(policy) > 0:
-            y = list(range(0,max_y,1000))
+            y = list(range(0,max_y,10))
             x_vertical = [get_start(times[p])] * len(y)
             fig.add_trace(go.Scatter(
                 showlegend=False,
