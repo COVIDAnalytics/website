@@ -60,10 +60,6 @@ def build_card(imgTop,titles,text,img,links):
     return dbc.Col(
                     [card],
                     style={"margin": "0.5rem"},
-                    # xs=12,
-                    # sm=5,
-                    # md=5,
-                    # lg=2,
                 )
 
 
