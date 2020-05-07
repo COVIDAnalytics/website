@@ -151,7 +151,6 @@ def get_policy_card(ind):
                                 dbc.Row(
                                     [
                                         html.Div(
-                                            "Choose when the policy will begin:",
                                             id="policy-week-text-{}".format(ind),
                                             style={"paddingBottom": 20, "paddingLeft":10}
                                             ),

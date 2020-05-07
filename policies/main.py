@@ -88,19 +88,20 @@ def build_policy_projections(state, policies, times, value):
                 marker=dict(color=colors[p]),
                 line=dict(color=colors[p],width=4)
             ))
-            temp = math.ceil(max(data[code][t][value]))
+            temp = max(data[code][t][value])
             if temp > max_y:
-                max_y = temp
+                max_y = int(math.ceil(temp / 100000.0)) * 100000
 
     for p,policy in enumerate(policies):
         if sum(policy) > 0:
-            y = list(range(0,max_y,10))
+            y = list(range(0,max_y+1,100000))
             x_vertical = [get_start(times[p])] * len(y)
             fig.add_trace(go.Scatter(
                 showlegend=False,
                 x=x_vertical,
                 y=y,
-                line=dict(color=colors[p], width=2, dash='dot')
+                line=dict(color=colors[p], width=1, dash='dash'),
+                marker=dict(color=colors[p], size=1)
             ))
     i= 0
     y = []
