@@ -512,20 +512,21 @@ for p in range(num_policies):
             return [options['none']['disabled'],options['lockdown']['disabled'],options['mass']['enabled'],options['schools']['disabled'],options['others']['enabled']]
         return [options['none']['enabled'],options['lockdown']['enabled'],options['mass']['enabled'],options['schools']['disabled'],options['others']['enabled']]
 
-    @app.callback(
-        Output('policy-week-text-{}'.format(p), 'children'),
-        [Input({'type': 'timeline', 'index': p}, "value")]
-    )
-    def get_text_for_timeline(t):
-        if t == 0:
-            return "Policy change taking effect now."
-        if t == 1:
-            return "Policy change taking effect 1 week from now."
-        if t == 2:
-            return "Policy change taking effect 2 weeks from now."
-        if t == 3:
-            return "Policy change taking effect 4 weeks from now."
-        return "Policy change taking effect 6 weeks from now."
+# for p in range(num_policies):
+#     @app.callback(
+#         Output('policy-week-text-{}'.format(p), 'children'),
+#         [Input({'type': 'timeline', 'index': p}, "value")]
+#     )
+#     def get_text_for_timeline(t):
+#         if t == 0:
+#             return "Policy change taking effect now."
+#         if t == 1:
+#             return "Policy change taking effect 1 week from now."
+#         if t == 2:
+#             return "Policy change taking effect 2 weeks from now."
+#         if t == 3:
+#             return "Policy change taking effect 4 weeks from now."
+#         return "Policy change taking effect 6 weeks from now."
 
 @app.callback(
     [Output('policy_projection_graph', 'children'),
