@@ -109,7 +109,7 @@ cards = \
             "links": ["/infection_calculator","/mortality_calculator"]
         },
         {
-            "titles": ["Case predictions","Policy Evaluations"],
+            "titles": ["Case predictions","Policy evaluations"],
             "text": [projections_text,policy_text],
             "image": "assets/images/forecast-1.png",
             "links": ["/projections","/policies"]
