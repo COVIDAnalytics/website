@@ -24,7 +24,7 @@ labs_model_mort = labs["model"]
 labs_imputer_mort = labs["imputer"]
 labs_features_mort = labs["json"]
 cols_labs = labs["columns"]
-labs_auc = 0.95
+labs_auc = labs["AUC"]
 
 no_labs_model_mort = no_labs["model"]
 no_labs_imputer_mort = no_labs["imputer"]
