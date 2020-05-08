@@ -25,12 +25,15 @@ labs_imputer_mort = labs["imputer"]
 labs_features_mort = labs["json"]
 cols_labs = labs["columns"]
 labs_auc = labs["AUC"]
+# labs_explainer = labs["explainer"]
 
 no_labs_model_mort = no_labs["model"]
 no_labs_imputer_mort = no_labs["imputer"]
 no_labs_features_mort = no_labs["json"]
 cols_no_labs = no_labs["columns"]
 no_labs_auc = no_labs["AUC"]
+# no_labs_explainer = no_labs["explainer"]
+
 
 oxygen_in_mort = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
@@ -124,12 +127,14 @@ def predict_risk_mort(labs,feature_vals,temp_unit):
         model = labs_model_mort
         features = labs_features_mort
         imputer = labs_imputer_mort
+        explainer = None #labs_explainer
     else:
         cols = cols_no_labs
         model = no_labs_model_mort
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
-    score,imputed_text = predict_risk(True,model,features,imputer,feature_vals,cols,temp_unit,labs)
+        explainer = None #no_labs_explainer
+    score,imputed_text = predict_risk(True,model,features,imputer,explainer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(str(score)+"%",className="score-calculator-card-content"),

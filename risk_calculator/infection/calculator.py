@@ -31,6 +31,8 @@ cols_labs = labs["columns"]
 labs_auc = labs["AUC"]
 labs_population = [labs["Size Training"],labs["Size Test"]]
 labs_positive = [labs["Percentage Training"],labs["Percentage Test"]]
+labs_explainer = labs["explainer"]
+labs_importance_infection = labs["importance"]
 
 no_labs_model_infec = no_labs["model"]
 no_labs_imputer_infec = no_labs["imputer"]
@@ -39,6 +41,9 @@ cols_no_labs = no_labs["columns"]
 no_labs_auc = no_labs["AUC"]
 no_labs_population = [no_labs["Size Training"],no_labs["Size Test"]]
 no_labs_positive = [no_labs["Percentage Training"],no_labs["Percentage Test"]]
+no_labs_explainer = no_labs["explainer"]
+no_labs_importance_infection = no_labs["importance"]
+
 
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
@@ -114,12 +119,14 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
         model = labs_model_infec
         features = labs_features_infec
         imputer = labs_imputer_infec
+        explainer = labs_explainer
     else:
         cols = cols_no_labs
         model = no_labs_model_infec
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
-    score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit,labs)
+        explainer = no_labs_explainer
+    score,impute_text = predict_risk(False,model,features,imputer,explainer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(str(int(math.floor(score/10.0)))+" out of 10",className="score-calculator-card-content-infection"),

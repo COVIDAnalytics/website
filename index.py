@@ -6,7 +6,10 @@ from dash.dependencies import Input, Output, State, ALL
 import dash_bootstrap_components as dbc
 import flask
 import os
-
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 from datetime import datetime as dt
 
 from about_us.team import Team
@@ -28,6 +31,7 @@ from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, pre
 from risk_calculator.mortality.calculator import oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
 from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec
 from risk_calculator.infection.calculator import oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
+from risk_calculator.infection.calculator import labs_importance_infection, no_labs_importance_infection
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
@@ -88,6 +92,17 @@ def display_page(pathname):
         return Collaborators()
     else:
         return Homepage()
+
+@app.server.route("/")
+def display_fig(fig):
+   # Save it to a temporary buffer.
+   buf = BytesIO()
+   fig.set_canvas(plt.gcf().canvas)
+   fig.savefig(buf, format="png")
+   # Embed the result in the html output.
+   data = base64.b64encode(buf.getbuffer()).decode("ascii")
+   print(type(data))
+   return "data:image/png;base64,{}".format(data)
 
 #Callbacks for interactive
 @app.callback(
@@ -197,7 +212,6 @@ def update_us_map(chosen_date,val, location,pop):
         return build_continent_map(chosen_date,val, location,pop)
 
 #
-
 @app.callback(
     [Output('us_tot_det', 'children'),
      Output('us_active', 'children'),
@@ -345,7 +359,11 @@ if oxygen_in_infec:
     Output('feature-importance-bar-graph-infection', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
 def get_infection_model_feat_importance(labs):
-    return build_feature_importance_graph(False,labs)
+    if labs:
+        image = display_fig(labs_importance_infection)
+    else:
+        image = display_fig(no_labs_importance_infection)
+    return [dbc.CardImg(src=image)]
 
 @app.callback(
     Output('feature-importance-bar-graph', 'children'),

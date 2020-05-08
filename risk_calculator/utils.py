@@ -1,8 +1,11 @@
 import numpy as np
 import pandas as pd
 import math
+import shap
+import matplotlib
 import dash_core_components as dcc
 
+matplotlib.use('Agg')
 oxygen = 'Oxygen Saturation'
 
 title_mapping = {
@@ -78,7 +81,7 @@ def valid_input(features,feature_vals,length):
         return False, "Please insert at least {} numeric values.".format(threshold), feature_vals
     return True,"",feature_vals
 
-def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
+def predict_risk(m,model,features,imputer,explainer,feature_vals,columns,temp_unit,labs):
     x = [0]*len(model.feature_importances_)
     #if temperature is in F, switch measurement to Celsius
     convert_temperature = temp_unit[0] == "°C"
@@ -115,4 +118,8 @@ def predict_risk(m,model,features,imputer,feature_vals,columns,temp_unit,labs):
         else:
             impute_text[i] = text + '.'
     impute_text = '  \n'.join(impute_text)
+    # if explainer:
+    #     shap_new = explainer.shap_values(X)
+    #     plot = shap.force_plot(explainer.expected_value, shap_new, X , link="logit", matplotlib = True, show= False)
+    #     print(type(plot))
     return score,impute_text
