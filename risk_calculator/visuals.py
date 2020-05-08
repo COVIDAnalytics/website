@@ -65,10 +65,10 @@ def get_feature_importance(id):
                 dbc.Row(
                     dbc.Col(
                         [
-                            html.Div(
+                            dbc.Card(
+                                style={"borderColor": "#800020","paddingTop":20,"paddingBottom":20},
                                 id = id,
-                                style={"paddingTop":20,"paddingBottom":20}
-                            )
+                            ),
                         ],
                     ),
                     justify="center",
