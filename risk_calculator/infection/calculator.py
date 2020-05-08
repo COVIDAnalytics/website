@@ -1,5 +1,6 @@
 import pickle
 import sklearn
+import math
 from sklearn.experimental import enable_iterative_imputer
 from sklearn.impute import IterativeImputer
 
@@ -115,9 +116,10 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
     score,impute_text = predict_risk(False,model,features,imputer,feature_vals,cols,temp_unit,labs)
+    print(score)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
-        html.H4(str(score)+"%",className="score-calculator-card-content-infection"),
+        html.H4(str(int(math.floor(score/10.0)))+" out of 10",className="score-calculator-card-content-infection"),
     ]
     return card_content,impute_text
 
