@@ -13,63 +13,12 @@ from navbar import Navbar
 from footer import Footer
 
 def build_feature_importance_graph(m=True,labs=False):
+    image = 'assets/risk_calculators/'
     if m:
-        model = labs_model_mort if labs else no_labs_model_mort
-        features = labs_features_mort if labs else no_labs_features_mort
+        image += 'mortality/model_with_lab.jpg' if labs else 'mortality/model_without_lab.jpg'
     else:
-        model = labs_model_infec if labs else no_labs_model_infec
-        features = labs_features_infec if labs else no_labs_features_infec
-
-    feature_list = ['']*len(model.feature_importances_)
-    i = 0
-    for feat in features["categorical"]:
-        feature_list[feat["index"]] = title_mapping[feat["name"]]
-        i+=1
-    for feat in features["numeric"]:
-        feature_list[feat["index"]] = title_mapping[feat["name"]]
-        i+=1
-    for feat in features["checkboxes"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    for feat in features["multidrop"]:
-        for j,name in enumerate(feat["vals"]):
-            feature_list[feat["index"][j]] = name
-            i+=1
-    importances = list(model.feature_importances_)
-    feature_importances = [(feature, round(importance, 2)) for feature, importance in zip(feature_list, importances)]
-    feature_importances = sorted(feature_importances, key = lambda x: x[1], reverse = True)[:10]
-    x,y = zip(*feature_importances)
-    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color="#800020"))])
-    graph = dcc.Graph(
-        id='feature-importance-graph',
-        figure=fig,
-    )
-
-    fig.update_layout(
-                height=450,
-                title={
-                    'text':'<br>'.join(wrap('<b> Feature Importance Graph </b>', width=30)) ,
-                     'x': 0.5,
-                    'xanchor': 'center',
-                    'yanchor': 'top'},
-                title_font_color='black',
-                title_font_size=18,
-                xaxis={'title': "Features",'linecolor': 'lightgrey'},
-                yaxis={'title': "Importance",'linecolor': 'lightgrey'},
-                margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
-                hovermode='closest',
-                paper_bgcolor='rgba(0,0,0,0)',
-                plot_bgcolor='rgba(0,0,0,0)',
-                modebar={
-                    'orientation': 'v',
-                    'bgcolor': 'rgba(0,0,0,0)',
-                    'color': 'lightgray',
-                    'activecolor': 'gray'
-                }
-            )
-    return graph
-
+        image += 'infection/model_with_lab.jpg' if labs else 'infection/model_without_lab.jpg'
+    return [dbc.CardImg(src=image)]
 
 def map_feat_vals(x,name):
     if name == "Gender":

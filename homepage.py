@@ -25,18 +25,19 @@ def build_tom_us_map():
     return build_continent_map(tomorrow)
 
 
-def build_card(imgTop,title,text,img,link):
+def build_card(imgTop,titles,text,img,links):
+    cardbody = []
+    for i,t in enumerate(titles):
+        cardbody.append(html.A(t,href=links[i],className="card-title"))
+        cardbody.append(dcc.Markdown(text[i]))
+
+
     if imgTop:
         card_content = \
                 [
                     dbc.CardImg(src=img, top=False),
                     dbc.CardBody(
-                        [
-                            html.H4(title, className="card-title"),
-                            dcc.Markdown(text),
-                            html.A(href=link,
-                            className="stretched-link home-card"),
-                        ],
+                        cardbody,
                         className="home-card-body"
                     ),
                 ]
@@ -45,12 +46,7 @@ def build_card(imgTop,title,text,img,link):
         card_content = \
                 [
                     dbc.CardBody(
-                        [
-                            html.H4(title, className="card-title"),
-                            dcc.Markdown(text),
-                            html.A(href=link,
-                            className="stretched-link home-card"),
-                        ],
+                        cardbody,
                         className="home-card-body"
                     ),
                     dbc.CardImg(src=img, top=True),
@@ -63,24 +59,27 @@ def build_card(imgTop,title,text,img,link):
 
     return dbc.Col(
                     [card],
-                    style={"margin": "0.1rem"},
-                    xs=12,
-                    sm=5,
-                    md=5,
-                    lg=2,
+                    style={"margin": "0.5rem"},
                 )
 
 
 data_text = '''
        130+ international Covid-19 clinical studies,
-       aggregated into a single dataset. Key characteristics of COVID-19 patients in an
-       interactive summary.
+       aggregated into a single dataset.
        '''
+insights_text = '''
+    Key characteristics of COVID-19 patients in an
+    interactive summary. '''
 
 projections_text = '''
-    DELPHI epidemiological predictions of COVID-19 \
-    infections, hospital stays, and mortalities by location.
+    Epidemiological predictions of COVID-19 \
+    infections, hospital stays, and mortalities.
     '''
+
+policy_text = '''
+    Predicting infections and deaths based on various policy \
+    implementations'''
+
 
 ventilator_text = '''
        Leveraging delays between state peaks to \
@@ -94,6 +93,36 @@ mortality_calculator_text = '''
 infection_calculator_text = '''
     Personalized calculator predicting results of COVID test.
     '''
+
+cards = \
+    [
+        {
+            "titles": ["Data","Insights"],
+            "text": [data_text,insights_text],
+            "image": "assets/images/insights-4.png",
+            "links": ["/dataset","/interactive-graph"]
+        },
+        {
+            "titles": ["Infection risk calculator","Mortality risk calculator"],
+            "text": [infection_calculator_text,mortality_calculator_text],
+            "image": "assets/images/infection_logo.jpg",
+            "links": ["/infection_calculator","/mortality_calculator"]
+        },
+        {
+            "titles": ["Case predictions","Policy evaluations"],
+            "text": [projections_text,policy_text],
+            "image": "assets/images/forecast-1.png",
+            "links": ["/projections","/policies"]
+        },
+        {
+            "titles": ["Ventilator allocation"],
+            "text": [ventilator_text],
+            "image": "assets/images/allocation.png",
+            "links": ["/ventilator_allocation"]
+        }
+
+    ]
+
 
 body = dbc.Container(
     [
@@ -112,11 +141,10 @@ body = dbc.Container(
         ),
         dbc.Row(
             [
-                build_card(False,"Data and Insights",data_text,"assets/images/insights-4.png","/interactive-graph"),
-                build_card(True,"Infection risk calculator",infection_calculator_text,"assets/images/infection_logo.jpg","/infection_calculator"),
-                build_card(False,"Mortality risk calculator",mortality_calculator_text,"assets/images/mortality_logo.png","/mortality_calculator"),
-                build_card(True,"Case predictions",projections_text,"assets/images/forecast-1.png","/projections"),
-                build_card(False,"Ventilator allocation",ventilator_text,"assets/images/allocation.png","/ventilator_allocation"),
+                build_card(False,cards[0]["titles"],cards[0]["text"],cards[0]["image"],cards[0]["links"]),
+                build_card(True,cards[1]["titles"],cards[1]["text"],cards[1]["image"],cards[1]["links"]),
+                build_card(False,cards[2]["titles"],cards[2]["text"],cards[2]["image"],cards[2]["links"]),
+                build_card(True,cards[3]["titles"],cards[3]["text"],cards[3]["image"],cards[3]["links"]),
 
             ],
             justify="around",
