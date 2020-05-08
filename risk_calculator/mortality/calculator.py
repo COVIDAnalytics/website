@@ -130,9 +130,9 @@ def get_model_desc_mortality(labs):
         )
     ]
 
-def get_page_desc(english=True):
-    if english:
-        return [
+def get_mortality_page_desc(clicks):
+    if clicks%2==0:
+        return [ \
             html.H2("Analytics can calculate the risk of mortality"),
             dcc.Markdown(
                  """Severe COVID-19 patients require the most scarce health care resources, \
@@ -176,7 +176,7 @@ def get_page_desc(english=True):
             ),
         ]
     else:
-        return [
+        return [ \
             html.H2("Estudios analíticos pueden identificar el riesgo de mortalidad"),
             dcc.Markdown(
                  """Severe COVID-19 patients require the most scarce health care resources, \

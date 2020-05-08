@@ -164,7 +164,7 @@ def get_lang_button(id):
     ]
 
 def get_page_desc(id):
-    [
+    return [
         dbc.Row(
         [
             dbc.Col(
@@ -177,4 +177,4 @@ def get_page_desc(id):
             ),
         ],
         )
-    ] + \
+    ]

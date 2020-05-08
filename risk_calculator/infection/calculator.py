@@ -135,9 +135,9 @@ def get_model_desc_infection(labs):
         )
     ]
 
-def get_page_desc(english=True):
-    if english:
-        return [
+def get_infection_page_desc(clicks):
+    if clicks%2==0:
+        return [ \
             html.H2("Analytics can identify infected patients"),
             dcc.Markdown(
                  """COVID-19 tests are time consuming, expensive and require patients to visit \
@@ -157,7 +157,7 @@ def get_page_desc(english=True):
             )
         ]
     else:
-        return [
+        return [ \
             html.H2("Estudios analíticos pueden identificar pacientes infectados"),
             dcc.Markdown(
                  """espanol

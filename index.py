@@ -25,9 +25,9 @@ from projections.projections_documentation import Projections_documentation
 from policies.main import Policies, num_policies, build_policy_projections
 from policies.cards import build_policy_cards
 from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort
-from risk_calculator.mortality.calculator import oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality
+from risk_calculator.mortality.calculator import oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality, get_mortality_page_desc
 from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec
-from risk_calculator.infection.calculator import oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
+from risk_calculator.infection.calculator import oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection, get_infection_page_desc
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
@@ -312,6 +312,18 @@ def download_ventilator_documentation():
 
 
 #callback for risk calculators
+@app.callback(
+    Output('page-desc-infection', 'children'),
+    [Input('language-calc-infection', 'n_clicks')])
+def infection_page_desc(clicks):
+    return get_infection_page_desc(clicks)
+
+@app.callback(
+    Output('page-desc-mortality', 'children'),
+    [Input('language-calc-mortality', 'n_clicks')])
+def mortality_page_desc(clicks):
+    return get_mortality_page_desc(clicks)
+
 @app.callback(
     Output('infection-model-desc', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
