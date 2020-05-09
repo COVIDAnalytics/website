@@ -165,3 +165,36 @@ def get_personal_visual(id):
                     justify="center",
                 ),
             ]
+
+def get_lang_button(id):
+    return [
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    dbc.Button(
+                        "Español",
+                        id=id,
+                        n_clicks=0,
+                        className="mr-1"
+                    ),
+                id="language-calc-wrapper",
+                )
+            ),
+        ),
+    ]
+
+def get_page_desc(id):
+    return [
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                dbc.Jumbotron(
+                id=id,
+                style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
+                )
+            ]
+            ),
+        ],
+        )
+    ]

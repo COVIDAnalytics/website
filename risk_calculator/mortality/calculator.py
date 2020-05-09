@@ -9,7 +9,8 @@ from footer import Footer
 
 from risk_calculator.utils import convert_temp_units, predict_risk, valid_input, get_oxygen_ind
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
-from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card, get_personal_visual
+from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
+from risk_calculator.visuals import get_lang_button,get_page_desc, get_personal_visual
 
 nav = Navbar()
 footer = Footer()
@@ -40,62 +41,8 @@ oxygen_in_mort_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in 
 oxygen_mort_ind = get_oxygen_ind(no_labs_features_mort["numeric"])
 
 body = dbc.Container(
-    [
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                dbc.Jumbotron(
-                [
-                    html.H2("Analytics can calculate the risk of mortality"),
-                    dcc.Markdown(
-                         """Severe COVID-19 patients require the most scarce health care resources, \
-                         ventilators and intensive care beds. When the number of patients exceeds the \
-                         availability of these resources, physicians have the difficult responsibility \
-                         to prioritize between patients. To help them make an informed decision, \
-                         we developed the mortality calculator for admitted COVID-19 patients.
-                         """,
-                    ),
-                    html.Hr(),
-                    dcc.Markdown(
-                         """ Severe COVID-19 patients require the most scarce health care resources, \
-                         ventilators and intensive care beds. When the number of patients exceeds the \
-                         availability of these resources, physicians have the difficult responsibility \
-                         to prioritize between patients. To help them make an informed decision, we \
-                         developed the mortality calculator for admitted COVID-19 patients.
-                         """,
-                    ),
-                    dcc.Markdown(
-                         """ We have developed two calculators that predict **the probability of mortality \
-                         of a COVID-19 patient who arrives at a hospital:**"""),
-                    dcc.Markdown(
-                         """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
-                          We envision that this model will be used at the time of triage for a COVID-19 patient who \
-                          arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
-                          The out of sample AUC is 0.93.
-                         """,
-                    ),
-                    dcc.Markdown(
-                         """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
-                         be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
-                         patient’s condition. The out of sample AUC is 0.95.
-                         """,
-                    ),
-                    dcc.Markdown(
-                         """ Models are only as good as the data they are trained on. We will release new versions of \
-                         the calculator as the amount of data we receive from our partner institutions increases. If you \
-                         are a medical institution and are willing to contribute to our effort, please reach out to \
-                         us [here](https://www.covidanalytics.io/contact).
-                         """,
-                    ),
-                ],
-                style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
-                )
-            ]
-            ),
-        ],
-        )
-    ] + \
+        get_lang_button('language-calc-mortality') + \
+        get_page_desc('page-desc-mortality') + \
         get_labs_indicator('lab_values_indicator') + \
         get_feature_cards('features-mortality') + \
         get_submit_button('submit-features-calc') + \
@@ -188,3 +135,88 @@ def get_model_desc_mortality(labs):
              """Overall, the importance of the features is as follows:""",
         )
     ]
+
+def get_mortality_page_desc(clicks):
+    if clicks%2==0:
+        return [ \
+            html.H2("Analytics can calculate the risk of mortality"),
+            dcc.Markdown(
+                 """Severe COVID-19 patients require the most scarce health care resources, \
+                 ventilators and intensive care beds. When the number of patients exceeds the \
+                 availability of these resources, physicians have the difficult responsibility \
+                 to prioritize between patients. To help them make an informed decision, \
+                 we developed the mortality calculator for admitted COVID-19 patients.
+                 """,
+            ),
+            html.Hr(),
+            dcc.Markdown(
+                 """ Severe COVID-19 patients require the most scarce health care resources, \
+                 ventilators and intensive care beds. When the number of patients exceeds the \
+                 availability of these resources, physicians have the difficult responsibility \
+                 to prioritize between patients. To help them make an informed decision, we \
+                 developed the mortality calculator for admitted COVID-19 patients.
+                 """,
+            ),
+            dcc.Markdown(
+                 """ We have developed two calculators that predict **the probability of mortality \
+                 of a COVID-19 patient who arrives at a hospital:**"""),
+            dcc.Markdown(
+                 """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
+                  We envision that this model will be used at the time of triage for a COVID-19 patient who \
+                  arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
+                  The out of sample AUC is 0.93.
+                 """,
+            ),
+            dcc.Markdown(
+                 """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
+                 be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
+                 patient’s condition. The out of sample AUC is 0.95.
+                 """,
+            ),
+            dcc.Markdown(
+                 """ Models are only as good as the data they are trained on. We will release new versions of \
+                 the calculator as the amount of data we receive from our partner institutions increases. If you \
+                 are a medical institution and are willing to contribute to our effort, please reach out to \
+                 us [here](https://www.covidanalytics.io/contact).
+                 """,
+            ),
+        ]
+    else:
+        return [ \
+            html.H2("Estudios analíticos pueden identificar el riesgo de mortalidad"),
+            dcc.Markdown(
+                 """Severe COVID-19 patients require the most scarce health care resources, \
+                 ventilators and intensive care beds. When the number of patients exceeds the \
+                 availability of these resources, physicians have the difficult responsibility \
+                 to prioritize between patients. To help them make an informed decision, \
+                 we developed the mortality calculator for admitted COVID-19 patients.
+                 """,
+            ),
+            html.Hr(),
+            dcc.Markdown(
+                 """ Severe COVID-19 patients require the most scarce health care resources, \
+                 ventilators and intensive care beds. When the number of patients exceeds the \
+                 availability of these resources, physicians have the difficult responsibility \
+                 to prioritize between patients. To help them make an informed decision, we \
+                 developed the mortality calculator for admitted COVID-19 patients.
+                 """,
+            ),
+            dcc.Markdown(
+                 """ We have developed two calculators that predict **the probability of mortality \
+                 of a COVID-19 patient who arrives at a hospital:**"""),
+            dcc.Markdown(
+                 """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
+                  We envision that this model will be used at the time of triage for a COVID-19 patient who \
+                  arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
+                  The out of sample AUC is 0.93.
+                 """,
+            ),
+            dcc.Markdown(
+                 """1
+                 """,
+            ),
+            dcc.Markdown(
+                 """ 1
+                 """,
+            ),
+        ]

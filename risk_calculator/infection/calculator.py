@@ -13,7 +13,8 @@ from footer import Footer
 
 from risk_calculator.utils import convert_temp_units, predict_risk, valid_input, get_oxygen_ind
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
-from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card, get_personal_visual
+from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
+from risk_calculator.visuals import get_lang_button,get_page_desc, get_personal_visual
 
 nav = Navbar()
 footer = Footer()
@@ -50,38 +51,8 @@ oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in
 oxygen_infec_ind = get_oxygen_ind(no_labs_features_infec["numeric"])
 
 body = dbc.Container(
-    [
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                dbc.Jumbotron(
-                [
-                    html.H2("Analytics can identify infected patients"),
-                    dcc.Markdown(
-                         """COVID-19 tests are time consuming, expensive and require patients to visit \
-                         facilities in person, increasing exposure to the virus. To help identifying \
-                         symptomatic patients, we developed a data-driven calculator to predict the \
-                         probability of being infected.
-                         """,
-                    ),
-                    html.Hr(),
-                    dcc.Markdown(
-                         """ **NOTE (This is a developmental version!):** A model is only as good as the \
-                         data it is trained on. We will release new versions of the calculator as the \
-                         amount of data we receive from our partner institutions increases. If you are a \
-                         medical institution and are willing to contribute to our effort, please reach out \
-                         to us [here](https://www.covidanalytics.io/contact).
-                         """,
-                    )
-                ],
-                style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
-                )
-            ]
-            ),
-        ],
-        )
-    ] + \
+    get_lang_button('language-calc-infection') + \
+    get_page_desc('page-desc-infection') + \
     get_labs_indicator('lab_values_indicator_infection') + \
     get_feature_cards('features-infection') + \
     get_submit_button('submit-features-calc-infection') + \
@@ -185,3 +156,38 @@ def get_model_desc_infection(labs):
              """Overall, the importance of the features is as follows:""",
         )
     ]
+
+def get_infection_page_desc(clicks):
+    if clicks%2==0:
+        return [ \
+            html.H2("Analytics can identify infected patients"),
+            dcc.Markdown(
+                 """COVID-19 tests are time consuming, expensive and require patients to visit \
+                 facilities in person, increasing exposure to the virus. To help identifying \
+                 symptomatic patients, we developed a data-driven calculator to predict the \
+                 probability of being infected.
+                 """,
+            ),
+            html.Hr(),
+            dcc.Markdown(
+                 """ **NOTE (This is a developmental version!):** A model is only as good as the \
+                 data it is trained on. We will release new versions of the calculator as the \
+                 amount of data we receive from our partner institutions increases. If you are a \
+                 medical institution and are willing to contribute to our effort, please reach out \
+                 to us [here](https://www.covidanalytics.io/contact).
+                 """,
+            )
+        ]
+    else:
+        return [ \
+            html.H2("Estudios analíticos pueden identificar pacientes infectados"),
+            dcc.Markdown(
+                 """espanol
+                 """,
+            ),
+            html.Hr(),
+            dcc.Markdown(
+                 """ espanol
+                 """,
+            )
+        ]
