@@ -3,6 +3,8 @@ import pandas as pd
 import math
 import shap
 import matplotlib
+import matplotlib.pyplot as plt
+
 import dash_core_components as dcc
 
 matplotlib.use('Agg')
@@ -118,8 +120,18 @@ def predict_risk(m,model,features,imputer,explainer,feature_vals,columns,temp_un
         else:
             impute_text[i] = text + '.'
     impute_text = '  \n'.join(impute_text)
-    # if explainer:
-    #     shap_new = explainer.shap_values(X)
-    #     plot = shap.force_plot(explainer.expected_value, shap_new, X , link="logit", matplotlib = True, show= False)
-    #     print(type(plot))
-    return score,impute_text
+    if explainer:
+        shap_new = explainer.shap_values(X)
+        plot = shap.force_plot(
+            np.around(explainer.expected_value, decimals=2),
+            np.around(shap_new, decimals=2),
+            np.around(X, decimals=2) ,
+            link = "logit",
+            matplotlib = True,
+            show = False,
+            feature_names=[title_mapping[c] for c in columns]
+        )
+        plt.axis('off') # this rows the rectangular frame 
+    else:
+        plot = None
+    return score,impute_text,plot

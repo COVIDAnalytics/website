@@ -13,7 +13,7 @@ from footer import Footer
 
 from risk_calculator.utils import convert_temp_units, predict_risk, valid_input, get_oxygen_ind
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
-from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
+from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card, get_personal_visual
 
 nav = Navbar()
 footer = Footer()
@@ -87,6 +87,7 @@ body = dbc.Container(
     get_submit_button('submit-features-calc-infection') + \
     get_results_card('score-calculator-card-body-infection','calc-input-error-infection') + \
     get_inputed_vals('imputed-text-infection') + \
+    get_personal_visual('visual-1-infection') + \
     get_model_desc('infection-model-desc') + \
     get_feature_importance('feature-importance-bar-graph-infection'),
     className="page-body"
@@ -126,12 +127,12 @@ def predict_risk_infec(labs,feature_vals,temp_unit):
         features = no_labs_features_infec
         imputer = no_labs_imputer_infec
         explainer = no_labs_explainer
-    score,impute_text = predict_risk(False,model,features,imputer,explainer,feature_vals,cols,temp_unit,labs)
+    score,impute_text,plot = predict_risk(False,model,features,imputer,explainer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The infection risk score is:",className="score-calculator-card-content-infection"),
         html.H4(str(int(math.floor(score/10.0)))+" out of 10",className="score-calculator-card-content-infection"),
     ]
-    return card_content,impute_text
+    return card_content,impute_text,plot
 
 def get_model_desc_infection(labs):
     if labs:

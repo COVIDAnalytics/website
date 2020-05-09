@@ -66,8 +66,8 @@ def get_feature_importance(id):
                     dbc.Col(
                         [
                             dbc.Card(
-                                style={"borderColor": "#800020","paddingTop":20,"paddingBottom":20},
                                 id = id,
+                                style={"borderColor": "#800020","paddingTop":20,"paddingBottom":20},
                             ),
                         ],
                     ),
@@ -145,3 +145,23 @@ def get_inputed_vals(id):
                 justify="center",
              ),
              ]
+
+
+def get_personal_visual(id):
+    return [
+                dbc.Row(
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                [
+                                    html.Img(
+                                        id = id
+                                    ),
+                                ],
+                                style={"borderColor": "white","marginTop":20,"marginBottom":20}
+                            )
+                        ],
+                    ),
+                    justify="center",
+                ),
+            ]

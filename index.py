@@ -94,15 +94,17 @@ def display_page(pathname):
         return Homepage()
 
 @app.server.route("/")
-def display_fig(fig):
-   # Save it to a temporary buffer.
-   buf = BytesIO()
-   fig.set_canvas(plt.gcf().canvas)
-   fig.savefig(buf, format="png")
-   # Embed the result in the html output.
-   data = base64.b64encode(buf.getbuffer()).decode("ascii")
-   print(type(data))
-   return "data:image/png;base64,{}".format(data)
+def display_fig(img, close_all=True):
+    # fig = plt.figure()
+    # ax = fig.add_subplot(111, autoscale_on=False, xlim=(-2, 2), ylim=(-2, 2))
+    # ax.set_aspect('equal')
+    # ax.grid()
+    imgByteArr = BytesIO()
+    img.set_canvas(plt.gcf().canvas)
+    img.savefig(imgByteArr, format='PNG')
+    imgByteArr = imgByteArr.getvalue()
+    encoded=base64.b64encode(imgByteArr)
+    return 'data:image/png;base64,{}'.format(encoded.decode())
 
 #Callbacks for interactive
 @app.callback(
@@ -359,11 +361,12 @@ if oxygen_in_infec:
     Output('feature-importance-bar-graph-infection', 'children'),
     [Input('lab_values_indicator_infection', 'value')])
 def get_infection_model_feat_importance(labs):
-    if labs:
-        image = display_fig(labs_importance_infection)
-    else:
-        image = display_fig(no_labs_importance_infection)
-    return [dbc.CardImg(src=image)]
+    return build_feature_importance_graph(False,labs)
+    # if labs:
+    #     image = display_fig(labs_importance_infection)
+    # else:
+    #     image = display_fig(no_labs_importance_infection)
+    # return html.Img(src=image)
 
 @app.callback(
     Output('feature-importance-bar-graph', 'children'),
@@ -415,7 +418,8 @@ def switch_oxygen(vec,ind):
     [Output('score-calculator-card-body', 'children'),
     Output('calc-input-error', 'displayed'),
     Output('calc-input-error', 'message'),
-    Output('imputed-text-mortality', 'children')],
+    Output('imputed-text-mortality', 'children'),
+    Output('visual-1-mortality', 'src')],
     [Input('submit-features-calc', 'n_clicks'),
     Input('lab_values_indicator', 'value')],
     [State({'type': 'mortality', 'index': ALL}, 'value'),
@@ -434,18 +438,23 @@ def calc_risk_score(*argv):
         x = feats
         valid, err, x = valid_input_mort(labs,x)
         if valid:
-            score, imputed = predict_risk_mort(labs,x,temp_unit)
-            return score,False,'',imputed
+            score, imputed, fig = predict_risk_mort(labs,x,temp_unit)
+            if fig:
+                image = display_fig(fig)
+            else:
+                image = ''
+            return score,False,'',imputed,image
         else:
-            return default,True,err,''
+            return default,True,err,'',''
     #user has not clicked submit
-    return default,False,'',''
+    return default,False,'','',''
 
 @app.callback(
     [Output('score-calculator-card-body-infection', 'children'),
     Output('calc-input-error-infection', 'displayed'),
     Output('calc-input-error-infection', 'message'),
-    Output('imputed-text-infection', 'children')],
+    Output('imputed-text-infection', 'children'),
+    Output('visual-1-infection', 'src')],
     [Input('submit-features-calc-infection', 'n_clicks'),
     Input('lab_values_indicator_infection', 'value')],
     [State({'type': 'infection', 'index': ALL}, 'value'),
@@ -464,12 +473,16 @@ def calc_risk_score_infection(*argv):
         x = feats
         valid, err, x  = valid_input_infec(labs,x)
         if valid:
-            score, imputed = predict_risk_infec(labs,x,temp_unit)
-            return score,False,'',imputed
+            score, imputed, fig = predict_risk_infec(labs,x,temp_unit)
+            if fig:
+                image = display_fig(fig)
+            else:
+                image = ''
+            return score,False,'',imputed,image
         else:
-            return default,True,err,''
+            return default,True,err,'',''
     #user has not clicked submit
-    return default,False,'',''
+    return default,False,'','',''
 
 #Callbacks for navbar
 @app.callback(

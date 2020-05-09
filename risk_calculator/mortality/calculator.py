@@ -9,7 +9,7 @@ from footer import Footer
 
 from risk_calculator.utils import convert_temp_units, predict_risk, valid_input, get_oxygen_ind
 from risk_calculator.visuals import get_labs_indicator,get_model_desc,get_feature_importance, get_inputed_vals
-from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card
+from risk_calculator.visuals import get_feature_cards, get_feature_cards, get_submit_button, get_results_card, get_personal_visual
 
 nav = Navbar()
 footer = Footer()
@@ -101,6 +101,7 @@ body = dbc.Container(
         get_submit_button('submit-features-calc') + \
         get_results_card('score-calculator-card-body','calc-input-error') + \
         get_inputed_vals('imputed-text-mortality') + \
+        get_personal_visual('visual-1-mortality') + \
         get_model_desc('mortality-model-desc') + \
         get_feature_importance('feature-importance-bar-graph'),
         className="page-body"
@@ -134,12 +135,12 @@ def predict_risk_mort(labs,feature_vals,temp_unit):
         features = no_labs_features_mort
         imputer = no_labs_imputer_mort
         explainer = None #no_labs_explainer
-    score,imputed_text = predict_risk(True,model,features,imputer,explainer,feature_vals,cols,temp_unit,labs)
+    score,imputed_text,plot = predict_risk(True,model,features,imputer,explainer,feature_vals,cols,temp_unit,labs)
     card_content = [
         html.H4("The mortality risk score is:",className="score-calculator-card-content"),
         html.H4(str(score)+"%",className="score-calculator-card-content"),
     ]
-    return card_content,imputed_text
+    return card_content,imputed_text,plot
 
 def get_model_desc_mortality(labs):
     if labs:
