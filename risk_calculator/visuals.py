@@ -14,7 +14,7 @@ def get_labs_indicator(id):
                             [
                                 dbc.CardBody(
                                     [
-                                        dcc.Markdown("Do you have lab values?"),
+                                        dcc.Markdown(id=id+"_text"),
                                         dbc.Row(
                                             [
                                                 dbc.Col(
@@ -22,7 +22,6 @@ def get_labs_indicator(id):
                                                         [
                                                         dcc.Dropdown(
                                                                 id = id,
-                                                                options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
                                                                 value = 0,
                                                         ),
 
@@ -80,7 +79,7 @@ def get_feature_cards(id):
                 dbc.Row(
                 [
                     dbc.Col(
-                        html.H5('Insert the features below into the risk calculator.')
+                        id = id+"-text",
                     ),
                 ]),
                 dbc.Row(
@@ -95,7 +94,6 @@ def get_submit_button(id):
                     dbc.Col(
                         html.Div(
                             dbc.Button(
-                                "Submit",
                                 id=id,
                                 n_clicks=0,
                                 className="mr-1"
@@ -166,20 +164,27 @@ def get_personal_visual(id):
                 ),
             ]
 
-def get_lang_button(id):
+language_ind = {
+    0: "English",
+    1: "Español",
+    2: "Italiano"
+}
+
+def get_lang(id):
     return [
         dbc.Row(
             dbc.Col(
                 html.Div(
-                    dbc.Button(
-                        "Español",
-                        id=id,
-                        n_clicks=0,
-                        className="mr-1"
+                    dcc.Dropdown(
+                        id = id,
+                        options = [{'label': language_ind[x], 'value': x} for x in [0,1,2]],
+                        value = 0,
+                        style={'marginBottom': 10, "width":"100%"}
                     ),
-                id="language-calc-wrapper",
-                )
+                ),
+                width=3
             ),
+            justify="end",
         ),
     ]
 

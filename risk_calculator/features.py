@@ -20,12 +20,17 @@ def build_feature_importance_graph(m=True,labs=False):
         image += 'infection/model_with_lab.jpg' if labs else 'infection/model_without_lab.jpg'
     return [dbc.CardImg(src=image)]
 
-def map_feat_vals(x,name):
+def map_feat_vals(x,name,language):
     if name == "Gender":
-        return "Male" if x == 0 else "Female"
+        if language == 0:
+            return "Male" if x == 0 else "Female"
+        if language == 1:
+            return "Hombre" if x == 0 else "Mujer"
+        if language == 2:
+            return "Maschio" if x == 0 else "Femmina"
     return x
 
-def build_dropdown_card(id, m, content_dict):
+def build_dropdown_card(id, m, content_dict, language):
     insert_data = \
             [
                 dbc.Col(
@@ -35,7 +40,7 @@ def build_dropdown_card(id, m, content_dict):
                                 'type': 'mortality' if m else 'infection',
                                 'index': 'calc-categorical-{}'.format(id),
                             },
-                            options = [{'label': map_feat_vals(x,content_dict["name"]), 'value': x} for x in content_dict['vals']],
+                            options = [{'label': map_feat_vals(x,content_dict["name"],language), 'value': x} for x in content_dict['vals']],
                             value = 0,
                             style={"width":110}
                         ),
@@ -54,7 +59,7 @@ def build_dropdown_card(id, m, content_dict):
     ]
     return card
 
-def oxygen_options(id,m,have_val):
+def oxygen_options(id,m,have_val,text,language):
     id_full = {
                 'type': 'mortality' if m else 'infection',
                 'index': "calc-numeric-{}".format(id),
@@ -62,7 +67,7 @@ def oxygen_options(id,m,have_val):
     if have_val:
         return [
             dbc.Col(
-                    html.Div("Insert the value."),
+                    html.Div(text[0]),
             ),
             dbc.Col(
                     dcc.Input(
@@ -76,30 +81,35 @@ def oxygen_options(id,m,have_val):
     else:
         return [
             dbc.Col(
-                    html.Div("Do you have shortness of breath?"),
+                    html.Div(text[1]),
             ),
             dbc.Col(
                     dcc.Dropdown(
                         id=id_full,
-                        options = [{'label': oxygen_vals(x), 'value': x} for x in [92,98]],
+                        options = [{'label': oxygen_vals(x,language), 'value': x} for x in [92,98]],
                         value = 98,
                         style={"width":80}
                     ),
             )
         ]
 
-def build_oxygen_card(id, labs, m, content_dict):
+def build_oxygen_card(id, labs, m, content_dict, language):
     model = 'mortality' if m else 'infection'
     l = "labs" if labs else "nolabs"
+    q = [
+        "Do you have the value for SpO2 or SaO2?",
+        "¿Tiene el valor para SpO2 o SaO2?",
+        "Hai il valore per SpO2 o SaO2?"
+    ]
     insert_data = \
     [
         dbc.Row(
         [
-            dbc.Col(html.Div("Do you have the value for SpO2 or SaO2?")),
+            dbc.Col(html.Div(q[language])),
             dbc.Col(
                     dcc.Dropdown(
                         id="oxygen-answer-{}".format(model),
-                        options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
+                        options = [{'label': labs_ques(x,language), 'value': x} for x in [1,0]],
                         value = 0,
                         style={"width":80}
                 ),
@@ -197,13 +207,13 @@ def build_checkbox_card(id, m, content_dict):
     ]
     return card
 
-def build_multidrop_card(id, m, content_dict):
+def build_multidrop_card(id, m, content_dict,language):
     insert_data = \
             [
                 dbc.Col(
                     html.Div([
                         dcc.Dropdown(
-                            options=[{'label': x, 'value': x} for x in content_dict['vals']],
+                            options=[{'label': title_mapping[language][x], 'value': x} for x in content_dict['vals']],
                             value=[],
                             id={
                                 'type': 'mortality' if m else 'infection',
@@ -227,7 +237,7 @@ def build_multidrop_card(id, m, content_dict):
     return card
 
 
-def build_feature_cards(m=True,labs=False):
+def build_feature_cards(m=True,labs=False,language=0):
     if m:
         features = labs_features_mort if labs else no_labs_features_mort
     else:
@@ -238,20 +248,20 @@ def build_feature_cards(m=True,labs=False):
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
     for id, content_dict in enumerate(dropdowns):
-        card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict)))
+        card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict,language)))
     for id, content_dict in enumerate(inputs):
-        if not labs and title_mapping[content_dict['name']] == oxygen:
-            card_content.append((content_dict['name'],build_oxygen_card(str(id), labs, m, content_dict)))
+        if not labs and title_mapping[0][content_dict['name']] == oxygen:
+            card_content.append((content_dict['name'],build_oxygen_card(str(id), labs, m, content_dict,language)))
         else:
             card_content.append((content_dict['name'],build_input_card(str(id),m, content_dict)))
     if m:
         for id, content_dict in enumerate(multidrop):
-            card_content.append((content_dict['name'],build_multidrop_card(str(id),m, content_dict)))
+            card_content.append((content_dict['name'],build_multidrop_card(str(id),m, content_dict,language)))
 
     for name,c in card_content:
         content = dbc.Card(
                         [
-                            dbc.CardHeader(title_mapping[name],style={"fontWeight": "bold"}),
+                            dbc.CardHeader(title_mapping[language][name],style={"fontWeight": "bold"}),
                             dbc.CardBody(c,className="feat-options-body")
                         ],
                         className="feat-options"
@@ -259,7 +269,7 @@ def build_feature_cards(m=True,labs=False):
         if name == "Comorbidities":
             w2 = 12
             w1 = 12
-        elif not labs and title_mapping[name] == oxygen:
+        elif not labs and title_mapping[0][name] == oxygen:
             w2 = 6
             w1 = 12
         else:

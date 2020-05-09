@@ -12,19 +12,3 @@
   display: flex;
   justify-content: center;
 }
-
-#language-calc-mortality{
-  color: white;
-  background-color: #800020 !important;
-}
-
-#language-calc-infection{
-  color: white;
-  background-color: #800020 !important;
-}
-
-#language-calc-wrapper{
-  display: flex;
-  justify-content: flex-end;
-  padding-bottom: 0.5rem;
-}

@@ -92,3 +92,10 @@
   margin-bottom: 10px  !important;
   line-height: 50px !important;
 }
+
+
+#language-calc-wrapper{
+  display: flex;
+  justify-content: flex-end;
+  background-color: white;
+}
