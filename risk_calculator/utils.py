@@ -131,6 +131,11 @@ languages = {
         1: spanish.get_model_desc_infection(False,labs_auc_infec,no_labs_auc_infec,labs_population_infec,no_labs_population_infec,labs_positive_infec,no_labs_positive_infec),
         2: italian.get_model_desc_infection(False,labs_auc_infec,no_labs_auc_infec,labs_population_infec,no_labs_population_infec,labs_positive_infec,no_labs_positive_infec)
     },
+    "visual_1": {
+        0: english.visual_1,
+        1: spanish.visual_1,
+        2: italian.visual_1
+    }
 }
 
 def convert_temp_units(x):

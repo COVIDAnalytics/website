@@ -76,6 +76,8 @@ insert_feat = 'Insert the features below into the risk calculator.'
 results_card_mortality = "The mortality risk score is:"
 results_card_infection = ["The infection risk score is:", " out of 10"]
 
+visual_1 = "explanation"
+
 def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
     if labs:
         intro = dcc.Markdown(

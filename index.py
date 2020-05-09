@@ -44,7 +44,7 @@ app = dash.Dash(
             {"name": "viewport", "content": "width=device-width, initial-scale=1"}
             ]
         )
-server = app.server
+
 app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
 external_stylesheets=[dbc.themes.BOOTSTRAP]
@@ -477,7 +477,8 @@ def switch_oxygen(vec,ind):
     ind = ind + 1
     vec = list(vec)
     vals = vec[0]
-    if len(vals) > 0:
+    length = len(vals)
+    if length > 0 and length > ind:
         oxygen = vals[-1]
         n = len(vals)-1
         for i in range(n,ind,-1):
@@ -493,7 +494,9 @@ def switch_oxygen(vec,ind):
     Output('calc-input-error', 'displayed'),
     Output('calc-input-error', 'message'),
     Output('imputed-text-mortality', 'children'),
-    Output('visual-1-mortality', 'src')],
+    Output('visual-1-mortality', 'src'),
+    Output('visual-1-mortality', 'style'),
+    Output('visual-1-mortality-explanation', 'children')],
     [Input('language-calc-mortality', 'value'),
     Input('submit-features-calc', 'n_clicks'),
     Input('lab_values_indicator', 'value')],
@@ -519,18 +522,20 @@ def calc_risk_score(*argv):
                 image = display_fig(fig)
             else:
                 image = ''
-            return score,False,'',imputed,image
+            return score,False,'',imputed,image,{"height":200},languages["visual_1"][language]
         else:
-            return default,True,err,'',''
+            return default,True,err,'','',{},''
     #user has not clicked submit
-    return default,False,'','',''
+    return default,False,'','','',{},''
 
 @app.callback(
     [Output('score-calculator-card-body-infection', 'children'),
     Output('calc-input-error-infection', 'displayed'),
     Output('calc-input-error-infection', 'message'),
     Output('imputed-text-infection', 'children'),
-    Output('visual-1-infection', 'src')],
+    Output('visual-1-infection', 'src'),
+    Output('visual-1-infection', 'style'),
+    Output('visual-1-infection-explanation', 'children')],
     [Input('language-calc-infection', 'value'),
     Input('submit-features-calc-infection', 'n_clicks'),
     Input('lab_values_indicator_infection', 'value')],
@@ -539,7 +544,7 @@ def calc_risk_score(*argv):
 )
 def calc_risk_score_infection(*argv):
     language = argv[0]
-    default = html.H4(languages["results_card_infection"][language],className="score-calculator-card-content-infection"),
+    default = html.H4(languages["results_card_infection"][language][0],className="score-calculator-card-content-infection"),
     submit = argv[1]
     labs = argv[2]
     feats = argv[3:-1]
@@ -556,11 +561,11 @@ def calc_risk_score_infection(*argv):
                 image = display_fig(fig)
             else:
                 image = ''
-            return score,False,'',imputed,image
+            return score,False,'',imputed,image,{"height":200},languages["visual_1"][language]
         else:
-            return default,True,err,'',''
+            return default,True,err,'','',{},''
     #user has not clicked submit
-    return default,False,'','',''
+    return default,False,'','','',{},''
 
 #Callbacks for navbar
 @app.callback(

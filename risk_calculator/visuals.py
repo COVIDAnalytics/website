@@ -152,11 +152,15 @@ def get_personal_visual(id):
                         [
                             dbc.Card(
                                 [
+                                    html.P(id=id+"-explanation",style={"textAlign":"center","fontWeight":"bold"}),
                                     html.Img(
-                                        id = id
+                                        id = id,
+                                        style={"height":200}
                                     ),
                                 ],
-                                style={"borderColor": "white","marginTop":20,"marginBottom":20}
+                                style={
+                                    "borderColor": "white",
+                                    }
                             )
                         ],
                     ),
@@ -182,7 +186,10 @@ def get_lang(id):
                         style={'marginBottom': 10, "width":"100%"}
                     ),
                 ),
-                width=3
+                xs=5,
+                sm=5,
+                md=4,
+                lg=3,
             ),
             justify="end",
         ),
