@@ -29,12 +29,16 @@ labs_imputer_infec = labs["imputer"]
 labs_features_infec = labs["json"]
 cols_labs = labs["columns"]
 labs_auc = labs["AUC"]
+labs_population = [labs["Size Training"],labs["Size Test"]]
+labs_positive = [labs["Percentage Training"],labs["Percentage Test"]]
 
 no_labs_model_infec = no_labs["model"]
 no_labs_imputer_infec = no_labs["imputer"]
 no_labs_features_infec = no_labs["json"]
 cols_no_labs = no_labs["columns"]
 no_labs_auc = no_labs["AUC"]
+no_labs_population = [no_labs["Size Training"],no_labs["Size Test"]]
+no_labs_positive = [no_labs["Percentage Training"],no_labs["Percentage Test"]]
 
 oxygen_in_infec = "SaO2" in cols_no_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_no_labs
 oxygen_in_infec_labs = "SaO2" in cols_labs or 'ABG: Oxygen Saturation (SaO2)' in cols_labs
@@ -129,10 +133,19 @@ def get_model_desc_infection(labs):
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
              of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
-             "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
+             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
+        )
+        desc = dcc.Markdown(
+             """
+             Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
+             who visited the emergency room in the italian city of Cremona \
+             ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
+             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
+             positive cases to date.
+             """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
         )
     else:
         auc = html.Div(
@@ -140,23 +153,23 @@ def get_model_desc_infection(labs):
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
              of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
-             "The out of sample area under the curve (AUC) on 209 patients (out of whom 73% infected) is ",
+             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
              ]
         )
-
-    return [ \
-        html.H2("Technical details"),
-        dcc.Markdown(
+        desc = dcc.Markdown(
              """
-             Our model was trained on 1880 patients (out of whom 73% COVID-19 positive) \
+             Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
              who visited the emergency room in the italian city of Cremona \
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
              Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
              positive cases to date.
-             """,
-        ),
+             """.format(no_labs_population[0],str(int(float(no_labs_positive[0])*100))),
+        )
+    return [ \
+        html.H2("Technical details"),
+        desc,
         html.Hr(),
         auc,
         html.Br(),
