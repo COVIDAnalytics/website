@@ -30,12 +30,8 @@ from policies.cards import build_policy_cards
 from risk_calculator.mortality.calculator import RiskCalc, valid_input_mort, predict_risk_mort, labs_features_mort, oxygen_in_mort
 from risk_calculator.mortality.calculator import oxygen_mort_ind, no_labs_features_mort, get_model_desc_mortality, get_mortality_page_desc
 from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_infec, predict_risk_infec, labs_features_infec, oxygen_in_infec
-<<<<<<< HEAD
-from risk_calculator.infection.calculator import oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection
-from risk_calculator.infection.calculator import labs_importance_infection, no_labs_importance_infection
-=======
 from risk_calculator.infection.calculator import oxygen_infec_ind, no_labs_features_infec, get_model_desc_infection, get_infection_page_desc
->>>>>>> spanish_pages
+from risk_calculator.infection.calculator import labs_importance_infection, no_labs_importance_infection
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
