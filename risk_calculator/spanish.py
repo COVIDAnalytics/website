@@ -28,7 +28,7 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
              """* Una calculadora que utiliza datos demográficos, signos vitales, comorbilidades y \
              ** valores de laboratorio**. Este puntaje de riesgo se puede usar después del triaje \
              para evaluar de manera más precisa y detallada la gravedad de la condición de un \
-             paciente con COVID-19.The out of sample AUC is {}.
+             paciente con COVID-19. The out of sample AUC is {}.
              """.format(labs_auc),
         ),
         dcc.Markdown(
@@ -76,29 +76,29 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
     if labs:
         intro = dcc.Markdown(
              """
-             Our model was trained on {} patients (out of whom {}% deceased) hospitalized due to COVID-19 in: \
+             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% fallecidos) hospitalizados debido a COVID-19 en: \
              """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
         )
         auc = html.Div(
              [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
+             "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
         )
     else:
         intro = dcc.Markdown(
              """
-             Our model was trained on {} patients (out of whom {}% deceased) hospitalized due to COVID-19 in: \
+             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% fallecidos) hospitalizados debido a COVID-19 en: \
              """.format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
         )
         auc = html.Div(
             [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
+             "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
         )
 
@@ -120,6 +120,24 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         html.Hr(),
         auc,
         html.Br(),
+                dcc.Markdown(
+             """ Utilizamos [gráficos de SHAP]("https://github.com/slundberg/shap") \
+             para interpretar los modelos XGBoost. El diagrama SHAP a continuación \
+             resume las características por su importancia y direccionalidad. Las \
+             características se ordenan por importancia decreciente, con la \
+             característica más importante listada en la parte superior de la trama. \
+             Para una característica dada, la fila correspondiente muestra una gráfica \
+             del impacto de la característica en la predicción a medida que el valor \
+             varía desde su valor más bajo (azul) hasta el más alto (rojo). Los \
+             valores SHAP más altos corresponden a una mayor probabilidad de tener \
+             un resultado positivo (es decir, mortalidad o infección). Por lo tanto, \
+             las características con la escala de color orientada de azul a rojo \
+             (moviéndose de izquierda a derecha) tienen un riesgo creciente a medida \
+             que aumenta la característica, como Edad. Las características orientadas \
+             de rojo a azul tienen un riesgo decreciente a medida que aumenta la \
+             característica, como la Saturación de oxígeno. Nota: el género se \
+             codifica como un valor binario (0 = Masculino, 1 = Femenino), por lo \
+             que los valores "menores" de género corresponden a pacientes masculinos."""),
         dcc.Markdown(
              """En general, la importancia de las características del modelo es la siguiente:""",
         )
@@ -129,87 +147,105 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
     if labs:
         auc = html.Div(
              [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
-             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
+             "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "Después de predecir el riesgo utilizando el modelo de clasificación binaria, agrupamos sus predicciones en tres \
+             clases de riesgo (bajo / medio / alto) para calibrar sus estimaciones para la población general.", html.Br(),
              "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
+             "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
         )
         desc = dcc.Markdown(
              """
-             Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
-             who visited the emergency room in the italian city of Cremona \
+             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% COVID-19 positivo) \
+             que visitaron la sala de urgencias en la ciudad italiana de Cremona\
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
-             positive cases to date.
+             Cremona es una de las provincias italianas más afectadas en Lombardía con varios miles \
+             de casos positivos hasta la fecha.
              """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
         )
     else:
         auc = html.Div(
             [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
-             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
+             "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "Después de predecir el riesgo utilizando el modelo de clasificación binaria, agrupamos sus predicciones en tres \
+             clases de riesgo (bajo / medio / alto) para calibrar sus estimaciones para la población general.", html.Br(),
              "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
+             "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
         )
         desc = dcc.Markdown(
              """
-             Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
-             who visited the emergency room in the italian city of Cremona \
+             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% COVID-19 positivo) \
+             que visitaron la sala de urgencias en la ciudad italiana de Cremona\
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
-             positive cases to date.
+             Cremona es una de las provincias italianas más afectadas en Lombardía con varios miles \
+             de casos positivos hasta la fecha.
              """.format(no_labs_population[0],str(int(float(no_labs_positive[0])*100))),
         )
     return [ \
-        html.H2("Technical details"),
+        html.H2("Detalles Técnicos"),
         desc,
         html.Hr(),
         auc,
         html.Br(),
+                dcc.Markdown(
+             """ Utilizamos [gráficos de SHAP]("https://github.com/slundberg/shap") \
+             para interpretar los modelos XGBoost. El diagrama SHAP a continuación \
+             resume las características por su importancia y direccionalidad. Las \
+             características se ordenan por importancia decreciente, con la \
+             característica más importante listada en la parte superior de la trama. \
+             Para una característica dada, la fila correspondiente muestra una gráfica \
+             del impacto de la característica en la predicción a medida que el valor \
+             varía desde su valor más bajo (azul) hasta el más alto (rojo). Los \
+             valores SHAP más altos corresponden a una mayor probabilidad de tener \
+             un resultado positivo (es decir, mortalidad o infección). Por lo tanto, \
+             las características con la escala de color orientada de azul a rojo \
+             (moviéndose de izquierda a derecha) tienen un riesgo creciente a medida \
+             que aumenta la característica, como Edad. Las características orientadas \
+             de rojo a azul tienen un riesgo decreciente a medida que aumenta la \
+             característica, como la Saturación de oxígeno. Nota: el género se \
+             codifica como un valor binario (0 = Masculino, 1 = Femenino), por lo \
+             que los valores "menores" de género corresponden a pacientes masculinos."""),
         dcc.Markdown(
-             """Overall, the importance of the features is as follows:""",
+             """En general, la importancia de las características del modelo es la siguiente:""",
         )
     ]
 
 feature_names = {
-    'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation',
-    'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase (ALT)',
-    'Age': 'Age',
-    'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase',
-    'Blood Creatinine': 'Creatinine',
-    'Blood Sodium': 'Sodium',
-    'Blood Urea Nitrogen (BUN)': 'Blood Urea Nitrogen (BUN)',
-    'Body Temperature': 'Temperature',
-    'C-Reactive Protein (CRP)':  'C-Reactive Protein',
-    'CBC: Hemoglobin': 'Hemoglobin',
-    'CBC: Leukocytes': 'Leukocytes',
-    'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume',
-    'CBC: Platelets': 'Platelets',
-    'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width (RDW)',
-    'Cardiac Frequency': 'Heart Rate',
-    'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
-    'Gender' : 'Gender',
-    'Glycemia': 'Glycemia',
-    'Potassium Blood Level': 'Potassium',
-    'Prothrombin Time (INR)': 'Prothrombin Time',
-    'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
-    'SaO2': 'Oxygen Saturation',
-    'Blood Calcium': 'Calcium',
-    'ABG: PaO2': 'Partial Pressure Oxygen (PaO2)',
-    'ABG: pH': 'Arterial Blood Gas pH',
-    'Cholinesterase': 'Cholinesterase',
-    'Respiratory Frequency': 'Respiratory Frequency',
-    'ABG: MetHb': 'Arterial Blood Gas Methemoglobinemia',
-    'Total Bilirubin': 'Total Bilirubin',
-    'Comorbidities':'Comorbidities',
+    'ABG: Oxygen Saturation (SaO2)': 'Saturación de oxígeno',
+    'Alanine Aminotransferase (ALT)': 'Alanina aminotransferasa (ALT)',
+    'Age': 'Edad',
+    'Aspartate Aminotransferase (AST)': 'Aspartato aminotransferasa (AST)',
+    'Blood Creatinine': 'Creatinina',
+    'Blood Sodium': 'Sodio',
+    'Blood Urea Nitrogen (BUN)': 'Nitrógeno ureico en sangre (BUN)',
+    'Body Temperature': 'Temperatura',
+    'C-Reactive Protein (CRP)':  'Proteína C-reactiva',
+    'CBC: Hemoglobin': 'Hemoglobina',
+    'CBC: Leukocytes': 'Leucocitos',
+    'CBC: Mean Corpuscular Volume (MCV)': 'Volumen Corpuscular Promedio',
+    'CBC: Platelets': 'Plaquetas',
+    'CBC: Red cell Distribution Width (RDW)': 'Ancho de Distribución de Glóbulos Rojos',
+    'Cardiac Frequency': 'Ritmo cardiaco',
+    'Cardiac dysrhythmias': 'Disritmias cardíacas',
+    'Gender' : 'Género',
+    'Glycemia': 'Glicemia',
+    'Potassium Blood Level': 'Potasio',
+    'Prothrombin Time (INR)': 'Tiempo de Protrombina',
+    'Systolic Blood Pressure': 'Presión Arterial Sistólica',
+    'SaO2': 'Saturación de oxígeno',
+    'Blood Calcium': 'Calcio',
+    'ABG: PaO2': 'Presión parcial de Oxígeno (PaO2)',
+    'ABG: pH': 'pH por Gasometría Arterial',
+    'Cholinesterase': 'Colinesterasa',
+    'Respiratory Frequency': 'Frecuencia respiratoria',
+    'ABG: MetHb': 'Metahemoglobinemia por Gasometría Arterial',
+    'Total Bilirubin': 'Bilirrubina Total',
+    'Comorbidities':'Comorbilidades',
     'Diabetes': 'Diabetes',
-    'Chronic kidney disease': 'Chronic kidney disease',
-    'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
-    'Coronary atherosclerosis and other heart disease': 'Coronary atherosclerosis and other heart disease'
+    'Chronic kidney disease': 'Enfermedad renal crónica',
+    'Cardiac dysrhythmias': 'Disritmias cardíacas',
+    'Coronary atherosclerosis and other heart disease': 'Aterosclerosis coronaria y otras enfermedades del corazón'
 }
