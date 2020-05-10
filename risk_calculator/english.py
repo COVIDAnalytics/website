@@ -126,9 +126,20 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         html.Hr(),
         auc,
         html.Br(),
-        dcc.Markdown(
-             """Overall, the importance of the features is as follows:""",
-        )
+                dcc.Markdown(
+             """We use [SHAP plots]("https://github.com/slundberg/shap") \
+             to interpret the XGBoost models. The SHAP plot below summarizes features by \
+             their importance and directionality. Features are ordered by decreasing significance, \
+             with the most important feature listed at the top of the plot. For a given feature, \
+             the corresponnding row shows a plot of the feature's impact on the prediction as the \
+             value ranges from its lowest (blue) to highest (red) value. Higher SHAP values \
+             correspond to increased likelihood of having a positive outcome (i.e. mortality or \
+             infection). Thus, features with the color scale oriented blue to red (moving left to \
+             right) have increasing risk as the feature increases, such as Age. Features oriented \
+             red to blue have decreasing risk as the feature increases, such as Oxygen Saturation. \
+             Note: gender is encoded as a binary value (0=Male, 1=Female), so "lower" values of gender \
+             correspond to male patients."""),
+        dcc.Markdown("""Overall, the importance of the features is as follows:"""),
     ]
 
 def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
@@ -179,8 +190,19 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc,
         html.Br(),
         dcc.Markdown(
-             """Overall, the importance of the features is as follows:""",
-        )
+             """We use [SHAP plots]("https://github.com/slundberg/shap") \
+             to interpret the XGBoost models. The SHAP plot below summarizes features by \
+             their importance and directionality. Features are ordered by decreasing significance, \
+             with the most important feature listed at the top of the plot. For a given feature, \
+             the corresponnding row shows a plot of the feature's impact on the prediction as the \
+             value ranges from its lowest (blue) to highest (red) value. Higher SHAP values \
+             correspond to increased likelihood of having a positive outcome (i.e. mortality or \
+             infection). Thus, features with the color scale oriented blue to red (moving left to \
+             right) have increasing risk as the feature increases, such as Age. Features oriented \
+             red to blue have decreasing risk as the feature increases, such as Oxygen Saturation. \
+             Note: gender is encoded as a binary value (0=Male, 1=Female), so "lower" values of gender \
+             correspond to male patients."""),
+        dcc.Markdown("""Overall, the importance of the features is as follows:"""),
     ]
 
 feature_names = {
