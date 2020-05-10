@@ -5,14 +5,6 @@ import dash_html_components as html
 def get_page_desc_mortality(labs_auc,no_labs_auc):
     return [ \
         html.H2("Analytics can calculate the risk of mortality"),
-        dcc.Markdown(
-             """Severe COVID-19 patients require the most scarce health care resources, \
-             ventilators and intensive care beds. When the number of patients exceeds the \
-             availability of these resources, physicians have the difficult responsibility \
-             to prioritize between patients. To help them make an informed decision, \
-             we developed the mortality calculator for admitted COVID-19 patients.
-             """,
-        ),
         html.Hr(),
         dcc.Markdown(
              """ Severe COVID-19 patients require the most scarce health care resources, \

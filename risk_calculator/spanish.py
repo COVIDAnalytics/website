@@ -4,79 +4,73 @@ import dash_html_components as html
 
 def get_page_desc_mortality(labs_auc,no_labs_auc):
     return [ \
-        html.H2("Analytics can calculate the risk of mortality"),
-        dcc.Markdown(
-             """Severe COVID-19 patients require the most scarce health care resources, \
-             ventilators and intensive care beds. When the number of patients exceeds the \
-             availability of these resources, physicians have the difficult responsibility \
-             to prioritize between patients. To help them make an informed decision, \
-             we developed the mortality calculator for admitted COVID-19 patients.
-             """,
-        ),
+        html.H2("Analytics puede calcular el riesgo de mortalidad"),
         html.Hr(),
         dcc.Markdown(
-             """ Severe COVID-19 patients require the most scarce health care resources, \
-             ventilators and intensive care beds. When the number of patients exceeds the \
-             availability of these resources, physicians have the difficult responsibility \
-             to prioritize between patients. To help them make an informed decision, we \
-             developed the mortality calculator for admitted COVID-19 patients.
+             """Los pacientes graves con COVID-19 requieren los recursos de atención médica más escasos, \
+             respiradores y camas de UCIs. Cuando el número de pacientes excede la \
+             disponibilidad de estos recursos, los médicos tienen la difícil responsabilidad de\
+             priorizar entre pacientes. Para ayudarlos a tomar una decisión informada, \
+             desarrollamos la calculadora de mortalidad para pacientes ingresados con COVID-19.
              """,
         ),
         dcc.Markdown(
-             """ We have developed two calculators that predict **the probability of mortality \
-             of a COVID-19 patient who arrives at a hospital:**"""),
+             """Hemos desarrollado dos calculadoras que predicen **la probabilidad de mortalidad de \
+             un paciente con COVID-19 que llega a un hospital:**"""),
         dcc.Markdown(
-             """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
-              We envision that this model will be used at the time of triage for a COVID-19 patient who \
-              arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
-              The out of sample AUC is {}.
+             """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
+             pero ** sin valores de laboratorio**. Prevemos que este modelo se utilizará en el momento \
+             del triaje para un paciente con COVID-19 que llega al hospital para evaluar de manera \
+             preliminar la gravedad de su afección. The out of sample AUC is {}.
              """.format(no_labs_auc),
         ),
         dcc.Markdown(
-             """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
-             be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
-             patient’s condition. The out of sample AUC is {}.
+             """* Una calculadora que utiliza datos demográficos, signos vitales, comorbilidades y \
+             ** valores de laboratorio**. Este puntaje de riesgo se puede usar después del triaje \
+             para evaluar de manera más precisa y detallada la gravedad de la condición de un \
+             paciente con COVID-19.The out of sample AUC is {}.
              """.format(labs_auc),
         ),
         dcc.Markdown(
-             """ Models are only as good as the data they are trained on. We will release new versions of \
-             the calculator as the amount of data we receive from our partner institutions increases. If you \
-             are a medical institution and are willing to contribute to our effort, please reach out to \
-             us [here](https://www.covidanalytics.io/contact).
+             """ **NOTA (¡Esta es una versión de desarrollo!):** Los modelos son tan precisos como los \
+             datos en los que están capacitados. Lanzaremos nuevas versiones de la calculadora a medida \
+             que aumente la cantidad de datos que recibimos de nuestras instituciones asociadas. Si \
+             usted es una institución médica y está dispuesto a contribuir a nuestro esfuerzo, \
+             comuníquese con nosotros [aquí](https://www.covidanalytics.io/contact).
              """,
         ),
     ]
 
 page_desc_infection = [ \
-            html.H2("Analytics can identify infected patients"),
+            html.H2("Analytics puede identificar pacientes infectados"),
             dcc.Markdown(
-                 """COVID-19 tests are time consuming, expensive and require patients to visit \
-                 facilities in person, increasing exposure to the virus. To help identifying \
-                 symptomatic patients, we developed a data-driven calculator to predict the \
-                 probability of being infected.
+                 """Las pruebas COVID-19 requieren mucho tiempo, son caras y requieren que los pacientes \
+                 visiten las instalaciones en persona, lo que aumenta la exposición al virus. Para ayudar \
+                 a identificar pacientes sintomáticos, desarrollamos una calculadora basada en datos para \
+                 predecir la probabilidad de infección.
                  """,
             ),
             html.Hr(),
             dcc.Markdown(
-                 """ **NOTE (This is a developmental version!):** A model is only as good as the \
-                 data it is trained on. We will release new versions of the calculator as the \
-                 amount of data we receive from our partner institutions increases. If you are a \
-                 medical institution and are willing to contribute to our effort, please reach out \
-                 to us [here](https://www.covidanalytics.io/contact).
+                 """ **NOTA (¡Esta es una versión de desarrollo!):** Los modelos son tan precisos como los \
+                 datos en los que están capacitados. Lanzaremos nuevas versiones de la calculadora a medida \
+                que aumente la cantidad de datos que recibimos de nuestras instituciones asociadas. Si \
+                usted es una institución médica y está dispuesto a contribuir a nuestro esfuerzo, \
+                comuníquese con nosotros [aquí](https://www.covidanalytics.io/contact).
                  """,
             )
         ]
 
-oxygen_text = ["Insert the value.","Do you have shortness of breath?"]
+oxygen_text = ["Inserte el valor.","¿Tienes dificultad para respirar?"]
 
-submit = "Submit"
+submit = "Enviar"
 
-insert_feat = 'Insert the features below into the risk calculator.'
+insert_feat = 'Inserte las siguientes características en la calculadora de riesgos.'
 
-results_card_mortality = "The mortality risk score is:"
-results_card_infection = ["The infection risk score is:", " out of 10"]
+results_card_mortality = "El puntaje de riesgo de mortalidad es:"
+results_card_infection = ["El puntaje de riesgo de infección es:", " de 10"]
 
-visual_1 = "explanation"
+visual_1 = "explicación"
 
 def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
     if labs:
@@ -109,25 +103,25 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         )
 
     return [ \
-        html.H2("Technical details"),
+        html.H2("Detalles Técnicos"),
         intro,
         dcc.Markdown(
-             """* The Italian city of Cremona ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand positive cases to date.""",
+             """* La ciudad italiana de Cremona ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
+             Cremona es una de las provincias italianas más afectadas en Lombardía con varios miles de casos positivos hasta la fecha.""",
         ),
         dcc.Markdown(
-             """* [HM Hospitals](https://www.fundacionhm.com/), a leading Hospital Group in Spain with 15 general hospitals and 21 clinical \
-             centres that cover the regions of Madrid, Galicia, and León. """,
+             """* [HM Hospitals](https://www.fundacionhm.com/), un grupo hospitalario líder en España con 15 hospitales generales y 21 \
+             centros clínicos que cubren las regiones de Madrid, Galicia y León. """,
         ),
         dcc.Markdown(
-             """Given our training population, we are most confident about the relevance of our model to: (a) Western population; \
-             (b) Severe to acute patients; (c) Congested hospitals. """,
+             """ Dada nuestra población en formación, estamos más seguros de la relevancia de nuestro modelo para: (a) la población occidental; \
+             (b) pacientes severos a agudos; (c) Hospitales congestionados. """,
         ),
         html.Hr(),
         auc,
         html.Br(),
         dcc.Markdown(
-             """Overall, the importance of the features is as follows:""",
+             """En general, la importancia de las características del modelo es la siguiente:""",
         )
     ]
 
