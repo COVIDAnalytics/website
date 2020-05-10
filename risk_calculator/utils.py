@@ -5,6 +5,7 @@ import shap
 import pickle
 import matplotlib
 import matplotlib.pyplot as plt
+from textwrap import wrap
 
 import dash_core_components as dcc
 import dash_bootstrap_components as dbc
@@ -239,6 +240,7 @@ def predict_risk(m,model,features,imputer,explainer,feature_vals,columns,temp_un
             impute_text[i] = text + '.'
     impute_text = '  \n'.join(impute_text)
     shap_new = explainer.shap_values(X)
+    names = ['\n'.join(wrap(''.join(['{}'.format(title_mapping[language][c])]), width=12)) for c in columns]
     plot = shap.force_plot(
         np.around(explainer.expected_value, decimals=2),
         np.around(shap_new, decimals=2),
@@ -246,7 +248,7 @@ def predict_risk(m,model,features,imputer,explainer,feature_vals,columns,temp_un
         link = "logit",
         matplotlib = True,
         show = False,
-        feature_names=[title_mapping[language][c] for c in columns]
+        feature_names=names
     )
     plt.axis('off') # this rows the rectangular frame
     return score,impute_text,plot
