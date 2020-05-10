@@ -121,7 +121,7 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc,
         html.Br(),
                 dcc.Markdown(
-             """ Utilizamos [gráficos de SHAP]("https://github.com/slundberg/shap") \
+             """ Utilizamos [gráficos de SHAP](https://github.com/slundberg/shap) \
              para interpretar los modelos XGBoost. El diagrama SHAP a continuación \
              resume las características por su importancia y direccionalidad. Las \
              características se ordenan por importancia decreciente, con la \
@@ -191,7 +191,7 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc,
         html.Br(),
                 dcc.Markdown(
-             """ Utilizamos [gráficos de SHAP]("https://github.com/slundberg/shap") \
+             """ Utilizamos [gráficos de SHAP](https://github.com/slundberg/shap) \
              para interpretar los modelos XGBoost. El diagrama SHAP a continuación \
              resume las características por su importancia y direccionalidad. Las \
              características se ordenan por importancia decreciente, con la \

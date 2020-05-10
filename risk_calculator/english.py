@@ -118,8 +118,8 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         html.Hr(),
         auc,
         html.Br(),
-                dcc.Markdown(
-             """We use [SHAP plots]("https://github.com/slundberg/shap") \
+        dcc.Markdown(
+             """We use [SHAP plots](https://github.com/slundberg/shap) \
              to interpret the XGBoost models. The SHAP plot below summarizes features by \
              their importance and directionality. Features are ordered by decreasing significance, \
              with the most important feature listed at the top of the plot. For a given feature, \
@@ -182,7 +182,7 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc,
         html.Br(),
         dcc.Markdown(
-             """We use [SHAP plots]("https://github.com/slundberg/shap") \
+             """We use [SHAP plots](https://github.com/slundberg/shap) \
              to interpret the XGBoost models. The SHAP plot below summarizes features by \
              their importance and directionality. Features are ordered by decreasing significance, \
              with the most important feature listed at the top of the plot. For a given feature, \
