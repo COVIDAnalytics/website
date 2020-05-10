@@ -45,6 +45,7 @@ app = dash.Dash(
             ]
         )
 
+server = app.server
 app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
 external_stylesheets=[dbc.themes.BOOTSTRAP]
