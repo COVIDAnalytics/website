@@ -21,14 +21,14 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
              """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
              pero ** sin valores de laboratorio**. Prevemos que este modelo se utilizará en el momento \
              del triaje para un paciente con COVID-19 que llega al hospital para evaluar de manera \
-             preliminar la gravedad de su afección. The out of sample AUC is {}.
+             preliminar la gravedad de su afección. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
              """.format(no_labs_auc),
         ),
         dcc.Markdown(
              """* Una calculadora que utiliza datos demográficos, signos vitales, comorbilidades y \
              ** valores de laboratorio**. Este puntaje de riesgo se puede usar después del triaje \
              para evaluar de manera más precisa y detallada la gravedad de la condición de un \
-             paciente con COVID-19. The out of sample AUC is {}.
+             paciente con COVID-19. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
              """.format(labs_auc),
         ),
         dcc.Markdown(
@@ -81,8 +81,8 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         )
         auc = html.Div(
              [
-             "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
+             "La calculadora se basa en ", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron falleciron) es ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
@@ -95,8 +95,8 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         )
         auc = html.Div(
             [
-             "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
+             "La calculadora se basa en ", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
+             "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron falleciron) es ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
              "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
@@ -150,7 +150,7 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "Después de predecir el riesgo utilizando el modelo de clasificación binaria, agrupamos sus predicciones en tres \
              clases de riesgo (bajo / medio / alto) para calibrar sus estimaciones para la población general.", html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
+             "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron infectados) es ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
@@ -170,7 +170,7 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "Después de predecir el riesgo utilizando el modelo de clasificación binaria, agrupamos sus predicciones en tres \
              clases de riesgo (bajo / medio / alto) para calibrar sus estimaciones para la población general.", html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
+             "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron infectados) es ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "Cuando faltan características, la calculadora imputará e informará sus valores."
              ]
