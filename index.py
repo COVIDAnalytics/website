@@ -32,6 +32,7 @@ from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from risk_calculator.utils import labs_features_mort, no_labs_features_mort, labs_features_infec, no_labs_features_infec
 from risk_calculator.utils import languages, build_lab_ques_card, labs_ques
+from risk_calculator.utils import no_labs_importance_mort, labs_importance_mort, no_labs_importance_infec, labs_importance_infec
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
@@ -95,13 +96,10 @@ def display_page(pathname):
 
 @app.server.route("/")
 def display_fig(img, close_all=True):
-    # fig = plt.figure()
-    # ax = fig.add_subplot(111, autoscale_on=False, xlim=(-2, 2), ylim=(-2, 2))
-    # ax.set_aspect('equal')
-    # ax.grid()
     imgByteArr = BytesIO()
-    img.set_canvas(plt.gcf().canvas)
+    # img.set_canvas(plt.gcf().canvas)
     img.savefig(imgByteArr, format='PNG')
+    plt.show()
     imgByteArr = imgByteArr.getvalue()
     encoded=base64.b64encode(imgByteArr)
     return 'data:image/png;base64,{}'.format(encoded.decode())
@@ -424,16 +422,21 @@ if oxygen_in_infec:
 def get_infection_model_feat_importance(labs):
     return build_feature_importance_graph(False,labs)
     # if labs:
-    #     image = display_fig(labs_importance_infection)
+    #     image = display_fig(labs_importance_infec)
     # else:
-    #     image = display_fig(no_labs_importance_infection)
-    # return html.Img(src=image)
+    #     image = display_fig(no_labs_importance_infec)
+    # return image
 
 @app.callback(
     Output('feature-importance-bar-graph', 'children'),
     [Input('lab_values_indicator', 'value')])
 def get_mortality_model_feat_importance(labs):
     return build_feature_importance_graph(True,labs)
+    # if labs:
+    #     image = display_fig(labs_importance_mort)
+    # else:
+    #     image = display_fig(no_labs_importance_mort)
+    # return image
 
 @app.callback(
     Output('features-infection', 'children'),

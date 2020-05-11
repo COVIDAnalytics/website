@@ -181,7 +181,7 @@ def get_lang(id):
                 html.Div(
                     dcc.Dropdown(
                         id = id,
-                        options = [{'label': language_ind[x], 'value': x} for x in [0,1,2]],
+                        options = [{'label': language_ind[x], 'value': x} for x in [0,1]],
                         value = 0,
                         style={'marginBottom': 10, "width":"100%"}
                     ),
