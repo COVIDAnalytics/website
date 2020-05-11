@@ -70,13 +70,17 @@ insert_feat = 'Inserte las siguientes características en la calculadora de ries
 results_card_mortality = "El puntaje de riesgo de mortalidad es:"
 results_card_infection = ["El puntaje de riesgo de infección es:", " de 10"]
 
-visual_1 = "explicación"
+visual_1 = """El siguiente [gráfico de SHAP](https://github.com/slundberg/shap) resume como cada característica \
+            contribuye al puntaje de riesgo. Las características en azul bajan el riesgo, \
+            mientras las características en rojo las aumentan. La contribución de cada característica es proporcional al ancho de la \
+            barra. Las barras más anchas tienen mayor importancia en el puntaje de riesgo final. \
+            Nota: el género se codifica como un valor binario (0 = Masculino, 1 = Femenino)."""
 
 def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
     if labs:
         intro = dcc.Markdown(
              """
-             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% fallecidos) hospitalizados debido a COVID-19 en: \
+             Nuestro modelo fue entrenado con {} pacientes (de los cuales {}% fallecidos) hospitalizados debido a COVID-19 en: \
              """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
         )
         auc = html.Div(
@@ -84,13 +88,13 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              "La calculadora se basa en ", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron falleciron) es ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
-             "Cuando faltan características, la calculadora imputará e informará sus valores."
+             "Cuando faltan características, la calculadora imputará y informará los valores."
              ]
         )
     else:
         intro = dcc.Markdown(
              """
-             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% fallecidos) hospitalizados debido a COVID-19 en: \
+             Nuestro modelo fue entrenado con {} pacientes (de los cuales {}% fallecidos) hospitalizados debido a COVID-19 en: \
              """.format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
         )
         auc = html.Div(
@@ -98,7 +102,7 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              "La calculadora se basa en ", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
              "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron falleciron) es ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
-             "Cuando faltan características, la calculadora imputará e informará sus valores."
+             "Cuando faltan características, la calculadora imputará y informará los valores."
              ]
         )
 
@@ -122,20 +126,20 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         html.Br(),
                 dcc.Markdown(
              """ Utilizamos [gráficos de SHAP](https://github.com/slundberg/shap) \
-             para interpretar los modelos XGBoost. El diagrama SHAP a continuación \
+             para interpretar los modelos de XGBoost. El diagrama SHAP a continuación, \
              resume las características por su importancia y direccionalidad. Las \
              características se ordenan por importancia decreciente, con la \
-             característica más importante listada en la parte superior de la trama. \
-             Para una característica dada, la fila correspondiente muestra una gráfica \
-             del impacto de la característica en la predicción a medida que el valor \
+             característica más importante listada primera. \
+             Para una característica dada, la fila correspondiente muestra \
+             el impacto de la característica en la predicción a medida que el valor \
              varía desde su valor más bajo (azul) hasta el más alto (rojo). Los \
              valores SHAP más altos corresponden a una mayor probabilidad de tener \
              un resultado positivo (es decir, mortalidad o infección). Por lo tanto, \
              las características con la escala de color orientada de azul a rojo \
              (moviéndose de izquierda a derecha) tienen un riesgo creciente a medida \
-             que aumenta la característica, como Edad. Las características orientadas \
-             de rojo a azul tienen un riesgo decreciente a medida que aumenta la \
-             característica, como la Saturación de oxígeno. Nota: el género se \
+             que aumenta la característica, como la edad. Las características orientadas \
+             de rojo a azul, tienen un riesgo decreciente a medida que aumenta la \
+             característica, como la saturación de oxígeno. Nota: el género se \
              codifica como un valor binario (0 = Masculino, 1 = Femenino), por lo \
              que los valores "menores" de género corresponden a pacientes masculinos."""),
         dcc.Markdown(
@@ -148,16 +152,14 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc = html.Div(
              [
              "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "Después de predecir el riesgo utilizando el modelo de clasificación binaria, agrupamos sus predicciones en tres \
-             clases de riesgo (bajo / medio / alto) para calibrar sus estimaciones para la población general.", html.Br(),
              "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron infectados) es ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
-             "Cuando faltan características, la calculadora imputará e informará sus valores."
+             "Cuando faltan características, la calculadora imputará y informará sus valores."
              ]
         )
         desc = dcc.Markdown(
              """
-             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% COVID-19 positivo) \
+             Nuestro modelo fue entrenado con {} pacientes (de los cuales {}% COVID-19 positivo) \
              que visitaron la sala de urgencias en la ciudad italiana de Cremona\
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
              Cremona es una de las provincias italianas más afectadas en Lombardía con varios miles \
@@ -168,16 +170,14 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc = html.Div(
             [
              "La calculadora se basa en", html.A("el clasificador XGBoost.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "Después de predecir el riesgo utilizando el modelo de clasificación binaria, agrupamos sus predicciones en tres \
-             clases de riesgo (bajo / medio / alto) para calibrar sus estimaciones para la población general.", html.Br(),
              "El área bajo la curva (AUC) en predicciones fuera de muestra con {} pacientes (de cuales {}% fueron infectados) es ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
-             "Cuando faltan características, la calculadora imputará e informará sus valores."
+             "Cuando faltan características, la calculadora imputará y informará sus valores."
              ]
         )
         desc = dcc.Markdown(
              """
-             Nuestro modelo fue entrenado en {} pacientes (de los cuales {}% COVID-19 positivo) \
+             Nuestro modelo fue entrenado con {} pacientes (de los cuales {}% COVID-19 positivo) \
              que visitaron la sala de urgencias en la ciudad italiana de Cremona\
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
              Cremona es una de las provincias italianas más afectadas en Lombardía con varios miles \
@@ -192,20 +192,20 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         html.Br(),
                 dcc.Markdown(
              """ Utilizamos [gráficos de SHAP](https://github.com/slundberg/shap) \
-             para interpretar los modelos XGBoost. El diagrama SHAP a continuación \
+             para interpretar los modelos de XGBoost. El diagrama SHAP a continuación, \
              resume las características por su importancia y direccionalidad. Las \
              características se ordenan por importancia decreciente, con la \
-             característica más importante listada en la parte superior de la trama. \
-             Para una característica dada, la fila correspondiente muestra una gráfica \
-             del impacto de la característica en la predicción a medida que el valor \
+             característica más importante listada primera. \
+             Para una característica dada, la fila correspondiente muestra \
+             el impacto de la característica en la predicción a medida que el valor \
              varía desde su valor más bajo (azul) hasta el más alto (rojo). Los \
              valores SHAP más altos corresponden a una mayor probabilidad de tener \
              un resultado positivo (es decir, mortalidad o infección). Por lo tanto, \
              las características con la escala de color orientada de azul a rojo \
              (moviéndose de izquierda a derecha) tienen un riesgo creciente a medida \
-             que aumenta la característica, como Edad. Las características orientadas \
-             de rojo a azul tienen un riesgo decreciente a medida que aumenta la \
-             característica, como la Saturación de oxígeno. Nota: el género se \
+             que aumenta la característica, como la edad. Las características orientadas \
+             de rojo a azul, tienen un riesgo decreciente a medida que aumenta la \
+             característica, como la saturación de oxígeno. Nota: el género se \
              codifica como un valor binario (0 = Masculino, 1 = Femenino), por lo \
              que los valores "menores" de género corresponden a pacientes masculinos."""),
         dcc.Markdown(
@@ -231,7 +231,7 @@ feature_names = {
     'Cardiac Frequency': 'Ritmo cardiaco',
     'Cardiac dysrhythmias': 'Disritmias cardíacas',
     'Gender' : 'Género',
-    'Glycemia': 'Glicemia',
+    'Glycemia': 'Glucosa en Sangre',
     'Potassium Blood Level': 'Potasio',
     'Prothrombin Time (INR)': 'Tiempo de Protrombina',
     'Systolic Blood Pressure': 'Presión Arterial Sistólica',
