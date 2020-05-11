@@ -68,7 +68,11 @@ insert_feat = 'Insert the features below into the risk calculator.'
 results_card_mortality = "The mortality risk score is:"
 results_card_infection = ["The infection risk score is:", " out of 10"]
 
-visual_1 = "explanation"
+visual_1 = """The SHAP plot below summarizes the individual feature \
+            contridutions to the risk score. Features in blue decrease risk from the population baseline, \
+            whereas features in red increase risk. The contribution is proportional to the width of the feature's \
+            bar. Wider bars have higher importance in the final risk score. \
+            Note: gender is encoded as a binary value (0=Male, 1=Female)."""
 
 def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
     if labs:
@@ -131,7 +135,7 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              red to blue have decreasing risk as the feature increases, such as Oxygen Saturation. \
              Note: gender is encoded as a binary value (0=Male, 1=Female), so "lower" values of gender \
              correspond to male patients."""),
-        dcc.Markdown("""Overall, the importance of the features is as follows:"""),
+        dcc.Markdown("""Overall, the importance of the top features is as follows:"""),
     ]
 
 def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
@@ -194,7 +198,7 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              red to blue have decreasing risk as the feature increases, such as Oxygen Saturation. \
              Note: gender is encoded as a binary value (0=Male, 1=Female), so "lower" values of gender \
              correspond to male patients."""),
-        dcc.Markdown("""Overall, the importance of the features is as follows:"""),
+        dcc.Markdown("""Overall, the importance of the top features is as follows:"""),
     ]
 
 feature_names = {
@@ -215,7 +219,7 @@ feature_names = {
     'Cardiac Frequency': 'Heart Rate',
     'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
     'Gender' : 'Gender',
-    'Glycemia': 'Glycemia',
+    'Glycemia': 'Blood Glucose',
     'Potassium Blood Level': 'Potassium',
     'Prothrombin Time (INR)': 'Prothrombin Time',
     'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
