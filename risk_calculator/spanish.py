@@ -7,21 +7,21 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         html.H2("Analytics puede calcular el riesgo de mortalidad"),
         html.Hr(),
         dcc.Markdown(
-             """Los pacientes graves con COVID-19 requieren los recursos de atención médica más escasos, \
+             """Los pacientes con COVID-19 en situación grave requieren los recursos de atención médica más escasos, \
              respiradores y camas de UCIs. Cuando el número de pacientes excede la \
-             disponibilidad de estos recursos, los médicos tienen la difícil responsabilidad de\
+             disponibilidad de estos recursos, los médicos tienen la dura responsabilidad de\
              priorizar entre pacientes. Para ayudarlos a tomar una decisión informada, \
-             desarrollamos la calculadora de mortalidad para pacientes ingresados con COVID-19.
+             desarrollamos la calculadora de mortalidad para pacientes que estan ingresados con COVID-19.
              """,
         ),
         dcc.Markdown(
-             """Hemos desarrollado dos calculadoras que predicen **la probabilidad de mortalidad de \
-             un paciente con COVID-19 que llega a un hospital:**"""),
+             """Hemos desarrollado dos calculadoras que predicen **la probabilidad de mortalidad para \
+             un paciente que esta hospitalizado con COVID-19:**"""),
         dcc.Markdown(
              """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
-             pero ** sin valores de laboratorio**. Prevemos que este modelo se utilizará en el momento \
-             del triaje para un paciente con COVID-19 que llega al hospital para evaluar de manera \
-             preliminar la gravedad de su afección. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
+             pero **sin valores de laboratorio**. Prevemos que este modelo se utilizará para evaluar de manera \
+             preliminaria la gravedad de un paciente con COVID-19 en el momento \
+             del triaje cuando llega al hospital. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
              """.format(no_labs_auc),
         ),
         dcc.Markdown(
@@ -34,7 +34,7 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         dcc.Markdown(
              """ **NOTA (¡Esta es una versión de desarrollo!):** Los modelos son tan precisos como los \
              datos en los que están capacitados. Lanzaremos nuevas versiones de la calculadora a medida \
-             que aumente la cantidad de datos que recibimos de nuestras instituciones asociadas. Si \
+             que aumente la cantidad de datos que recibamos de nuestras instituciones asociadas. Si \
              usted es una institución médica y está dispuesto a contribuir a nuestro esfuerzo, \
              comuníquese con nosotros [aquí](https://www.covidanalytics.io/contact).
              """,
@@ -44,7 +44,7 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
 page_desc_infection = [ \
             html.H2("Analytics puede identificar pacientes infectados"),
             dcc.Markdown(
-                 """Las pruebas COVID-19 requieren mucho tiempo, son caras y requieren que los pacientes \
+                 """Las pruebas para detectar el COVID-19 requieren mucho tiempo, son caras y requieren que los pacientes \
                  visiten las instalaciones en persona, lo que aumenta la exposición al virus. Para ayudar \
                  a identificar pacientes sintomáticos, desarrollamos una calculadora basada en datos para \
                  predecir la probabilidad de infección.
@@ -54,7 +54,7 @@ page_desc_infection = [ \
             dcc.Markdown(
                  """ **NOTA (¡Esta es una versión de desarrollo!):** Los modelos son tan precisos como los \
                  datos en los que están capacitados. Lanzaremos nuevas versiones de la calculadora a medida \
-                que aumente la cantidad de datos que recibimos de nuestras instituciones asociadas. Si \
+                que aumente la cantidad de datos que recibamos de nuestras instituciones asociadas. Si \
                 usted es una institución médica y está dispuesto a contribuir a nuestro esfuerzo, \
                 comuníquese con nosotros [aquí](https://www.covidanalytics.io/contact).
                  """,
