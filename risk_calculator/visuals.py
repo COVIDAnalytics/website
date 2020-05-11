@@ -152,7 +152,7 @@ def get_personal_visual(id):
                         [
                             dbc.Card(
                                 [
-                                    dcc.Markdown(id=id+"-explanation",style={"textAlign":"center"}),
+                                    dcc.Markdown(id=id+"-explanation"),
                                     html.Img(
                                         id = id,
                                         style={"height":200}

@@ -99,7 +99,6 @@ def display_fig(img, close_all=True):
     imgByteArr = BytesIO()
     # img.set_canvas(plt.gcf().canvas)
     img.savefig(imgByteArr, format='PNG')
-    plt.show()
     imgByteArr = imgByteArr.getvalue()
     encoded=base64.b64encode(imgByteArr)
     return 'data:image/png;base64,{}'.format(encoded.decode())
