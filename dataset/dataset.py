@@ -76,11 +76,11 @@ body = dbc.Container([
         [
 			dbc.Col([
             	html.H2("Dataset"),
-                html.P('In the fog of war of the COVID-19 pandemic, a critical factor inhibiting \
-				 effective decision making at regional, national, and global levels is a lack of \
-				 relevant data on patient outcomes. We hope to partially alleviate this problem by\
-				 sharing the following dataset, which aggregates data from over 100 published \
-				 clinical studies and preprints released between December 2019 and March 2020. '),
+                html.P('As policy makers and healthcare professionals tackle the COVID-19 pandemic, \
+                	a critical factor inhibiting effective decision making at regional, national, \
+                	and global levels is a lack of relevant data on patient outcomes. We hope to partially \
+                	alleviate this problem by sharing the following dataset, which aggregates data from over \
+                	160 published clinical studies and preprints released between December 2019 and April 2020.'),
 				html.P('We would like to remind the reader that the raw data in this dataset should not \
 				 be used to estimate trends in the general population such as mortality rates. \
 				 Indeed, this dataset is largely derived from studies run in hospitals and nations\
@@ -96,7 +96,7 @@ body = dbc.Container([
 				 Some papers study a single cohort, while others study several cohorts, \
 				 and still others report results about one cohort and one or more subcohorts;\
 				 Each of these cohorts are included as rows in the dataset. \
-				 The in browser dataset is a subset of the recorded features and studies. For the full dataset, please \
+				 The in-browser dataset is a subset of the recorded features and studies. For the full dataset, please \
 				 download the data.'
 				 ),
 				dcc.Markdown('''Detailed information regarding the use of this resource is available [here](/dataset_documentation).'''),
