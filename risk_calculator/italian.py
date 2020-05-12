@@ -76,7 +76,11 @@ insert_feat = 'Insert the features below into the risk calculator.'
 results_card_mortality = "The mortality risk score is:"
 results_card_infection = ["The infection risk score is:", " out of 10"]
 
-visual_1 = "explanation"
+visual_1 = """The [SHAP plot](https://github.com/slundberg/shap) below summarizes the individual feature \
+            contributions to the risk score. Features in blue decrease risk from the population baseline, \
+            whereas features in red increase risk. The contribution is proportional to the width of the feature's \
+            bar. Wider bars have higher importance in the final risk score. \
+            Note: gender is encoded as a binary value (0=Male, 1=Female)."""
 
 def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
     if labs:
@@ -149,8 +153,6 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc = html.Div(
              [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
-             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
              "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
              html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
@@ -169,8 +171,6 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         auc = html.Div(
             [
              "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "After predicting the risk using the binary classification model, we cluster its predictions in three classes \
-             of risk (low/medium/high) to calibrate its output for the general population.", html.Br(),
              "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
              html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
              "When features are missing, the calculator will impute and report their values."
