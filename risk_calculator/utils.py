@@ -170,7 +170,12 @@ def valid_input(features,feature_vals,length,language):
         val = numerics[feat]
         if val is None:
             if features[feat]["name"] == "Age":
-                return False, "Please insert a value for Age.", feature_vals
+                text = [
+                "Please insert a value for Age.",
+                "Por favor inserte un valor para Edad.",
+                "Inserisci un valore per Età."
+                ]
+                return False, text[language], feature_vals
             feature_vals[feat+1] = np.nan
             missing += 1
         else:
@@ -191,8 +196,8 @@ def valid_input(features,feature_vals,length,language):
     if missing > threshold:
         text = [
         "Please insert at least {} numeric values.".format(threshold),
-        "Por favor inserte al menos {} valores numericos.".format(title_mapping[language][name]),
-        "Si prega di inserire almeno {} valori numerici.".format(title_mapping[language][name])
+        "Por favor inserte al menos {} valores numericos.".format(threshold),
+        "Si prega di inserire almeno {} valori numerici.".format(threshold)
         ]
         return False,text[language],feature_vals
     return True,"",feature_vals
