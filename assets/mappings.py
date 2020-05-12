@@ -11,7 +11,7 @@ data_cols = [
     "Diabetes",
     "Cardiovascular Disease (incl. CAD)",
     "Cerebrovascular Disease",
-    "Renal Disease",
+    "Chronic kidney/renal disease",
     "Chronic obstructive lung (COPD)",
     "Fever (temperature ≥37·3°C)",
     "Cough",
