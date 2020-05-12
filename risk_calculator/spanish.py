@@ -132,11 +132,11 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              la primera la más relevante. \
              El gráfico muestra, para cada característica, el impacto de ésta en el modelo. Para ello, todas las observaciones de dicha característica
              se distribuyen horizontalmente en función de su valor de SHAP. El valor de SHAP cuantifica el impacto de cada observación
-             en el resultado del modelo, siendo los valores indicadores de una mayor probabilidad de resultado positivo (mortalidad o infección en nuestro caso) y viceversa. Asimismo, 
+             en el resultado del modelo, siendo los valores indicadores de una mayor probabilidad de resultado positivo (mortalidad o infección en nuestro caso) y viceversa. Asimismo,
              cada observación se colorea en función del valor relativo de dicha observación dentro del conjunto de la característica,
              siendo el azul asignado al valor más bajo y el rojo al más alto. Tomando como ejemplo la edad, se puede observar que
-             el color varía de azul a rojo a medida que el valor SHAP aumenta. Esto indíca que el riesgo de mortalidad o infección ese mayor en la población de mayor edad. 
-             En cambio, la evolución del color en el caso de la saturación de oxígeno es a la inversa, lo que indica que 
+             el color varía de azul a rojo a medida que el valor SHAP aumenta. Esto indíca que el riesgo de mortalidad o infección ese mayor en la población de mayor edad.
+             En cambio, la evolución del color en el caso de la saturación de oxígeno es a la inversa, lo que indica que
              son los niveles bajos de saturación los que conllevan mayor riesgo. Nota: el género se \
              codifica como un valor binario (0 = Masculino, 1 = Femenino), por lo \
              que los valores "menores" de género corresponden a pacientes masculinos."""),
@@ -196,16 +196,16 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              la primera la más relevante. \
              El gráfico muestra, para cada característica, el impacto de ésta en el modelo. Para ello, todas las observaciones de dicha característica
              se distribuyen horizontalmente en función de su valor de SHAP. El valor de SHAP cuantifica el impacto de cada observación
-             en el resultado del modelo, siendo los valores indicadores de una mayor probabilidad de resultado positivo (mortalidad o infección en nuestro caso) y viceversa. Asimismo, 
+             en el resultado del modelo, siendo los valores indicadores de una mayor probabilidad de resultado positivo (mortalidad o infección en nuestro caso) y viceversa. Asimismo,
              cada observación se colorea en función del valor relativo de dicha observación dentro del conjunto de la característica,
              siendo el azul asignado al valor más bajo y el rojo al más alto. Tomando como ejemplo la edad, se puede observar que
-             el color varía de azul a rojo a medida que el valor SHAP aumenta. Esto indíca que el riesgo de mortalidad o infección ese mayor en la población de mayor edad. 
-             En cambio, la evolución del color en el caso de la saturación de oxígeno es a la inversa, lo que indica que 
+             el color varía de azul a rojo a medida que el valor SHAP aumenta. Esto indíca que el riesgo de mortalidad o infección ese mayor en la población de mayor edad.
+             En cambio, la evolución del color en el caso de la saturación de oxígeno es a la inversa, lo que indica que
              son los niveles bajos de saturación los que conllevan mayor riesgo. Nota: el género se \
              codifica como un valor binario (0 = Masculino, 1 = Femenino), por lo \
              que los valores "menores" de género corresponden a pacientes masculinos."""),
         dcc.Markdown(
-             """En general, la importancia de las características del modelo es la siguiente:""",
+             """En general, la importancia de las características mas importantes del modelo es la siguiente:""",
         )
     ]
 
