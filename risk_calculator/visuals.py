@@ -14,7 +14,7 @@ def get_labs_indicator(id):
                             [
                                 dbc.CardBody(
                                     [
-                                        dcc.Markdown("Do you have lab values?"),
+                                        dcc.Markdown(id=id+"_text"),
                                         dbc.Row(
                                             [
                                                 dbc.Col(
@@ -22,7 +22,6 @@ def get_labs_indicator(id):
                                                         [
                                                         dcc.Dropdown(
                                                                 id = id,
-                                                                options = [{'label': labs_ques(x), 'value': x} for x in [1,0]],
                                                                 value = 0,
                                                         ),
 
@@ -66,8 +65,8 @@ def get_feature_importance(id):
                     dbc.Col(
                         [
                             dbc.Card(
-                                style={"borderColor": "#800020","paddingTop":20,"paddingBottom":20},
                                 id = id,
+                                style={"borderColor": "#800020","paddingTop":20,"paddingBottom":20},
                             ),
                         ],
                     ),
@@ -80,7 +79,7 @@ def get_feature_cards(id):
                 dbc.Row(
                 [
                     dbc.Col(
-                        html.H5('Insert the features below into the risk calculator.')
+                        id = id+"-text",
                     ),
                 ]),
                 dbc.Row(
@@ -95,7 +94,6 @@ def get_submit_button(id):
                     dbc.Col(
                         html.Div(
                             dbc.Button(
-                                "Submit",
                                 id=id,
                                 n_clicks=0,
                                 className="mr-1"
@@ -145,3 +143,70 @@ def get_inputed_vals(id):
                 justify="center",
              ),
              ]
+
+
+def get_personal_visual(id):
+    return [
+                dbc.Row(
+                    dbc.Col(
+                        [
+                            dbc.Card(
+                                [
+                                    dcc.Markdown(id=id+"-explanation"),
+                                    html.Img(
+                                        id = id,
+                                        style={"height":200}
+                                    ),
+                                ],
+                                style={
+                                    "borderColor": "white",
+                                    }
+                            )
+                        ],
+                    ),
+                    justify="center",
+                ),
+            ]
+
+language_ind = {
+    0: "English",
+    1: "Español",
+    2: "Italiano"
+}
+
+def get_lang(id):
+    return [
+        dbc.Row(
+            dbc.Col(
+                html.Div(
+                    dcc.Dropdown(
+                        id = id,
+                        options = [{'label': language_ind[x], 'value': x} for x in [0,1,2]],
+                        value = 0,
+                        style={'marginBottom': 10, "width":"100%"}
+                    ),
+                ),
+                xs=5,
+                sm=5,
+                md=4,
+                lg=3,
+            ),
+            justify="end",
+        ),
+    ]
+
+def get_page_desc(id):
+    return [
+        dbc.Row(
+        [
+            dbc.Col(
+            [
+                dbc.Jumbotron(
+                id=id,
+                style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
+                )
+            ]
+            ),
+        ],
+        )
+    ]
