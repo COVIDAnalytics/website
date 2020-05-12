@@ -93,7 +93,7 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         intro = dcc.Markdown(
              """
              Our model was trained on {} patients (out of whom {}% deceased) hospitalized due to COVID-19 in: \
-             """.format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
+             """.format(no_labs_population[0],str(int(float(no_labs_positive[0])*100))),
         )
         auc = html.Div(
             [
