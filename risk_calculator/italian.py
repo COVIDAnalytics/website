@@ -26,7 +26,7 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         ),
         dcc.Markdown(
              """* Un calcolatore che utilizza dati anagrafici, valori vitali, comorbidità e **valori di laboratorio**. Questo punteggio di rischio può \
-             essere utilizzato per la fare post smistamento per avere una stima più accurata e dettagliata della gravità della condizione \
+             essere utilizzato per la fase post smistamento per avere una stima più accurata e dettagliata della gravità della condizione \
              medica del paziente affetto da COVID-19. L'Area Sotto la Curva (AUC) su pazienti fuori dal campione di allenamento è {}.
              """.format(labs_auc),
         ),
@@ -64,9 +64,9 @@ insert_feat = 'Inserisci i valori seguenti nel calcolatore.'
 results_card_mortality = "Il rischio di mortalità è:"
 results_card_infection = ["Il rischio di infezione è:", " su 10"]
 
-visual_1 = """Il [grafico SHAP](https://github.com/slundberg/shap) sottostance riassume l'effetto che ogni valore ha \
+visual_1 = """Il [grafico SHAP](https://github.com/slundberg/shap) sottostante riassume l'effetto che ogni valore ha \
             sulla predizione di rischio. I valori in blue diminuiscono il rischio del paziente, \
-            mentre quelli in rosso lo aumentano. L'effetto nella predizione è proporzionale alla larghezza della barra dei valori \
+            mentre quelli in rosso lo aumentano. L'effetto nella predizione è proporzionale alla larghezza della barra dei valori. \
             Più la barra è larga, maggiore è l'effetto del valore sulla predizione finale di rischio. \
             Nota: il sesso è rappresentato come un valore binario (0=Uomo, 1=Donna)."""
 
@@ -105,7 +105,7 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         intro,
         dcc.Markdown(
              """* La città di Cremona ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona è una delle città italiane più duramente colpita con diversi migliaia di casi ad oggi.""",
+             Cremona è una delle città italiane più duramente colpite con diversi migliaia di casi ad oggi.""",
         ),
         dcc.Markdown(
              """* [Ospedali HM](https://www.fundacionhm.com/), un importante gruppo ospedaliero in Spagna con 15 ospedali e 21 centri \
@@ -151,7 +151,7 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              Il nostro modello è stato allenato su {} pazienti (dei quali {}% positivi al test di COVID-19) \
              che sono stati ricoverati nel reparto emergenze nell'ospedale della città italiana di Cremona \
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona è una delle città italiane più duramente colpita con diversi migliaia di casi ad oggi.
+             Cremona è una delle città italiane più duramente colpite con diversi migliaia di casi ad oggi.
              """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
         )
     else:
@@ -168,11 +168,11 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              Il nostro modello è stato allenato su {} pazienti (dei quali {}% positivi al test di COVID-19) \
              che sono stati ricoverati nel reparto emergenze nell'ospedale della città italiana di Cremona \
              ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona è una delle città italiane più duramente colpita con diversi migliaia di casi ad oggi.
+             Cremona è una delle città italiane più duramente colpite con diversi migliaia di casi ad oggi.
              """.format(no_labs_population[0],str(int(float(no_labs_positive[0])*100))),
         )
     return [ \
-        html.H2("Technical details"),
+        html.H2("Dettagli Tecnici"),
         desc,
         html.Hr(),
         auc,
