@@ -1,6 +1,11 @@
 import os
+import base64
+from io import BytesIO
+from matplotlib.figure import Figure
+import matplotlib.pyplot as plt
 
-from dash.dependencies import Output, Input
+import dash_html_components as html
+from dash.dependencies import Input, Output, State, ALL
 import flask
 
 from risk_calculator.mortality.calculator import valid_input_mort, predict_risk_mort, oxygen_in_mort, oxygen_mort_ind

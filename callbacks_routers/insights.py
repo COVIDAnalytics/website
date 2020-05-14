@@ -1,7 +1,7 @@
 from dash.dependencies import Input, Output
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
-from assets.mappings import data_cols,all_options
+from assets.mappings import all_options
 
 def register_callbacks(app):
     @app.callback(
