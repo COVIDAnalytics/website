@@ -91,16 +91,19 @@ def get_feature_cards(id):
 def get_submit_button(id):
     return [
                 dbc.Row(
-                    dbc.Col(
-                        html.Div(
-                            dbc.Button(
-                                id=id,
-                                n_clicks=0,
-                                className="mr-1"
-                            ),
-                        id="submit-features-calc-wrapper",
-                        )
-                    ),
+                    [
+                        dbc.Col(
+                            html.Div(
+                                dbc.Button(
+                                    id=id,
+                                    n_clicks=0,
+                                    className="mr-1"
+                                ),
+                            id="submit-features-calc-wrapper",
+                            )
+                        ),
+                    ],
+                    style = {"paddingBottom":10}
                 ),
             ]
 
@@ -109,16 +112,28 @@ def get_results_card(id,err_id):
                 dbc.Row(
                     dbc.Col(
                         [
-                        dcc.ConfirmDialog(
-                            id=err_id,
-                        ),
+                            html.P(
+                                id=err_id,
+                                style={"color":"red","textAlign":"center"}
+                            )
+                        ],
+                        xs=12,
+                        sm=12,
+                        md=12,
+                        lg=12,
+                    ),
+                    justify="center",
+                ),
+                dbc.Row(
+                    dbc.Col(
+                        [
                         dbc.Card(
                             [
                                 dbc.CardBody(id=id)
                             ],
                             color="dark",
                             inverse=True,
-                            style={"marginTop":20,"marginBottom":20}
+                            style={"marginTop":10,"marginBottom":20}
                             ),
                         ],
                         xs=12,
@@ -127,7 +142,7 @@ def get_results_card(id,err_id):
                         lg=3,
                     ),
                     justify="center",
-                )
+                ),
             ]
 
 def get_inputed_vals(id):
