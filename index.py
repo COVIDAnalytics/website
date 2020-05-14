@@ -494,8 +494,7 @@ def switch_oxygen(vec,ind):
 
 @app.callback(
     [Output('score-calculator-card-body', 'children'),
-    Output('calc-input-error', 'displayed'),
-    Output('calc-input-error', 'message'),
+    Output('calc-input-error', 'children'),
     Output('imputed-text-mortality', 'children'),
     Output('visual-1-mortality', 'src'),
     Output('visual-1-mortality', 'style'),
@@ -525,16 +524,15 @@ def calc_risk_score(*argv):
                 image = display_fig(fig)
             else:
                 image = ''
-            return score,False,'',imputed,image,{"height":200},languages["visual_1"][language]
+            return score,'',imputed,image,{"height":200},languages["visual_1"][language]
         else:
-            return default,True,err,'','',{},''
+            return default,err,'','',{},''
     #user has not clicked submit
-    return default,False,'','','',{},''
+    return default,'','','',{},''
 
 @app.callback(
     [Output('score-calculator-card-body-infection', 'children'),
-    Output('calc-input-error-infection', 'displayed'),
-    Output('calc-input-error-infection', 'message'),
+    Output('calc-input-error-infection', 'children'),
     Output('imputed-text-infection', 'children'),
     Output('visual-1-infection', 'src'),
     Output('visual-1-infection', 'style'),
@@ -564,11 +562,11 @@ def calc_risk_score_infection(*argv):
                 image = display_fig(fig)
             else:
                 image = ''
-            return score,False,'',imputed,image,{"height":200},languages["visual_1"][language]
+            return score,'',imputed,image,{"height":200},languages["visual_1"][language]
         else:
-            return default,True,err,'','',{},''
+            return default,err,'','',{},''
     #user has not clicked submit
-    return default,False,'','','',{},''
+    return default,'','','',{},''
 
 #Callbacks for navbar
 @app.callback(

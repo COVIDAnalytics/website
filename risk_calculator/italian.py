@@ -65,7 +65,7 @@ results_card_mortality = "Il rischio di mortalità è:"
 results_card_infection = ["Il rischio di infezione è:", " su 10"]
 
 visual_1 = """Il [grafico SHAP](https://github.com/slundberg/shap) sottostante riassume l'effetto che ogni valore ha \
-            sulla predizione di rischio. I valori in blue diminuiscono il rischio del paziente, \
+            sulla predizione di rischio. I valori in blu diminuiscono il rischio del paziente, \
             mentre quelli in rosso lo aumentano. L'effetto nella predizione è proporzionale alla larghezza della barra dei valori. \
             Più la barra è larga, maggiore è l'effetto del valore sulla predizione finale di rischio. \
             Nota: il sesso è rappresentato come un valore binario (0=Uomo, 1=Donna)."""
