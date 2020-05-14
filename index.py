@@ -34,7 +34,10 @@ from risk_calculator.utils import labs_features_mort, no_labs_features_mort, lab
 from risk_calculator.utils import languages, build_lab_ques_card, labs_ques
 from risk_calculator.utils import no_labs_importance_mort, labs_importance_mort, no_labs_importance_infec, labs_importance_infec
 from ventilators.allocations import VentilatorAllocations
+
 import callbacks_routers.ventilators as ventilators
+import callbacks_routers.insights as insights
+
 app = dash.Dash(
         __name__,
         external_stylesheets=[dbc.themes.UNITED],
@@ -54,6 +57,7 @@ app.layout = html.Div([
 ])
 app.scripts.append_script({'external_url':'https://covidanalytics.io/assets/gtag.js'})
 ventilators.register_callbacks(app)
+insights.register_callbacks(app)
 
 @app.server.route('/favicon.ico')
 def favicon():
