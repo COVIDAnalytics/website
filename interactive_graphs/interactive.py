@@ -117,7 +117,7 @@ body = dbc.Container(
                 dcc.Checklist(
                     id = 'survivors',
                     options=[{'label': x, 'value': x} for x in survivor_options],
-                    value=['Non-Survivors only', 'Survivors only'],
+                    value=['Non-survivors only', 'Survivors only'],
                     labelStyle={'color': 'black'},
                     style={'width': '50%','marginTop': -5}
                     )
@@ -195,7 +195,7 @@ def build_graph(y_title,x_title,survivor_vals):
 
 
     fig = go.Figure()
-    color_ind = {'Non-Survivors only':1,'Survivors only':4,'Both':2}
+    color_ind = {'Non-survivors only':1,'Survivors only':4,'Both':2}
     sizes = [5,10,20,40,60]
     for i in sub_df.Survivors.unique():
         s = 0
