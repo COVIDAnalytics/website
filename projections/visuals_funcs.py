@@ -27,7 +27,7 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 
     df_continent = df_projections
     if continent !='World':
-        df_continent = df_projections.loc[df_projections.Continent == continent] #Filter by continent
+        df_continent = df_continent.loc[df_continent.Continent == continent] #Filter by continent
 
     if map_date is None:
         return None
@@ -122,8 +122,6 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 
 
 def build_us_map(map_date,val='Active', pop = 1):
-
-    global df_us
     global PopInfo
 
     if map_date is None:
@@ -220,7 +218,6 @@ def find_smallest_scope(state, country, continent):
     return location
 
 def build_state_projection(state, country, continent, vals):
-    global df_projections
     location = find_smallest_scope(state, country, continent)
 
     df_projections_sub = df_projections.loc[ (df_projections.Province == state) & (df_projections.Country == country)]
@@ -284,8 +281,6 @@ def build_state_projection(state, country, continent, vals):
     return graph
 
 def get_stat(d, val, scope):
-    global df_projections
-    df_projections_sub = df_projections
     if d is None:
         return None
     if isinstance(d, str):

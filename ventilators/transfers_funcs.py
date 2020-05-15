@@ -11,12 +11,10 @@ from ventilators.utils import df_mod2_shortages, df_mod2_transfers,df_mod2_proje
 from ventilators.utils import us_map, us_timeline, no_model_visual, model_visual
 
 def build_transfers_map(chosen_model,chosen_date,p1,p2,p3):
-    global df_mod1_shortages
-    global df_mod2_shortages
     if chosen_model == "Washington IHME":
-        df_map = df_mod1_shortages.copy()
+        df_map = df_mod1_shortages
     else:
-        df_map = df_mod2_shortages.copy()
+        df_map = df_mod2_shortages
 
     df_map = df_map.loc[df_map.Param1==float(p1)]
     df_map = df_map.loc[df_map.Param2==float(p2)]
@@ -25,16 +23,12 @@ def build_transfers_map(chosen_model,chosen_date,p1,p2,p3):
     return us_map(df_map,chosen_date,"Shortage",model_visual)
 
 def build_transfers_timeline(chosen_model,p1,p2,p3):
-    global df_mod1_shortages
-    global df_mod2_shortages
-    global df_mod1_projections
-    global df_mod2_projections
     if chosen_model == "Washington IHME":
-        df_opt_pre = df_mod1_projections.copy()
-        df_opt_post = df_mod1_shortages.copy()
+        df_opt_pre = df_mod1_projections
+        df_opt_post = df_mod1_shortages
     else:
-        df_opt_pre = df_mod2_projections.copy()
-        df_opt_post = df_mod2_shortages.copy()
+        df_opt_pre = df_mod2_projections
+        df_opt_post = df_mod2_shortages
 
     timeline_cols = ["Date","Shortage"]
     df_opt_pre = df_opt_pre.loc[df_opt_pre.State == 'US']
@@ -56,8 +50,6 @@ def build_transfers_timeline(chosen_model,p1,p2,p3):
     return us_timeline(df_opt_effect,"Optimization Effect on Shortage",True)
 
 def build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
-    global df_mod1_transfers
-    global df_mod2_transfers
     if chosen_model == "Washington IHME":
         df_trans = df_mod1_transfers
     else:
@@ -76,16 +68,13 @@ def build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
         return [{'label': x, 'value': x} for x in sorted(df_trans.State_From.unique())]
 
 def generate_table(chosen_model,chosen_date,p1,p2,p3,to_or_from=None,state=None):
-    global df_mod1_transfers
-    global df_mod2_transfers
-
     orig_cols = ["State_From","State_To","Num_Units"]
     final_cols = ["Origin","Destination","Units"]
 
     if chosen_model == "Washington IHME":
-        df_trans = df_mod1_transfers.copy()
+        df_trans = df_mod1_transfers
     else:
-        df_trans = df_mod2_transfers.copy()
+        df_trans = df_mod2_transfers
     if isinstance(chosen_date, str):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 

@@ -5,8 +5,8 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort, labs_model_mort, no_labs_model_mort
-from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec, labs_model_infec, no_labs_model_infec
+from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort
+from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec
 from risk_calculator.utils import title_mapping,labs_ques, oxygen, oxygen_vals
 
 from navbar import Navbar
