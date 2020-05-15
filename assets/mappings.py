@@ -2,7 +2,7 @@ data_cols = [
     "Country",
     "Study Pop Size (N)",
     "Paper Title",
-    "Peer-Reviewed? (As of 2 April 2020)",
+    "Peer-Reviewed? (As of Date Added)",
     "Study length (days)",
     "Overall study population or subgroup?",
     "Subgroup",
