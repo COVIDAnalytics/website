@@ -203,11 +203,12 @@ def build_us_map(map_date,val='Active', pop = 1):
                 }
             )
 
-    graph = dcc.Graph(
-        id='us-projection-map',
-        figure=fig
-    )
-    return graph
+        graph = dcc.Graph(
+            id='us-projection-map',
+            figure=fig
+        )
+        return graph
+    return
 
 def find_smallest_scope(state, country, continent):
     location = state
