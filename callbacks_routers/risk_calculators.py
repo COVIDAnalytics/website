@@ -13,8 +13,6 @@ from risk_calculator.infection.calculator import valid_input_infec, predict_risk
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from risk_calculator.utils import labs_features_mort, no_labs_features_mort, labs_features_infec, no_labs_features_infec
 from risk_calculator.utils import languages, build_lab_ques_card, labs_ques
-from risk_calculator.utils import no_labs_importance_mort, labs_importance_mort, no_labs_importance_infec, labs_importance_infec
-
 
 def register_callbacks(app):
     #displaying shap image
