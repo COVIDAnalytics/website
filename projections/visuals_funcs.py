@@ -29,13 +29,16 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     if continent !='World':
         df_continent = df_projections.loc[df_projections.Continent == continent] #Filter by continent
 
+    if map_date is None:
+        return None
+
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
     df_map = df_continent.loc[df_continent['Day'] == map_date]
     df_map = df_map.loc[df_map['Province'] == 'None'] #exclude province data
     df_map = df_map.loc[df_map['Country'] != 'None'] #exclude global world data
-    
+
     population = np.array([])
     for i in df_map['Country']:
         ind1 = np.logical_and(PopInfo['Country']==i, PopInfo['Province']=='None')
@@ -60,7 +63,7 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
                     'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
                     'Total Detected Deaths ' + df_map['Total Detected Deaths']
         zval = df_map[val].astype(float)
-        
+
     if (val is not None) and (val in cols) and  pop != 1:
 
         df_map.loc[:,'text'] = df_map['Country'] + '<br>' + \
@@ -72,61 +75,66 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
 
 
         zval = df_map[val+ " Per Million"].astype(float)
-            
-            
-    fig = go.Figure(data=go.Choropleth(
-        locations=df_map['Country'],
-        z= zval,
-        locationmode="country names",
-        autocolorscale=False,
-        colorscale='inferno_r',
-        text=df_map['text'], # hover text
-        marker_line_color='black', # line markers between states
-        colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
-    ))
 
-    fig.update_layout(
-            margin=dict(l=10, r=10, t=50, b=50),
-            title_text=add_cases('{} Predicted {} {}'.format(map_date.strftime('%b %d,%Y'), continent, val)),
-            geo = dict(
-                scope= continent.lower(),
-                projection=go.layout.geo.Projection(type = 'natural earth'),
-                showlakes=True, # lakes
-                lakecolor='rgb(255, 255, 255)',
-                countrycolor='lightgray',
-                landcolor='whitesmoke',
-                showland=True,
-                showframe = False,
-                showcoastlines = True,
-                showcountries=True,
-                visible = False,
-            ),
-            modebar={
-                'orientation': 'v',
-                'bgcolor': 'rgba(0,0,0,0)',
-                'color': 'lightgray',
-                'activecolor': 'gray'
-            }
+    if (val is not None) and (val in cols):
+        fig = go.Figure(data=go.Choropleth(
+            locations=df_map['Country'],
+            z= zval,
+            locationmode="country names",
+            autocolorscale=False,
+            colorscale='inferno_r',
+            text=df_map['text'], # hover text
+            marker_line_color='black', # line markers between states
+            colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
+        ))
+
+        fig.update_layout(
+                margin=dict(l=10, r=10, t=50, b=50),
+                title_text=add_cases('{} Predicted {} {}'.format(map_date.strftime('%b %d,%Y'), continent, val)),
+                geo = dict(
+                    scope= continent.lower() if continent is not None else None,
+                    projection=go.layout.geo.Projection(type = 'natural earth'),
+                    showlakes=True, # lakes
+                    lakecolor='rgb(255, 255, 255)',
+                    countrycolor='lightgray',
+                    landcolor='whitesmoke',
+                    showland=True,
+                    showframe = False,
+                    showcoastlines = True,
+                    showcountries=True,
+                    visible = False,
+                ),
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
+            )
+
+        graph = dcc.Graph(
+            id='continent-projection-map',
+            figure=fig,
         )
 
-    graph = dcc.Graph(
-        id='continent-projection-map',
-        figure=fig,
-    )
+        return graph
+    return
 
-    return graph
 
 def build_us_map(map_date,val='Active', pop = 1):
 
     global df_us
     global PopInfo
 
+    if map_date is None:
+        return None
+
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
     df_map = df_us.loc[df_us['Day']==map_date]
     df_map = df_map.loc[df_us['Province']!='US']
-    
+
 
     df_map.loc[:,'code'] = df_map.Province.apply(lambda x: states[x])
     population = np.array([])
@@ -151,10 +159,10 @@ def build_us_map(map_date,val='Active', pop = 1):
                     'Active Hospitalized ' + df_map['Active Hospitalized'] + '<br>' + \
                     'Cumulative Hospitalized ' + df_map['Cumulative Hospitalized'] + '<br>' + \
                     'Total Detected Deaths ' + df_map['Total Detected Deaths']
-                    
+
         z_val = df_map[val].astype(float)
-                    
-            
+
+
     if (val is not None) and (val in cols) and pop != 1:
 
         df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
@@ -164,41 +172,43 @@ def build_us_map(map_date,val='Active', pop = 1):
             'Cumulative Hospitalized Per Million ' + df_map['Cumulative Hospitalized Per Million'] + '<br>' + \
             'Total Detected Deaths Per Million ' + df_map['Total Detected Deaths Per Million']
         z_val =df_map[val+ " Per Million"].astype(float)
-            
-    fig = go.Figure(data=go.Choropleth(
-        locations=df_map['code'],
-        z=z_val,
-        locationmode='USA-states',
-        colorscale='inferno_r',
-        autocolorscale=False,
-        text=df_map['text'], # hover text
-        marker_line_color='white' , # line markers between states
-        colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
-    ))
+
+    if (val is not None) and (val in cols):
+        fig = go.Figure(data=go.Choropleth(
+            locations=df_map['code'],
+            z=z_val,
+            locationmode='USA-states',
+            colorscale='inferno_r',
+            autocolorscale=False,
+            text=df_map['text'], # hover text
+            marker_line_color='white' , # line markers between states
+            colorbar_title='<br>'.join(wrap(''.join(['{}'.format(add_cases(val))]), width=10))
+        ))
 
 
-    fig.update_layout(
-            margin=dict(l=10, r=10, t=50, b=50),
-            title_text=add_cases('{} Predicted US {}'.format(map_date.strftime('%b %d,%Y'), val)),
-            geo = dict(
-                scope='usa',
-                projection=go.layout.geo.Projection(type = 'albers usa'),
-                showlakes=True, # lakes
-                lakecolor='rgb(255, 255, 255)'
-            ),
-            modebar={
-                'orientation': 'v',
-                'bgcolor': 'rgba(0,0,0,0)',
-                'color': 'lightgray',
-                'activecolor': 'gray'
-            }
+        fig.update_layout(
+                margin=dict(l=10, r=10, t=50, b=50),
+                title_text=add_cases('{} Predicted US {}'.format(map_date.strftime('%b %d,%Y'), val)),
+                geo = dict(
+                    scope='usa',
+                    projection=go.layout.geo.Projection(type = 'albers usa'),
+                    showlakes=True, # lakes
+                    lakecolor='rgb(255, 255, 255)'
+                ),
+                modebar={
+                    'orientation': 'v',
+                    'bgcolor': 'rgba(0,0,0,0)',
+                    'color': 'lightgray',
+                    'activecolor': 'gray'
+                }
+            )
+
+        graph = dcc.Graph(
+            id='us-projection-map',
+            figure=fig
         )
-
-    graph = dcc.Graph(
-        id='us-projection-map',
-        figure=fig
-    )
-    return graph
+        return graph
+    return
 
 def find_smallest_scope(state, country, continent):
     location = state
@@ -276,7 +286,8 @@ def build_state_projection(state, country, continent, vals):
 def get_stat(d, val, scope):
     global df_projections
     df_projections_sub = df_projections
-
+    if d is None:
+        return None
     if isinstance(d, str):
         d = datetime.datetime.strptime(d, '%Y-%m-%d').date()
 
