@@ -103,5 +103,7 @@ def register_callbacks(app):
         [Input('us-map-date-picker-range', 'date'),
          Input('location_map_dropdown', 'value')])
     def display_US_stats_title(d, location):
-        d = dt.strptime(d, '%Y-%m-%d').date()
-        return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
+        if d is not None:
+            d = dt.strptime(d, '%Y-%m-%d').date()
+            return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
+        return ''
