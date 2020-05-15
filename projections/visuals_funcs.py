@@ -300,6 +300,9 @@ def get_stat(d, val, scope):
 
     df_projections_sub = df_projections_sub.loc[df_projections_sub['Day']==d].reset_index()
 
+    if df_projections_sub.empty:
+        return None
+
     card_content = [
         dbc.CardHeader(
             f'{df_projections_sub.iloc[0][val]:,}',
