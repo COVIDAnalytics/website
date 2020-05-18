@@ -1,5 +1,5 @@
-from ventilators.utils import df_mod1_shortages, df_mod1_transfers,df_mod1_projections
-from ventilators.utils import df_mod2_shortages, df_mod2_transfers,df_mod2_projections
+from ventilators.utils import df_mod1_transfers,df_mod1_projections
+from ventilators.utils import df_mod2_transfers,df_mod2_projections
 from ventilators.utils import us_map, us_timeline, no_model_visual, model_visual
 
 # Build the map of current demand, supply, and shortage

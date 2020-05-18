@@ -8,20 +8,23 @@ import dash_core_components as dcc
 
 from assets.mappings import states,colors
 
-df_mod1_shortages = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
+# df_mod1_shortages = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
 df_mod1_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
 df_mod1_projections = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
 
-df_mod2_shortages = pd.read_csv('data/predicted_ventilator/state_supplies_table-ode.csv', sep=",", parse_dates = ['Date'])
+# df_mod2_shortages = pd.read_csv('data/predicted_ventilator/state_supplies_table-ode.csv', sep=",", parse_dates = ['Date'])
 df_mod2_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ode.csv', sep=",", parse_dates = ['Date'])
 df_mod2_projections = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ode.csv', sep=",", parse_dates = ['Date'])
 
-df_mod1_shortages.loc[:,'Date'] = pd.to_datetime(df_mod1_shortages['Date'], format='y%m%d').dt.date
-df_mod2_shortages.loc[:,'Date'] = pd.to_datetime(df_mod2_shortages['Date'], format='y%m%d').dt.date
+# df_mod1_shortages.loc[:,'Date'] = pd.to_datetime(df_mod1_shortages['Date'], format='y%m%d').dt.date
+# df_mod2_shortages.loc[:,'Date'] = pd.to_datetime(df_mod2_shortages['Date'], format='y%m%d').dt.date
 df_mod1_transfers.loc[:,'Date'] = pd.to_datetime(df_mod1_transfers['Date'], format='y%m%d').dt.date
 df_mod2_transfers.loc[:,'Date'] = pd.to_datetime(df_mod2_transfers['Date'], format='y%m%d').dt.date
 df_mod1_projections.loc[:,'Date'] = pd.to_datetime(df_mod1_projections['Date'], format='y%m%d').dt.date
 df_mod2_projections.loc[:,'Date'] = pd.to_datetime(df_mod2_projections['Date'], format='y%m%d').dt.date
+
+min_shortage_date = min(df_mod1_projections.Date.values)
+max_shortage_date = max(df_mod1_projections.Date.values)
 
 today = pd.Timestamp('today')
 oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
