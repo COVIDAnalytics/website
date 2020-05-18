@@ -1,16 +1,10 @@
-import plotly.graph_objects as go
-from textwrap import wrap
 
+import pickle
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-from risk_calculator.mortality.calculator import no_labs_features_mort, labs_features_mort
-from risk_calculator.infection.calculator import no_labs_features_infec, labs_features_infec
 from risk_calculator.utils import title_mapping,labs_ques, oxygen, oxygen_vals
-
-from navbar import Navbar
-from footer import Footer
 
 def build_feature_importance_graph(m=True,labs=False):
     image = 'assets/risk_calculators/'
@@ -239,9 +233,20 @@ def build_multidrop_card(id, m, content_dict,language):
 
 def build_feature_cards(m=True,labs=False,language=0):
     if m:
-        features = labs_features_mort if labs else no_labs_features_mort
+        if labs:
+            with open('assets/risk_calculators/mortality/labs_json.pkl', 'rb') as file:
+                features_pickle = pickle.load(file)
+        else:
+            with open('assets/risk_calculators/mortality/without_labs_json.pkl', 'rb') as file:
+                features_pickle = pickle.load(file)
     else:
-        features = labs_features_infec if labs else no_labs_features_infec
+        if labs:
+            with open('assets/risk_calculators/infection/labs_json.pkl', 'rb') as file:
+                features_pickle = pickle.load(file)
+        else:
+            with open('assets/risk_calculators/infection/without_labs_json.pkl', 'rb') as file:
+                features_pickle = pickle.load(file)
+    features = features_pickle["json"]
     card_content = []
     cards = []
     inputs = features["numeric"]
