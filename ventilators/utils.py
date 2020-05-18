@@ -1,7 +1,6 @@
 import datetime
 import urllib
 import math
-import requests
 import pandas as pd
 from textwrap import wrap
 import plotly.graph_objects as go
