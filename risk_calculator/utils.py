@@ -29,7 +29,7 @@ labs_auc_mort = mort_labs["AUC"]
 labs_population_mort = [mort_labs["Size Training"],mort_labs["Size Test"]]
 labs_positive_mort = [mort_labs["Percentage Training"],mort_labs["Percentage Test"]]
 labs_explainer_mort = mort_labs["explainer"]
-labs_importance_mort = mort_labs["importance"]
+# labs_importance_mort = mort_labs["importance"]
 
 no_labs_model_mort = mort_no_labs["model"]
 no_labs_imputer_mort = mort_no_labs["imputer"]
@@ -39,7 +39,7 @@ no_labs_auc_mort = mort_no_labs["AUC"]
 no_labs_population_mort = [mort_no_labs["Size Training"],mort_no_labs["Size Test"]]
 no_labs_positive_mort = [mort_no_labs["Percentage Training"],mort_no_labs["Percentage Test"]]
 no_labs_explainer_mort = mort_no_labs["explainer"]
-no_labs_importance_mort = mort_no_labs["importance"]
+# no_labs_importance_mort = mort_no_labs["importance"]
 
 with open('assets/risk_calculators/infection/model_with_lab.pkl', 'rb') as file:
     infec_labs = pickle.load(file)
@@ -55,7 +55,7 @@ labs_auc_infec = infec_labs["AUC"]
 labs_population_infec = [infec_labs["Size Training"],infec_labs["Size Test"]]
 labs_positive_infec = [infec_labs["Percentage Training"],infec_labs["Percentage Test"]]
 labs_explainer_infec = infec_labs["explainer"]
-labs_importance_infec = infec_labs["importance"]
+# labs_importance_infec = infec_labs["importance"]
 
 no_labs_model_infec = infec_no_labs["model"]
 no_labs_imputer_infec = infec_no_labs["imputer"]
@@ -65,7 +65,7 @@ no_labs_auc_infec = infec_no_labs["AUC"]
 no_labs_population_infec = [infec_no_labs["Size Training"],infec_no_labs["Size Test"]]
 no_labs_positive_infec = [infec_no_labs["Percentage Training"],infec_no_labs["Percentage Test"]]
 no_labs_explainer_infec = infec_no_labs["explainer"]
-no_labs_importance_infec = infec_no_labs["importance"]
+# no_labs_importance_infec = infec_no_labs["importance"]
 
 matplotlib.use('Agg')
 oxygen = 'Oxygen Saturation'

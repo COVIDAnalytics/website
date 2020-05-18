@@ -32,7 +32,7 @@ from risk_calculator.infection.calculator import InfectionRiskCalc, valid_input_
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
 from risk_calculator.utils import labs_features_mort, no_labs_features_mort, labs_features_infec, no_labs_features_infec
 from risk_calculator.utils import languages, build_lab_ques_card, labs_ques
-from risk_calculator.utils import no_labs_importance_mort, labs_importance_mort, no_labs_importance_infec, labs_importance_infec
+# from risk_calculator.utils import no_labs_importance_mort, labs_importance_mort, no_labs_importance_infec, labs_importance_infec
 from ventilators.allocations import VentilatorAllocations
 from ventilators.shortage_funcs import build_shortage_map,build_shortage_timeline
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,build_transfer_options,generate_table
