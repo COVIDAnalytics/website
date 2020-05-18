@@ -2,12 +2,13 @@ import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-colors =[
-            '#000004',
-            '#a52c60',
-            '#ed6925'
-            #'#f7d31d'
-        ]
+def get_colors():
+    return [
+                '#000004',
+                '#a52c60',
+                '#ed6925'
+                #'#f7d31d'
+            ]
 
 def get_state_num_policy_card(states):
     return [
@@ -73,6 +74,7 @@ def timeline_text(t):
     return "6"
 
 def get_policy_card(ind):
+    colors = get_colors()
     content = dbc.Card(
                     [
                         dbc.CardHeader(html.H4("Policy {}".format(ind+1),id="policy-header-{}".format(ind)),style={"textAlign": "center"}),
