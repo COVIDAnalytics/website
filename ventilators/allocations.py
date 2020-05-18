@@ -9,9 +9,9 @@ from assets.mappings import states, colors
 from ventilators.shortage import shortage
 from ventilators.transfers_visuals import transfers_visuals
 from ventilators.transfers_table import transfers_table
-from ventilators.utils import df_mod1_shortages, df_mod1_transfers, df_mod1_projections
-from ventilators.utils import df_mod2_shortages, df_mod2_transfers, df_mod2_projections
-from ventilators.utils import oneWeekFromNow, state_cols
+from ventilators.utils import df_mod1_transfers, df_mod1_projections
+from ventilators.utils import df_mod2_transfers, df_mod2_projections
+from ventilators.utils import state_cols
 from ventilators.utils import no_model_visual, model_visual, models, change2Percent
 
 nav = Navbar()
@@ -27,7 +27,7 @@ body = dbc.Container(
                         html.P('''
                                For severe COVID-19 patients, medical ventilators can spell \
                                the difference between life and death, but many locations are \
-                               already experiencing shortages. 
+                               already experiencing shortages.
                                ''',
                                className="lead"),
                         html.Hr(),
