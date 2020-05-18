@@ -15,7 +15,7 @@ import dash_bootstrap_components as dbc
 
 from navbar import Navbar
 from footer import Footer
-from assets.mappings import states, colors
+from assets.mappings import states, get_colors
 
 from projections.utils import cols, df_us, add_cases, df_projections, PopInfo
 
@@ -226,6 +226,7 @@ def build_state_projection(state, country, continent, vals):
     fig = go.Figure()
 
     if (vals is not None) and (set(vals).issubset(set(cols))):
+        colors = get_colors()
         for val in vals:
             i = cols[val]
             fig.add_trace(go.Scatter(

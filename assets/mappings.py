@@ -1,54 +1,19 @@
-data_cols = [
-    "Country",
-    "Study Pop Size (N)",
-    "Paper Title",
-    "Peer-Reviewed? (As of Date Added)",
-    "Study length (days)",
-    "Overall study population or subgroup?",
-    "Subgroup",
-    "Median Age",
-    "Hypertension",
-    "Diabetes",
-    "Cardiovascular Disease (incl. CAD)",
-    "Cerebrovascular Disease",
-    "Chronic kidney/renal disease",
-    "Chronic obstructive lung (COPD)",
-    "Fever (temperature ≥37·3°C)",
-    "Cough",
-    "Fatigue",
-    "Diarrhoea",
-    "Shortness of Breath (dyspnoea)",
-    "Nausea or Vomiting",
-    "Loss of Appetite/Anorexia",
-    "White Blood Cell Count (10^9/L) - Median",
-    "Lymphocyte Count (10^9/L) - Median",
-    "Platelet Count (10^9/L) - Median",
-    "C-Reactive Protein (mg/L)",
-    "Hemoglobin (g/L) - Median",
-    "Total Bilirubin (umol/L) - Median",
-    "D-Dimer (mg/L)",
-    "Albumin (g/L)",
-    "Uses Kaletra (lopinavir–ritonavir)",
-    "Uses Arbidol (umifenovir)",
-    "Corticosteroid (including Glucocorticoid, Methylprednisolone)",
-    "Invasive mechanical ventilation",
-    "ARDS",
-    "Hospital admission (%)",
-    "Discharged (%)",
-    "Mortality",
-    "Projected Mortality (accounting for patients not currently discharged)"
-]
-
-all_options = {
-    'Comorbidities': [
+def get_data_cols():
+    return [
+        "Country",
+        "Study Pop Size (N)",
+        "Paper Title",
+        "Peer-Reviewed? (As of Date Added)",
+        "Study length (days)",
+        "Overall study population or subgroup?",
+        "Subgroup",
+        "Median Age",
         "Hypertension",
         "Diabetes",
         "Cardiovascular Disease (incl. CAD)",
-        "Chronic obstructive lung (COPD)",
         "Cerebrovascular Disease",
-        "Renal Disease",
-    ],
-    'Symptoms': [
+        "Chronic kidney/renal disease",
+        "Chronic obstructive lung (COPD)",
         "Fever (temperature ≥37·3°C)",
         "Cough",
         "Fatigue",
@@ -56,16 +21,6 @@ all_options = {
         "Shortness of Breath (dyspnoea)",
         "Nausea or Vomiting",
         "Loss of Appetite/Anorexia",
-        "ARDS",
-    ],
-    'Treatment': [
-        "Antiviral (Any)",
-        "Uses Kaletra (lopinavir–ritonavir)",
-        "Uses Arbidol (umifenovir)",
-        "Corticosteroid (including Glucocorticoid, Methylprednisolone)",
-        "Invasive mechanical ventilation",
-    ],
-    'Lab Test Results':[
         "White Blood Cell Count (10^9/L) - Median",
         "Lymphocyte Count (10^9/L) - Median",
         "Platelet Count (10^9/L) - Median",
@@ -73,10 +28,17 @@ all_options = {
         "Hemoglobin (g/L) - Median",
         "Total Bilirubin (umol/L) - Median",
         "D-Dimer (mg/L)",
-        "Albumin (g/L)"
-    ],
-}
-
+        "Albumin (g/L)",
+        "Uses Kaletra (lopinavir–ritonavir)",
+        "Uses Arbidol (umifenovir)",
+        "Corticosteroid (including Glucocorticoid, Methylprednisolone)",
+        "Invasive mechanical ventilation",
+        "ARDS",
+        "Hospital admission (%)",
+        "Discharged (%)",
+        "Mortality",
+        "Projected Mortality (accounting for patients not currently discharged)"
+    ]
 
 states = {
     'US':'US','Alaska': 'AK', 'Alabama': 'AL', 'Arkansas': 'AR', 'American Samoa': 'AS',
@@ -97,10 +59,11 @@ states = {
 
 
 # colors that align with inferno
-colors =[
-            '#000004',
-            '#4a0c6b',
-            '#a52c60',
-            '#ed6925',
-            '#f7d31d'
-        ]
+def get_colors():
+    return [
+                '#000004',
+                '#4a0c6b',
+                '#a52c60',
+                '#ed6925',
+                '#f7d31d'
+            ]

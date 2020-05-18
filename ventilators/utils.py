@@ -6,7 +6,7 @@ from textwrap import wrap
 import plotly.graph_objects as go
 import dash_core_components as dcc
 
-from assets.mappings import states,colors
+from assets.mappings import states, get_colors
 
 df_mod1_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
 df_mod1_projections = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
@@ -95,8 +95,9 @@ def us_map(df,chosen_date,val,label_dict):
 def us_timeline(df, title, with_opt):
 
     fig = go.Figure()
-
+    colors = get_colors()
     if with_opt:
+
         # we want to keep the baseline shortage the same color as the prev. graph
         # and add a new color for the new shortage
         col_ind = [0,3]

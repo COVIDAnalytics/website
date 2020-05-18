@@ -1,165 +1,159 @@
-### Data
 import pandas as pd
-from datetime import datetime as dt
 import urllib
-### Graphing
 import plotly.graph_objects as go
 from textwrap import wrap
-### Dash
-import dash
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from navbar import Navbar
 from footer import Footer
-from assets.mappings import colors
-
-dataset = "data/clinical_outcomes_database.csv"
-df = pd.read_csv('data/clinical_outcomes_database.csv')
-data_csv_string = df.to_csv(index=False, encoding='utf-8')
-data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
-
-nav = Navbar()
-footer = Footer()
-
-categories = ["Comorbidities","Symptoms","Treatment","Lab Test Results"]
-
-demographics = ["Median Age", "% Male"]
-
-survivor_options = df.Survivors.unique()
-survivor_options = [x for x in survivor_options if str(x) != 'nan']
-
-body = dbc.Container(
-    [
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-              html.H2("Insights")
-            ]
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.Div(
-                [
-                    dcc.Markdown(
-                         """\
-                            Effective decision making needs data. \
-                            We interactively visualize a new [dataset](/dataset) \
-                            that aggregates data from over 100 published clinical \
-                            studies and preprints released between December 2019 \
-                            and March 2020 on COVID-19. We hope that by summarizing\
-                            the results of multiple studies, we can get a clearer \
-                            picture on the virus.
-                         """,
-                    ),
-                    html.P(
-                         """\
-                            Below you will find a series of \
-                            options to create descriptive graphs relating to patient \
-                            demographic characteristics, symptoms, treatments, \
-                            comorbidities, lab results, and outcomes. \
-                            Each data point corresponds to a different study that \
-                            comprises multiple patients. We hope that you can easily \
-                            derive your own insights and discover the interesting \
-                            implications of the disease.
-                         """,
-                    )
-                ]
-                )
-            ]
-            ),
-        ],
-        ),
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                html.H5('What would you like to compare?'),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'categories_dropdown',
-                        options = [{'label': x, 'value': x} for x in categories],
-                        value = 'Comorbidities',
-                        style={'marginBottom': 10}
-                    ),
-                ),
-                html.Div(
-                    id='display-selected-values',
-                    ),
-                html.Div([
-                    html.Div(
-                        dcc.Dropdown(
-                            id = 'y_axis_dropdown',
-                            value = 'Hypertension',
-                            optionHeight = 50,
-                            style={'marginBottom': 10,'marginTop': 10}
-                        ),
-                    )
-                ]
-                ),
-                html.P('Select the Demographic (Horizontal Axis)'),
-                html.Div(
-                    dcc.Dropdown(
-                        id = 'x_axis_dropdown',
-                        options = [{'label': x, 'value': x} for x in demographics],
-                        value = '% Male',
-                        style={'marginBottom': 10,'marginTop': -5}
-                    ),
-                ),
-                html.P('Select the Population Type:'),
-                html.Div(
-                dcc.Checklist(
-                    id = 'survivors',
-                    options=[{'label': x, 'value': x} for x in survivor_options],
-                    value=['Non-survivors only', 'Survivors only'],
-                    labelStyle={'color': 'black'},
-                    style={'width': '50%','marginTop': -5}
-                    )
-                ),
-            ],
-            width="True",
-            ),
-        ],
-        justify="center"
-        ),
-        dbc.Row(
-            [
-            dbc.Col(
-            [
-                html.Div(
-                    id = 'interactive_graph',
-                    children = [],
-                    ),
-            ]
-            ),
-            ]
-        ),
-        dbc.Row([
-            dbc.Col(
-                html.Div(
-                    html.A(
-                        "Download the Data",
-                        id="download-link",
-                        download="covid_analytics_clinical_data.csv",
-                        href=data_csv_string,
-                        target="_blank"
-                    ),
-                    style={'textAlign':"center"}
-                )
-            ),
-            ]
-        ),
-   ],
-   className="page-body",
-)
+from assets.mappings import get_colors
 
 def InteractiveGraph():
+    df = pd.read_csv('data/clinical_outcomes_database.csv')
+    data_csv_string = df.to_csv(index=False, encoding='utf-8')
+    data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
+
+    nav = Navbar()
+    footer = Footer()
+
+    categories = ["Comorbidities","Symptoms","Treatment","Lab Test Results"]
+
+    demographics = ["Median Age", "% Male"]
+
+    survivor_options = df.Survivors.unique()
+    survivor_options = [x for x in survivor_options if str(x) != 'nan']
+
+    body = dbc.Container(
+        [
+            dbc.Row(
+            [
+                dbc.Col(
+                [
+                  html.H2("Insights")
+                ]
+                ),
+            ],
+            ),
+            dbc.Row(
+            [
+                dbc.Col(
+                [
+                    html.Div(
+                    [
+                        dcc.Markdown(
+                             """\
+                                Effective decision making needs data. \
+                                We interactively visualize a new [dataset](/dataset) \
+                                that aggregates data from over 100 published clinical \
+                                studies and preprints released between December 2019 \
+                                and March 2020 on COVID-19. We hope that by summarizing\
+                                the results of multiple studies, we can get a clearer \
+                                picture on the virus.
+                             """,
+                        ),
+                        html.P(
+                             """\
+                                Below you will find a series of \
+                                options to create descriptive graphs relating to patient \
+                                demographic characteristics, symptoms, treatments, \
+                                comorbidities, lab results, and outcomes. \
+                                Each data point corresponds to a different study that \
+                                comprises multiple patients. We hope that you can easily \
+                                derive your own insights and discover the interesting \
+                                implications of the disease.
+                             """,
+                        )
+                    ]
+                    )
+                ]
+                ),
+            ],
+            ),
+            dbc.Row(
+            [
+                dbc.Col(
+                [
+                    html.H5('What would you like to compare?'),
+                    html.Div(
+                        dcc.Dropdown(
+                            id = 'categories_dropdown',
+                            options = [{'label': x, 'value': x} for x in categories],
+                            value = 'Comorbidities',
+                            style={'marginBottom': 10}
+                        ),
+                    ),
+                    html.Div(
+                        id='display-selected-values',
+                        ),
+                    html.Div([
+                        html.Div(
+                            dcc.Dropdown(
+                                id = 'y_axis_dropdown',
+                                value = 'Hypertension',
+                                optionHeight = 50,
+                                style={'marginBottom': 10,'marginTop': 10}
+                            ),
+                        )
+                    ]
+                    ),
+                    html.P('Select the Demographic (Horizontal Axis)'),
+                    html.Div(
+                        dcc.Dropdown(
+                            id = 'x_axis_dropdown',
+                            options = [{'label': x, 'value': x} for x in demographics],
+                            value = '% Male',
+                            style={'marginBottom': 10,'marginTop': -5}
+                        ),
+                    ),
+                    html.P('Select the Population Type:'),
+                    html.Div(
+                    dcc.Checklist(
+                        id = 'survivors',
+                        options=[{'label': x, 'value': x} for x in survivor_options],
+                        value=['Non-survivors only', 'Survivors only'],
+                        labelStyle={'color': 'black'},
+                        style={'width': '50%','marginTop': -5}
+                        )
+                    ),
+                ],
+                width="True",
+                ),
+            ],
+            justify="center"
+            ),
+            dbc.Row(
+                [
+                dbc.Col(
+                [
+                    html.Div(
+                        id = 'interactive_graph',
+                        children = [],
+                        ),
+                ]
+                ),
+                ]
+            ),
+            dbc.Row([
+                dbc.Col(
+                    html.Div(
+                        html.A(
+                            "Download the Data",
+                            id="download-link",
+                            download="covid_analytics_clinical_data.csv",
+                            href=data_csv_string,
+                            target="_blank"
+                        ),
+                        style={'textAlign':"center"}
+                    )
+                ),
+                ]
+            ),
+       ],
+       className="page-body",
+    )
+
     layout = html.Div([nav, body, footer],className="site")
     return layout
 
@@ -176,38 +170,38 @@ def get_lb(ind,buckets):
 
 
 def build_graph(y_title,x_title,survivor_vals):
-    global df
+    df = pd.read_csv('data/clinical_outcomes_database.csv')
     if y_title not in df.columns or x_title not in df.columns:
         return None
     cols = [x_title,y_title] + ["Survivors","Country"]
     pre_cols = cols + ["Study Pop Size (N)"]
     post_cols = cols + ["Population"]
-    sub_df = df[pre_cols]
-    sub_df = sub_df.dropna()
-    max_pop = max(sub_df["Study Pop Size (N)"].values)
+    df = df[pre_cols]
+    df = df.dropna()
+    max_pop = max(df["Study Pop Size (N)"].values)
     #round up the maximum number to the nearest hundred
     max_pop = int(max_pop) + 100 - int(max_pop) % 100
     buckets = [100,500,1000,2000,max_pop]
-    sub_df["Population"] = sub_df["Study Pop Size (N)"].apply(lambda x: graph_bucket(x,buckets))
-    sub_df = sub_df[post_cols]
-    sub_df = sub_df[sub_df['Survivors'].isin(survivor_vals)]
+    df["Population"] = df["Study Pop Size (N)"].apply(lambda x: graph_bucket(x,buckets))
+    df = df[post_cols]
+    df = df[df['Survivors'].isin(survivor_vals)]
 
 
-
+    colors = get_colors()
     fig = go.Figure()
     color_ind = {'Non-survivors only':1,'Survivors only':4,'Both':2}
     sizes = [5,10,20,40,60]
-    for i in sub_df.Survivors.unique():
+    for i in df.Survivors.unique():
         s = 0
         for ind,j in enumerate(buckets):
             fig.add_trace(go.Scatter(
-                x=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][x_title],
-                y=sub_df[(sub_df['Survivors'] == i) & (sub_df['Population'] == j)][y_title],
+                x=df[(df['Survivors'] == i) & (df['Population'] == j)][x_title],
+                y=df[(df['Survivors'] == i) & (df['Population'] == j)][y_title],
                 legendgroup=i,
                 name= '{} <br> {} < Pop. Size < {}'.format(i, get_lb(ind,buckets),str(int(j))),
                 mode="markers",
                 marker=dict(color=colors[color_ind[i]], size=sizes[ind]),
-                text=sub_df['Country'],
+                text=df['Country'],
             ))
             s+=1
 

@@ -1,9 +1,47 @@
 from dash.dependencies import Input, Output
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
-from assets.mappings import all_options
 
 def register_callbacks(app):
+
+    all_options = {
+        'Comorbidities': [
+            "Hypertension",
+            "Diabetes",
+            "Cardiovascular Disease (incl. CAD)",
+            "Chronic obstructive lung (COPD)",
+            "Cerebrovascular Disease",
+            "Renal Disease",
+        ],
+        'Symptoms': [
+            "Fever (temperature ≥37·3°C)",
+            "Cough",
+            "Fatigue",
+            "Diarrhoea",
+            "Shortness of Breath (dyspnoea)",
+            "Nausea or Vomiting",
+            "Loss of Appetite/Anorexia",
+            "ARDS",
+        ],
+        'Treatment': [
+            "Antiviral (Any)",
+            "Uses Kaletra (lopinavir–ritonavir)",
+            "Uses Arbidol (umifenovir)",
+            "Corticosteroid (including Glucocorticoid, Methylprednisolone)",
+            "Invasive mechanical ventilation",
+        ],
+        'Lab Test Results':[
+            "White Blood Cell Count (10^9/L) - Median",
+            "Lymphocyte Count (10^9/L) - Median",
+            "Platelet Count (10^9/L) - Median",
+            "C-Reactive Protein (mg/L)",
+            "Hemoglobin (g/L) - Median",
+            "Total Bilirubin (umol/L) - Median",
+            "D-Dimer (mg/L)",
+            "Albumin (g/L)"
+        ],
+    }
+
     @app.callback(
         Output('interactive_graph', 'children'),
         [Input('y_axis_dropdown', 'value'),
