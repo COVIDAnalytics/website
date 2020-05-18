@@ -2,7 +2,7 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from ventilators.utils import df_mod1_transfers, oneWeekFromNow, state_cols
+from ventilators.utils import df_mod1_transfers, firstDate, state_cols
 from ventilators.utils import model_visual, models, change2Percent
 
 transfers_visuals = \
@@ -14,7 +14,7 @@ transfers_visuals = \
                 dbc.Card(
                     [
                         dbc.CardBody(
-                            [   
+                            [
                                 dcc.Markdown("How much of its base supply is each state willing to share?"),
                                 dbc.Row(
                                     [
@@ -71,7 +71,7 @@ transfers_visuals = \
                                 dbc.Tooltip(
                                     "Example: for a buffer value of 20%, a projected demand of 1,000 ventilators implies a target supply of 1,200.",
                                     target="p2-transfer-dropdown-wrapper",
-                                ),                               
+                                ),
                             ],
                         ),
                     ],
@@ -89,7 +89,7 @@ transfers_visuals = \
                     [
                         dbc.CardBody(
                             [
-                                dcc.Markdown("How much would you like to adjust the federal surge supply?"),                                
+                                dcc.Markdown("How much would you like to adjust the federal surge supply?"),
                                 dbc.Row(
                                     [
                                         dbc.Col(dcc.Markdown("**Surge Supply:**")),
@@ -163,8 +163,8 @@ transfers_visuals = \
                         id='date-transfer-dropdown',
                         min_date_allowed=min(df_mod1_transfers.Date.values),
                         max_date_allowed=max(df_mod1_transfers.Date.values),
-                        date=oneWeekFromNow,
-                        initial_visible_month=oneWeekFromNow,
+                        date=firstDate,
+                        initial_visible_month=firstDate,
                         style={'marginBottom':20}
                     ),
                     id="date-projections-picker-div"

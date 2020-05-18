@@ -1,7 +1,7 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from ventilators.utils import min_shortage_date, max_shortage_date, oneWeekFromNow, state_cols
+from ventilators.utils import min_shortage_date, max_shortage_date, firstDate, state_cols
 from ventilators.utils import no_model_visual, model_visual, models
 
 
@@ -55,8 +55,8 @@ shortage = \
                                     id='us-map-date-picker-range-vent',
                                     min_date_allowed=min_shortage_date,
                                     max_date_allowed=max_shortage_date,
-                                    date=oneWeekFromNow,
-                                    initial_visible_month=oneWeekFromNow,
+                                    date=firstDate,
+                                    initial_visible_month=firstDate,
                                     style={'marginBottom':20}
                                 ),
                                 id="date-projections-picker-div"

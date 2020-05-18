@@ -11,7 +11,7 @@ from ventilators.transfers_visuals import transfers_visuals
 from ventilators.transfers_table import transfers_table
 from ventilators.utils import df_mod1_transfers, df_mod1_projections
 from ventilators.utils import df_mod2_transfers, df_mod2_projections
-from ventilators.utils import oneWeekFromNow, state_cols
+from ventilators.utils import state_cols
 from ventilators.utils import no_model_visual, model_visual, models, change2Percent
 
 nav = Navbar()
