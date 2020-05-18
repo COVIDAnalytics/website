@@ -11,7 +11,6 @@ import flask
 from risk_calculator.mortality.calculator import valid_input_mort, predict_risk_mort, oxygen_in_mort, oxygen_mort_ind
 from risk_calculator.infection.calculator import valid_input_infec, predict_risk_infec, oxygen_in_infec, oxygen_infec_ind
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
-from risk_calculator.utils import labs_features_mort, no_labs_features_mort, labs_features_infec, no_labs_features_infec
 from risk_calculator.utils import languages, build_lab_ques_card, labs_ques
 
 def register_callbacks(app):

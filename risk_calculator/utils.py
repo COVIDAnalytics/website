@@ -15,53 +15,37 @@ import risk_calculator.english as english
 import risk_calculator.spanish as spanish
 import risk_calculator.italian as italian
 
-with open('assets/risk_calculators/mortality/model_with_lab.pkl', 'rb') as file:
+with open('assets/risk_calculators/mortality/labs_data.pkl', 'rb') as file:
     mort_labs = pickle.load(file)
 
-with open('assets/risk_calculators/mortality/model_without_lab.pkl', 'rb') as file:
+with open('assets/risk_calculators/mortality/without_labs_data.pkl', 'rb') as file:
     mort_no_labs = pickle.load(file)
 
-labs_model_mort = mort_labs["model"]
-labs_imputer_mort = mort_labs["imputer"]
-labs_features_mort = mort_labs["json"]
 cols_labs_mort = mort_labs["columns"]
 labs_auc_mort = mort_labs["AUC"]
 labs_population_mort = [mort_labs["Size Training"],mort_labs["Size Test"]]
 labs_positive_mort = [mort_labs["Percentage Training"],mort_labs["Percentage Test"]]
-labs_explainer_mort = mort_labs["explainer"]
 
-no_labs_model_mort = mort_no_labs["model"]
-no_labs_imputer_mort = mort_no_labs["imputer"]
-no_labs_features_mort = mort_no_labs["json"]
 cols_no_labs_mort = mort_no_labs["columns"]
 no_labs_auc_mort = mort_no_labs["AUC"]
 no_labs_population_mort = [mort_no_labs["Size Training"],mort_no_labs["Size Test"]]
 no_labs_positive_mort = [mort_no_labs["Percentage Training"],mort_no_labs["Percentage Test"]]
-no_labs_explainer_mort = mort_no_labs["explainer"]
 
-with open('assets/risk_calculators/infection/model_with_lab.pkl', 'rb') as file:
+with open('assets/risk_calculators/infection/labs_data.pkl', 'rb') as file:
     infec_labs = pickle.load(file)
 
-with open('assets/risk_calculators/infection/model_without_lab.pkl', 'rb') as file:
+with open('assets/risk_calculators/infection/without_labs_data.pkl', 'rb') as file:
     infec_no_labs = pickle.load(file)
 
-labs_model_infec = infec_labs["model"]
-labs_imputer_infec = infec_labs["imputer"]
-labs_features_infec = infec_labs["json"]
 cols_labs_infec = infec_labs["columns"]
 labs_auc_infec = infec_labs["AUC"]
 labs_population_infec = [infec_labs["Size Training"],infec_labs["Size Test"]]
 labs_positive_infec = [infec_labs["Percentage Training"],infec_labs["Percentage Test"]]
-labs_explainer_infec = infec_labs["explainer"]
 
-no_labs_model_infec = infec_no_labs["model"]
-no_labs_imputer_infec = infec_no_labs["imputer"]
-no_labs_features_infec = infec_no_labs["json"]
 cols_no_labs_infec = infec_no_labs["columns"]
 no_labs_auc_infec = infec_no_labs["AUC"]
 no_labs_population_infec = [infec_no_labs["Size Training"],infec_no_labs["Size Test"]]
 no_labs_positive_infec = [infec_no_labs["Percentage Training"],infec_no_labs["Percentage Test"]]
-no_labs_explainer_infec = infec_no_labs["explainer"]
 
 matplotlib.use('Agg')
 oxygen = 'Oxygen Saturation'
@@ -152,7 +136,14 @@ def oxygen_vals(val,language):
         return "Si" if val == 92 else "No"
     return "Sì" if val == 92 else "No"
 
-def get_oxygen_ind(feats):
+def get_oxygen_ind(m):
+    if m:
+        with open('assets/risk_calculators/mortality/without_labs_json.pkl', 'rb') as file:
+            features_pickle = pickle.load(file)
+    else:
+        with open('assets/risk_calculators/infection/without_labs_json.pkl', 'rb') as file:
+            features_pickle = pickle.load(file)
+    feats = features_pickle["json"]["numeric"]
     for i,f in enumerate(feats):
         if title_mapping[0][f["name"]] == oxygen:
             return i
