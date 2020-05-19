@@ -3,7 +3,8 @@ import pandas as pd
 import dash_bootstrap_components as dbc
 
 def get_df_projections():
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
+    url = 'https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted/Global.csv'
+    df_projections = pd.read_csv(url, sep=",", parse_dates = ['Day'])
     df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
     today = pd.Timestamp('today')
     df_projections = df_projections.loc[df_projections['Day']>=today]
