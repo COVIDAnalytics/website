@@ -62,7 +62,7 @@ def FinancialReliefPlanning():
                                     impacted create a short-term financial plan. This online tool leverages advanced analytics and
                                     modeling to tell households what to do next and why. There is no cost to access the tool
                                     which provides actionable financial guidance, personalized for each household impacted by
-                                    reduced or lost income. The methodology of the tool is explained here.
+                                    reduced or lost income. The methodology of the tool is explained [here](https://www.savvifi.com/files/COVID_Relief_Planning.pdf).
                                  """,
                             ),
                             html.Hr(),
