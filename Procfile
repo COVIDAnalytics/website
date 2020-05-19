@@ -1,2 +1,1 @@
-web: newrelic-admin run-program gunicorn index:server
-worker: newrelic-admin run-program gunicorn index:server
+web: newrelic-admin run-program gunicorn index:server --preload --max-requests 1200
