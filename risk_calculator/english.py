@@ -1,4 +1,3 @@
-import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -39,7 +38,8 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         ),
     ]
 
-page_desc_infection = [ \
+def get_page_desc_infection():
+    return [ \
             html.H2("Analytics can identify infected patients"),
             dcc.Markdown(
                  """COVID-19 tests are time consuming, expensive and require patients to visit \
@@ -59,16 +59,22 @@ page_desc_infection = [ \
             )
         ]
 
-oxygen_text = ["Insert the value.","Do you have shortness of breath?"]
+def get_oxygen_text():
+    return ["Insert the value.","Do you have shortness of breath?"]
 
 submit = "Submit"
 
-insert_feat = 'Insert the features below into the risk calculator.'
+def get_insert_feat():
+    return 'Insert the features below into the risk calculator.'
 
-results_card_mortality = "The mortality risk score is:"
-results_card_infection = ["The infection risk score is:", " out of 10"]
+def get_results_card_mortality():
+    return "The mortality risk score is:"
 
-visual_1 = """The [SHAP plot](https://github.com/slundberg/shap) below summarizes the individual feature \
+def get_results_card_infection():
+    return ["The infection risk score is:", " out of 10"]
+
+def get_visual_1():
+    return """The [SHAP plot](https://github.com/slundberg/shap) below summarizes the individual feature \
             contributions to the risk score. Features in blue decrease risk from the population baseline, \
             whereas features in red increase risk. The contribution is proportional to the width of the feature's \
             bar. Wider bars have higher importance in the final risk score. \
@@ -197,39 +203,40 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         dcc.Markdown("""Overall, the importance of the top features is as follows:"""),
     ]
 
-feature_names = {
-    'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation',
-    'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase (ALT)',
-    'Age': 'Age',
-    'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase',
-    'Blood Creatinine': 'Creatinine',
-    'Blood Sodium': 'Sodium',
-    'Blood Urea Nitrogen (BUN)': 'Blood Urea Nitrogen (BUN)',
-    'Body Temperature': 'Temperature',
-    'C-Reactive Protein (CRP)':  'C-Reactive Protein',
-    'CBC: Hemoglobin': 'Hemoglobin',
-    'CBC: Leukocytes': 'Leukocytes',
-    'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume',
-    'CBC: Platelets': 'Platelets',
-    'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width (RDW)',
-    'Cardiac Frequency': 'Heart Rate',
-    'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
-    'Gender' : 'Gender',
-    'Glycemia': 'Blood Glucose',
-    'Potassium Blood Level': 'Potassium',
-    'Prothrombin Time (INR)': 'Prothrombin Time',
-    'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
-    'SaO2': 'Oxygen Saturation',
-    'Blood Calcium': 'Calcium',
-    'ABG: PaO2': 'Partial Pressure Oxygen (PaO2)',
-    'ABG: pH': 'Arterial Blood Gas pH',
-    'Cholinesterase': 'Cholinesterase',
-    'Respiratory Frequency': 'Respiratory Frequency',
-    'ABG: MetHb': 'Arterial Blood Gas Methemoglobinemia',
-    'Total Bilirubin': 'Total Bilirubin',
-    'Comorbidities':'Comorbidities',
-    'Diabetes': 'Diabetes',
-    'Chronic kidney disease': 'Chronic kidney disease',
-    'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
-    'Coronary atherosclerosis and other heart disease': 'Coronary atherosclerosis and other heart disease'
-}
+def get_feature_names():
+        return {
+        'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation',
+        'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase (ALT)',
+        'Age': 'Age',
+        'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase',
+        'Blood Creatinine': 'Creatinine',
+        'Blood Sodium': 'Sodium',
+        'Blood Urea Nitrogen (BUN)': 'Blood Urea Nitrogen (BUN)',
+        'Body Temperature': 'Temperature',
+        'C-Reactive Protein (CRP)':  'C-Reactive Protein',
+        'CBC: Hemoglobin': 'Hemoglobin',
+        'CBC: Leukocytes': 'Leukocytes',
+        'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume',
+        'CBC: Platelets': 'Platelets',
+        'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width (RDW)',
+        'Cardiac Frequency': 'Heart Rate',
+        'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
+        'Gender' : 'Gender',
+        'Glycemia': 'Blood Glucose',
+        'Potassium Blood Level': 'Potassium',
+        'Prothrombin Time (INR)': 'Prothrombin Time',
+        'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
+        'SaO2': 'Oxygen Saturation',
+        'Blood Calcium': 'Calcium',
+        'ABG: PaO2': 'Partial Pressure Oxygen (PaO2)',
+        'ABG: pH': 'Arterial Blood Gas pH',
+        'Cholinesterase': 'Cholinesterase',
+        'Respiratory Frequency': 'Respiratory Frequency',
+        'ABG: MetHb': 'Arterial Blood Gas Methemoglobinemia',
+        'Total Bilirubin': 'Total Bilirubin',
+        'Comorbidities':'Comorbidities',
+        'Diabetes': 'Diabetes',
+        'Chronic kidney disease': 'Chronic kidney disease',
+        'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
+        'Coronary atherosclerosis and other heart disease': 'Coronary atherosclerosis and other heart disease'
+    }

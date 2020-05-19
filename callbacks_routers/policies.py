@@ -1,12 +1,9 @@
-import os
-
 from dash.dependencies import Input, Output, ALL
-import flask
 
-from policies.main import Policies, num_policies, build_policy_projections
-from policies.cards import build_policy_cards
+from policies.main import get_num_policies, build_policy_projections
 
 def register_callbacks(app):
+    num_policies = get_num_policies()
     options = \
         {
             'none': {

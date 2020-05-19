@@ -1,26 +1,7 @@
 import datetime
 
 import dash_bootstrap_components as dbc
-import dash_core_components as dcc
 import dash_html_components as html
-
-map_time = {
-    0: "Now",
-    1: "One Week",
-    2: "Two Weeks",
-    3: "Four Weeks",
-    4: "Six Weeks"
-}
-
-name_to_json = {
-    "No Restrictions": "No_Measure",
-    "Lockdown":"Lockdown",
-    "Restrict Mass Gatherings and Schools": "Restrict_Mass_Gatherings_and_Schools",
-    "Restrict Mass Gatherings": "Restrict_Mass_Gatherings",
-    "Restrict Non-Essential Businesses, Travel Restriction and Workplaces": "Mass_Gatherings_Authorized_But_Others_Restricted",
-    "Restrict Mass Gatherings, Non-Essential Businesses, Travel Restriction and Workplaces": "Authorize_Schools_but_Restrict_Mass_Gatherings_and_Others",
-    "Restrict Mass Gatherings, Schools, Non-Essential Businesses, Travel Restriction and Workplaces": "Restrict_Mass_Gatherings_and_Schools_and_Others"
-}
 
 def map_policy(vec):
     if vec[0]:

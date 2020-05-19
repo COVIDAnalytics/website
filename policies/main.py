@@ -1,6 +1,5 @@
 import json
 import plotly.graph_objects as go
-import plotly.express as px
 from textwrap import wrap
 import math
 
@@ -11,63 +10,88 @@ import dash_html_components as html
 from navbar import Navbar
 from footer import Footer
 
-from policies.cards import get_state_num_policy_card, get_policy_cards, colors
-from policies.graphs import get_projections, map_time, map_policy, no_policy_chosen, name_to_json, get_start
+from policies.cards import get_state_num_policy_card, get_policy_cards, get_colors
+from policies.graphs import get_projections, map_policy, no_policy_chosen, get_start
 
-nav = Navbar()
-footer = Footer()
-
-with open('assets/policies/US_Scenarios.json', 'rb') as file:
-    projections = json.load(file)
-
-states = list(projections.keys())
-num_policies = 3
-
-body = dbc.Container(
-    [
-        dbc.Row(
-        [
-            dbc.Col(
-            [
-                dbc.Jumbotron(
-                [
-                    html.H2("Predictions of infections and deaths under a variety of policies"),
-                    dcc.Markdown(
-                         """Using an extension of our [DELPHI model](/projections), we make predictions \
-                         until September 2020 for infections and deaths for all states of the US. \
-                         By selecting the state,  the collection of policies imposed and their timing, \
-                         the user can compare up to 3 policies simultaneously.
-                         """,
-                    ),
-                    html.Hr(),
-                    dcc.Markdown(
-                         """The methodology of the model is explained [here](/Policy_evaluation_documentation). \
-                         We are currently developing an extension of the model for the world.
-                         """,
-                    )
-                ],
-                style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
-                )
-            ]
-            ),
-        ],
-        )
-    ] + \
-    get_state_num_policy_card(states) + \
-    get_policy_cards(num_policies) + \
-    get_projections(),
-    className="page-body"
-)
+def get_num_policies():
+    return 3
 
 def Policies():
+    nav = Navbar()
+    footer = Footer()
+
+    with open('assets/policies/US_Scenarios.json', 'rb') as file:
+        projections = json.load(file)
+
+    states = list(projections.keys())
+    num_policies = get_num_policies()
+
+    body = dbc.Container(
+        [
+            dbc.Row(
+            [
+                dbc.Col(
+                [
+                    dbc.Jumbotron(
+                    [
+                        html.H2("Predictions of infections and deaths under a variety of policies"),
+                        dcc.Markdown(
+                             """Using an extension of our [DELPHI model](/projections), we make predictions \
+                             until September 2020 for infections and deaths for all states of the US. \
+                             By selecting the state,  the collection of policies imposed and their timing, \
+                             the user can compare up to 3 policies simultaneously.
+                             """,
+                        ),
+                        html.Hr(),
+                        dcc.Markdown(
+                             """The methodology of the model is explained [here](/Policy_evaluation_documentation). \
+                             We are currently developing an extension of the model for the world.
+                             """,
+                        )
+                    ],
+                    style={'paddingBottom':'0.5rem','paddingTop':'0.8rem'}
+                    )
+                ]
+                ),
+            ],
+            )
+        ] + \
+        get_state_num_policy_card(states) + \
+        get_policy_cards(num_policies) + \
+        get_projections(),
+        className="page-body"
+    )
+
     layout = html.Div([nav, body, footer], className="site")
     return layout
 
 
 def build_policy_projections(state, policies, times, value):
+    name_to_json = {
+        "No Restrictions": "No_Measure",
+        "Lockdown":"Lockdown",
+        "Restrict Mass Gatherings and Schools": "Restrict_Mass_Gatherings_and_Schools",
+        "Restrict Mass Gatherings": "Restrict_Mass_Gatherings",
+        "Restrict Non-Essential Businesses, Travel Restriction and Workplaces": "Mass_Gatherings_Authorized_But_Others_Restricted",
+        "Restrict Mass Gatherings, Non-Essential Businesses, Travel Restriction and Workplaces": "Authorize_Schools_but_Restrict_Mass_Gatherings_and_Others",
+        "Restrict Mass Gatherings, Schools, Non-Essential Businesses, Travel Restriction and Workplaces": "Restrict_Mass_Gatherings_and_Schools_and_Others"
+    }
+
+    map_time = {
+        0: "Now",
+        1: "One Week",
+        2: "Two Weeks",
+        3: "Four Weeks",
+        4: "Six Weeks"
+    }
+
     if no_policy_chosen(policies):
         return
 
+    with open('assets/policies/US_Scenarios.json', 'rb') as file:
+        projections = json.load(file)
+
+    colors = get_colors()
     fig = go.Figure()
 
     data = projections[state]

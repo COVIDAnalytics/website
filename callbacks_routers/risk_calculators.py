@@ -1,24 +1,23 @@
 import os
 import base64
 from io import BytesIO
-from matplotlib.figure import Figure
-import matplotlib.pyplot as plt
 
 import dash_html_components as html
 from dash.dependencies import Input, Output, State, ALL
-import flask
 
-from risk_calculator.mortality.calculator import valid_input_mort, predict_risk_mort, oxygen_in_mort, oxygen_mort_ind
-from risk_calculator.infection.calculator import valid_input_infec, predict_risk_infec, oxygen_in_infec, oxygen_infec_ind
+from risk_calculator.mortality.calculator import valid_input_mort, predict_risk_mort, get_mort_oxygen_cols
+from risk_calculator.infection.calculator import valid_input_infec, predict_risk_infec, get_infec_oxygen_cols
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
-from risk_calculator.utils import languages, build_lab_ques_card, labs_ques
+from risk_calculator.utils import get_languages, build_lab_ques_card, labs_ques
 
 def register_callbacks(app):
+    languages = get_languages()
+    oxygen_in_infec, oxygen_infec_ind = get_infec_oxygen_cols()
+    oxygen_in_mort, oxygen_mort_ind = get_mort_oxygen_cols()
     #displaying shap image
     @app.server.route("/")
     def display_fig(img, close_all=True):
         imgByteArr = BytesIO()
-        # img.set_canvas(plt.gcf().canvas)
         img.savefig(imgByteArr, format='PNG')
         imgByteArr = imgByteArr.getvalue()
         encoded=base64.b64encode(imgByteArr)
