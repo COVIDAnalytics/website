@@ -1,14 +1,11 @@
 import pandas as pd
 import datetime
-import plotly.graph_objects as go
-import dash
-import dash_table
-import dash_core_components as dcc
+
 import dash_html_components as html
 
-from ventilators.utils import df_mod1_transfers,df_mod1_projections
-from ventilators.utils import df_mod2_transfers,df_mod2_projections
-from ventilators.utils import us_map, us_timeline, no_model_visual, model_visual
+from ventilators.utils import get_df_mod1_transfers,get_df_mod1_projections
+from ventilators.utils import get_df_mod2_transfers,get_df_mod2_projections
+from ventilators.utils import us_map, us_timeline, get_no_model_visual, get_model_visual
 
 def build_transfers_map(chosen_model,chosen_date,p1,p2,p3):
     if chosen_model == "Washington IHME":
@@ -20,21 +17,25 @@ def build_transfers_map(chosen_model,chosen_date,p1,p2,p3):
     df_map = df_map.loc[df_map.Param1==float(p1)]
     df_map = df_map.loc[df_map.Param2==float(p2)]
     df_map = df_map.loc[df_map.Param3==float(p3)]
-
+    model_visual = get_model_visual()
     return us_map(df_map,chosen_date,"Shortage",model_visual)
 
 def build_transfers_timeline(chosen_model,p1,p2,p3):
     if chosen_model == "Washington IHME":
-        df_opt_pre = df_mod1_projections
+        df_opt_pre, _ = get_df_mod1_projections()
         df_opt_post = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
     else:
-        df_opt_pre = df_mod2_projections
+        df_opt_pre = get_df_mod2_projections()
         df_opt_post = pd.read_csv('data/predicted_ventilator/state_supplies_table-ode.csv', sep=",", parse_dates = ['Date'])
 
     df_opt_post.loc[:,'Date'] = pd.to_datetime(df_opt_post['Date'], format='y%m%d').dt.date
     timeline_cols = ["Date","Shortage"]
     df_opt_pre = df_opt_pre.loc[df_opt_pre.State == 'US']
     df_opt_pre = df_opt_pre[timeline_cols]
+
+    no_model_visual = get_no_model_visual()
+    model_visual = get_model_visual()
+
     df_opt_pre.columns = ["Date",no_model_visual["Shortage"]]
 
     df_opt_post = df_opt_post.loc[
@@ -53,9 +54,9 @@ def build_transfers_timeline(chosen_model,p1,p2,p3):
 
 def build_transfer_options(chosen_model,chosen_date,to_or_from,p1,p2,p3):
     if chosen_model == "Washington IHME":
-        df_trans = df_mod1_transfers
+        df_trans, _ = get_df_mod1_transfers()
     else:
-        df_trans = df_mod2_transfers
+        df_trans = get_df_mod2_transfers()
     if isinstance(chosen_date, str):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 
@@ -74,9 +75,9 @@ def generate_table(chosen_model,chosen_date,p1,p2,p3,to_or_from=None,state=None)
     final_cols = ["Origin","Destination","Units"]
 
     if chosen_model == "Washington IHME":
-        df_trans = df_mod1_transfers
+        df_trans, _ = get_df_mod1_transfers()
     else:
-        df_trans = df_mod2_transfers
+        df_trans = get_df_mod2_transfers()
     if isinstance(chosen_date, str):
         chosen_date = datetime.datetime.strptime(chosen_date, '%Y-%m-%d').date()
 
