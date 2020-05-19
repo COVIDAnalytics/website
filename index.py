@@ -20,6 +20,7 @@ from policies.main import Policies
 from risk_calculator.mortality.calculator import RiskCalc
 from risk_calculator.infection.calculator import InfectionRiskCalc
 from ventilators.allocations import VentilatorAllocations
+from financial.main import FinancialReliefPlanning
 
 import callbacks_routers.ventilators as ventilators
 import callbacks_routers.insights as insights
@@ -78,6 +79,8 @@ def display_page(pathname):
         return RiskCalc()
     if pathname == '/infection_calculator':
         return InfectionRiskCalc()
+    if pathname == '/financial_relief':
+        return FinancialReliefPlanning()
     if pathname == '/team':
         return Team()
     if pathname == '/contact':

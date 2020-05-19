@@ -93,6 +93,10 @@ def Homepage():
         Personalized calculator predicting results of COVID test.
         '''
 
+    financial_text =  '''
+        Unemployment is rising. How analytics can help inform COVID-19 related financial decisions.
+        '''
+
     cards = \
         [
             {
@@ -118,6 +122,12 @@ def Homepage():
                 "text": [ventilator_text],
                 "image": "assets/images/allocation.png",
                 "links": ["/ventilator_allocation"]
+            },
+            {
+                "titles": ["Financial relief planning"],
+                "text": [financial_text],
+                "image": "assets/images/financial_logo.jpeg",
+                "links": ["/financial_relief","/interactive-graph"]
             }
 
         ]
@@ -144,7 +154,7 @@ def Homepage():
                     build_card(True,cards[1]["titles"],cards[1]["text"],cards[1]["image"],cards[1]["links"]),
                     build_card(False,cards[2]["titles"],cards[2]["text"],cards[2]["image"],cards[2]["links"]),
                     build_card(True,cards[3]["titles"],cards[3]["text"],cards[3]["image"],cards[3]["links"]),
-
+                    build_card(False,cards[4]["titles"],cards[4]["text"],cards[4]["image"],cards[4]["links"]),
                 ],
                 justify="around",
                 no_gutters=True,

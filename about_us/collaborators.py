@@ -37,12 +37,7 @@ def Collaborators():
                     style={"borderColor": "#800020"},
                     className="h-100 collab-card"
                 ),
-                xs=12,
-                sm=6,
-                md=3,
-                lg=3,
-                xl=3,
-                style={"padding": "20px"},
+                style={"margin": "0 rem"},
             )
 
     body = dbc.Container(
