@@ -1,4 +1,3 @@
-import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -38,7 +37,8 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         ),
     ]
 
-page_desc_infection = [ \
+def get_page_desc_infection():
+    return [ \
             html.H2("Modelli analitici possono identificare pazienti infetti"),
             dcc.Markdown(
                  """I test per identificare pazienti affetti da COVID-19 impiegano tempo, sono costosi e necessitano che il paziente \
@@ -55,20 +55,26 @@ page_desc_infection = [ \
             )
         ]
 
-oxygen_text = ["Inserisci il valore.","Hai difficoltà respiratorie?"]
+def get_oxygen_text():
+    return ["Inserisci il valore.","Hai difficoltà respiratorie?"]
 
 submit = "Invia"
 
-insert_feat = 'Inserisci i valori seguenti nel calcolatore.'
+def get_insert_feat():
+    return 'Inserisci i valori seguenti nel calcolatore.'
 
-results_card_mortality = "Il rischio di mortalità è:"
-results_card_infection = ["Il rischio di infezione è:", " su 10"]
+def get_results_card_mortality():
+    return "Il rischio di mortalità è:"
 
-visual_1 = """Il [grafico SHAP](https://github.com/slundberg/shap) sottostante riassume l'effetto che ogni valore ha \
-            sulla predizione di rischio. I valori in blu diminuiscono il rischio del paziente, \
-            mentre quelli in rosso lo aumentano. L'effetto nella predizione è proporzionale alla larghezza della barra dei valori. \
-            Più la barra è larga, maggiore è l'effetto del valore sulla predizione finale di rischio. \
-            Nota: il sesso è rappresentato come un valore binario (0=Uomo, 1=Donna)."""
+def get_results_card_infection():
+    return ["Il rischio di infezione è:", " su 10"]
+
+def get_visual_1():
+    return """Il [grafico SHAP](https://github.com/slundberg/shap) sottostante riassume l'effetto che ogni valore ha \
+                sulla predizione di rischio. I valori in blu diminuiscono il rischio del paziente, \
+                mentre quelli in rosso lo aumentano. L'effetto nella predizione è proporzionale alla larghezza della barra dei valori. \
+                Più la barra è larga, maggiore è l'effetto del valore sulla predizione finale di rischio. \
+                Nota: il sesso è rappresentato come un valore binario (0=Uomo, 1=Donna)."""
 
 def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
     if labs:
@@ -195,38 +201,39 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         )
     ]
 
-feature_names = {
-    'ABG: Oxygen Saturation (SaO2)': 'Saturazione Ossigeno',
-    'Alanine Aminotransferase (ALT)': 'Alanina Aminotransferasi (ALT)',
-    'Age': 'Età',
-    'Aspartate Aminotransferase (AST)': 'Aspartato Aminotransferasi ',
-    'Blood Creatinine': 'Creatinina',
-    'Blood Sodium': 'Sodio',
-    'Blood Urea Nitrogen (BUN)': 'Azoto Ureico Ematico (BUN)',
-    'Body Temperature': 'Temperatura Corporea',
-    'C-Reactive Protein (CRP)':  'Proteina C Reattiva (PCR)',
-    'CBC: Hemoglobin': 'Emoglobina',
-    'CBC: Leukocytes': 'Leucociti',
-    'CBC: Mean Corpuscular Volume (MCV)': 'Volume Corpuscolare Medio',
-    'CBC: Platelets': 'Piastrine',
-    'CBC: Red cell Distribution Width (RDW)': 'Valore Distributivo Globuli Rossi',
-    'Cardiac Frequency': 'Battito Cardiaco',
-    'Cardiac dysrhythmias': 'Aritmia Cardiaca',
-    'Gender' : 'Sesso',
-    'Glycemia': 'Glucosio',
-    'Potassium Blood Level': 'Potassio',
-    'Prothrombin Time (INR)': 'Tempo Di Protrombina Ratio',
-    'Systolic Blood Pressure': 'Pressione Sistolica',
-    'SaO2': 'Saturazione Ossigeno',
-    'Blood Calcium': 'Calcio',
-    'ABG: PaO2': 'Pressione Parziale Arteriosa (PaO2)',
-    'ABG: pH': 'PH Arterioso',
-    'Cholinesterase': 'Colinesterasi',
-    'Respiratory Frequency': 'Frequenza Respiratoria',
-    'ABG: MetHb': 'Metaemoglobina',
-    'Total Bilirubin': 'Bilirubina Totale',
-    'Comorbidities':'Comorbidità',
-    'Diabetes': 'Diabete',
-    'Chronic kidney disease': 'Malattia Renale Cronica',
-    'Coronary atherosclerosis and other heart disease': 'Aterosclerosi Coronarica'
-}
+def get_feature_names():
+    return {
+        'ABG: Oxygen Saturation (SaO2)': 'Saturazione Ossigeno',
+        'Alanine Aminotransferase (ALT)': 'Alanina Aminotransferasi (ALT)',
+        'Age': 'Età',
+        'Aspartate Aminotransferase (AST)': 'Aspartato Aminotransferasi ',
+        'Blood Creatinine': 'Creatinina',
+        'Blood Sodium': 'Sodio',
+        'Blood Urea Nitrogen (BUN)': 'Azoto Ureico Ematico (BUN)',
+        'Body Temperature': 'Temperatura Corporea',
+        'C-Reactive Protein (CRP)':  'Proteina C Reattiva (PCR)',
+        'CBC: Hemoglobin': 'Emoglobina',
+        'CBC: Leukocytes': 'Leucociti',
+        'CBC: Mean Corpuscular Volume (MCV)': 'Volume Corpuscolare Medio',
+        'CBC: Platelets': 'Piastrine',
+        'CBC: Red cell Distribution Width (RDW)': 'Valore Distributivo Globuli Rossi',
+        'Cardiac Frequency': 'Battito Cardiaco',
+        'Cardiac dysrhythmias': 'Aritmia Cardiaca',
+        'Gender' : 'Sesso',
+        'Glycemia': 'Glucosio',
+        'Potassium Blood Level': 'Potassio',
+        'Prothrombin Time (INR)': 'Tempo Di Protrombina Ratio',
+        'Systolic Blood Pressure': 'Pressione Sistolica',
+        'SaO2': 'Saturazione Ossigeno',
+        'Blood Calcium': 'Calcio',
+        'ABG: PaO2': 'Pressione Parziale Arteriosa (PaO2)',
+        'ABG: pH': 'PH Arterioso',
+        'Cholinesterase': 'Colinesterasi',
+        'Respiratory Frequency': 'Frequenza Respiratoria',
+        'ABG: MetHb': 'Metaemoglobina',
+        'Total Bilirubin': 'Bilirubina Totale',
+        'Comorbidities':'Comorbidità',
+        'Diabetes': 'Diabete',
+        'Chronic kidney disease': 'Malattia Renale Cronica',
+        'Coronary atherosclerosis and other heart disease': 'Aterosclerosi Coronarica'
+    }

@@ -1,4 +1,3 @@
-import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
@@ -41,7 +40,8 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         ),
     ]
 
-page_desc_infection = [ \
+def get_page_desc_infection():
+    return [ \
             html.H2("Analytics puede identificar pacientes infectados"),
             dcc.Markdown(
                  """Las pruebas para detectar el COVID-19 requieren mucho tiempo, son caras y requieren que los pacientes \
@@ -61,16 +61,22 @@ page_desc_infection = [ \
             )
         ]
 
-oxygen_text = ["Inserte el valor.","¿Tienes dificultad para respirar?"]
+def get_oxygen_text():
+    return ["Inserte el valor.","¿Tienes dificultad para respirar?"]
 
 submit = "Enviar"
 
-insert_feat = 'Inserte las siguientes características en la calculadora de riesgos.'
+def get_insert_feat():
+    return 'Inserte las siguientes características en la calculadora de riesgos.'
 
-results_card_mortality = "El puntaje de riesgo de mortalidad es:"
-results_card_infection = ["El puntaje de riesgo de infección es:", " de 10"]
+def get_results_card_mortality():
+    return "El puntaje de riesgo de mortalidad es:"
 
-visual_1 = """El siguiente [gráfico de SHAP](https://github.com/slundberg/shap) resume como cada característica \
+def get_results_card_infection():
+    return ["El puntaje de riesgo de infección es:", " de 10"]
+
+def get_visual_1():
+    return """El siguiente [gráfico de SHAP](https://github.com/slundberg/shap) resume como cada característica \
             contribuye al puntaje de riesgo. Las características en azul bajan el riesgo, \
             mientras las características en rojo las aumentan. La contribución de cada característica es proporcional al ancho de la \
             barra. Las barras más anchas tienen mayor importancia en el puntaje de riesgo final. \
@@ -209,39 +215,40 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         )
     ]
 
-feature_names = {
-    'ABG: Oxygen Saturation (SaO2)': 'Saturación de oxígeno',
-    'Alanine Aminotransferase (ALT)': 'Alanina aminotransferasa (ALT)',
-    'Age': 'Edad',
-    'Aspartate Aminotransferase (AST)': 'Aspartato aminotransferasa (AST)',
-    'Blood Creatinine': 'Creatinina',
-    'Blood Sodium': 'Sodio',
-    'Blood Urea Nitrogen (BUN)': 'Nitrógeno ureico en sangre (BUN)',
-    'Body Temperature': 'Temperatura',
-    'C-Reactive Protein (CRP)':  'Proteína C-reactiva',
-    'CBC: Hemoglobin': 'Hemoglobina',
-    'CBC: Leukocytes': 'Leucocitos',
-    'CBC: Mean Corpuscular Volume (MCV)': 'Volumen Corpuscular Promedio',
-    'CBC: Platelets': 'Plaquetas',
-    'CBC: Red cell Distribution Width (RDW)': 'Ancho de Distribución de Glóbulos Rojos',
-    'Cardiac Frequency': 'Ritmo cardiaco',
-    'Cardiac dysrhythmias': 'Disritmias cardíacas',
-    'Gender' : 'Género',
-    'Glycemia': 'Glucosa en Sangre',
-    'Potassium Blood Level': 'Potasio',
-    'Prothrombin Time (INR)': 'Tiempo de Protrombina',
-    'Systolic Blood Pressure': 'Presión Arterial Sistólica',
-    'SaO2': 'Saturación de oxígeno',
-    'Blood Calcium': 'Calcio',
-    'ABG: PaO2': 'Presión parcial de Oxígeno (PaO2)',
-    'ABG: pH': 'pH por Gasometría Arterial',
-    'Cholinesterase': 'Colinesterasa',
-    'Respiratory Frequency': 'Frecuencia respiratoria',
-    'ABG: MetHb': 'Metahemoglobinemia por Gasometría Arterial',
-    'Total Bilirubin': 'Bilirrubina Total',
-    'Comorbidities':'Comorbilidades',
-    'Diabetes': 'Diabetes',
-    'Chronic kidney disease': 'Enfermedad renal crónica',
-    'Cardiac dysrhythmias': 'Disritmias cardíacas',
-    'Coronary atherosclerosis and other heart disease': 'Aterosclerosis coronaria y otras enfermedades del corazón'
-}
+def get_feature_names():
+    return {
+        'ABG: Oxygen Saturation (SaO2)': 'Saturación de oxígeno',
+        'Alanine Aminotransferase (ALT)': 'Alanina aminotransferasa (ALT)',
+        'Age': 'Edad',
+        'Aspartate Aminotransferase (AST)': 'Aspartato aminotransferasa (AST)',
+        'Blood Creatinine': 'Creatinina',
+        'Blood Sodium': 'Sodio',
+        'Blood Urea Nitrogen (BUN)': 'Nitrógeno ureico en sangre (BUN)',
+        'Body Temperature': 'Temperatura',
+        'C-Reactive Protein (CRP)':  'Proteína C-reactiva',
+        'CBC: Hemoglobin': 'Hemoglobina',
+        'CBC: Leukocytes': 'Leucocitos',
+        'CBC: Mean Corpuscular Volume (MCV)': 'Volumen Corpuscular Promedio',
+        'CBC: Platelets': 'Plaquetas',
+        'CBC: Red cell Distribution Width (RDW)': 'Ancho de Distribución de Glóbulos Rojos',
+        'Cardiac Frequency': 'Ritmo cardiaco',
+        'Cardiac dysrhythmias': 'Disritmias cardíacas',
+        'Gender' : 'Género',
+        'Glycemia': 'Glucosa en Sangre',
+        'Potassium Blood Level': 'Potasio',
+        'Prothrombin Time (INR)': 'Tiempo de Protrombina',
+        'Systolic Blood Pressure': 'Presión Arterial Sistólica',
+        'SaO2': 'Saturación de oxígeno',
+        'Blood Calcium': 'Calcio',
+        'ABG: PaO2': 'Presión parcial de Oxígeno (PaO2)',
+        'ABG: pH': 'pH por Gasometría Arterial',
+        'Cholinesterase': 'Colinesterasa',
+        'Respiratory Frequency': 'Frecuencia respiratoria',
+        'ABG: MetHb': 'Metahemoglobinemia por Gasometría Arterial',
+        'Total Bilirubin': 'Bilirrubina Total',
+        'Comorbidities':'Comorbilidades',
+        'Diabetes': 'Diabetes',
+        'Chronic kidney disease': 'Enfermedad renal crónica',
+        'Cardiac dysrhythmias': 'Disritmias cardíacas',
+        'Coronary atherosclerosis and other heart disease': 'Aterosclerosis coronaria y otras enfermedades del corazón'
+    }

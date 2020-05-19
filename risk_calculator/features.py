@@ -1,10 +1,9 @@
-
 import pickle
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
 
-from risk_calculator.utils import title_mapping,labs_ques, oxygen, oxygen_vals
+from risk_calculator.utils import get_title_mapping,labs_ques, oxygen, oxygen_vals
 
 def build_feature_importance_graph(m=True,labs=False):
     image = 'assets/risk_calculators/'
@@ -202,6 +201,7 @@ def build_checkbox_card(id, m, content_dict):
     return card
 
 def build_multidrop_card(id, m, content_dict,language):
+    title_mapping = get_title_mapping()
     insert_data = \
             [
                 dbc.Col(
@@ -252,6 +252,7 @@ def build_feature_cards(m=True,labs=False,language=0):
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
+    title_mapping = get_title_mapping()
     for id, content_dict in enumerate(dropdowns):
         card_content.append((content_dict['name'],build_dropdown_card(str(id),m, content_dict,language)))
     for id, content_dict in enumerate(inputs):
