@@ -1,28 +1,18 @@
-### Data
-import pandas as pd
 import datetime
-import urllib
-
-### Graphing
+import pandas as pd
+import numpy as np
 import plotly.graph_objects as go
-import plotly.express as px
 from textwrap import wrap
-### Dash
-import dash
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from navbar import Navbar
-from footer import Footer
-from assets.mappings import states, get_colors
-
-from projections.utils import cols, df_us, add_cases, df_projections, PopInfo
-
-import numpy as np
+from assets.mappings import get_states, get_colors
+from projections.utils import get_cols, get_df_us, add_cases, get_df_projections
 
 def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
-    df_continent = df_projections
+    df_continent = get_df_projections()
     if continent !='World':
         df_continent = df_continent.loc[df_continent.Continent == continent] #Filter by continent
 
@@ -37,6 +27,8 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     df_map = df_map.loc[df_map['Country'] != 'None'] #exclude global world data
 
     population = np.array([])
+    PopInfo = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
+
     for i in df_map['Country']:
         ind1 = np.logical_and(PopInfo['Country']==i, PopInfo['Province']=='None')
         pop_val = PopInfo.loc[ind1,'pop'].values
@@ -51,6 +43,7 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
     df_map = df_map.applymap(str)
 
+    cols = get_cols()
     if (val is not None) and (val in cols) and  pop == 1:
 
         df_map.loc[:,'text'] = df_map['Country'] + '<br>' + \
@@ -125,12 +118,15 @@ def build_us_map(map_date,val='Active', pop = 1):
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
+    df_us = get_df_us()
     df_map = df_us.loc[df_us['Day']==map_date]
     df_map = df_map.loc[df_us['Province']!='US']
 
-
+    states = get_states()
     df_map.loc[:,'code'] = df_map.Province.apply(lambda x: states[x])
     population = np.array([])
+    PopInfo = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
+
     for i in df_map['Province']:
         pop_val = PopInfo.loc[PopInfo['Province']==i,'pop'].values
         population = np.concatenate((population, pop_val),0)
@@ -143,7 +139,7 @@ def build_us_map(map_date,val='Active', pop = 1):
     df_map['Total Detected Deaths Per Million'] = (np.round(1000000*df_map['Total Detected Deaths']/df_map['Population'], decimals = 2))
     df_map = df_map.applymap(str)
 
-
+    cols = get_cols()
     if (val is not None) and (val in cols) and pop == 1:
 
         df_map.loc[:,'text'] = df_map['Province'] + '<br>' + \
@@ -214,7 +210,7 @@ def find_smallest_scope(state, country, continent):
 
 def build_state_projection(state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
-
+    df_projections = get_df_projections()
     df_projections_sub = df_projections.loc[ (df_projections.Province == state) & (df_projections.Country == country)]
     if continent not in ['US', 'World']:
         df_projections_sub = df_projections_sub.loc[(df_projections_sub.Continent == continent)]
@@ -225,6 +221,7 @@ def build_state_projection(state, country, continent, vals):
             df_projections_sub = df_projections.loc[(df_projections.Continent == 'None')] #include only global world data
     fig = go.Figure()
 
+    cols = get_cols()
     if (vals is not None) and (set(vals).issubset(set(cols))):
         colors = get_colors()
         for val in vals:
@@ -281,7 +278,7 @@ def get_stat(d, val, scope):
         return None
     if isinstance(d, str):
         d = datetime.datetime.strptime(d, '%Y-%m-%d').date()
-
+    df_projections = get_df_projections()
     if scope == 'US':
         df_projections_sub = df_projections.loc[(df_projections.Country == scope) & (df_projections.Province == 'None')]
     elif scope =='World':

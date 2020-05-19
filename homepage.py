@@ -14,8 +14,7 @@ from navbar import Navbar
 from footer import Footer
 
 from projections.visuals_funcs import build_continent_map
-from projections.utils import world_map_text
-from assets.mappings import states
+from projections.utils import get_world_map_text
 
 def Homepage():
 
@@ -159,7 +158,7 @@ def Homepage():
                       children = build_tom_us_map(),
                   ),
                   html.P(
-                          children = world_map_text,
+                          children = get_world_map_text(),
                           style={'color':'gray'},
                   ),
                 ]

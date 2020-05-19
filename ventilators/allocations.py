@@ -5,7 +5,6 @@ import dash_table
 
 from navbar import Navbar
 from footer import Footer
-from assets.mappings import states
 from ventilators.shortage import shortage
 from ventilators.transfers_visuals import transfers_visuals
 from ventilators.transfers_table import transfers_table

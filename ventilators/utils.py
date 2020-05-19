@@ -6,7 +6,7 @@ from textwrap import wrap
 import plotly.graph_objects as go
 import dash_core_components as dcc
 
-from assets.mappings import states, get_colors
+from assets.mappings import get_states, get_colors
 
 df_mod1_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
 df_mod1_projections = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
@@ -52,6 +52,7 @@ def us_map(df,chosen_date,val,label_dict):
     df = df.loc[df['State']!='US']
     df = df.applymap(str)
 
+    states = get_states()
     df.loc[:,'code'] = df.State.apply(lambda x: states[x])
 
     fig = go.Figure()
