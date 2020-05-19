@@ -6,36 +6,55 @@ from textwrap import wrap
 import plotly.graph_objects as go
 import dash_core_components as dcc
 
-from assets.mappings import states, get_colors
+from assets.mappings import get_states, get_colors
 
-df_mod1_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
-df_mod1_projections = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
+def get_df_mod1_transfers(params=False):
+    df = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
+    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
+    if params:
+        p1 = df.Param1.unique()
+        p2 = df.Param2.unique()
+        p3 = df.Param3.unique()
+        min_date = min(df.Date.values)
+        max_date = max(df.Date.values)
+        return df, [p1, p2, p3, min_date, max_date]
+    return df, None
 
-df_mod2_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ode.csv', sep=",", parse_dates = ['Date'])
-df_mod2_projections = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ode.csv', sep=",", parse_dates = ['Date'])
+def get_df_mod2_transfers():
+    df = pd.read_csv('data/predicted_ventilator/transfers_table-ode.csv', sep=",", parse_dates = ['Date'])
+    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
+    return df
 
-df_mod1_transfers.loc[:,'Date'] = pd.to_datetime(df_mod1_transfers['Date'], format='y%m%d').dt.date
-df_mod2_transfers.loc[:,'Date'] = pd.to_datetime(df_mod2_transfers['Date'], format='y%m%d').dt.date
-df_mod1_projections.loc[:,'Date'] = pd.to_datetime(df_mod1_projections['Date'], format='y%m%d').dt.date
-df_mod2_projections.loc[:,'Date'] = pd.to_datetime(df_mod2_projections['Date'], format='y%m%d').dt.date
+def get_df_mod1_projections(params=False):
+    df = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
+    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
+    if params:
+        min_shortage_date = min(df.Date.values)
+        max_shortage_date = max(df.Date.values)
+        return df, [min_shortage_date,max_shortage_date]
+    return df, None
 
-min_shortage_date = min(df_mod1_projections.Date.values)
-max_shortage_date = max(df_mod1_projections.Date.values)
+def get_df_mod2_projections():
+    df = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ode.csv', sep=",", parse_dates = ['Date'])
+    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
+    return df
 
-firstDate = datetime.date(2020, 4, 15)
+def get_first_date():
+    return datetime.date(2020, 4, 15)
 
-state_cols = ["Shortage","Supply","Demand"]
-no_model_visual = {
-                "Shortage":"Baseline Ventilator Shortage",
-                "Supply": "Current Ventilator Supply",
-                "Demand":"Projected Ventilator Demand"
-                }
-model_visual = {
-                "Shortage":" Optimized Shortage",
-                "Supply": "Supply",
-                "Demand":"Demand"
-                }
-models = ["Washington IHME","COVIDAnalytics"]
+def get_no_model_visual():
+    return {
+            "Shortage":"Baseline Ventilator Shortage",
+            "Supply": "Current Ventilator Supply",
+            "Demand":"Projected Ventilator Demand"
+            }
+
+def get_model_visual():
+    return {
+            "Shortage":" Optimized Shortage",
+            "Supply": "Supply",
+            "Demand":"Demand"
+            }
 
 def change2Percent(frac):
     return str(math.floor(100*frac))+'%'
@@ -52,6 +71,7 @@ def us_map(df,chosen_date,val,label_dict):
     df = df.loc[df['State']!='US']
     df = df.applymap(str)
 
+    states = get_states()
     df.loc[:,'code'] = df.State.apply(lambda x: states[x])
 
     fig = go.Figure()
@@ -118,6 +138,8 @@ def us_timeline(df, title, with_opt):
                 i+=1
 
     else:
+        state_cols = ["Shortage","Supply","Demand"]
+        no_model_visual = get_no_model_visual()
         for i,val in enumerate(state_cols):
             fig.add_trace(go.Scatter(
                 x=df['Date'],
@@ -177,8 +199,8 @@ def build_download_link_demand(chosen_model):
     return state_csv_string
 
 def build_download_link_transfers(chosen_model):
-    global df_mod1_transfers
-    global df_mod2_transfers
+    df_mod1_transfers, _ = get_df_mod1_transfers()
+    df_mod2_transfers = get_df_mod2_transfers()
     if chosen_model == "Washington IHME":
         transfers_csv_string = df_mod1_transfers.to_csv(index=False, encoding='utf-8')
     else:

@@ -5,7 +5,7 @@ from dash.dependencies import Output, Input
 import flask
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import df_projections, countries_with_provinces, world_map_text
+from projections.utils import get_df_projections, get_world_map_text
 
 def register_callbacks(app):
     @app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
@@ -26,9 +26,11 @@ def register_callbacks(app):
         [Input('location_map_dropdown', 'value')])
     def set_countries_options(selected_continent):
         if selected_continent == 'World':
+            df_projections = get_df_projections()
             df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
             return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
         if selected_continent != 'US':
+            df_projections = get_df_projections()
             df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
             return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
         else:
@@ -41,7 +43,7 @@ def register_callbacks(app):
         if selected_continent is None or selected_continent == "US":
             return ''
         else:
-            return world_map_text
+            return get_world_map_text()
 
     @app.callback(
         Output('province-card-title', 'children'),
@@ -55,10 +57,12 @@ def register_callbacks(app):
          Output('province_dropdown', 'disabled')],
         [Input('country_dropdown', 'value')])
     def set_province_options(selected_country):
+        countries_with_provinces = ["US","Canada","Australia"]
         if selected_country is None or selected_country not in countries_with_provinces:
             return [[], None, True]
         else:
-            df = df_projections[df_projections.Country == selected_country]
+            df = get_df_projections()
+            df = df[df.Country == selected_country]
             return [[{'label': i, 'value': i} for i in df.Province.unique()], None, False]
 
     @app.callback(
