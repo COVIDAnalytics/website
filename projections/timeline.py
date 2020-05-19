@@ -8,8 +8,6 @@ from projections.utils import get_df_projections, get_cols, add_cases
 
 def get_bottom_visual():
     df_projections = get_df_projections()
-    data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
-    data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
     cols = get_cols()
 
     bottom_visual = \
@@ -133,9 +131,7 @@ def get_bottom_visual():
                         html.A(
                             "Download the Data",
                             id="download-link",
-                            download="covid_analytics_projections.csv",
-                            href=data_csv_string,
-                            target="_blank"
+                            href="https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted/Global.csv",
                         ),
                         style={'textAlign':"center"}
                     )
