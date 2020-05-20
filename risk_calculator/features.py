@@ -1,4 +1,3 @@
-import pickle
 import dash_bootstrap_components as dbc
 import dash_core_components as dcc
 import dash_html_components as html
@@ -231,22 +230,7 @@ def build_multidrop_card(id, m, content_dict,language):
     return card
 
 
-def build_feature_cards(m=True,labs=False,language=0):
-    if m:
-        if labs:
-            with open('assets/risk_calculators/mortality/labs_json.pkl', 'rb') as file:
-                features_pickle = pickle.load(file)
-        else:
-            with open('assets/risk_calculators/mortality/without_labs_json.pkl', 'rb') as file:
-                features_pickle = pickle.load(file)
-    else:
-        if labs:
-            with open('assets/risk_calculators/infection/labs_json.pkl', 'rb') as file:
-                features_pickle = pickle.load(file)
-        else:
-            with open('assets/risk_calculators/infection/without_labs_json.pkl', 'rb') as file:
-                features_pickle = pickle.load(file)
-    features = features_pickle["json"]
+def build_feature_cards(features,m=True,labs=False,language=0):
     card_content = []
     cards = []
     inputs = features["numeric"]

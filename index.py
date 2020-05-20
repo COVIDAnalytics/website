@@ -25,7 +25,8 @@ from financial.main import FinancialReliefPlanning
 import callbacks_routers.ventilators as ventilators
 import callbacks_routers.insights as insights
 import callbacks_routers.projections as projections
-import callbacks_routers.risk_calculators as risk_calculators
+import callbacks_routers.risk_calculators_mortality as risk_calculators_mortality
+import callbacks_routers.risk_calculators_infection as risk_calculators_infection
 import callbacks_routers.policies as policies
 
 app = dash.Dash(
@@ -50,7 +51,8 @@ app.scripts.append_script({'external_url':'https://covidanalytics.io/assets/gtag
 ventilators.register_callbacks(app)
 insights.register_callbacks(app)
 projections.register_callbacks(app)
-risk_calculators.register_callbacks(app)
+risk_calculators_infection.register_callbacks(app)
+risk_calculators_mortality.register_callbacks(app)
 policies.register_callbacks(app)
 
 @app.server.route('/favicon.ico')
