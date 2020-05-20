@@ -13,6 +13,8 @@ def register_callbacks(app):
     today = pd.Timestamp('today')
     df_projections = df_projections.loc[df_projections['Day']>=today]
 
+    pop_info = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
+
     @app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
     def download_delphi_documentation():
         return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
@@ -87,9 +89,9 @@ def register_callbacks(app):
          Input('radio_botton', 'value')])
     def update_us_map(chosen_date,val, location,pop):
         if location == 'US':
-            return build_us_map(df_projections,chosen_date,val,pop)
+            return build_us_map(df_projections,pop_info,chosen_date,val,pop)
         else:
-            return build_continent_map(df_projections,chosen_date,val, location,pop)
+            return build_continent_map(df_projections,pop_info,chosen_date,val, location,pop)
 
     @app.callback(
         [Output('us_tot_det', 'children'),

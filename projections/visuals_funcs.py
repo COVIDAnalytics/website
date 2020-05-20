@@ -1,5 +1,4 @@
 import datetime
-import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 from textwrap import wrap
@@ -11,7 +10,7 @@ import dash_bootstrap_components as dbc
 from assets.mappings import get_states, get_colors
 from projections.utils import get_cols, add_cases
 
-def build_continent_map(df_continent,map_date,val='Active', continent = 'World', pop = 1):
+def build_continent_map(df_continent,PopInfo,map_date,val='Active', continent = 'World', pop = 1):
     if continent !='World':
         df_continent = df_continent.loc[df_continent.Continent == continent] #Filter by continent
 
@@ -26,8 +25,6 @@ def build_continent_map(df_continent,map_date,val='Active', continent = 'World',
     df_map = df_map.loc[df_map['Country'] != 'None'] #exclude global world data
 
     population = np.array([])
-    PopInfo = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
-
     for i in df_map['Country']:
         ind1 = np.logical_and(PopInfo['Country']==i, PopInfo['Province']=='None')
         pop_val = PopInfo.loc[ind1,'pop'].values
@@ -110,7 +107,7 @@ def build_continent_map(df_continent,map_date,val='Active', continent = 'World',
     return
 
 
-def build_us_map(df_projections,map_date,val='Active', pop = 1):
+def build_us_map(df_projections,PopInfo,map_date,val='Active', pop = 1):
     if map_date is None:
         return None
 
@@ -124,7 +121,6 @@ def build_us_map(df_projections,map_date,val='Active', pop = 1):
     states = get_states()
     df_map.loc[:,'code'] = df_map.Province.apply(lambda x: states[x])
     population = np.array([])
-    PopInfo = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
 
     for i in df_map['Province']:
         pop_val = PopInfo.loc[PopInfo['Province']==i,'pop'].values
