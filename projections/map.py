@@ -1,16 +1,20 @@
 import datetime
+import pandas as pd
 
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from projections.utils import get_cols, get_df_us, build_card, add_cases
+from projections.utils import get_cols, build_card, add_cases
 
 def get_top_visual():
     map_locations = ['US', "Europe", "Asia", "North America", "South America", "Africa", 'World']
     cols = get_cols()
+    today = pd.Timestamp('today')
     oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
-    df_us = get_df_us()
+    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
+    df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
+    df_projections = df_projections.loc[df_projections['Day']>=today]
 
     top_visual = [
             dbc.Row(
@@ -28,8 +32,8 @@ def get_top_visual():
                                                 html.Div(
                                                     dcc.DatePickerSingle(
                                                         id='us-map-date-picker-range',
-                                                        min_date_allowed=min(df_us.Day.values),
-                                                        max_date_allowed=max(df_us.Day.values),
+                                                        min_date_allowed=today,
+                                                        max_date_allowed=max(df_projections.Day.values),
                                                         date=oneWeekFromNow,
                                                         initial_visible_month=oneWeekFromNow,
                                                     ),

@@ -2,10 +2,12 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from projections.utils import get_df_projections, get_cols, add_cases
+from projections.utils import get_cols, add_cases
 
 def get_bottom_visual():
-    df_projections = get_df_projections()
+    north_america_countries = ['Canada', 'Costa Rica', 'Cuba', 'Dominican Republic',
+       'El Salvador', 'Guatemala', 'Honduras', 'Mexico', 'Panama',
+       'US']
     cols = get_cols()
 
     bottom_visual = \
@@ -76,7 +78,7 @@ def get_bottom_visual():
                                                     [
                                                     dcc.Dropdown(
                                                             id = 'country_dropdown',
-                                                            options = [{'label': x, 'value': x} for x in df_projections[df_projections['Continent'] == 'North America'].Country.unique()],
+                                                            options = [{'label': x, 'value': x} for x in north_america_countries],
                                                     ),
 
                                                     dcc.Dropdown(
