@@ -77,7 +77,7 @@ def register_callbacks(app):
     def update_projection(state, country, continent, val):
         state = 'None' if state == None else state
         country = 'None' if country == None else country
-        return build_state_projection(df_projections,tate, country, continent, val)
+        return build_state_projection(df_projections,state, country, continent, val)
 
     @app.callback(
         Output('map_projections', 'children'),

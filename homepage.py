@@ -23,7 +23,10 @@ def Homepage():
 
     def build_tom_us_map():
         tomorrow = datetime.date.today() + datetime.timedelta(days=1)
-        return build_continent_map(tomorrow)
+        df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
+        df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
+        df_projections = df_projections.loc[df_projections['Day']==tomorrow]
+        return build_continent_map(df_projections,tomorrow)
 
     def build_card(imgTop,titles,text,img,links):
         cardbody = []
