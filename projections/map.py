@@ -4,13 +4,13 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from projections.utils import get_cols, get_df_us, build_card, add_cases
+from projections.utils import get_cols, build_card, add_cases
 
 def get_top_visual():
     map_locations = ['US', "Europe", "Asia", "North America", "South America", "Africa", 'World']
     cols = get_cols()
     oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
-    df_us = get_df_us()
+    df_us = df_projections.loc[(df_projections.Country == "US") & (df_projections.Province != 'None')]
 
     top_visual = [
             dbc.Row(

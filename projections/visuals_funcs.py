@@ -9,10 +9,9 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from assets.mappings import get_states, get_colors
-from projections.utils import get_cols, get_df_us, add_cases, get_df_projections
+from projections.utils import get_cols, add_cases
 
-def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
-    df_continent = get_df_projections()
+def build_continent_map(df_continent,map_date,val='Active', continent = 'World', pop = 1):
     if continent !='World':
         df_continent = df_continent.loc[df_continent.Continent == continent] #Filter by continent
 
@@ -111,14 +110,14 @@ def build_continent_map(map_date,val='Active', continent = 'World', pop = 1):
     return
 
 
-def build_us_map(map_date,val='Active', pop = 1):
+def build_us_map(df_projections,map_date,val='Active', pop = 1):
     if map_date is None:
         return None
 
     if isinstance(map_date, str):
         map_date = datetime.datetime.strptime(map_date, '%Y-%m-%d').date()
 
-    df_us = get_df_us()
+    df_us = df_projections.loc[(df_projections.Country == "US") & (df_projections.Province != 'None')]
     df_map = df_us.loc[df_us['Day']==map_date]
     df_map = df_map.loc[df_us['Province']!='US']
 
@@ -208,9 +207,8 @@ def find_smallest_scope(state, country, continent):
             location = country
     return location
 
-def build_state_projection(state, country, continent, vals):
+def build_state_projection(df_projections, state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
-    df_projections = get_df_projections()
     df_projections_sub = df_projections.loc[ (df_projections.Province == state) & (df_projections.Country == country)]
     if continent not in ['US', 'World']:
         df_projections_sub = df_projections_sub.loc[(df_projections_sub.Continent == continent)]
@@ -273,12 +271,11 @@ def build_state_projection(state, country, continent, vals):
     )
     return graph
 
-def get_stat(d, val, scope):
+def get_stat(df_projections,d, val, scope):
     if d is None:
         return None
     if isinstance(d, str):
         d = datetime.datetime.strptime(d, '%Y-%m-%d').date()
-    df_projections = get_df_projections()
     if scope == 'US':
         df_projections_sub = df_projections.loc[(df_projections.Country == scope) & (df_projections.Province == 'None')]
     elif scope =='World':

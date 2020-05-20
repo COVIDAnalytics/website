@@ -1,13 +1,18 @@
 import os
 from datetime import datetime as dt
-
+import pandas as pd
 from dash.dependencies import Output, Input
 import flask
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_df_projections, get_world_map_text
+from projections.utils import get_world_map_text
 
 def register_callbacks(app):
+    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
+    df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
+    today = pd.Timestamp('today')
+    df_projections = df_projections.loc[df_projections['Day']>=today]
+
     @app.server.route('/DELPHI_documentation_pdf', methods=['GET', 'POST'])
     def download_delphi_documentation():
         return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
@@ -26,11 +31,9 @@ def register_callbacks(app):
         [Input('location_map_dropdown', 'value')])
     def set_countries_options(selected_continent):
         if selected_continent == 'World':
-            df_projections = get_df_projections()
             df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
             return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
         if selected_continent != 'US':
-            df_projections = get_df_projections()
             df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
             return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
         else:
@@ -61,8 +64,7 @@ def register_callbacks(app):
         if selected_country is None or selected_country not in countries_with_provinces:
             return [[], None, True]
         else:
-            df = get_df_projections()
-            df = df[df.Country == selected_country]
+            df = df_projections[df_projections.Country == selected_country]
             return [[{'label': i, 'value': i} for i in df.Province.unique()], None, False]
 
     @app.callback(
@@ -75,7 +77,7 @@ def register_callbacks(app):
     def update_projection(state, country, continent, val):
         state = 'None' if state == None else state
         country = 'None' if country == None else country
-        return build_state_projection(state, country, continent, val)
+        return build_state_projection(df_projections,tate, country, continent, val)
 
     @app.callback(
         Output('map_projections', 'children'),
@@ -85,9 +87,9 @@ def register_callbacks(app):
          Input('radio_botton', 'value')])
     def update_us_map(chosen_date,val, location,pop):
         if location == 'US':
-            return build_us_map(chosen_date,val,pop)
+            return build_us_map(df_projections,chosen_date,val,pop)
         else:
-            return build_continent_map(chosen_date,val, location,pop)
+            return build_continent_map(df_projections,chosen_date,val, location,pop)
 
     @app.callback(
         [Output('us_tot_det', 'children'),
@@ -97,10 +99,10 @@ def register_callbacks(app):
         [Input('us-map-date-picker-range', 'date'),
          Input('location_map_dropdown', 'value')])
     def update_stats(chosen_date, scope):
-        return [get_stat(chosen_date,'Total Detected', scope),
-                get_stat(chosen_date,'Active', scope),
-                get_stat(chosen_date,'Active Hospitalized', scope),
-                get_stat(chosen_date,'Total Detected Deaths', scope)]
+        return [get_stat(df_projections,chosen_date,'Total Detected', scope),
+                get_stat(df_projections,chosen_date,'Active', scope),
+                get_stat(df_projections,chosen_date,'Active Hospitalized', scope),
+                get_stat(df_projections,chosen_date,'Total Detected Deaths', scope)]
 
     @app.callback(
         Output('us-stats-title', 'children'),
