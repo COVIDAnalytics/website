@@ -1,13 +1,21 @@
+import pandas as pd
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-from ventilators.utils import get_first_date, get_no_model_visual, get_df_mod1_projections
+from ventilators.utils import get_first_date, get_no_model_visual
 
 def get_shortage():
+    df = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
+    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
+    min_shortage_date = min(df.Date.values)
+    max_shortage_date = max(df.Date.values)
+    del df
+
     firstDate = get_first_date()
-    _ , params = get_df_mod1_projections(True)
     state_cols = ["Shortage","Supply","Demand"]
     no_model_visual = get_no_model_visual()
+
     # Defines the top of the page, where the current situation is displayed (no optimization yet)
     shortage = \
         [dbc.Row(
@@ -56,8 +64,8 @@ def get_shortage():
                                 html.Div(
                                     dcc.DatePickerSingle(
                                         id='us-map-date-picker-range-vent',
-                                        min_date_allowed=params[0],
-                                        max_date_allowed=params[1],
+                                        min_date_allowed=min_shortage_date,
+                                        max_date_allowed=max_shortage_date,
                                         date=firstDate,
                                         initial_visible_month=firstDate,
                                         style={'marginBottom':20}
