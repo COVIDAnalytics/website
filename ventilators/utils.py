@@ -156,16 +156,3 @@ def us_timeline(df, title, with_opt):
         figure=fig
     )
     return graph
-
-
-def build_download_link_demand(chosen_model):
-    if chosen_model == "Washington IHME":
-        df_shortage = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
-    else:
-        df_shortage = pd.read_csv('data/predicted_ventilator/state_supplies_table-ode.csv', sep=",", parse_dates = ['Date'])
-    df_shortage = df_shortage.to_csv(index=False, encoding='utf-8')
-    state_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(df_shortage)
-    return state_csv_string
-
-def build_download_link_transfers(transfers_csv_string):
-    return "data:text/csv;charset=utf-8," + urllib.parse.quote(transfers_csv_string)

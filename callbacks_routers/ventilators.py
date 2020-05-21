@@ -6,7 +6,7 @@ from dash.dependencies import Output, Input
 import flask
 
 from ventilators.transfers_funcs import build_transfers_map,build_transfers_timeline,generate_table
-from ventilators.utils import build_download_link_demand, build_download_link_transfers, get_no_model_visual, us_map, us_timeline
+from ventilators.utils import get_no_model_visual, us_map, us_timeline
 
 def register_callbacks(app):
     df_mod1_transfers = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
