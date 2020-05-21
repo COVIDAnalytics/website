@@ -1,9 +1,11 @@
+import pandas as pd
+
 from dash.dependencies import Input, Output
 
 from interactive_graphs.interactive import InteractiveGraph, build_graph
 
 def register_callbacks(app):
-
+    df = pd.read_csv('data/clinical_outcomes_database.csv')
     all_options = {
         'Comorbidities': [
             "Hypertension",
@@ -49,7 +51,7 @@ def register_callbacks(app):
         Input('survivors', 'value'),]
     )
     def update_graph(y,x,survivor_vals):
-        return build_graph(y,x,survivor_vals)
+        return build_graph(df,y,x,survivor_vals)
 
     @app.callback(
         Output('y_axis_dropdown', 'options'),

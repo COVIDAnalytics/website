@@ -11,18 +11,15 @@ from footer import Footer
 from assets.mappings import get_colors
 
 def InteractiveGraph():
-    df = pd.read_csv('data/clinical_outcomes_database.csv')
-    data_csv_string = df.to_csv(index=False, encoding='utf-8')
-    data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
-
     nav = Navbar()
     footer = Footer()
 
     categories = ["Comorbidities","Symptoms","Treatment","Lab Test Results"]
 
     demographics = ["Median Age", "% Male"]
-
+    df = pd.read_csv('data/clinical_outcomes_database.csv')
     survivor_options = df.Survivors.unique()
+    del df
     survivor_options = [x for x in survivor_options if str(x) != 'nan']
 
     body = dbc.Container(
@@ -141,9 +138,7 @@ def InteractiveGraph():
                         html.A(
                             "Download the Data",
                             id="download-link",
-                            download="covid_analytics_clinical_data.csv",
-                            href=data_csv_string,
-                            target="_blank"
+                            href="https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/clinical_outcomes_database.csv"
                         ),
                         style={'textAlign':"center"}
                     )
@@ -169,8 +164,7 @@ def get_lb(ind,buckets):
     return str(buckets[ind-1]) if ind > 0 else '0'
 
 
-def build_graph(y_title,x_title,survivor_vals):
-    df = pd.read_csv('data/clinical_outcomes_database.csv')
+def build_graph(df,y_title,x_title,survivor_vals):
     if y_title not in df.columns or x_title not in df.columns:
         return None
     cols = [x_title,y_title] + ["Survivors","Country"]

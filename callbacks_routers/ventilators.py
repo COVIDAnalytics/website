@@ -137,18 +137,17 @@ def register_callbacks(app):
         Output('download-link-demand', 'href'),
         [Input('base-model-dropdown', 'value')])
     def update_download_link_demand(chosen_model):
-        return build_download_link_demand(chosen_model)
+        if chosen_model == "Washington IHME":
+            return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/state_supplies_table-ihme.csv"
+        return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/state_supplies_table-ode.csv"
 
     @app.callback(
         Output('download-link-tranfers', 'href'),
         [Input('base-model-dropdown', 'value')])
     def update_download_link_transfers(chosen_model):
         if chosen_model == "Washington IHME":
-            transfers_csv_string = df_mod1_transfers.to_csv(index=False, encoding='utf-8')
-        else:
-            transfers_csv_string = df_mod1_transfers.to_csv(index=False, encoding='utf-8')
-        return build_download_link_transfers(transfers_csv_string)
-
+            return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/transfers_table-ihme.csv"
+        return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/transfers_table-ode.csv"
 
     @app.server.route('/ventilator_documentation_pdf', methods=['GET', 'POST'])
     def download_ventilator_documentation():
