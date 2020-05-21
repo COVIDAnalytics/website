@@ -1,11 +1,23 @@
+import pandas as pd
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from ventilators.utils import get_df_mod1_transfers, get_first_date, change2Percent
+from ventilators.utils import get_first_date, change2Percent
 
 def get_transfers_visuals():
-    _ , params = get_df_mod1_transfers(True)
+    df = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
+    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
+
+    p1 = df.Param1.unique()
+    p2 = df.Param2.unique()
+    p3 = sorted(df.Param3.unique())
+    min_date = min(df.Date.values)
+    max_date = max(df.Date.values)
+
+    del df
+
     firstDate = get_first_date()
 
     transfers_visuals = \
@@ -26,7 +38,7 @@ def get_transfers_visuals():
                                                 html.Div(
                                                     dcc.Dropdown(
                                                         id = 'p1-transfer-dropdown',
-                                                        options = [{'label': change2Percent(x), 'value': x} for x in params[0]],
+                                                        options = [{'label': change2Percent(x), 'value': x} for x in p1],
                                                         value = '0.1',
                                                     ),
                                                     id = "p1-transfer-dropdown-wrapper"
@@ -63,7 +75,7 @@ def get_transfers_visuals():
                                                 html.Div(
                                                     dcc.Dropdown(
                                                         id = 'p2-transfer-dropdown',
-                                                        options = [{'label': change2Percent(x), 'value': x} for x in params[1]],
+                                                        options = [{'label': change2Percent(x), 'value': x} for x in p2],
                                                         value = '0.2',
                                                     ),
                                                     id = "p2-transfer-dropdown-wrapper",
@@ -100,7 +112,7 @@ def get_transfers_visuals():
                                                 html.Div(
                                                     dcc.Dropdown(
                                                         id = 'p3-transfer-dropdown',
-                                                        options = [{'label': change2Percent(x), 'value': x} for x in params[2]],
+                                                        options = [{'label': change2Percent(x), 'value': x} for x in p3],
                                                         value = '0.75',
                                                     ),
                                                     id = "p3-transfer-dropdown-wrapper",
@@ -164,8 +176,8 @@ def get_transfers_visuals():
                     html.Div(
                         dcc.DatePickerSingle(
                             id='date-transfer-dropdown',
-                            min_date_allowed=params[3],
-                            max_date_allowed=params[4],
+                            min_date_allowed=min_date,
+                            max_date_allowed=max_date,
                             date=firstDate,
                             initial_visible_month=firstDate,
                             style={'marginBottom':20}

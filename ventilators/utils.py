@@ -8,37 +8,6 @@ import dash_core_components as dcc
 
 from assets.mappings import get_states, get_colors
 
-def get_df_mod1_transfers(params=False):
-    df = pd.read_csv('data/predicted_ventilator/transfers_table-ihme.csv', sep=",", parse_dates = ['Date'])
-    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
-    if params:
-        p1 = df.Param1.unique()
-        p2 = df.Param2.unique()
-        p3 = df.Param3.unique()
-        min_date = min(df.Date.values)
-        max_date = max(df.Date.values)
-        return df, [p1, p2, p3, min_date, max_date]
-    return df, None
-
-def get_df_mod2_transfers():
-    df = pd.read_csv('data/predicted_ventilator/transfers_table-ode.csv', sep=",", parse_dates = ['Date'])
-    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
-    return df
-
-def get_df_mod1_projections(params=False):
-    df = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ihme.csv', sep=",", parse_dates = ['Date'])
-    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
-    if params:
-        min_shortage_date = min(df.Date.values)
-        max_shortage_date = max(df.Date.values)
-        return df, [min_shortage_date,max_shortage_date]
-    return df, None
-
-def get_df_mod2_projections():
-    df = pd.read_csv('data/predicted_ventilator/state_supplies_table_baseline-ode.csv', sep=",", parse_dates = ['Date'])
-    df.loc[:,'Date'] = pd.to_datetime(df['Date'], format='y%m%d').dt.date
-    return df
-
 def get_first_date():
     return datetime.date(2020, 4, 15)
 
@@ -187,23 +156,3 @@ def us_timeline(df, title, with_opt):
         figure=fig
     )
     return graph
-
-
-def build_download_link_demand(chosen_model):
-    if chosen_model == "Washington IHME":
-        df_shortage = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
-    else:
-        df_shortage = pd.read_csv('data/predicted_ventilator/state_supplies_table-ode.csv', sep=",", parse_dates = ['Date'])
-    df_shortage = df_shortage.to_csv(index=False, encoding='utf-8')
-    state_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(df_shortage)
-    return state_csv_string
-
-def build_download_link_transfers(chosen_model):
-    df_mod1_transfers, _ = get_df_mod1_transfers()
-    df_mod2_transfers = get_df_mod2_transfers()
-    if chosen_model == "Washington IHME":
-        transfers_csv_string = df_mod1_transfers.to_csv(index=False, encoding='utf-8')
-    else:
-        transfers_csv_string = df_mod1_transfers.to_csv(index=False, encoding='utf-8')
-    transfers_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(transfers_csv_string)
-    return transfers_csv_string

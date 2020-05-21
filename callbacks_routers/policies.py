@@ -1,8 +1,13 @@
+import json
+
 from dash.dependencies import Input, Output, ALL
 
 from policies.main import get_num_policies, build_policy_projections
 
 def register_callbacks(app):
+    with open('assets/policies/US_Scenarios.json', 'rb') as file:
+        projections = json.load(file)
+
     num_policies = get_num_policies()
     options = \
         {
@@ -93,5 +98,6 @@ def register_callbacks(app):
                 if input_options[i][p]:
                     if input_policies[i][p] and not input_options[i][p][0]["disabled"]:
                         policies[p][i] = 1
-        return [build_policy_projections(argv[0],policies,times,"Total Detected"),
-                    build_policy_projections(argv[0],policies,times,"Total Detected Deaths")]
+        data = projections[argv[0]]
+        return [build_policy_projections(data,argv[0],policies,times,"Total Detected"),
+                    build_policy_projections(data,argv[0],policies,times,"Total Detected Deaths")]

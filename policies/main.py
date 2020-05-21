@@ -1,4 +1,3 @@
-import json
 import plotly.graph_objects as go
 from textwrap import wrap
 import math
@@ -12,6 +11,7 @@ from footer import Footer
 
 from policies.cards import get_state_num_policy_card, get_policy_cards, get_colors
 from policies.graphs import get_projections, map_policy, no_policy_chosen, get_start
+from assets.mappings import get_states
 
 def get_num_policies():
     return 3
@@ -20,10 +20,7 @@ def Policies():
     nav = Navbar()
     footer = Footer()
 
-    with open('assets/policies/US_Scenarios.json', 'rb') as file:
-        projections = json.load(file)
-
-    states = list(projections.keys())
+    states = list(get_states().keys())
     num_policies = get_num_policies()
 
     body = dbc.Container(
@@ -66,7 +63,7 @@ def Policies():
     return layout
 
 
-def build_policy_projections(state, policies, times, value):
+def build_policy_projections(data,state, policies, times, value):
     name_to_json = {
         "No Restrictions": "No_Measure",
         "Lockdown":"Lockdown",
@@ -88,13 +85,9 @@ def build_policy_projections(state, policies, times, value):
     if no_policy_chosen(policies):
         return
 
-    with open('assets/policies/US_Scenarios.json', 'rb') as file:
-        projections = json.load(file)
-
     colors = get_colors()
     fig = go.Figure()
 
-    data = projections[state]
     x = data["Day"]
     max_y = 0
     for p,policy in enumerate(policies):
