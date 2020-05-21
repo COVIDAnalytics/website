@@ -1,4 +1,3 @@
-import json
 import plotly.graph_objects as go
 from textwrap import wrap
 import math
