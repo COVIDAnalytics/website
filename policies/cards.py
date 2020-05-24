@@ -11,6 +11,7 @@ def get_colors():
             ]
 
 def get_state_num_policy_card(states):
+    continents = ["Europe", "Asia", "North America", "South America", "Africa"]
     return [
         dbc.Row(
         [
@@ -21,18 +22,28 @@ def get_state_num_policy_card(states):
                         dbc.CardBody(
                             [
                                 dbc.Row(
-                                    [
-                                        dcc.Markdown("**For which state would you like to project?**"),
-                                        dbc.Col(
-                                            html.Div(
-                                                dcc.Dropdown(
-                                                    id = 'state_policies',
-                                                    options = [{'label': x, 'value': x} for x in states],
-                                                    value = 'New York',
-                                                ),
+                                    [       dcc.Markdown("**For which country and province would you like to project?**"),
+                                            dcc.Markdown("**Please select a country and a province, where available.**"),
+                                            dbc.Col([dcc.Markdown("**Continent:**"),dcc.Markdown("**Country:**"),dcc.Markdown("**Province / State:**")]),
+                                            dbc.Col(
+                                                html.Div(
+                                                    [
+                                                    dcc.Dropdown(
+                                                            id = 'continent_policies',
+                                                            options = [{'label': x, 'value': x} for x in continents],
+                                                            value = 'North America',
+                                                    ),
+                                                    dcc.Dropdown(
+                                                            id = 'country_policies',
+                                                    ),
+
+                                                    dcc.Dropdown(
+                                                            id = 'province_policies',
+                                                    ),
+                                                    html.Div(id = "p2-transfer-dropdown-wrapper"),
+
+                                                ]),
                                             ),
-                                        width=6,
-                                        ),
                                     ],
                                     justify="center",
                                     style={"paddingBottom":10}
