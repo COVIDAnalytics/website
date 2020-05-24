@@ -63,7 +63,7 @@ def Policies():
     return layout
 
 
-def build_policy_projections(data,state, policies, times, value):
+def build_policy_projections(data,country, state, policies, times, value):
     name_to_json = {
         "No Restrictions": "No_Measure",
         "Lockdown":"Lockdown",
@@ -107,7 +107,7 @@ def build_policy_projections(data,state, policies, times, value):
             ))
             temp = max(data[code][t][value])
             if temp > max_y:
-                max_y = int(math.ceil(temp / 100000.0)) * 100000
+                max_y = int(math.ceil(temp / 100.0)) * 100
 
     for p,policy in enumerate(policies):
         if sum(policy) > 0:
@@ -136,8 +136,10 @@ def build_policy_projections(data,state, policies, times, value):
         marker=dict(color='grey'),
         line=dict(color='grey',width=4)
     ))
-
-    title = '<br>'.join(wrap('<b> {} for {} </b>'.format(value,state), width=35))
+    if state == "None":
+        title = '<br>'.join(wrap('<b> {} for {} </b>'.format(value,country), width=35))
+    else:
+        title = '<br>'.join(wrap('<b> {} for {} </b>'.format(value,state), width=35))
     fig.update_layout(
                 height=550,
                 title={

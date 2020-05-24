@@ -3,11 +3,11 @@ import json
 from dash.dependencies import Input, Output, ALL
 
 from policies.main import get_num_policies, build_policy_projections
-
+import pandas as pd
 def register_callbacks(app):
-    with open('assets/policies/US_Scenarios.json', 'rb') as file:
+    with open('assets/policies/World_Scenarios.json', 'rb') as file:
         projections = json.load(file)
-
+    country_info = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
     num_policies = get_num_policies()
     options = \
         {
@@ -70,11 +70,38 @@ def register_callbacks(app):
             if t == 3:
                 return "Policy change taking effect 4 weeks from now."
             return "Policy change taking effect 6 weeks from now."
+    @app.callback(
+        [Output('country_policies', 'options'),
+         Output('country_policies', 'value'),
+         Output('country_policies', 'disabled')],
+        [Input('continent_policies', 'value')])
+    def set_countries_options_policies(selected_continent):
+        if selected_continent is not None:
+            return [[{'label': i, 'value': i} for i in projections[selected_continent].keys()], None, False]
+        else:
+            return [[{'label': '', 'value': ''}], None, False] 
 
+    @app.callback(
+        [Output('province_policies', 'options'),
+         Output('province_policies', 'value'),
+         Output('province_policies', 'disabled')],
+        [Input('continent_policies', 'value'),
+         Input('country_policies', 'value')])
+    def set_province_options_policies(selected_continent,selected_country):
+        if selected_continent is not None and selected_country is not None:
+            province_list = list(projections[selected_continent][selected_country].keys())
+            if province_list[0] == "None":
+                return [[{'label': i, 'value': i} for i in province_list], "None", False]
+            else:
+                return [[{'label': i, 'value': i} for i in province_list], None, False]
+        else:
+            return [[{'label': '', 'value': ''}], None, False]            
     @app.callback(
         [Output('policy_projection_graph', 'children'),
         Output('policy_deaths_projection_graph', 'children')],
-        [Input('state_policies', "value"),
+        [Input('continent_policies', "value"),
+         Input('country_policies', "value"),
+         Input('province_policies', "value"),
         Input({'type': 'none', 'index': ALL}, "value"),
         Input({'type': 'lockdown', 'index': ALL}, "value"),
         Input({'type': 'mass', 'index': ALL}, "value"),
@@ -88,16 +115,20 @@ def register_callbacks(app):
         Input({'type': 'timeline', 'index': ALL}, "value")]
     )
     def get_policy_projections(*argv):
-        policy_options = 5
-        input_policies = argv[1:policy_options+1]
-        input_options = argv[policy_options+1:-1]
-        times = argv[-1]
-        policies = [[0,0,0,0,0] for i in range(num_policies)]
-        for p in range(num_policies):
-            for i in range(policy_options):
-                if input_options[i][p]:
-                    if input_policies[i][p] and not input_options[i][p][0]["disabled"]:
-                        policies[p][i] = 1
-        data = projections[argv[0]]
-        return [build_policy_projections(data,argv[0],policies,times,"Total Detected"),
-                    build_policy_projections(data,argv[0],policies,times,"Total Detected Deaths")]
+        if all([argv[i] is not None for i in range(3)]):
+            policy_options = 5
+            input_policies = argv[3:policy_options+3]
+            input_options = argv[policy_options+3:-1]
+            times = argv[-1]
+            policies = [[0,0,0,0,0] for i in range(num_policies)]
+            for p in range(num_policies):
+                for i in range(policy_options):
+                    if input_options[i][p]:
+                        if input_policies[i][p] and not input_options[i][p][0]["disabled"]:
+                            policies[p][i] = 1
+            data = projections[argv[0]][argv[1]][argv[2]]
+            return [build_policy_projections(data,argv[1],argv[2],policies,times,"Total Detected"),
+                        build_policy_projections(data,argv[1],argv[2],policies,times,"Total Detected Deaths")]
+        else:
+            return ['',
+                    '']
