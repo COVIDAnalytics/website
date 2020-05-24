@@ -41,8 +41,7 @@ def Policies():
                         ),
                         html.Hr(),
                         dcc.Markdown(
-                             """The methodology of the model is explained [here](/Policy_evaluation_documentation). \
-                             We are currently developing an extension of the model for the world.
+                             """The methodology of the model is explained [here](/Policy_evaluation_documentation). 
                              """,
                         )
                     ],

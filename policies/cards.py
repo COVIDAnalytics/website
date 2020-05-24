@@ -23,6 +23,7 @@ def get_state_num_policy_card(states):
                             [
                                 dbc.Row(
                                     [       dcc.Markdown("**For which country and province would you like to project?**"),
+                                            dcc.Markdown("**Please select a country and a province, where available.**"),
                                             dbc.Col([dcc.Markdown("**Continent:**"),dcc.Markdown("**Country:**"),dcc.Markdown("**Province / State:**")]),
                                             dbc.Col(
                                                 html.Div(
@@ -38,27 +39,12 @@ def get_state_num_policy_card(states):
 
                                                     dcc.Dropdown(
                                                             id = 'province_policies',
-                                                    # options = [{'label': x, 'value': x} for x in states],
-                                                    # value = 'New York',
                                                     ),
                                                     html.Div(id = "p2-transfer-dropdown-wrapper"),
 
                                                 ]),
                                             ),
                                     ],
-                                    # [
-                                    #     dcc.Markdown("**For which state would you like to project?**"),
-                                    #     dbc.Col(
-                                    #         html.Div(
-                                    #             dcc.Dropdown(
-                                    #                 id = 'state_policies',
-                                    #                 options = [{'label': x, 'value': x} for x in states],
-                                    #                 value = 'New York',
-                                    #             ),
-                                    #         ),
-                                    #     width=6,
-                                    #     ),
-                                    # ],
                                     justify="center",
                                     style={"paddingBottom":10}
                                 ),

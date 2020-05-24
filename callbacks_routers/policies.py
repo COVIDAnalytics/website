@@ -3,11 +3,9 @@ import json
 from dash.dependencies import Input, Output, ALL
 
 from policies.main import get_num_policies, build_policy_projections
-import pandas as pd
 def register_callbacks(app):
     with open('assets/policies/World_Scenarios.json', 'rb') as file:
         projections = json.load(file)
-    country_info = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
     num_policies = get_num_policies()
     options = \
         {
@@ -79,7 +77,7 @@ def register_callbacks(app):
         if selected_continent is not None:
             return [[{'label': i, 'value': i} for i in projections[selected_continent].keys()], None, False]
         else:
-            return [[{'label': '', 'value': ''}], None, False] 
+            return [[{'label': '', 'value': ''}], None, True] 
 
     @app.callback(
         [Output('province_policies', 'options'),
@@ -91,11 +89,11 @@ def register_callbacks(app):
         if selected_continent is not None and selected_country is not None:
             province_list = list(projections[selected_continent][selected_country].keys())
             if province_list[0] == "None":
-                return [[{'label': i, 'value': i} for i in province_list], "None", False]
+                return [[{'label': i, 'value': i} for i in province_list], "None", True]
             else:
                 return [[{'label': i, 'value': i} for i in province_list], None, False]
         else:
-            return [[{'label': '', 'value': ''}], None, False]            
+            return [[{'label': '', 'value': ''}], None, True]            
     @app.callback(
         [Output('policy_projection_graph', 'children'),
         Output('policy_deaths_projection_graph', 'children')],
