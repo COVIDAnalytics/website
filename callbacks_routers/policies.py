@@ -91,7 +91,7 @@ def register_callbacks(app):
             if province_list[0] == "None":
                 return [[{'label': i, 'value': i} for i in province_list], "None", True]
             else:
-                return [[{'label': i, 'value': i} for i in province_list], None, False]
+                return [[{'label': i, 'value': i} for i in sorted(province_list)], None, False]
         else:
             return [[{'label': '', 'value': ''}], None, True]            
     @app.callback(
