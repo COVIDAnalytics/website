@@ -118,6 +118,10 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              clinici che coprono le regioni di Madrid, Galicia e León. """,
         ),
         dcc.Markdown(
+             """* [Hartford HealthCare](https://hartfordhealthcare.org), uno dei più grandi gruppi ospedalieri operanti nello stato del Connecticut (USA). """,
+        ),
+
+        dcc.Markdown(
              """Date le caratteristiche della popolazione di cui abbiamo i dati, pensiamo che il nostro modello sia rilevante soprattutto per: (a) Popolazione occidentale; \
              (b) Pazienti in condizioni gravi; (c) Ospedali congestionati. """,
         ),

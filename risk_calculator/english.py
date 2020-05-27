@@ -122,6 +122,9 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              centres that cover the regions of Madrid, Galicia, and León. """,
         ),
         dcc.Markdown(
+             """* [Hartford HealthCare](https://hartfordhealthcare.org), a major hospital network serving patients throughout Connecticut (USA). """,
+        ),
+        dcc.Markdown(
              """Given our training population, we are most confident about the relevance of our model to: (a) Western population; \
              (b) Severe to acute patients; (c) Congested hospitals. """,
         ),
