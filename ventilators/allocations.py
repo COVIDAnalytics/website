@@ -220,6 +220,8 @@ def VentilatorAllocations():
         					html.A(
         						"Download the Ventilator Shortage Data",
         						id="download-link-demand",
+                                download="covid_analytics_ventilator_demand.csv",
+        	        			target="_blank"
         					),
         					style={'textAlign':"center"}
         				)
@@ -229,6 +231,8 @@ def VentilatorAllocations():
         					html.A(
         						"Download the Ventilator Transfers Data",
         						id="download-link-tranfers",
+                                download="covid_analytics_ventilator_transfers.csv",
+        	        			target="_blank"
         					),
         					style={'textAlign':"center"}
         				)
