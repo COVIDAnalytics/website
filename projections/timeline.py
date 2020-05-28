@@ -1,13 +1,16 @@
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
-
-from projections.utils import get_cols, add_cases
+import urllib
+from projections.utils import get_cols, add_cases, get_df_projections
 
 def get_bottom_visual():
     north_america_countries = ['Canada', 'Costa Rica', 'Cuba', 'Dominican Republic',
        'El Salvador', 'Guatemala', 'Honduras', 'Mexico', 'Panama',
        'US']
+    df_projections = get_df_projections()
+    data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
+    data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
     cols = get_cols()
 
     bottom_visual = \
@@ -129,9 +132,11 @@ def get_bottom_visual():
                 dbc.Col(
                     html.Div(
                         html.A(
-                            "Download the Data",
+                            "Download Most Recent Predictions",
                             id="download-link",
-                            href="https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted/Global.csv",
+                            download="covid_analytics_projections.csv",
+                            href=data_csv_string,
+                            target="_blank"
                         ),
                         style={'textAlign':"center"}
                     )
