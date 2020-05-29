@@ -17,17 +17,17 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
              """ Abbiamo sviluppato due calcolatori che predicono **la probabilità che un paziente affetto da \
              COVID-19 ha di morire quando viene ospedalizzato:**"""),
         dcc.Markdown(
+             """* Un calcolatore che utilizza dati anagrafici, valori vitali, comorbidità e **valori di laboratorio**. Questo punteggio di rischio può \
+             essere utilizzato per la fase post smistamento per avere una stima più accurata e dettagliata della gravità della condizione \
+             medica del paziente affetto da COVID-19. L'Area Sotto la Curva (AUC) su pazienti fuori dal campione di allenamento è {}.
+             """.format(labs_auc),
+        ),
+        dcc.Markdown(
              """* Un calcolatore che utilizza dati anagrafici, valori vitali e comorbidità, ma **senza valori di laboratorio**. \
               Nella nostra visione, questo modello verrà usato nella fase di smistamento per un paziente affetto da COVID-19 che \
               va all'ospedale per determinare in modo preliminare la gravità della propria condizione di salute. \
               L'Area Sotto la Curva (AUC) su pazienti fuori dal campione di allenamento è {}.
              """.format(no_labs_auc),
-        ),
-        dcc.Markdown(
-             """* Un calcolatore che utilizza dati anagrafici, valori vitali, comorbidità e **valori di laboratorio**. Questo punteggio di rischio può \
-             essere utilizzato per la fase post smistamento per avere una stima più accurata e dettagliata della gravità della condizione \
-             medica del paziente affetto da COVID-19. L'Area Sotto la Curva (AUC) su pazienti fuori dal campione di allenamento è {}.
-             """.format(labs_auc),
         ),
         dcc.Markdown(
              """ **NOTA (Questa è una versione in fase di sviluppo!):** I modelli sono tanto accurati quanto i dati sui quali vengono allenati. Rilasceremo nuove versioni \

@@ -17,18 +17,18 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
              """Hemos desarrollado dos calculadoras que predicen **la probabilidad de mortalidad para \
              un paciente que esta hospitalizado con COVID-19:**"""),
         dcc.Markdown(
-             """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
-             pero **sin valores de laboratorio**. Prevemos que este modelo se utilizará para evaluar de manera \
-             preliminar la gravedad de un paciente con COVID-19 en el momento \
-             del triaje cuando llega al hospital. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
-             """.format(no_labs_auc),
-        ),
-        dcc.Markdown(
              """* Una calculadora que utiliza datos demográficos, signos vitales, comorbilidades y \
              ** valores de laboratorio**. Este puntaje de riesgo se puede usar después del triaje \
              para evaluar de manera más precisa y detallada la gravedad de la condición de un \
              paciente con COVID-19. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
              """.format(labs_auc),
+        ),
+        dcc.Markdown(
+             """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
+             pero **sin valores de laboratorio**. Prevemos que este modelo se utilizará para evaluar de manera \
+             preliminar la gravedad de un paciente con COVID-19 en el momento \
+             del triaje cuando llega al hospital. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
+             """.format(no_labs_auc),
         ),
         dcc.Markdown(
              """ **NOTA (¡Esta es una versión de desarrollo!):** La precisión de los modelos depende \
