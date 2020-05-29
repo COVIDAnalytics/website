@@ -17,18 +17,18 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
              """Hemos desarrollado dos calculadoras que predicen **la probabilidad de mortalidad para \
              un paciente que esta hospitalizado con COVID-19:**"""),
         dcc.Markdown(
-             """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
-             pero **sin valores de laboratorio**. Prevemos que este modelo se utilizará para evaluar de manera \
-             preliminar la gravedad de un paciente con COVID-19 en el momento \
-             del triaje cuando llega al hospital. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
-             """.format(no_labs_auc),
-        ),
-        dcc.Markdown(
              """* Una calculadora que utiliza datos demográficos, signos vitales, comorbilidades y \
              ** valores de laboratorio**. Este puntaje de riesgo se puede usar después del triaje \
              para evaluar de manera más precisa y detallada la gravedad de la condición de un \
              paciente con COVID-19. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
              """.format(labs_auc),
+        ),
+        dcc.Markdown(
+             """* Una calculadora que utiliza datos demográficos, signos vitales y comorbilidades, \
+             pero **sin valores de laboratorio**. Prevemos que este modelo se utilizará para evaluar de manera \
+             preliminar la gravedad de un paciente con COVID-19 en el momento \
+             del triaje cuando llega al hospital. El área bajo la curva (AUC) en predicciones fuera de muestra es {}.
+             """.format(no_labs_auc),
         ),
         dcc.Markdown(
              """ **NOTA (¡Esta es una versión de desarrollo!):** La precisión de los modelos depende \
@@ -122,6 +122,10 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         dcc.Markdown(
              """* [HM Hospitals](https://www.fundacionhm.com/), un grupo hospitalario líder en España con 15 hospitales generales y 21 \
              centros clínicos que cubren las regiones de Madrid, Galicia y León. """,
+        ),
+        dcc.Markdown(
+             """* [Hartford HealthCare](https://hartfordhealthcare.org), una importante red de hospitales que atiende a pacientes \
+              en todo Connecticut (EE. UU.). """,
         ),
         dcc.Markdown(
              """ Dada la demografía de nuestra base de datos, consideramos que nuestro modelo tiene mayor relevancia en: (a) la población occidental; \

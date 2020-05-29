@@ -17,17 +17,17 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
              """ We have developed two calculators that predict **the probability of mortality \
              of a COVID-19 patient who arrives at a hospital:**"""),
         dcc.Markdown(
+             """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
+             be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
+             patient’s condition. The out of sample AUC is {}.
+             """.format(labs_auc),
+        ),
+        dcc.Markdown(
              """* A calculator that uses demographics, vitals and comorbidities, but **without lab values**. \
               We envision that this model will be used at the time of triage for a COVID-19 patient who \
               arrives at the hospital to assess in a preliminary way the severity of his or her condition. \
               The out of sample AUC is {}.
              """.format(no_labs_auc),
-        ),
-        dcc.Markdown(
-             """* A calculator that uses demographics, vitals, comorbidities and **lab values**. This risk score can \
-             be used post-triage to assess in a more accurate and detailed way the severity of a COVID-19 \
-             patient’s condition. The out of sample AUC is {}.
-             """.format(labs_auc),
         ),
         dcc.Markdown(
              """ Models are only as good as the data they are trained on. We will release new versions of \
@@ -122,6 +122,9 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              centres that cover the regions of Madrid, Galicia, and León. """,
         ),
         dcc.Markdown(
+             """* [Hartford HealthCare](https://hartfordhealthcare.org), a major hospital network serving patients throughout Connecticut (USA). """,
+        ),
+        dcc.Markdown(
              """Given our training population, we are most confident about the relevance of our model to: (a) Western population; \
              (b) Severe to acute patients; (c) Congested hospitals. """,
         ),
@@ -206,29 +209,29 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
 def get_feature_names():
         return {
         'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation',
-        'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase (ALT)',
+        'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase',
         'Age': 'Age',
         'Aspartate Aminotransferase (AST)': 'Aspartate Aminotransferase',
         'Blood Creatinine': 'Creatinine',
         'Blood Sodium': 'Sodium',
-        'Blood Urea Nitrogen (BUN)': 'Blood Urea Nitrogen (BUN)',
+        'Blood Urea Nitrogen (BUN)': 'Blood Urea Nitrogen',
         'Body Temperature': 'Temperature',
         'C-Reactive Protein (CRP)':  'C-Reactive Protein',
         'CBC: Hemoglobin': 'Hemoglobin',
         'CBC: Leukocytes': 'Leukocytes',
         'CBC: Mean Corpuscular Volume (MCV)': 'Mean Corpuscular Volume',
         'CBC: Platelets': 'Platelets',
-        'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width (RDW)',
+        'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width',
         'Cardiac Frequency': 'Heart Rate',
         'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
         'Gender' : 'Gender',
         'Glycemia': 'Blood Glucose',
         'Potassium Blood Level': 'Potassium',
         'Prothrombin Time (INR)': 'Prothrombin Time',
-        'Systolic Blood Pressure': 'Systolic Blood Pressure (SYS)',
+        'Systolic Blood Pressure': 'Systolic Blood Pressure',
         'SaO2': 'Oxygen Saturation',
         'Blood Calcium': 'Calcium',
-        'ABG: PaO2': 'Partial Pressure Oxygen (PaO2)',
+        'ABG: PaO2': 'Partial Pressure Oxygen',
         'ABG: pH': 'Arterial Blood Gas pH',
         'Cholinesterase': 'Cholinesterase',
         'Respiratory Frequency': 'Respiratory Frequency',
