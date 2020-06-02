@@ -163,10 +163,6 @@ def graph_bucket(x,buckets):
     # b should never be == numBuckets but just in case
     return buckets[b] if b < numBuckets else max_pop
 
-def get_lb(ind,buckets):
-    return str(buckets[ind-1]) if ind > 0 else '0'
-
-
 def build_graph(df,y_title,x_title,survivor_vals):
     if y_title not in df.columns or x_title not in df.columns:
         return None
