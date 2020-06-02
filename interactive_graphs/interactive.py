@@ -190,22 +190,26 @@ def build_graph(df,y_title,x_title,survivor_vals):
     sizes = [5,10,20,40,60]
     for i in df.Survivors.unique():
         s = 0
+        lb = 0
         for ind,j in enumerate(buckets):
-            fig.add_trace(go.Scatter(
-                x=df[(df['Survivors'] == i) & (df['Population'] == j)][x_title],
-                y=df[(df['Survivors'] == i) & (df['Population'] == j)][y_title],
-                legendgroup=i,
-                name= '{} <br> {} < Pop. Size < {}'.format(i, get_lb(ind,buckets),str(int(j))),
-                mode="markers",
-                marker=dict(color=colors[color_ind[i]], size=sizes[ind]),
-                text=df['Country'],
-            ))
+            pop_size = df[(df['Survivors'] == i) & (df['Population'] == j)].shape[0]
+            if pop_size > 0:
+                fig.add_trace(go.Scatter(
+                    x=df[(df['Survivors'] == i) & (df['Population'] == j)][x_title],
+                    y=df[(df['Survivors'] == i) & (df['Population'] == j)][y_title],
+                    legendgroup=i,
+                    name= '{} <br> {} < Pop. Size ≤ {}'.format(i, lb, str(int(j))),
+                    mode="markers",
+                    marker=dict(color=colors[color_ind[i]], size=sizes[ind]),
+                    text=df['Country'],
+                ))
+                lb = j
             s+=1
 
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<br>'.join(wrap('<b> {} vs {} </b>'.format(x_title,y_title), width=26)),
+                    'text': '<br>'.join(wrap('<b> {} vs. {} </b>'.format(x_title,y_title), width=26)),
                     'y':0.97,
                     'x':0.5,
                     'xanchor': 'center',

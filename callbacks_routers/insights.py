@@ -13,7 +13,7 @@ def register_callbacks(app):
             "Cardiovascular Disease (incl. CAD)",
             "Chronic obstructive lung (COPD)",
             "Cerebrovascular Disease",
-            "Renal Disease",
+            "Chronic kidney/renal disease",
         ],
         'Symptoms': [
             "Fever (temperature ≥37·3°C)",
