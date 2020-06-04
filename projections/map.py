@@ -134,7 +134,7 @@ def get_top_visual():
                                                     dcc.Dropdown(
                                                         id = 'us_map_dropdown',
                                                         options = [{'label': add_cases(x), 'value': x} for x in cols.keys()],
-                                                        value = 'Active',
+                                                        value = 'Total Detected',
                                                     ),
 
                                                     id="predicted-value-projections-picker-div",
