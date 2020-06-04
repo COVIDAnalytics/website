@@ -43,7 +43,7 @@ def get_bottom_visual():
                                                     dcc.Dropdown(
                                                         id = 'predicted_timeline',
                                                         options = [{'label': add_cases(x), 'value': x} for x in cols.keys()],
-                                                        value = ['Active'],
+                                                        value = ['Total Detected'],
                                                         multi=True,
                                                     ),
                                                     id = "p2-transfer-dropdown-wrapper",
