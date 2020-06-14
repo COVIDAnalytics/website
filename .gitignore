@@ -2,4 +2,7 @@
 .env
 __pycache__/
 templates/
+.idea
+*.iml
+._*
 *.pyc
