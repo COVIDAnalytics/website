@@ -9,7 +9,7 @@ outOfRangeValues = "Bitte geben Sie einen numerischen Wert zwischen {1} und {2} 
 hasO2Value = "Haben Sie einen SpO2- oder SaO2-Wert?"
 
 def prompt_missing_feature(feature):
-    return "Bitte geben Sie einen Wert für {}.".format(get_feature_names()[feature])
+    return "Bitte geben Sie einen Wert für {} ein.".format(get_feature_names()[feature])
 
 
 def get_yes(yes=True):
@@ -164,7 +164,7 @@ def get_model_desc_mortality(auc, pop, pos):
 
 def get_model_desc_infection(auc, pop, pos):
     return [
-        html.H2("Technical details"),
+        html.H2("Technische Details"),
         dcc.Markdown(
             """
              Unser Rechenmodell wurde mit Daten von {} Patienten (von denen {}% COVID-19 positiv waren), \
@@ -181,7 +181,7 @@ def get_model_desc_infection(auc, pop, pos):
              html.A("den XGBoost Klassifikator .", href="https://xgboost.readthedocs.io/"),
              html.Br(),
              "Die Fläche unter der Kurve (AUC) von Vorhersagungen außerhalb der Stichproben von {} \
-             Patienten (von denen {}% starben) ist ".format(pop[1], str(int(float(pos[1]) * 100))),
+             Patienten (von denen {}% infiziert wurden) ist ".format(pop[1], str(int(float(pos[1]) * 100))),
              html.Span(' {}'.format(auc), style={'color': '#800020', "fontWeight": "bold"}), ".", html.Br(),
              "Wenn Eingabewerte fehlen, shreibt der Rechner seine eigenen Werte zu und zeigt sie an."
             ]

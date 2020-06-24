@@ -115,14 +115,11 @@ def predict_risk(m, model, features, imputer, explainer, feature_vals, columns, 
     title_mapping = get_title_mapping()
     for i, ind in enumerate(imputed):
         ind = int(ind)
-        text = langs[language].missingFeatureTxt.format(
+        temp = '°F' if columns[ind] == 'Body Temperature' else ''
+        impute_text[i] = langs[language].missingFeatureTxt.format(
                 title_mapping[language][columns[ind]],
-                str(round(x_full[0][ind], 2)))
+                str(round(x_full[0][ind], 2)) + temp)
 
-        if columns[ind] == 'Body Temperature':
-            impute_text[i] = text + '°F.'
-        else:
-            impute_text[i] = text + '.'
     impute_text = '  \n'.join(impute_text)
     shap_new = explainer.shap_values(_X)
     names = ['\n'.join(wrap(''.join(['{}'.format(title_mapping[language][c])]), width=12)) for c in columns]

@@ -145,12 +145,12 @@ def get_personal_visual(_id):
     return [
         dbc.Row(
             justify="center",
-            children=dbc.Col(
-                style={
-                    "borderColor": "white",
-                },
-                children=[
-                    dbc.Card([
+            children=dbc.Col([
+                dbc.Card(
+                    style={
+                        "borderColor": "white",
+                    },
+                    children=[
                         dcc.Markdown(
                             id=_id + "-explanation"
                         ),
@@ -158,9 +158,9 @@ def get_personal_visual(_id):
                             id=_id,
                             style={"height": 200}
                         ),
-                    ])
-                ]
-            ),
+                    ]
+                )
+            ]),
         ),
     ]
 
