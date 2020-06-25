@@ -44,9 +44,8 @@ def register_callbacks(app):
     oxygen_in_infec, oxygen_infec_ind = get_oxygen_info(no_labs_cols, no_labs_features["numeric"])
 
     # displaying shap image
-    # TODO: What is closed_all for?
     @app.server.route("/")
-    def display_fig_infec(img, close_all=True):
+    def display_fig_infec(img):
         img_byte_arr = BytesIO()
         img.savefig(img_byte_arr, format='PNG')
         img_byte_arr = img_byte_arr.getvalue()
@@ -126,7 +125,6 @@ def register_callbacks(app):
     def set_submit_button_infection(language):
         return languages["submit"][language],
 
-    # TODO: Use named args?
     @app.callback(
         [Output('score-calculator-card-body-infection', 'children'),
          Output('calc-input-error-infection', 'children'),

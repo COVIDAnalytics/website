@@ -11,12 +11,12 @@ import risk_calculator.languages.spanish as spanish
 import risk_calculator.languages.italian as italian
 import risk_calculator.languages.german as german
 
-langs = [english, spanish, italian, german]
+langs = [english, german, spanish, italian]
 lang_names = {
     0: "English",
-    1: "Español",
-    2: "Italiano",
-    3: "Deutsch"
+    1: "Deutsch",
+    2: "Español",
+    3: "Italiano",
 }
 matplotlib.use('Agg')
 oxygen = 'Oxygen Saturation'

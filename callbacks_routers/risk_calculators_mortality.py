@@ -45,7 +45,7 @@ def register_callbacks(app):
 
     # displaying shap image
     @app.server.route("/")
-    def display_fig_mort(img, close_all=True):
+    def display_fig_mort(img):
         img_byte_arr = BytesIO()
         img.savefig(img_byte_arr, format='PNG')
         img_byte_arr = img_byte_arr.getvalue()

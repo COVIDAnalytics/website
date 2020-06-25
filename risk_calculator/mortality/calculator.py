@@ -4,16 +4,10 @@ import dash_bootstrap_components as dbc
 from navbar import Navbar
 from footer import Footer
 
-from risk_calculator.utils import predict_risk
+from risk_calculator.utils import predict_risk, langs
 from risk_calculator.visuals import get_labs_indicator, get_model_desc, get_feature_importance, get_inputed_vals
 from risk_calculator.visuals import get_feature_cards, get_submit_button, get_results_card
 from risk_calculator.visuals import get_lang, get_page_desc, get_personal_visual
-
-import risk_calculator.languages.english as english
-import risk_calculator.languages.spanish as spanish
-import risk_calculator.languages.italian as italian
-import risk_calculator.languages.german as german
-
 
 def RiskCalc():
     nav = Navbar()
@@ -37,7 +31,6 @@ def RiskCalc():
 
 
 def get_languages(labs_auc, labs_population, labs_positive, no_labs_auc, no_labs_population, no_labs_positive):
-    langs = [english, spanish, italian, german]  # corresponds to [0, 1, 2, 3]
     return {
         "page_desc_mortality": {
             num: lan.get_page_desc_mortality(labs_auc, no_labs_auc) for (num, lan) in zip(range(len(langs)), langs)
