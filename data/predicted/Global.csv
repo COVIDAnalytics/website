@@ -1,4 +1,4 @@
-Continent,Country,Province,Day,Total Detected,Active,Active Hospitalized,Cumulative Hospitalized,Total Detected Deaths, Jonny
+Continent,Country,Province,Day,Total Detected,Active,Active Hospitalized,Cumulative Hospitalized,Total Detected Deaths, Active Ventilated
 Africa,Algeria,None,2020-06-25,12052,1640,357,1794,882,57
 Africa,Algeria,None,2020-06-26,12132,1610,352,1806,888,55
 Africa,Algeria,None,2020-06-27,12210,1579,346,1818,894,54
