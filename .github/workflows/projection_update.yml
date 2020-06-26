@@ -44,7 +44,7 @@ jobs:
     - name: Compare CSVs
       run: |
         echo Comparing CSVs...
-        python3 ./deployment/compare_dfs.py /tmp/Global-staged.csv /tmp/Global-master.csv
+        python3 ./.github/workflows/deployment-scripts/compare_dfs.py /tmp/Global-staged.csv /tmp/Global-master.csv
 
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
