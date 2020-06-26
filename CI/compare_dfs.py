@@ -23,7 +23,7 @@ df_master.loc[:, "Day"] = pd.to_datetime(df_master["Day"],
 
 # Do Checks 
 print("[*] Checking columns...")
-if set(df_staged.columns) != set(df.columns): 
+if set(df_staged.columns) != set(df_master.columns): 
     print("[E] Mismatching columns detected in {}. \
         Refusing to auto-merge...".format(staged_csv_path))
     sys.exit(-1)
