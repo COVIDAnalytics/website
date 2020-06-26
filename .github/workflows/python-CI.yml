@@ -8,12 +8,25 @@ on:
     branches: [ master ]
 
 jobs:
+  #automerge:
   build:
 
     runs-on: ubuntu-latest
-
+    
+    if: contains(github.ref, "ci-test")
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with: 
+        ref: master
+      run: |
+        cp test.csv /tmp/test-master.csv 
+    - name: Checkout ci-test
+      uses: actions/checkout@v2
+      with: 
+        ref: ci-test
+      run: |
+        cp test.csv /tmp/test-staged.csv
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -21,6 +34,8 @@ jobs:
     - name: Install dependencies
       run: |
         ls
+        cat /tmp/test-staged.csv
+        cat /tmp/test-master.csv
         #python -m pip install --upgrade pip
         #if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Print Hello
