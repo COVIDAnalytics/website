@@ -8,8 +8,8 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "check"
   csv_checks:
+
     # The type of docker container that the job will run on
     runs-on: ubuntu-latest
 
@@ -44,11 +44,17 @@ jobs:
     - name: Compare CSVs
       run: |
         echo Comparing CSVs...
-        python3 ./.github/workflows/deployment-scripts/compare_dfs.py /tmp/Global-staged.csv /tmp/Global-master.csv
+        python3 ./.github/workflows/deployment-scripts/compare_dfs.py \
+                    /tmp/Global-staged.csv \
+                    /tmp/Global-master.csv
 
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-#TODO: Tell predictions team to label their PRs, so that only those labels get merged for extra safety
-        MERGE_LABELS: ""
+
+        # TODO: As a safety measure for now, only auto-merge new pull requests 
+        # iff they are labelled with 'automerge' (The DELPHI team would have to
+        # add this label when we are ready to deploy fully auutomatically). For
+        # now, the check will still run and pass/fail but no auto-merge will be done.
+        MERGE_LABELS: "automerge"
