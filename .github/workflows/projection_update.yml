@@ -44,4 +44,4 @@ jobs:
     - name: Compare CSVs
       run: |
         echo Comparing CSVs...
-        python3 ./CI/compare_dfs.py /tmp/Global-staged.csv /tmp/Global-master.csv
+        python3 ./deployment/compare_dfs.py /tmp/Global-staged.csv /tmp/Global-master.csv
