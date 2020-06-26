@@ -45,3 +45,10 @@ jobs:
       run: |
         echo Comparing CSVs...
         python3 ./deployment/compare_dfs.py /tmp/Global-staged.csv /tmp/Global-master.csv
+
+    - name: automerge
+      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+#TODO: Tell predictions team to label their PRs, so that only those labels get merged for extra safety
+        MERGE_LABELS: ""
