@@ -19,8 +19,10 @@ def get_labs_indicator(_id):
                             dbc.Col(
                                 html.Div([
                                     dcc.Dropdown(
+                                        clearable=False,
                                         id=_id,
                                         value=0,
+                                        className="dcc_dropdown",
                                     ),
                                 ]),
                             ),
@@ -175,9 +177,12 @@ def get_lang(_id):
                 children=html.Div(
                     dcc.Dropdown(
                         id=_id,
-                        options=[{'label': lang_names[x], 'value': x} for x in range(len(lang_names))],
+                        clearable=False,
+                        options=list(sorted([{'label': lang_names[x], 'value': x} for x in range(len(lang_names))],
+                                            key=lambda i: i['label'])),
                         value=0,
-                        style={'marginBottom': 10, "width": "100%"}
+                        style={'marginBottom': 10, "width": "100%"},
+                        className="dcc_dropdown",
                     ),
                 ),
             ),

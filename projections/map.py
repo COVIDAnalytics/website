@@ -69,6 +69,7 @@ def get_top_visual():
                                                             id = 'location_map_dropdown',
                                                             options = [{'label': x, 'value': x} for x in map_locations],
                                                             value = 'US',
+                                                            clearable=False
                                                     ),
 
                                                 ]),

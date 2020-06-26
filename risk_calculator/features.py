@@ -22,6 +22,7 @@ def map_feat_vals(x, name, language):
 
 
 def build_dropdown_card(_id, m, content_dict, language):
+    """Makes feature card with dropdown data"""
     insert_data = [
         dbc.Col(
             html.Div(
@@ -34,7 +35,9 @@ def build_dropdown_card(_id, m, content_dict, language):
                     options=[{'label': map_feat_vals(x, content_dict["name"], language), 'value': x}
                              for x in content_dict['vals']],
                     value=0,
-                    style={"width": 110}
+                    style={"width": 110},
+                    className="dcc_dropdown",
+                    clearable=False,
                 ),
             ),
         ),
@@ -52,7 +55,8 @@ def build_dropdown_card(_id, m, content_dict, language):
 
 
 def oxygen_options(_id, m, have_val, text, language):
-    """Oxygen Saturation Card Builder (last card. Shows different inputs whether user has oxygen vals or not)"""
+    """Oxygen Saturation BOttom Input Builder (Builds only the bottom text and dropdowns of last card.
+    Shows different inputs whether user has oxygen vals or not)"""
     id_full = {
         'type': 'mortality' if m else 'infection',
         'index': "calc-numeric-{}".format(_id),
@@ -67,7 +71,7 @@ def oxygen_options(_id, m, have_val, text, language):
                     id=id_full,
                     type="number",
                     placeholder="e.g. 92",
-                    style={"width": 80}
+                    style={"width": 80},
                 )
             )
         ]
@@ -81,13 +85,16 @@ def oxygen_options(_id, m, have_val, text, language):
                     id=id_full,
                     options=[{'label': oxygen_vals(x, language), 'value': x} for x in [92, 98]],
                     value=98,
-                    style={"width": 80}
+                    style={"width": 80},
+                    className="dcc_dropdown",
+                    clearable=False
                 ),
             )
         ]
 
 
 def build_oxygen_card(_id, labs, m, content_dict, language):
+    """Oxygen Saturation Card and Top Input Builder (Builds card and uppper text and dropdowns of last card.)"""
     model = 'mortality' if m else 'infection'
     lab_str = "labs" if labs else "nolabs"
     insert_data = [
@@ -98,7 +105,9 @@ def build_oxygen_card(_id, labs, m, content_dict, language):
                     id="oxygen-answer-{}".format(model),
                     options=[{'label': labs_ques(x, language), 'value': x} for x in [1, 0]],
                     value=0,
-                    style={"width": 80}
+                    style={"width": 80},
+                    className="dcc_dropdown",
+                    clearable=False
                 ),
             )
         ]),
@@ -147,7 +156,9 @@ def build_input_card(_id, m, content_dict):
                         },
                         options=[{'label': x, 'value': x} for x in ["°F", "°C"]],
                         value="°F",
-                        style={"width": 80}
+                        style={"width": 80},
+                        className="dcc_dropdown",
+                        clearable=False
                     ),
                 ),
             ),
@@ -207,6 +218,7 @@ def build_multidrop_card(_id, m, content_dict, language):
                         'type': 'mortality' if m else 'infection',
                         'index': "calc-multidrop-{}".format(_id)
                     },
+                    className="dcc_dropdown",
                     multi=True
                 ),
             )
