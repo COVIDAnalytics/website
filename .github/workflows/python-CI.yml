@@ -27,7 +27,6 @@ jobs:
       run: |
         python3 -c "print('Hello from Python')"
         python3 ./CI/check_csv.py
-        cat test.csv
         git branch
         git describe --always
 
