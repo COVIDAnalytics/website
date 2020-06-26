@@ -19,6 +19,8 @@ def InteractiveGraph():
     demographics = ["Median Age", "% Male"]
     df = pd.read_csv('data/clinical_outcomes_database.csv')
     survivor_options = df.Survivors.unique()
+    data_csv_string = df.to_csv(index=False, encoding='utf-8')
+    data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
     del df
     survivor_options = [x for x in survivor_options if str(x) != 'nan']
 
@@ -138,8 +140,9 @@ def InteractiveGraph():
                         html.A(
                             "Download the Data",
                             id="download-link",
-                            href="https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/clinical_outcomes_database.csv"
-                        ),
+                            download="covid_analytics_clinical_data.csv",
+                            href=data_csv_string,
+                            target="_blank"                        ),
                         style={'textAlign':"center"}
                     )
                 ),
@@ -159,10 +162,6 @@ def graph_bucket(x,buckets):
         b+=1
     # b should never be == numBuckets but just in case
     return buckets[b] if b < numBuckets else max_pop
-
-def get_lb(ind,buckets):
-    return str(buckets[ind-1]) if ind > 0 else '0'
-
 
 def build_graph(df,y_title,x_title,survivor_vals):
     if y_title not in df.columns or x_title not in df.columns:
@@ -187,22 +186,26 @@ def build_graph(df,y_title,x_title,survivor_vals):
     sizes = [5,10,20,40,60]
     for i in df.Survivors.unique():
         s = 0
+        lb = 0
         for ind,j in enumerate(buckets):
-            fig.add_trace(go.Scatter(
-                x=df[(df['Survivors'] == i) & (df['Population'] == j)][x_title],
-                y=df[(df['Survivors'] == i) & (df['Population'] == j)][y_title],
-                legendgroup=i,
-                name= '{} <br> {} < Pop. Size < {}'.format(i, get_lb(ind,buckets),str(int(j))),
-                mode="markers",
-                marker=dict(color=colors[color_ind[i]], size=sizes[ind]),
-                text=df['Country'],
-            ))
+            pop_size = df[(df['Survivors'] == i) & (df['Population'] == j)].shape[0]
+            if pop_size > 0:
+                fig.add_trace(go.Scatter(
+                    x=df[(df['Survivors'] == i) & (df['Population'] == j)][x_title],
+                    y=df[(df['Survivors'] == i) & (df['Population'] == j)][y_title],
+                    legendgroup=i,
+                    name= '{} <br> {} < Pop. Size ≤ {}'.format(i, lb, str(int(j))),
+                    mode="markers",
+                    marker=dict(color=colors[color_ind[i]], size=sizes[ind]),
+                    text=df['Country'],
+                ))
+                lb = j
             s+=1
 
     fig.update_layout(
                 height=550,
                 title={
-                    'text': '<br>'.join(wrap('<b> {} vs {} </b>'.format(x_title,y_title), width=26)),
+                    'text': '<br>'.join(wrap('<b> {} vs. {} </b>'.format(x_title,y_title), width=26)),
                     'y':0.97,
                     'x':0.5,
                     'xanchor': 'center',
