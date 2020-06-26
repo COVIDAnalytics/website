@@ -1,8 +1,28 @@
 import dash_core_components as dcc
 import dash_html_components as html
 
-def get_page_desc_mortality(labs_auc,no_labs_auc):
-    return [ \
+submit = "Submit"
+missingFeatureTxt = "The missing feature, {}, was calculated as {}."
+hasLabValues = "Do you have lab values?"
+notEnoughValues = "Please insert at least {} numeric values."
+outOfRangeValues = "Please insert a numeric value for {} between {} and {}"
+hasO2Value = "Do you have the value for SpO2 or SaO2?"
+
+
+def prompt_missing_feature(feature):
+    return "Please insert a value for {}.".format(get_feature_names()[feature])
+
+
+def get_yes(yes=True):
+    return "Yes" if yes else "No"
+
+
+def get_gender(male=True):
+    return "Male" if male else "Female"
+
+
+def get_page_desc_mortality(labs_auc, no_labs_auc):
+    return [
         html.H2("Analytics can calculate the risk of mortality"),
         html.Hr(),
         dcc.Markdown(
@@ -38,98 +58,89 @@ def get_page_desc_mortality(labs_auc,no_labs_auc):
         ),
     ]
 
+
 def get_page_desc_infection():
-    return [ \
-            html.H2("Analytics can identify infected patients"),
-            dcc.Markdown(
-                 """COVID-19 tests are time consuming, expensive and require patients to visit \
-                 facilities in person, increasing exposure to the virus. To help identifying \
-                 symptomatic patients, we developed a data-driven calculator to predict the \
-                 probability of being infected.
-                 """,
-            ),
-            html.Hr(),
-            dcc.Markdown(
-                 """ **NOTE (This is a developmental version!):** A model is only as good as the \
-                 data it is trained on. We will release new versions of the calculator as the \
-                 amount of data we receive from our partner institutions increases. If you are a \
-                 medical institution and are willing to contribute to our effort, please reach out \
-                 to us [here](https://www.covidanalytics.io/contact).
-                 """,
-            )
-        ]
+    return [
+        html.H2("Analytics can identify infected patients"),
+        dcc.Markdown(
+             """COVID-19 tests are time consuming, expensive and require patients to visit \
+             facilities in person, increasing exposure to the virus. To help identifying \
+             symptomatic patients, we developed a data-driven calculator to predict the \
+             probability of being infected.
+             """,
+        ),
+        html.Hr(),
+        dcc.Markdown(
+             """ **NOTE (This is a developmental version!):** A model is only as good as the \
+             data it is trained on. We will release new versions of the calculator as the \
+             amount of data we receive from our partner institutions increases. If you are a \
+             medical institution and are willing to contribute to our effort, please reach out \
+             to us [here](https://www.covidanalytics.io/contact).
+             """,
+        )
+    ]
+
 
 def get_oxygen_text():
-    return ["Insert the value.","Do you have shortness of breath?"]
+    return ["Insert the value.", "Do you have shortness of breath?"]
 
-submit = "Submit"
 
 def get_insert_feat():
     return 'Insert the features below into the risk calculator.'
 
+
 def get_results_card_mortality():
     return "The mortality risk score is:"
+
 
 def get_results_card_infection():
     return ["The infection risk score is:", " out of 10"]
 
+
 def get_visual_1():
     return """The [SHAP plot](https://github.com/slundberg/shap) below summarizes the individual feature \
-            contributions to the risk score. Features in blue decrease risk from the population baseline, \
-            whereas features in red increase risk. The contribution is proportional to the width of the feature's \
-            bar. Wider bars have higher importance in the final risk score. \
-            Note: gender is encoded as a binary value (0=Male, 1=Female)."""
+        contributions to the risk score. Features in blue decrease risk from the population baseline, \
+        whereas features in red increase risk. The contribution is proportional to the width of the feature's \
+        bar. Wider bars have higher importance in the final risk score. \
+        Note: gender is encoded as a binary value (0=Male, 1=Female)."""
 
-def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
-    if labs:
-        intro = dcc.Markdown(
-             """
-             Our model was trained on {} patients (out of whom {}% deceased) hospitalized due to COVID-19 in: \
-             """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
-        )
-        auc = html.Div(
-             [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
-             html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
-             ]
-        )
-    else:
-        intro = dcc.Markdown(
-             """
-             Our model was trained on {} patients (out of whom {}% deceased) hospitalized due to COVID-19 in: \
-             """.format(no_labs_population[0],str(int(float(no_labs_positive[0])*100))),
-        )
-        auc = html.Div(
-            [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
-             html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".", html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
-             ]
-        )
 
-    return [ \
+def get_model_desc_mortality(auc, pop, pos):
+    return [
         html.H2("Technical details"),
-        intro,
         dcc.Markdown(
-             """* The Italian city of Cremona ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand positive cases to date.""",
+            """
+            Our model was trained on {} patients (out of whom {}% deceased) hospitalized due to COVID-19 in: \
+            """.format(pop[0], str(int(float(pos[0]) * 100))),
         ),
         dcc.Markdown(
-             """* [HM Hospitals](https://www.fundacionhm.com/), a leading Hospital Group in Spain with 15 general hospitals and 21 clinical \
-             centres that cover the regions of Madrid, Galicia, and León. """,
+             """* The Italian city of Cremona ([Azienda Socio-Sanitaria Territoriale di Cremona]\
+             (https://www.asst-cremona.it/en/home)). Cremona is one of the most severely hit italian provinces \
+             in Lombardy with several thousand positive cases to date.""",
         ),
         dcc.Markdown(
-             """* [Hartford HealthCare](https://hartfordhealthcare.org), a major hospital network serving patients throughout Connecticut (USA). """,
+             """* [HM Hospitals](https://www.fundacionhm.com/), a leading Hospital Group in Spain with 15 general \
+             hospitals and 21 clinical centres that cover the regions of Madrid, Galicia, and León. """,
         ),
         dcc.Markdown(
-             """Given our training population, we are most confident about the relevance of our model to: (a) Western population; \
-             (b) Severe to acute patients; (c) Congested hospitals. """,
+             """* [Hartford HealthCare](https://hartfordhealthcare.org), a major hospital network serving patients \
+             throughout Connecticut (USA). """,
+        ),
+        dcc.Markdown(
+             """Given our training population, we are most confident about the relevance of our model to: \
+             (a) Western population; (b) Severe to acute patients; (c) Congested hospitals. """,
         ),
         html.Hr(),
-        auc,
+        html.Div([
+            "The calculator is based on ", html.A("XGBoost classifier.", href="https://xgboost.readthedocs.io/"),
+            html.Br(),
+            "The out of sample area under the curve (AUC) on {} patients (out of whom {}% deceased) is ".format(
+                pop[1], str(int(float(pos[1]) * 100))),
+            html.Span(' {}'.format(auc), style={'color': '#800020', "fontWeight": "bold"}),
+            ".",
+            html.Br(),
+            "When features are missing, the calculator will impute and report their values."
+        ]),
         html.Br(),
         dcc.Markdown(
              """We use [SHAP plots](https://github.com/slundberg/shap) \
@@ -147,48 +158,29 @@ def get_model_desc_mortality(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
         dcc.Markdown("""Overall, the importance of the top features is as follows:"""),
     ]
 
-def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_population,labs_positive,no_labs_positive):
-    if labs:
-        auc = html.Div(
-             [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(labs_population[1],str(int(float(labs_positive[1])*100))),
-             html.Span(' {}'.format(labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
-             ]
-        )
-        desc = dcc.Markdown(
-             """
-             Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
-             who visited the emergency room in the italian city of Cremona \
-             ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
-             positive cases to date.
-             """.format(labs_population[0],str(int(float(labs_positive[0])*100))),
-        )
-    else:
-        auc = html.Div(
-            [
-             "The calculator is based on ", html.A("XGBoost classifier.",href = "https://xgboost.readthedocs.io/"), html.Br(),
-             "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(no_labs_population[1],str(int(float(no_labs_positive[1])*100))),
-             html.Span(' {}'.format(no_labs_auc), style={'color': '#800020',"fontWeight":"bold"}), ".",html.Br(),\
-             "When features are missing, the calculator will impute and report their values."
-             ]
-        )
-        desc = dcc.Markdown(
-             """
-             Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
-             who visited the emergency room in the italian city of Cremona \
-             ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
-             Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
-             positive cases to date.
-             """.format(no_labs_population[0],str(int(float(no_labs_positive[0])*100))),
-        )
-    return [ \
+
+def get_model_desc_infection(auc, pop, pos):
+    return [
         html.H2("Technical details"),
-        desc,
+        dcc.Markdown(
+            """Our model was trained on {} patients (out of whom {}% COVID-19 positive) \
+            who visited the emergency room in the italian city of Cremona \
+            ([Azienda Socio-Sanitaria Territoriale di Cremona](https://www.asst-cremona.it/en/home)). \
+            Cremona is one of the most severely hit italian provinces in Lombardy with several thousand \
+            positive cases to date.
+            """.format(pop[0], str(int(float(pos[0]) * 100))),
+        ),
         html.Hr(),
-        auc,
+        html.Div([
+            "The calculator is based on ", html.A("XGBoost classifier.", href="https://xgboost.readthedocs.io/"),
+            html.Br(),
+            "The out of sample area under the curve (AUC) on {} patients (out of whom {}% infected) is ".format(
+                pop[1], str(int(float(pos[1]) * 100.0))),
+            html.Span(' {}'.format(auc), style={'color': '#800020', "fontWeight": "bold"}),
+            ".",
+            html.Br(),
+            "When features are missing, the calculator will impute and report their values."
+        ]),
         html.Br(),
         dcc.Markdown(
              """We use [SHAP plots](https://github.com/slundberg/shap) \
@@ -205,9 +197,10 @@ def get_model_desc_infection(labs,labs_auc,no_labs_auc,labs_population,no_labs_p
              correspond to male patients."""),
         dcc.Markdown("""Overall, the importance of the top features is as follows:"""),
     ]
+
 
 def get_feature_names():
-        return {
+    return {
         'ABG: Oxygen Saturation (SaO2)': 'Oxygen Saturation',
         'Alanine Aminotransferase (ALT)': 'Alanine Aminotransferase',
         'Age': 'Age',
@@ -223,8 +216,7 @@ def get_feature_names():
         'CBC: Platelets': 'Platelets',
         'CBC: Red cell Distribution Width (RDW)': 'Red Cell Distribution Width',
         'Cardiac Frequency': 'Heart Rate',
-        'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
-        'Gender' : 'Gender',
+        'Gender': 'Gender',
         'Glycemia': 'Blood Glucose',
         'Potassium Blood Level': 'Potassium',
         'Prothrombin Time (INR)': 'Prothrombin Time',
@@ -237,7 +229,7 @@ def get_feature_names():
         'Respiratory Frequency': 'Respiratory Frequency',
         'ABG: MetHb': 'Arterial Blood Gas Methemoglobinemia',
         'Total Bilirubin': 'Total Bilirubin',
-        'Comorbidities':'Comorbidities',
+        'Comorbidities': 'Comorbidities',
         'Diabetes': 'Diabetes',
         'Chronic kidney disease': 'Chronic kidney disease',
         'Cardiac dysrhythmias': 'Cardiac dysrhythmias',
