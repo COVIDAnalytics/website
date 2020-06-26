@@ -4,10 +4,8 @@
 name: Python application
 
 on:
-  push:
-    branches: [ travis ]
   pull_request:
-    branches: [ travis ]
+    branches: [ ci-test ]
 
 jobs:
   build:
@@ -29,4 +27,5 @@ jobs:
       run: |
         python3 -c "print('Hello from Python')"
         python3 ./CI/check_csv.py
+        cat test.csv
 
