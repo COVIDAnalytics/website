@@ -5,9 +5,9 @@ name: Python application
 
 on:
   push:
-    branches: [ ci-test ]
+    branches: [ ci-test ci-workflow ]
   pull_request:
-    branches: [ ci-test ]
+    branches: [ ci-test ci-workflow ]
 
 jobs:
   build:
