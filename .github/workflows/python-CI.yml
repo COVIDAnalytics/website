@@ -20,7 +20,7 @@ jobs:
       with: 
         ref: master
     - name: Copy old CSV to /tmp
-    - run: |
+      run: |
         cp test.csv /tmp/test-master.csv 
     - name: Checkout ci-test
       uses: actions/checkout@v2
