@@ -23,3 +23,8 @@
   website: "https://www.sotiria.gr/"
   text: "Sotiria Thoracic Diseases Hospital of Athens is the principal hospital of Greece managing COVID-19 cases. Located at the city center of Athens, it has a history of over 120 years. Nowadays, it is considered the biggest national hospital for lung disease and one of the most renowned institutions in Europe for this type of patients."
   padding: 10
+- name: "HUVR"
+  photo: "HUVR_logo.png"
+  website: "https://www.hospitaluvrocio.es/"
+  text: "Virgen del Rocio University Hospital (HUVR), located in Seville, Spain, belongs to the Andalusian Public Health System (SAS) and is a multi-centre hospital complex. It is a third level hospital whose area of influence is Western Andalusia: Seville and Huelva."
+  padding: 30

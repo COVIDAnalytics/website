@@ -33,7 +33,7 @@ def get_page_desc_mortality(labs_auc, no_labs_auc):
             """,
         ),
         dcc.Markdown(
-            """ Wir haben zwei Rechner entwickelt, die **die Todeswahrscheinlichkeit eines im Krankenhaus \
+            """ Wir haben zwei Rechner entwickelt, die **die Mortalitätsrate eines im Krankenhaus \
               aufgenommenen COVID-19 Patienten** einschätzen."""),
         dcc.Markdown(
             """* Einen Rechner der demografische Informationen, Vitalparameter, Komorbiditäten, und **Laborwerte** \
@@ -43,8 +43,8 @@ def get_page_desc_mortality(labs_auc, no_labs_auc):
             """.format(labs_auc),
         ),
         dcc.Markdown(
-            """* Einen Rechner der demografische Informationen, Vitalparameter, Komorbiditäten \
-             **aber keine Laborwerte** verwendet. Wir stellen uns vor, das dieses Modell während der Erstaufnahme \
+            """* Einen Rechner der demografische Informationen, Vitalparameter, Komorbiditäten, \
+             **aber keine Laborwerte** verwendet. Wir stellen uns vor, dass dieses Modell während der Erstaufnahme \
              eines COVID-19 Patienten die Schwere seines Zustandes vorläufig einschätzten wird. \
              Die Fläche unter der Kurve (AUC) von Vorhersagungen außerhalb der Stichproben ist {}.
              """.format(no_labs_auc),
@@ -90,11 +90,11 @@ def get_insert_feat():
 
 
 def get_results_card_mortality():
-    return "Das Sterblichkeitsrisiko ist:"
+    return "Die Mortalitätsrate ist:"
 
 
 def get_results_card_infection():
-    return ["Der Infektionsrisikowert ist:", " aus 10"]
+    return ["Die Infektionsrate ist:", " von 10"]
 
 
 def get_visual_1():
@@ -152,8 +152,8 @@ def get_model_desc_mortality(auc, pop, pos):
              sortiert, mit der wichtigsten Charakteristik oben. Für eine gegeben Charakteristik zeigt die \
              korrespondierende Grafik wie stark der Einfluss der Charakteristik auf das Endergebnis ist, mit rot \
              als größter Einfluss und blau als kleinster. Höhere SHAP Werte entsprechen erhöhten Wahrscheinlichkeiten \
-             eines positiven Endergebnisses (z. B. Todeswahrscheinlichkeit oder Infektionswahrscheinlichkeit). \
-             Daher, Charakteristiken mit dem Farbverlauf von blau zu rot (von links nach rechts) haben einen \
+             eines positiven Endergebnisses (z. B. Tod oder Infektion). \
+             Charakteristiken mit dem Farbverlauf von blau zu rot (von links nach rechts) haben daher einen \
              erhöhten Risikowert, wenn die Charakteristik steigt, sowie mit Alter. Charakteristiken die von rot \
              zu blau verlaufen, haben einen niedrigeren Risikowert, wenn die Charakteristik steigt, sowie mit \
              Sauerstoffsättigung. Hinweis: Geschlecht wird als Binärwert enkodiert (0=Männlich, 1=Weiblich), \
@@ -193,9 +193,9 @@ def get_model_desc_infection(auc, pop, pos):
              ihrer Wichtigkeit und Direktionalität zusammen. Die Charakteristiken werden nach abnehmender Wichtigkeit \
              sortiert, mit der wichtigsten Charakteristik oben. Für eine gegeben Charakteristik zeigt die \
              korrespondierende Grafik wie stark der Einfluss der Charakteristik auf das Endergebnis ist, mit rot \
-             als größter Einfluss und blau als kleinster. Höhere SHAP Werte entsprechen erhöhten Wahrscheinlichkeiten \
-             eines positiven Endergebnisses (z. B. Todeswahrscheinlichkeit oder Infektionswahrscheinlichkeit). \
-             Daher, Charakteristiken mit dem Farbverlauf von blau zu rot (von links nach rechts) haben einen \
+             nals größter Einfluss und blau als kleinster. Höhere SHAP Werte entsprechen erhöhten Wahrscheinlichkeiten \
+             eines positiven Endergebnisses (z. B. Tod oder Infektion). \
+             Charakteristiken mit dem Farbverlauf von blau zu rot (von links nach rechts) haben daher einen \
              erhöhten Risikowert, wenn die Charakteristik steigt, sowie mit Alter. Charakteristiken die von rot \
              zu blau verlaufen, haben einen niedrigeren Risikowert, wenn die Charakteristik steigt, sowie mit \
              Sauerstoffsättigung. Hinweis: Geschlecht wird als Binärwert enkodiert (0=Männlich, 1=Weiblich), \
