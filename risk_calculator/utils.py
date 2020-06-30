@@ -59,7 +59,6 @@ def valid_input(features, feature_vals, length, language):
     for feat in range(length):
         val = numerics[feat]
         if val is None:
-            # TODO: This could be generalized to any feature. Should it? No, right.
             if features[feat]["name"] == "Age":
                 return False, langs[language].prompt_missing_feature(features[feat]["name"]), feature_vals
             feature_vals[feat+1] = np.nan
@@ -105,6 +104,7 @@ def predict_risk(m, model, features, imputer, explainer, feature_vals, columns, 
         for c in comorbidities:
             ind = features["multidrop"][0]["vals"].index(c)
             x[indexes[ind]] = 1
+    print(x)
     imputed = np.argwhere(np.isnan(x))
     x_full = imputer.transform([x])
     _X = pd.DataFrame(columns=columns, index=range(1), dtype=np.float)

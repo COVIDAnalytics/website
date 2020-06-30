@@ -207,73 +207,108 @@ def build_checkbox_card(_id, m, content_dict):
 def build_multidrop_card(_id, m, content_dict, language):
     """Used to select multiple from chronic diseases at bottom of mortality calculator"""
     title_mapping = get_title_mapping()
-    insert_data = [
-        dbc.Col(
-            html.Div(
-                id="calc-multidrop-{}-wrapper".format(_id),
-                children=dcc.Dropdown(
-                    options=[{'label': title_mapping[language][x], 'value': x} for x in content_dict['vals']],
-                    value=[],
-                    id={
-                        'type': 'mortality' if m else 'infection',
-                        'index': "calc-multidrop-{}".format(_id)
-                    },
-                    className="dcc_dropdown",
-                    multi=True
-                ),
-            )
-        ),
-    ]
-    card = [
-        dbc.Row(
-            insert_data
+    return [
+        dcc.Dropdown(
+            options=[{'label': title_mapping[language][x], 'value': x} for x in content_dict['vals']],
+            value=[],
+            id={
+                'type': 'mortality' if m else 'infection',
+                'index': "calc-multidrop-{}".format(_id)
+            },
+            className="dcc_dropdown calc-multidrop-{}".format(_id),
+            multi=True
         ),
         dbc.Tooltip(
             content_dict['explanation'],
-            target="calc-multidrop-{}-wrapper".format(_id),
+            target=".calc-multidrop-{}".format(_id)
         ),
     ]
-    return card
 
 
 # TODO: Dropdown tooltips are not translated
 def build_feature_cards(features, m=True, labs=False, language=0):
     """This builds all the feature cards"""
-    card_content = []
     cards = []
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
     title_mapping = get_title_mapping()
+
+    # The scaffold that will hold ordered feature cards
+    feature_scaffold = [
+        {
+            "group": "Vitals",
+            "features": ["age", "gender", "temp", "cardiac freq"],
+        },
+        {
+            "group": "Bloodwork",
+            "features": ["SaO2", "CRP", "BUN", "sodium"],
+        },
+        {
+            "group": "Other",
+            "features": []
+        }
+    ]
+    for group in feature_scaffold:
+        group["cards"] = [(None, [])] * len(group["features"])
+
+    # Add a card into its right place in the scaffold
+    def add_feature(feature_name, feature_card):
+        # Try to add card to its appropraite group
+        for grp in enumerate(feature_scaffold):
+            # Check if name is in this group's features
+            for fname in enumerate(grp[1]["features"]):
+                if fname[1].lower() in feature_name.lower():
+                    feature_scaffold[grp[0]]["cards"][fname[0]] = (feature_name, feature_card)
+                    return
+        # Add card to default group
+        feature_scaffold[-1]["cards"].append((feature_name, feature_card))
+
+    # Loop over all features from the json and add the to the scaffold
     for _id, content_dict in enumerate(dropdowns):
-        card_content.append((
+        add_feature(
             content_dict['name'],
             build_dropdown_card(str(_id), m, content_dict, language)
-        ))
+        )
     for _id, content_dict in enumerate(inputs):
         if not labs and title_mapping[0][content_dict['name']] == oxygen:
-            card_content.append((
+            add_feature(
                 content_dict['name'],
                 build_oxygen_card(str(_id), labs, m, content_dict, language)
-            ))
+            )
         else:
-            card_content.append((
-                content_dict['name'], build_input_card(str(_id), m, content_dict)
-            ))
+            add_feature(
+                content_dict['name'],
+                build_input_card(str(_id), m, content_dict)
+            )
     if m:
         for _id, content_dict in enumerate(multidrop):
-            card_content.append((
-                content_dict['name'], build_multidrop_card(str(_id), m, content_dict, language)
-            ))
+            add_feature(
+                content_dict['name'],
+                build_multidrop_card(str(_id), m, content_dict, language)
+            )
 
-    for name, c in card_content:
-        content = dbc.Card([
-            dbc.CardHeader(title_mapping[language][name], style={"fontWeight": "bold"}),
-            dbc.CardBody(c, className="feat-options-body")
-        ], className="feat-options")
+    card_num = 0
+
+    # Loop through all cards in the scaffold in order using nested list comprehension :-)
+    for name, feature_card in [feature for grp in feature_scaffold for feature in grp["cards"]]:
+
+        # Skip unpopulated cards
+        if name is None:
+            continue
+
+        print(name)
+        content = html.Div(
+            **{"data-aos": "fade-up", "data-aos-delay": str(card_num % 4 * 150), "data-aos-mirror": "true"},
+            className="",
+            children=dbc.Card([
+                dbc.CardHeader(title_mapping[language][name], style={"fontWeight": "bold"}),
+                dbc.CardBody(feature_card, className="feat-options-body")
+            ], className="feat-options")
+        )
 
         if name == "Comorbidities":
-            w2 = 12
+            w2 = 6
             w1 = 12
         elif not labs and title_mapping[0][name] == oxygen:
             w2 = 6
@@ -281,8 +316,9 @@ def build_feature_cards(features, m=True, labs=False, language=0):
         else:
             w2 = 3
             w1 = 6
-        card = dbc.Col(
+        cards.append(dbc.Col(
             [content],
+            id=name+"-labs" if labs else name,
             style={
                 'paddingBottom': 20,
                 'borderColor': 'red'
@@ -291,6 +327,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             sm=w1,
             md=w1,
             lg=w2,
-        )
-        cards.append(card)
+        ))
+        cards.append(html.Div(style={"display": "none"}, id=name if labs else name + "-labs"))
+        card_num += 1
     return cards

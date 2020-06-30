@@ -2,6 +2,7 @@ import math
 
 import dash_html_components as html
 import dash_bootstrap_components as dbc
+import visdcc
 
 from navbar import Navbar
 from footer import Footer
@@ -28,8 +29,8 @@ def InfectionRiskCalc():
         get_feature_importance('feature-importance-bar-graph-infection'),
         className="page-body"
     )
-
-    layout = html.Div([nav, body, footer], className="site")
+    layout = html.Div([
+        nav, body, footer], className="site")
     return layout
 
 

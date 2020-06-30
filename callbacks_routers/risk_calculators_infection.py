@@ -174,3 +174,6 @@ def register_callbacks(app):
                 return default, err, '', '', {}, ''
         # user has not clicked submit
         return default, '', '', '', {}, ''
+        # Add js callback here to refresh
+
+

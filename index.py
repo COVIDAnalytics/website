@@ -46,7 +46,9 @@ app.layout = html.Div([
     dcc.Location(id = 'url', refresh = False),
     html.Div(id = 'page-content')
 ])
-app.scripts.append_script({'external_url':'https://covidanalytics.io/assets/gtag.js'})
+app.scripts.append_script({'external_url': 'https://covidanalytics.io/assets/gtag.js'})
+app.scripts.append_script({'external_url': 'https://localhost:8085/assets/js/aos.js'})
+app.scripts.append_script({'external_url': 'https://localhost:8085/assets/js/index.js'})
 
 ventilators.register_callbacks(app)
 insights.register_callbacks(app)
@@ -54,6 +56,7 @@ projections.register_callbacks(app)
 risk_calculators_infection.register_callbacks(app)
 risk_calculators_mortality.register_callbacks(app)
 policies.register_callbacks(app)
+
 
 @app.server.route('/favicon.ico')
 def favicon():
@@ -104,6 +107,7 @@ def toggle_navbar_collapse(n, is_open):
     if n:
         return not is_open
     return is_open
+
 
 if __name__ == '__main__':
     app.run_server(debug=True)
