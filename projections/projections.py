@@ -33,6 +33,8 @@ def ProjectState():
                     dcc.Markdown('''If you want to learn more, check out the \
                                  [documentation](/projections_documentation) or \
                                  [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                    dcc.Markdown('''**Note: The model has been updated on 7/4/2020 to better reflect the resurgence of \
+                                 cases in various locations. The projections could differ significantly from previous results in certain areas.** '''),
                     dbc.Card(
                         [
                             dbc.CardBody(
