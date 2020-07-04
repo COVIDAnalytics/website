@@ -1,6 +1,7 @@
 from datetime import datetime as dt
 import os
 import pandas as pd
+import urllib
 
 from dash.dependencies import Output, Input
 import flask
@@ -138,16 +139,21 @@ def register_callbacks(app):
         [Input('base-model-dropdown', 'value')])
     def update_download_link_demand(chosen_model):
         if chosen_model == "Washington IHME":
-            return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/state_supplies_table-ihme.csv"
-        return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/state_supplies_table-ode.csv"
+            df_shortage = pd.read_csv('data/predicted_ventilator/state_supplies_table-ihme.csv', sep=",", parse_dates = ['Date'])
+        else:
+            df_shortage = pd.read_csv('data/predicted_ventilator/state_supplies_table-ode.csv', sep=",", parse_dates = ['Date'])
+        df_shortage = df_shortage.to_csv(index=False, encoding='utf-8')
+        return "data:text/csv;charset=utf-8," + urllib.parse.quote(df_shortage)
 
     @app.callback(
         Output('download-link-tranfers', 'href'),
         [Input('base-model-dropdown', 'value')])
     def update_download_link_transfers(chosen_model):
         if chosen_model == "Washington IHME":
-            return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/transfers_table-ihme.csv"
-        return "https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/predicted_ventilator/transfers_table-ode.csv"
+            transfers_csv_string = df_mod1_transfers.to_csv(index=False, encoding='utf-8')
+        else:
+            transfers_csv_string = df_mod2_transfers.to_csv(index=False, encoding='utf-8')
+        return "data:text/csv;charset=utf-8," + urllib.parse.quote(transfers_csv_string)
 
     @app.server.route('/ventilator_documentation_pdf', methods=['GET', 'POST'])
     def download_ventilator_documentation():

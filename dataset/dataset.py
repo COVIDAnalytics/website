@@ -22,6 +22,11 @@ def Dataset():
 	data_csv_string = df.to_csv(index=False, encoding='utf-8')
 	data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
 
+	ref_data = "data/reference_ranges.csv"
+	ref = pd.read_csv(ref_data)
+	ref_data_csv_string = ref.to_csv(index=False, encoding='utf-8')
+	ref_data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(ref_data_csv_string)
+
 	df = df.loc[:,get_data_cols()]
 	df = df.head(50)
 
@@ -100,8 +105,9 @@ def Dataset():
 						html.A(
 							"Download the Data",
 							id="download-link",
-							href="https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/clinical_outcomes_database.csv"
-						),
+							download="covid_analytics_clinical_data.csv",
+							href=data_csv_string,
+		        			target="_blank"						),
 						style={'textAlign':"center"}
 					)
 				),
@@ -110,8 +116,9 @@ def Dataset():
 						html.A(
 							"Download the Reference for Lab Values",
 							id="download-reference-link",
-							href="https://raw.githubusercontent.com/COVIDAnalytics/website/master/data/reference_ranges.csv"
-						),
+							download="covid_analytics_reference_ranges.csv",
+							href=ref_data_csv_string,
+		        			target="_blank"						),
 						style={'textAlign':"center"}
 					)
 				),
