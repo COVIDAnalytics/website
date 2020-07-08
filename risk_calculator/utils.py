@@ -51,60 +51,83 @@ def get_oxygen_info(cols, feats):
 
 
 # Validates the user input into calculator
-def valid_input(features, feature_vals, length, language):
+def valid_input(numeric_features, user_features, language):
     title_mapping = get_title_mapping()
-    # assume theres only one categorical
-    numerics = feature_vals[1:length+1]
     missing = 0
-    for feat in range(length):
-        val = numerics[feat]
-        if val is None:
-            if features[feat]["name"] == "Age":
-                return False, langs[language].prompt_missing_feature(features[feat]["name"]), feature_vals
-            feature_vals[feat+1] = np.nan
-            missing += 1
-        else:
-            content = features[feat]
-            name = content["name"]
-            min_val = content["min_val"]
-            max_val = content["max_val"]
-            if title_mapping[0][name] == oxygen and (val == 1 or val == 0):
-                continue
-            if val < min_val or val > max_val:
-                return False, \
-                    langs[language].outOfRangeValues.format(title_mapping[language][name], min_val, max_val),\
-                    feature_vals
-    threshold = math.floor(2*length/3)
+    for i, user_feature in enumerate(user_features):
+        print("Examining: " + str(user_feature))
+        f_name = user_feature["id"]["feature"]
+
+        # Only check for numeric values
+        if "numeric" in user_feature["id"]["index"]:
+            user_val = user_feature["value"] if "value" in user_feature else None
+            if user_val is None:
+                if f_name == "Age":
+                    return False, langs[language].prompt_missing_feature(f_name)
+                # Change None to np.nan. +1 offset bec assume 1 catageorical at index 0
+                user_features[i]["value"] = np.nan
+                missing += 1
+            else:
+                # Find the json feature from numeric_features with the name of the current user feature
+                numeric_feature = [f for f in numeric_features if f["name"] == f_name][0]
+
+                # Lazy save the index for later (so we don't have to search the json again)
+                user_features[i]["x-index"] = numeric_feature["index"]
+
+                # Check if user provided input is within range
+                min_val = numeric_feature["min_val"]
+                max_val = numeric_feature["max_val"]
+                if title_mapping[0][f_name] == oxygen and (user_val == 1 or user_val == 0):
+                    continue
+                if user_val < min_val or user_val > max_val:
+                    return False, \
+                        langs[language].outOfRangeValues.format(title_mapping[language][f_name], min_val, max_val),
+    # user should give at least 2/3 of features
+    threshold = math.floor(2 * len(numeric_features) / 3)
     if missing > threshold:
-        return False, langs[language].notEnoughValues.format(threshold), feature_vals
-    return True, "", feature_vals
+        return False, langs[language].notEnoughValues.format(threshold)
+    return True, ""
 
 
 # Uses model and features to predict score
-def predict_risk(m, model, features, imputer, explainer, feature_vals, columns, temp_unit, language):
-    x = [0]*len(model.feature_importances_)
+def predict_risk(m, model, features, imputer, explainer, user_features, columns, language):
+    x = [0] * len(model.feature_importances_)
+    all_features = features["numeric"] + features["categorical"] + features["multidrop"]
+    print(features)
 
-    # if temperature is in F, switch measurement to Celsius
-    convert_temperature = temp_unit[0] == "°C"
+    # Loop through all user provided features
+    for feat in user_features:
 
-    # align order of feature vector so that values are in correct order
-    i = 0
-    for feat in features["categorical"]:
-        x[feat["index"]] = feature_vals[i]
-        i += 1
-    for f, feat in enumerate(features["numeric"]):
-        if feat["name"] == "Body Temperature" and convert_temperature:
-            x[feat["index"]] = cvt_temp_c2f(feature_vals[i])
+        # Get name of current feature
+        f_name = feat["id"]["feature"]
+
+        print("Inserting " + f_name)
+
+        # The index that this feature should be assigned to in the input vector, x
+        index = -1
+
+        # Check if cached index is there
+        if "x-index" in feat:
+            print("Using cached index...")
+            index = feat["x-index"]
         else:
-            x[feat["index"]] = feature_vals[i]
-        i += 1
-    if m:
-        comorbidities = feature_vals[i]
-        indexes = features["multidrop"][0]["index"]
-        for c in comorbidities:
-            ind = features["multidrop"][0]["vals"].index(c)
-            x[indexes[ind]] = 1
-    print(x)
+            # If not, find the index
+            json_feature = [f for f in all_features if f["name"] == f_name][0]
+            if f_name != "Comorbidities":
+                index = json_feature["index"]
+            else:
+                # Handle special case
+                for comorb in feat["value"]:
+                    c_idx = features["multidrop"][0]["vals"].index(comorb)
+                    index = features["multidrop"][0]["index"][c_idx]
+                    print("Setting comorbitidity " + comorb + " to true at index " + str(index))
+                    x[index] = 1
+                continue
+
+        print("Found index: " + str(index))
+        # Assign value to right index in input vector
+        x[index] = feat["value"]
+
     imputed = np.argwhere(np.isnan(x))
     x_full = imputer.transform([x])
     _X = pd.DataFrame(columns=columns, index=range(1), dtype=np.float)

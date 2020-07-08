@@ -29,6 +29,10 @@ import callbacks_routers.risk_calculators_mortality as risk_calculators_mortalit
 import callbacks_routers.risk_calculators_infection as risk_calculators_infection
 import callbacks_routers.policies as policies
 
+external_stylesheets = [
+    dbc.themes.UNITED,
+    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
+]
 app = dash.Dash(
         __name__,
         external_stylesheets=[dbc.themes.UNITED],

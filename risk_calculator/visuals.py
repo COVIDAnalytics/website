@@ -8,26 +8,30 @@ def get_labs_indicator(_id):
     """This is the card where user selects if he has lab values or not"""
     return [
         dbc.Row(
-            justify="center", style={"paddingBottom": 20},
+            justify="center",
             children=dbc.Col(
-                xs=12, sm=12, md=6, lg=6,
+                xs=12, sm=12, md=12, lg=9,
                 children=dbc.Card(
-                    className="projections-general-card h-100",
-                    children=dbc.CardBody([
-                        dcc.Markdown(id=_id + "_text"),
-                        dbc.Row([
-                            dbc.Col(
-                                html.Div([
-                                    dcc.Dropdown(
-                                        clearable=False,
-                                        id=_id,
-                                        value=0,
-                                        className="dcc_dropdown",
-                                    ),
-                                ]),
-                            ),
+                    style={"border-width": "0px"},
+                    className="elevation-3",
+                    children=[
+                        dbc.CardHeader(id=_id + "_text",
+                                       style={"fontWeight": "bold"}),
+                        dbc.CardBody([
+                           dbc.Row([
+                                dbc.Col(
+                                    html.Div([
+                                        dcc.Dropdown(
+                                            clearable=False,
+                                            id=_id,
+                                            value=0,
+                                            className="dcc_dropdown",
+                                        ),
+                                    ]),
+                                ),
+                            ]),
                         ]),
-                    ]),
+                    ]
                 ),
             ),
         )
@@ -66,11 +70,15 @@ def get_feature_cards(_id):
     """Create feature card container"""
     return [
         # The headline that says 'insert the features below'
-        dbc.Row([
-            dbc.Col(
-                id=_id + "-text",
-            ),
-        ]),
+        dbc.Row(
+            justify="center",
+            style={"padding": 50, "opacity": "0.8"},
+            children=[
+                html.Div(
+                    id=_id + "-text",
+                ),
+            ]
+        ),
         # The container of feature cards
         dbc.Row(
             id=_id,

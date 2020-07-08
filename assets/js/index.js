@@ -1,5 +1,5 @@
 AOS.init({
-  duration: 1200,
+  duration: 1000,
 })
 
 document.body.onload = function() {

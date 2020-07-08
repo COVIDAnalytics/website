@@ -16,35 +16,41 @@ def build_feature_importance_graph(m=True, labs=False):
 
 
 def map_feat_vals(x, name, language):
+    print("X IS" + str(x))
     if name == "Gender":
         return langs[language].get_gender(x == 0)
-    return x
+    return "Chungus"
 
 
-def build_dropdown_card(_id, m, content_dict, language):
+def build_dropdown_card(_id, m, content_dict, language, feature_name, readable_name):
     """Makes feature card with dropdown data"""
     insert_data = [
         dbc.Col(
-            html.Div(
-                id='calc-categorical-{}-wrapper'.format(_id),
-                children=dcc.Dropdown(
-                    id={
-                        'type': 'mortality' if m else 'infection',
-                        'index': 'calc-categorical-{}'.format(_id),
-                    },
-                    options=[{'label': map_feat_vals(x, content_dict["name"], language), 'value': x}
-                             for x in content_dict['vals']],
-                    value=0,
-                    style={"width": 110},
-                    className="dcc_dropdown",
-                    clearable=False,
+           children=[
+                html.H5(readable_name, className="input-label"),
+                html.Div(
+                    id='calc-categorical-{}-wrapper'.format(_id),
+                    children=dcc.Dropdown(
+                        id={
+                            'type': 'mortality' if m else 'infection',
+                            'index': 'calc-categorical-{}'.format(_id),
+                            'feature': feature_name
+                        },
+                        options=[{'label': map_feat_vals(x, content_dict["name"], language), 'value': x}
+                                 for x in content_dict['vals']],
+                        value=0,
+                        className="dcc_dropdown feature-dropdown",
+                        clearable=False,
+                    ),
                 ),
-            ),
+            ]
         ),
     ]
     card = [
         dbc.Row(
             insert_data,
+            no_gutters=True,
+            style={"width": "100%"}
         ),
         dbc.Tooltip(
             content_dict['explanation'],
@@ -60,47 +66,55 @@ def oxygen_options(_id, m, have_val, text, language):
     id_full = {
         'type': 'mortality' if m else 'infection',
         'index': "calc-numeric-{}".format(_id),
+        'feature': "SaO2"  # This is the no_labs version of oxygen saturation (index 8), as opposed to
+        # ABG: Oxygen Saturation (SaO2) which is the labs version of it (index 2)
     }
     if have_val:
-        return [
-            dbc.Col(
-                html.Div(text[0]),
-            ),
-            dbc.Col(
-                dcc.Input(
-                    id=id_full,
-                    type="number",
-                    placeholder="e.g. 92",
-                    style={"width": 80},
-                )
-            )
-        ]
+        label = text[0]
+        small_label = False
+        content = dbc.Input(
+            id=id_full,
+            type="number",
+            placeholder="e.g. 92",
+            className="numeric-input",
+            bs_size="lg"
+        )
     else:
-        return [
-            dbc.Col(
-                html.Div(text[1]),
-            ),
-            dbc.Col(
-                dcc.Dropdown(
-                    id=id_full,
-                    options=[{'label': oxygen_vals(x, language), 'value': x} for x in [92, 98]],
-                    value=98,
-                    style={"width": 80},
-                    className="dcc_dropdown",
-                    clearable=False
+        label = text[1]
+        small_label = True
+        content = dcc.Dropdown(
+            id=id_full,
+            options=[{'label': oxygen_vals(x, language), 'value': x} for x in [92, 98]],
+            value=98,
+            style={"width": 80},
+            className="dcc_dropdown",
+            clearable=False
+        )
+    return [
+        dbc.Col(
+            align="end",
+            children=[
+                html.Div(html.H5(label, className="input-label", style={"font-size": "15px"} if small_label else {}),
+                         style={"text-align": "end"}),
+                dbc.Row(
+                    content,
+                    align="end",
+                    justify="end",
+                    no_gutters=True,
                 ),
-            )
-        ]
+            ]
+        )
+    ]
 
 
 def build_oxygen_card(_id, labs, m, content_dict, language):
     """Oxygen Saturation Card and Top Input Builder (Builds card and uppper text and dropdowns of last card.)"""
     model = 'mortality' if m else 'infection'
     lab_str = "labs" if labs else "nolabs"
-    insert_data = [
+    card = [
         dbc.Row([
-            dbc.Col(html.Div(langs[language].hasO2Value)),
-            dbc.Col(
+            dbc.Col(children=[
+                html.H5(langs[language].hasO2Value, className="input-label", style={"font-size": "15px"}),
                 dcc.Dropdown(
                     id="oxygen-answer-{}".format(model),
                     options=[{'label': labs_ques(x, language), 'value': x} for x in [1, 0]],
@@ -108,18 +122,15 @@ def build_oxygen_card(_id, labs, m, content_dict, language):
                     style={"width": 80},
                     className="dcc_dropdown",
                     clearable=False
-                ),
+                )
+            ]),
+            dbc.Col(
+                align="end",
+                # This is a wrapper. The return value of oxygen_options gets placed into here when the
+                # get_oxygen_infection/mortality callback gets invoked
+                id="calc-numeric-{}-wrapper-{}-{}".format(_id, model, lab_str),
             )
         ]),
-        dbc.Row(
-            id="calc-numeric-{}-wrapper-{}-{}".format(_id, model, lab_str),
-        )
-    ]
-
-    card = [
-        dbc.Row(
-            insert_data,
-        ),
         dbc.Tooltip(
             content_dict['explanation'],
             target="calc-numeric-{}-wrapper-{}-{}".format(_id, model, lab_str),
@@ -128,44 +139,48 @@ def build_oxygen_card(_id, labs, m, content_dict, language):
     return card
 
 
-def build_input_card(_id, m, content_dict):
+def build_input_card(_id, m, content_dict, feature_name, readable_name):
+    is_temp = content_dict["name"] == "Body Temperature"
     insert_data = [
-        dbc.Col(
+        dbc.Col([
+            html.H5(readable_name, className="input-label"),
             html.Div(
                 id="calc-numeric-{}-wrapper".format(_id),
-                children=dcc.Input(
+                children=dbc.Input(
                     id={
                         'type': 'mortality' if m else 'infection',
                         'index': "calc-numeric-{}".format(_id),
+                        'feature': feature_name
                     },
                     type="number",
                     placeholder="e.g. {}".format(int(content_dict['default'])),
-                    style={"width": 90}
+                    className="numeric-input " + "temp-input" if is_temp else "",
+                    bs_size="lg"
                 ),
             ),
+        ], style={"padding-right": "0px" if is_temp else "15px"}, align="stretch"
         ),
     ]
-    if content_dict["name"] == "Body Temperature":
+    if is_temp:
         insert_data.append(
-            dbc.Col(
-                html.Div(
-                    dcc.Dropdown(
-                        id={
-                            'type': 'temperature',
-                            'index': "units",
-                        },
-                        options=[{'label': x, 'value': x} for x in ["°F", "°C"]],
-                        value="°F",
-                        style={"width": 80},
-                        className="dcc_dropdown",
-                        clearable=False
-                    ),
-                ),
+            dcc.Dropdown(
+                id={
+                    'type': 'temperature',
+                    'index': "units",
+                },
+                options=[{'label': x, 'value': x} for x in ["°F", "°C"]],
+                value="°F",
+                className="dcc_dropdown temp-dropdown",
+                clearable=False
             ),
+
         )
     card = [
         dbc.Row(
             insert_data,
+            align="end",
+            no_gutters=True,
+            style={"width": "100%"}
         ),
         dbc.Tooltip(
             content_dict['explanation'],
@@ -176,7 +191,7 @@ def build_input_card(_id, m, content_dict):
 
 
 # TODO: This function is not being used anywhere (no checkbox cards). Kill it?
-def build_checkbox_card(_id, m, content_dict):
+def build_checkbox_card(_id, m, content_dict, feature_name):
     insert_data = [
         dbc.Col(
             html.Div(
@@ -187,6 +202,7 @@ def build_checkbox_card(_id, m, content_dict):
                     id={
                         'type': 'mortality' if m else 'infection',
                         'index': "calc-checkboxes-{}".format(_id),
+                        'feature': feature_name
                     },
                 ),
             ),
@@ -204,7 +220,7 @@ def build_checkbox_card(_id, m, content_dict):
     return card
 
 
-def build_multidrop_card(_id, m, content_dict, language):
+def build_multidrop_card(_id, m, content_dict, language, feature_name):
     """Used to select multiple from chronic diseases at bottom of mortality calculator"""
     title_mapping = get_title_mapping()
     return [
@@ -213,9 +229,12 @@ def build_multidrop_card(_id, m, content_dict, language):
             value=[],
             id={
                 'type': 'mortality' if m else 'infection',
-                'index': "calc-multidrop-{}".format(_id)
+                'index': "calc-multidrop-{}".format(_id),
+                'feature': feature_name
             },
+            # Classname needed for tooltip target
             className="dcc_dropdown calc-multidrop-{}".format(_id),
+            style={"width": "100%"},
             multi=True
         ),
         dbc.Tooltip(
@@ -229,6 +248,7 @@ def build_multidrop_card(_id, m, content_dict, language):
 def build_feature_cards(features, m=True, labs=False, language=0):
     """This builds all the feature cards"""
     cards = []
+    print(features)
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
@@ -237,12 +257,61 @@ def build_feature_cards(features, m=True, labs=False, language=0):
     # The scaffold that will hold ordered feature cards
     feature_scaffold = [
         {
-            "group": "Vitals",
-            "features": ["age", "gender", "temp", "cardiac freq"],
+            "group": "Demographics",
+            "features": ["age", "gender"],
+            "mortality": {
+                "layout": "2x1",
+                "layout_m": "1x2"
+            },
         },
         {
-            "group": "Bloodwork",
-            "features": ["SaO2", "CRP", "BUN", "sodium"],
+            "group": "Vitals",
+            "features": ["body temp", "cardiac freq", "SaO2", "respiratory freq"],
+            "mortality": {
+                "layout": "2x2",
+                "expanded": {
+                    "SaO2": 2  # Expand Sao2 card by a factor of 2
+                }
+            }
+        },
+        {
+            "group": "Metabolic Panel",
+            "features": ["alanine amino", "aspartate amino", "bilirubin", "calcium", "creatin", "sodium", "urea nitro"],
+            "mortality": {
+                "layout": "3x3",
+                "layout_m": "4x2",
+                "expanded": {
+                    "aspartate am": 2,
+                }
+            }
+        },
+        {
+            "group": "Blood Counts",
+            # Note: red cell does not exist in mortality calculator, that's why the different dimens
+            "features": ["hemoglobin", "leukocytes", "mean corpuscular", "platelet", "red cell"],
+            "mortality": {
+                "layout": "2x2",
+                "layout_m": "2x2",
+            }
+        },
+        {
+            "group": "Misc.",
+            "features": ["C-reactive protein", "prothrombin time"],
+            "mortality": {
+                "layout": "2x1",
+                "layout_m": "1x2"
+            }
+        },
+        {
+            "group": "Comorbidities",
+            "features": ["comorbid"],
+            "mortality": {
+                "layout": "1x3",
+                "layout_m": "1x2",
+                "expanded": {
+                    "comorbid": 3
+                }
+            }
         },
         {
             "group": "Other",
@@ -254,6 +323,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
 
     # Add a card into its right place in the scaffold
     def add_feature(feature_name, feature_card):
+        add_feature.count += 1
         # Try to add card to its appropraite group
         for grp in enumerate(feature_scaffold):
             # Check if name is in this group's features
@@ -264,13 +334,17 @@ def build_feature_cards(features, m=True, labs=False, language=0):
         # Add card to default group
         feature_scaffold[-1]["cards"].append((feature_name, feature_card))
 
-    # Loop over all features from the json and add the to the scaffold
+    add_feature.count = 0
+
     for _id, content_dict in enumerate(dropdowns):
+        print(content_dict)
         add_feature(
             content_dict['name'],
-            build_dropdown_card(str(_id), m, content_dict, language)
+            build_dropdown_card(str(_id), m, content_dict, language, content_dict['name'],
+                                title_mapping[language][content_dict['name']])
         )
     for _id, content_dict in enumerate(inputs):
+        print(content_dict)
         if not labs and title_mapping[0][content_dict['name']] == oxygen:
             add_feature(
                 content_dict['name'],
@@ -279,55 +353,120 @@ def build_feature_cards(features, m=True, labs=False, language=0):
         else:
             add_feature(
                 content_dict['name'],
-                build_input_card(str(_id), m, content_dict)
+                build_input_card(str(_id), m, content_dict, content_dict['name'],
+                                 title_mapping[language][content_dict['name']])
             )
     if m:
         for _id, content_dict in enumerate(multidrop):
+            print(content_dict)
             add_feature(
                 content_dict['name'],
-                build_multidrop_card(str(_id), m, content_dict, language)
+                build_multidrop_card(str(_id), m, content_dict, language, content_dict['name'])
             )
 
+    '''
+    # 2, 4, 7, 5, 2, 1
+    LEN             | MOBILE
+    - length: 2 
+        #           # # 
+        #
+    - length: 4
+          # #       ###  
+          ###       ###     (oxygen
+          # #       # #     
+    - length: 5
+        ### #       ### 
+        # # #       # #  
+                    # #
+    - length: 7     
+        ### #       ### 
+        # # #       # #
+        # ###       # #
+                    # #
+    - length: 2
+        #           # #
+        #           
+    - length: 1     
+          ###       ###     (comobirtides)
+          ###
+    '''
+
     card_num = 0
+    for grp in feature_scaffold:
+        if "mortality" not in grp: continue
+        r, c = [int(x) for x in grp["mortality"]["layout"].split('x')]
+        r_m, c_m = r, c
+        if "layout_m" in grp["mortality"]:
+            r_m, c_m = [int(x) for x in grp["mortality"]["layout_m"].split('x')]
+        if all([x[0] is None for x in grp["cards"]]): continue
+        group_content = []
 
-    # Loop through all cards in the scaffold in order using nested list comprehension :-)
-    for name, feature_card in [feature for grp in feature_scaffold for feature in grp["cards"]]:
+        w = 12 / c
+        w_m = 12 / c_m
+        print("In group " + grp["group"])
+        print(grp["cards"])
+        for name, card in grp["cards"]:
+            if name is None:
+                continue
 
-        # Skip unpopulated cards
-        if name is None:
-            continue
+            f = 1
+            expansions = []
+            if m and "expanded" in grp["mortality"]:
+                expansions = grp["mortality"]["expanded"]
+            elif not m and "expanded" in grp["infection"]:
+                expansions = grp["mortality"]["expanded"]
+            for n in [ex for ex in expansions if ex.lower() in name.lower()]:
+                print(name + " Has custom expansion")
+                f = expansions[n]
 
-        print(name)
-        content = html.Div(
-            **{"data-aos": "fade-up", "data-aos-delay": str(card_num % 4 * 150), "data-aos-mirror": "true"},
-            className="",
-            children=dbc.Card([
-                dbc.CardHeader(title_mapping[language][name], style={"fontWeight": "bold"}),
-                dbc.CardBody(feature_card, className="feat-options-body")
-            ], className="feat-options")
-        )
+            print("Adding: " + name)
+            content = dbc.Col(
+                xs=12,
+                sm=w_m * f,
+                md=w_m * f,
+                lg=w * f,
+                style={"padding": "0px"},
+                children=dbc.Card(
+                    style={"border-radius": "0px",
+                           "height": "150px",
+                           "border-width": "1px",
+                           "background": "rgba(0, 0, 0, 0)"},
+                    children=[
+                        dbc.CardBody(card, className="feat-options-body")
+                    ])
+            )
 
-        if name == "Comorbidities":
-            w2 = 6
-            w1 = 12
-        elif not labs and title_mapping[0][name] == oxygen:
-            w2 = 6
-            w1 = 12
-        else:
-            w2 = 3
-            w1 = 6
-        cards.append(dbc.Col(
-            [content],
-            id=name+"-labs" if labs else name,
-            style={
-                'paddingBottom': 20,
-                'borderColor': 'red'
-                },
-            xs=w1,
-            sm=w1,
-            md=w1,
-            lg=w2,
-        ))
-        cards.append(html.Div(style={"display": "none"}, id=name if labs else name + "-labs"))
+            group_content.append(content)
+
         card_num += 1
+        group_card = dbc.Col(
+            id=str(card_num) + "labs" if labs else str(card_num),
+            children=[
+                html.Div(
+                    **{"data-aos": "fade-up", "data-aos-delay": str(card_num % 4 * 150)},
+                    # For overlapping dropdown problem
+                    style={"transform-style": "flat", "z-index": str(add_feature.count - card_num)},
+                    children=dbc.Card(
+                        className="elevation-3",
+                        style={"border-width": "0px"},
+                        children=[
+                            dbc.CardHeader(grp["group"],
+                                           style={"fontWeight": "bold"}),
+                            dbc.Row(group_content, style={"margin": "0px", "border-width": "0px"})
+                        ]
+                    )
+                )
+            ],
+            style={
+                'padding-bottom': 30,
+                'borderColor': 'red',
+            },
+            xs=12,
+            sm=c_m * 6,
+            md=c_m * 6,
+            lg=c * 3,
+        )
+        cards.append(group_card)
+        cards.append(html.Div(style={"display": "none"}, id=str(card_num) if labs else str(card_num) + "-labs"))
     return cards
+

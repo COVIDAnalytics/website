@@ -61,10 +61,10 @@ def get_languages(labs_auc, labs_population, labs_positive, no_labs_auc, no_labs
     }
 
 
-def predict_risk_mort(cols, model, features, imputer, explainer, feature_vals, temp_unit, card_text, language):
+def predict_risk_mort(cols, model, features, imputer, explainer, user_features, card_text, language):
     """Given features, other input, etc. calculate a score and return score_card, imputed_text, and user plot"""
     score, imputed_text, plot = predict_risk(True, model, features, imputer, explainer,
-                                             feature_vals, cols, temp_unit, language)
+                                             user_features, cols, language)
     card_content = [
         html.H4(card_text, className="score-calculator-card-content"),
         html.H4(str(score)+"%", className="score-calculator-card-content"),

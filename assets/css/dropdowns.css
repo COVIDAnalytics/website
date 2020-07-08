@@ -2,6 +2,39 @@
     cursor: pointer !important;
 }
 
+.temp-dropdown {
+    width: 40px;
+    margin-right: 20px;
+}
+
+.temp-input {
+    border-radius: 4px 0px 0px 4px !important;
+}
+
+.temp-dropdown .Select-control {
+    min-height: 48px;
+    width: 60px;
+    border-left-width: 0px !important;
+    border-radius: 0px 4px 4px 0px !important;
+}
+
+.temp-dropdown .Select-value {
+    padding-top: 2px;
+}
+
+.temp-dropdown span {
+    line-height: 45px;
+}
+
+.feature-dropdown .Select-control {
+    min-height: 48px;
+    width: 100%;
+}
+
+.feature-dropdown span {
+    line-height: 48px;
+}
+
 /** Needed to override Cursor in dcc.Dropdown **/
 .Select-control {
     cursor: pointer !important;
