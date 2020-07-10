@@ -7,13 +7,14 @@ document.body.onload = function() {
     var updating = false;
     new MutationObserver(function(mutations) {
         var title = mutations[0].addedNodes[0].nodeValue;
-        if (title === "Updating...") updating = true;
-        else if (title === "COVIDAnalytics" && updating == true) {
-            updating = false;
+        if (title === "Updating..." && !updating) {
+            updating = true;
             Array.from(document.querySelectorAll('.aos-refresh-onload')).forEach(function(element) {
                 element.classList.remove("aos-animate");
-                console.log(element)
             });
+        }
+        else if (title === "COVIDAnalytics" && updating) {
+            updating = false;
             AOS.refreshHard();
             console.log("Page loaded")
         }

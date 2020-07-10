@@ -92,7 +92,7 @@ def oxygen_options(_id, m, have_val, text, language):
     return [
         html.Div(html.H5(label,
                          className="input-label",
-                         style={"fontSize": "15px", "height": "36px"} if small_label else {}),
+                         style={"height": "48px"} if small_label else {}),
                  style={"textAlign": "end"}),
         dbc.Row(
             content,
@@ -438,12 +438,20 @@ def build_feature_cards(features, m=True, labs=False, language=0):
 
         card_num += 1
         group_card = dbc.Col(
-            id=str(card_num) + "labs" if labs else str(card_num),
+            style={
+                'paddingBottom': 30,
+                'borderColor': 'red',
+            },
+            xs=12,
+            sm=c_m * 6,
+            md=c_m * 6,
+            lg=c * 4,
             children=[
                 html.Div(
                     **{"data-aos": "fade-up", "data-aos-delay": str(card_num % 4 * 150)},
                     # For overlapping dropdown problem
                     style={"transformStyle": "flat", "zIndex": str(add_feature.count - card_num)},
+                    className="aos-refresh-onload",
                     children=dbc.Card(
                         className="elevation-3",
                         style={"borderWidth": "0px"},
@@ -455,16 +463,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                     )
                 )
             ],
-            style={
-                'paddingBottom': 30,
-                'borderColor': 'red',
-            },
-            xs=12,
-            sm=c_m * 6,
-            md=c_m * 6,
-            lg=c * 3,
         )
         cards.append(group_card)
-        cards.append(html.Div(style={"display": "none"}, id=str(card_num) if labs else str(card_num) + "-labs"))
     return cards
 

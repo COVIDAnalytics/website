@@ -12,7 +12,7 @@ def get_labs_indicator(_id, instructions_id):
             align="stretch",
             children=[
                 dbc.Col(
-                    xs=12, sm=12, md=12, lg=5,
+                    xs=12, sm=12, md=12, lg=6,
                     children=html.Div(
                         **{"data-aos": "fade-up", "data-aos-delay": "0"},
                         style={"transformStyle": "flat", "zIndex": "50"},
@@ -43,7 +43,7 @@ def get_labs_indicator(_id, instructions_id):
                     )
                 ),
                 dbc.Col(
-                    xs=12, sm=12, md=12, lg=4,
+                    xs=12, sm=12, md=12, lg=6,
                     children=html.Div(
                         **{"data-aos": "fade-up", "data-aos-delay": "100"},
                         children=dbc.Card(
@@ -135,7 +135,7 @@ def get_submit_button(_id, res_id, err_id, imputed_id):
                     xs=12,
                     sm=4,
                     md=4,
-                    lg=3,
+                    lg=4,
                     style={"paddingBottom": 20},
                     children=html.Div(
                         **{"data-aos": "fade-up"},
@@ -153,7 +153,7 @@ def get_submit_button(_id, res_id, err_id, imputed_id):
                     xs=12,
                     sm=8,
                     md=8,
-                    lg=6,
+                    lg=8,
                     style={"paddingBottom": 20},
                     children=html.Div(
                         **{"data-aos": "fade-up", "data-aos-delay": "100"},
