@@ -12,3 +12,9 @@
   display: flex;
   justify-content: center;
 }
+
+.calc-submit-button {
+    height: 110px;
+    width: 250px;
+    font-size: 22px;
+}

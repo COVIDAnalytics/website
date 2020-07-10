@@ -3,6 +3,59 @@ input[type="number"] {
     -webkit-appearance: textfield;
 }
 
+
+@keyframes anim-card-flip {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes anim-reveal {
+  from {
+    opacity: 0.0;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+
+.results-card {
+    transform-style: preserve-3d;
+    /* Use the animation name with additional properties */
+    animation-name: anim-card-flip;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.results-card:after {
+    content: '';
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #343a40 !important;
+    -webkit-transform: rotateX( 180deg );
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+}
+
+.results-card h3 {
+    opacity: 0.0;
+    animation-name: anim-reveal;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+    animation-play-state: running;
+}
+
 .elevation-1 {
     box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
 }
@@ -12,7 +65,7 @@ input[type="number"] {
 }
 
 .elevation-3 {
-    box-shadow: 0 3px 4px 0 rgba(0,0,0,0.14), 0 3px 3px -2px rgba(0,0,0,0.12), 0 1px 8px 0 rgba(0,0,0,0.20);
+    box-shadow: 0 7px 14px 0 rgba(60,66,87,.08),0 3px 6px 0 rgba(0,0,0,.12)
 }
 
 .elevation-4 {

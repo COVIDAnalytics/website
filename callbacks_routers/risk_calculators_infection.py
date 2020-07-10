@@ -123,7 +123,12 @@ def register_callbacks(app):
         Output('submit-features-calc-infection', 'children'),
         [Input('language-calc-infection', 'value')])
     def set_submit_button_infection(language):
-        return languages["submit"][language],
+        return html.Div(children=[
+            html.Div(className="material-icons",
+                     children=["face"],
+                     style={"display": "inline"}),
+            languages["submit"][language],
+        ])
 
     @app.callback(
         [Output('score-calculator-card-body-infection', 'children'),

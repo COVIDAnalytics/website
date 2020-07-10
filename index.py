@@ -29,13 +29,18 @@ import callbacks_routers.risk_calculators_mortality as risk_calculators_mortalit
 import callbacks_routers.risk_calculators_infection as risk_calculators_infection
 import callbacks_routers.policies as policies
 
+print(dbc.themes.UNITED)
 external_stylesheets = [
     dbc.themes.UNITED,
-    'https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css',
+    {
+        'href': "https://fonts.googleapis.com/icon?family=Material+Icons",
+        'rel': 'stylesheet',
+        'crossorigin': 'anonymous'
+    }
 ]
 app = dash.Dash(
         __name__,
-        external_stylesheets=[dbc.themes.UNITED],
+        external_stylesheets=external_stylesheets,
         meta_tags=[
             {"name": "viewport", "content": "width=device-width, initial-scale=1"}
             ]
@@ -44,7 +49,6 @@ app = dash.Dash(
 server = app.server
 app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
-external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 app.layout = html.Div([
     dcc.Location(id = 'url', refresh = False),
@@ -66,6 +70,7 @@ policies.register_callbacks(app)
 def favicon():
     return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
                                      'favicon.ico', mimetype='image/x-icon')
+
 
 # redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
@@ -100,6 +105,7 @@ def display_page(pathname):
         return Collaborators()
     else:
         return Homepage()
+
 
 #Callbacks for navbar
 @app.callback(

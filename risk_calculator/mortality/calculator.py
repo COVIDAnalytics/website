@@ -15,11 +15,12 @@ def RiskCalc():
     body = dbc.Container(
             get_lang('language-calc-mortality') +
             get_page_desc('page-desc-mortality') +
-            get_labs_indicator('lab_values_indicator') +
+            get_labs_indicator('lab_values_indicator', 'features-mortality-text') +
             get_feature_cards('features-mortality') +
-            get_submit_button('submit-features-calc') +
-            get_results_card('score-calculator-card-body', 'calc-input-error') +
-            get_inputed_vals('imputed-text-mortality') +
+            get_submit_button('submit-features-calc',
+                              'score-calculator-card',
+                              'calc-input-error',
+                              'imputed-text-mortality') +
             get_personal_visual('visual-1-mortality') +
             get_model_desc('mortality-model-desc') +
             get_feature_importance('feature-importance-bar-graph'),
@@ -67,6 +68,6 @@ def predict_risk_mort(cols, model, features, imputer, explainer, user_features, 
                                              user_features, cols, language)
     card_content = [
         html.H4(card_text, className="score-calculator-card-content"),
-        html.H4(str(score)+"%", className="score-calculator-card-content"),
+        html.H3(str(score)+"%", className="score-calculator-card-content"),
     ]
     return card_content, imputed_text, plot

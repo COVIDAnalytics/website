@@ -4,6 +4,7 @@ from io import BytesIO
 import pickle
 
 import dash
+import dash_bootstrap_components as dbc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State, ALL
 
@@ -76,7 +77,7 @@ def register_callbacks(app):
         Output('features-mortality-text', 'children'),
         [Input('language-calc-mortality', 'value')])
     def mortality_labs_card_text(language):
-        return html.H5(languages["insert_feat_text"][language])
+        return languages["insert_feat_text"][language]
 
     @app.callback(
         Output('mortality-model-desc', 'children'),
@@ -111,9 +112,8 @@ def register_callbacks(app):
         [Input('lab_values_indicator', 'value'),
          Input('language-calc-mortality', 'value')])
     def get_mortality_model_feat_cards(labs, language):
-        if labs:
-            return build_feature_cards(labs_features, True, labs, language)
-        return build_feature_cards(no_labs_features, True, labs, language)
+        labs_to_use = labs_features if labs else no_labs_features
+        return build_feature_cards(labs_to_use, True, labs, language)
 
     @app.callback(
         Output('submit-features-calc', 'n_clicks'),
@@ -125,10 +125,21 @@ def register_callbacks(app):
         Output('submit-features-calc', 'children'),
         [Input('language-calc-mortality', 'value')])
     def set_submit_button_mortality(language):
-        return languages["submit"][language],
+        return html.Div(children=[
+            html.Div(className="material-icons",
+                     children=["send"],
+                     style={"display": "inline",
+                            "verticalAlign": "middle"}
+            ),
+            html.Div(languages["submit"][language],
+                     style={"fontSize": "24px",
+                            "display": "inline",
+                            "paddingLeft": "10px",
+                            "verticalAlign": "middle"})
+        ])
 
     @app.callback(
-        [Output('score-calculator-card-body', 'children'),
+        [Output('score-calculator-card', 'children'),
          Output('calc-input-error', 'children'),
          Output('imputed-text-mortality', 'children'),
          Output('visual-1-mortality', 'src'),
@@ -142,7 +153,15 @@ def register_callbacks(app):
     )
     def calc_risk_score(*argv):
         language = argv[0]
-        default = html.H4(languages["results_card_mortality"][language], className="score-calculator-card-content"),
+        default = dbc.Card(
+            color="dark",
+            inverse=True,
+            style={"height": "110px"},
+            className="results-card elevation-3",
+            children=[dbc.CardBody(
+                html.H4(languages["results_card_mortality"][language], className="score-calculator-card-content"),
+            )]
+        )
         submit = argv[1]
         labs = argv[2]
         feats = argv[3:-1]
@@ -178,7 +197,9 @@ def register_callbacks(app):
                         no_labs_cols, no_labs_model, no_labs_features, no_labs_imputer, no_labs_explainer,
                         user_features, languages["results_card_mortality"][language], language)
                 image = display_fig_mort(fig) if fig else ''
-                return score_card, '', imputed, image, {"height": 200}, languages["visual_1"][language]
+                default.children[0].children = score_card
+                default.id = argv[1]
+                return default, '', imputed, image, {"height": 200}, languages["visual_1"][language]
             else:
                 return default, err, '', '', {}, ''
         # user has not clicked submit
