@@ -4,6 +4,20 @@ import dash_html_components as html
 from .utils import lang_names
 
 
+def get_page_desc(_id):
+    """Builds the first big text card that introduces users to the page"""
+    return [
+        dbc.Row([
+            dbc.Col([
+                dbc.Jumbotron(
+                    id=_id,
+                    style={'paddingBottom': '0.5rem', 'paddingTop': '0.8rem'}
+                )
+            ]),
+        ])
+    ]
+
+
 def get_labs_indicator(_id, instructions_id):
     """This is the card where user selects if he has lab values or not"""
     return [
@@ -237,15 +251,3 @@ def get_lang(_id):
     ]
 
 
-def get_page_desc(_id):
-    """Builds the first big text card that introduces users to the page"""
-    return [
-        dbc.Row([
-            dbc.Col([
-                dbc.Jumbotron(
-                    id=_id,
-                    style={'paddingBottom': '0.5rem', 'paddingTop': '0.8rem'}
-                )
-            ]),
-        ])
-    ]
