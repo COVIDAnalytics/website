@@ -22,7 +22,16 @@ jobs:
         ref: projection_updates 
 
     - name: Copy staged CSVs to /tmp
-      run: cp ./data/predicted/Global.csv /tmp/Global-staged.csv
+      run: |
+        cp ./data/predicted/Global.csv /tmp/Global-staged.csv
+
+        # Get the date of the latest commit to projection_updates branch
+        date=`git log -1 --format="%at" origin/projection_updates | \
+              xargs -I{} date -d @{} +%Y%m%d`
+        
+        # Match the latest Global_V2. Note: This will fail iff the PR
+        # was opened with an outdated V2 CSV 
+        cp ./data/predicted/Global_V2_$date.csv /tmp/Global_V2_DATE.csv
 
     - name: Checkout master
       uses: actions/checkout@v2
@@ -41,12 +50,17 @@ jobs:
       run: |
         pip3 install pandas
 
-    - name: Compare CSVs
+    - name: Run Checks 
       run: |
-        echo Comparing CSVs...
-        python3 ./.github/workflows/deployment-scripts/compare_dfs.py \
+        echo "[*] Comparing Global CSVs... (Checks 1-4)"
+        python3 ./.github/workflows/deployment-scripts/check_global.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global-master.csv
+
+        echo "[*] Checking historic CSV... (Check 5)"
+        python3 ./.github/workflows/deployment-scripts/check_equal.py \
+                    /tmp/Global-staged.csv \
+                    /tmp/Global_V2_DATE.csv
 
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
