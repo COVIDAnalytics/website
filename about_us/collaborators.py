@@ -11,6 +11,7 @@ def Collaborators():
 
     with open("assets/collaborators/organizations.yml") as f:
         collaborators = yaml.load(f, Loader=yaml.FullLoader)
+        collaborators = list(sorted(collaborators, key=lambda i: i["name"]))
 
     def get_card(collab):
         return dbc.Col(

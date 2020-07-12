@@ -7,17 +7,17 @@
   photo: "fundacionhm.png"
   website: "https://www.fundacionhm.com/"
   text: "Fundacion HM is a leading Hospital Group in Spain with 15 general hospitals and 21 clinical centers that cover the regions of Madrid, Galicia, and León."
-  padding: 30
+  padding: 43
 - name: "Hartford Hospital"
   photo: "Hartford_logo.jpg"
   website: "https://hartfordhospital.org/"
   text: "Hartford Hospital is a 938-bed acute care teaching hospital located in the South End of Hartford, Connecticut. It was established in 1854 and today, it includes seven different clinical centers across the state of Connecticut. The emergency room receives about 96,000 visits per year."
-  padding: 30
+  padding: 40
 - name: "SAVVI Financial"
   photo: "SAVVI_Financial_Logo.png"
   website: "https://www.savvifi.com"
   text: "SAVVI Financial LLC was started by a team of MIT PhDs from the Operations Research Center to democratize financial planning and advice. SAVVI is an SEC-registered investment advisor that uses deep quantitative analysis to help customers achieve their financial objectives."
-  padding: 30
+  padding: 88
 - name: "Sotiria Hospital"
   photo: "sotiria_logo.jpg"
   website: "https://www.sotiria.gr/"
@@ -27,4 +27,14 @@
   photo: "HUVR_logo.png"
   website: "https://www.hospitaluvrocio.es/"
   text: "Virgen del Rocio University Hospital (HUVR), located in Seville, Spain, belongs to the Andalusian Public Health System (SAS) and is a multi-centre hospital complex. It is a third level hospital whose area of influence is Western Andalusia: Seville and Huelva."
-  padding: 30
+  padding: 50
+- name: "Mass General Brigham"
+  photo: "mgb2.png"
+  text: "Mass General Brigham is an integrated health care system jointly founded by Brigham and Women's Hospital and Massachusetts General Hospital. It offers patients a continuum of coordinated and high-quality care through its 16 member institutions and additional community health centers. It is one of most renowned health systems for medical research in the United States."
+  website: "https://www.massgeneralbrigham.org/"
+  padding: 40
+- name: "HOPE PROJECT"
+  photo: "logo_hope.png"
+  text: "The HOPE project is an international collaborative study that includes more than 50 independent clinical centers from multiple countries. It aims at the creation of a comprehensive registry that carefully characterizes the clinical profile of patients infected with COVID-19."
+  website: "https://hopeprojectmd.com/en/"
+  padding: 50
