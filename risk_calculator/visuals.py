@@ -29,7 +29,7 @@ def get_labs_indicator(_id, instructions_id):
                     xs=12, sm=12, md=12, lg=6,
                     children=html.Div(
                         **{"data-aos": "fade-up", "data-aos-delay": "0"},
-                        style={"transformStyle": "flat", "zIndex": "50"},
+                        style={"transformStyle": "flat", "zIndex": "50", "position": "relative"},
                         children=dbc.Card(
                             style={"borderWidth": "0px",
                                    "height": "125px",

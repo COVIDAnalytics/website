@@ -450,7 +450,9 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 html.Div(
                     **{"data-aos": "fade-up", "data-aos-delay": str(card_num % 4 * 150)},
                     # For overlapping dropdown problem
-                    style={"transformStyle": "flat", "zIndex": str(add_feature.count - card_num)},
+                    style={"transformStyle": "flat",
+                           "zIndex": str(add_feature.count - card_num),
+                           "position": "relative"},
                     className="aos-refresh-onload",
                     children=dbc.Card(
                         className="elevation-3",
