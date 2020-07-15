@@ -110,10 +110,12 @@ def build_oxygen_card(_id, labs, m, content_dict, language):
     card = [
         dbc.Row(
             style={"width": "100%"},
+            no_gutters=True,
             children=[
-                dbc.Col(children=[
+                dbc.Col(
+                    children=[
                     html.H5(langs[language].hasO2Value, className="input-label",
-                            style={"fontSize": "15px", "height": "36px"}),
+                            style={"height": "36px"}),
                     dcc.Dropdown(
                         id="oxygen-answer-{}".format(model),
                         options=[{'label': labs_ques(x, language), 'value': x} for x in [1, 0]],
