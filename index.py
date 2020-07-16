@@ -1,3 +1,12 @@
+import json
+import urllib.parse
+
+from flask import Flask
+from flask_restful import Resource, Api
+
+from api.rest_interface import MortalityCalcNoLabsEndpoint, MortalityCalcLabsEndpoint, InfectionCalcLabsEndpoint,\
+    InfectionCalcNoLabsEndpoint
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -38,15 +47,22 @@ external_stylesheets = [
         'crossorigin': 'anonymous'
     }
 ]
+server = Flask('covidanalytics')
 app = dash.Dash(
         __name__,
         external_stylesheets=external_stylesheets,
         meta_tags=[
             {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-            ]
-        )
+        ],
+        server=server
+    )
 
-server = app.server
+api = Api(server)
+api.add_resource(MortalityCalcNoLabsEndpoint, "/api/mortality_calc_no_labs")
+api.add_resource(MortalityCalcLabsEndpoint, "/api/mortality_calc_labs")
+api.add_resource(InfectionCalcNoLabsEndpoint, "/api/infection_calc_no_labs")
+api.add_resource(InfectionCalcLabsEndpoint, "/api/infection_calc_labs")
+
 app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
 
@@ -61,8 +77,8 @@ app.scripts.append_script({'external_url': 'https://localhost:8085/assets/js/ind
 ventilators.register_callbacks(app)
 insights.register_callbacks(app)
 projections.register_callbacks(app)
-risk_calculators_infection.register_callbacks(app)
 risk_calculators_mortality.register_callbacks(app)
+risk_calculators_infection.register_callbacks(app)
 policies.register_callbacks(app)
 
 

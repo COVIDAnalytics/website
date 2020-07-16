@@ -1,4 +1,3 @@
-import os
 import base64
 from io import BytesIO
 import pickle
@@ -149,9 +148,9 @@ def register_callbacks(app):
          Input('submit-features-calc', 'n_clicks'),
          Input('lab_values_indicator', 'value')],
         [State({'type': 'mortality', 'feature': ALL, 'index': ALL}, 'value'),
-          State({'type': 'temperature', 'index': ALL}, 'value')]
+         State({'type': 'temperature', 'index': ALL}, 'value')]
     )
-    def calc_risk_score(*argv):
+    def calc_risk_score_mortality(*argv):
         language = argv[0]
         default = dbc.Card(
             color="dark",
@@ -165,28 +164,22 @@ def register_callbacks(app):
         submit = argv[1]
         labs = argv[2]
         feats = argv[3:-1]
-        print("input states")
         user_features = dash.callback_context.states_list[0]
-        print(dash.callback_context.states_list)
-        print("features")
-        print(feats)
 
         temp_unit = argv[-1]
         if len(temp_unit) > 0 and temp_unit[0] == "°C":
             temp = [f for f in user_features if f["id"]["feature"] == "Body Temperature"][0]
             if temp is not None and "value" in temp:
-                print(temp)
-                print("Converting temp from " + str(temp["value"]))
                 temp["value"] = cvt_temp_c2f(temp["value"])
-                print("to " + str(temp["value"]))
 
         if not labs and oxygen_in_mort:
             feats = switch_oxygen(feats, oxygen_mort_ind)
+
         # if submit button was clicked
         if submit > 0:
-            x = feats
             numeric_features = labs_features["numeric"] if labs else no_labs_features["numeric"]
             valid, err = valid_input(numeric_features, user_features, language)
+
             if valid:
                 if labs:
                     score_card, imputed, fig = predict_risk_mort(

@@ -54,6 +54,8 @@ def get_oxygen_info(cols, feats):
 def valid_input(numeric_features, user_features, language):
     title_mapping = get_title_mapping()
     missing = 0
+
+    print("USER FEATURES: " + str(user_features))
     for i, user_feature in enumerate(user_features):
         print("Examining: " + str(user_feature))
         f_name = user_feature["id"]["feature"]
@@ -94,6 +96,7 @@ def predict_risk(m, model, features, imputer, explainer, user_features, columns,
     x = [0] * len(model.feature_importances_)
     all_features = features["numeric"] + features["categorical"] + features["multidrop"]
     print(features)
+    print(user_features)
 
     # Loop through all user provided features
     for feat in user_features:
@@ -128,6 +131,7 @@ def predict_risk(m, model, features, imputer, explainer, user_features, columns,
         # Assign value to right index in input vector
         x[index] = feat["value"]
 
+    print("x is " + str(x))
     imputed = np.argwhere(np.isnan(x))
     x_full = imputer.transform([x])
     _X = pd.DataFrame(columns=columns, index=range(1), dtype=np.float)

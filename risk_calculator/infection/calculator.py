@@ -18,10 +18,12 @@ def InfectionRiskCalc():
     body = dbc.Container(
         get_lang('language-calc-infection') +
         get_page_desc('page-desc-infection') +
-        get_labs_indicator('lab_values_indicator_infection') +
+        get_labs_indicator('lab_values_indicator_infection', 'features-infection-text') +
         get_feature_cards('features-infection') +
-        get_submit_button('submit-features-calc-infection') +
-        get_results_card('score-calculator-card-body-infection', 'calc-input-error-infection') +
+        get_submit_button('submit-features-calc-infection',
+                          'score-calculator-card-infection',
+                          'calc-input-error-infection',
+                          'imputed-text-infection') +
         get_inputed_vals('imputed-text-infection') +
         get_personal_visual('visual-1-infection') +
         get_model_desc('infection-model-desc') +
@@ -65,12 +67,12 @@ def get_languages(labs_auc, labs_population, labs_positive, no_labs_auc, no_labs
     }
 
 
-def predict_risk_infec(cols, model, features, imputer, explainer, feature_vals, temp_unit, card_text, language):
-    score, impute_text, plot = predict_risk(False, model, features, imputer, explainer,
-                                            feature_vals, cols, temp_unit, language)
+def predict_risk_infec(cols, model, features, imputer, explainer, user_features, card_text, language):
     """Given features, other input, etc. calculate a score and return score_card, imputed_text, and user plot"""
+    score, impute_text, plot = predict_risk(False, model, features, imputer, explainer,
+                                            user_features, cols, language)
     card_content = [
         html.H4(card_text[0], className="score-calculator-card-content-infection"),
-        html.H4(str(int(math.floor(score/10.0)))+card_text[1], className="score-calculator-card-content-infection"),
+        html.H3(str(int(math.floor(score/10.0)))+card_text[1], className="score-calculator-card-content-infection"),
     ]
     return card_content, impute_text, plot

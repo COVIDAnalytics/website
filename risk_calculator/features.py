@@ -263,6 +263,12 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 "layout": "2x1",
                 "layout_m": "1x2"
             },
+            "infection": {
+                "vertical_expanded": {
+                    "age": 1 if labs else 1.5,
+                    "gender": 1 if labs else 1.5
+                }
+            }
         },
         {
             "group": "Vitals",
@@ -270,7 +276,8 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             "mortality": {
                 "layout": "2x2",
                 "expanded": {
-                    "SaO2": 2  # Expand Sao2 card by a factor of 2
+                    "SaO2": 1 if labs else 2,           # Expand Sao2 card by a factor of 2
+                    "respiratory freq": 1 if labs else 2
                 }
             }
         },
@@ -282,6 +289,8 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 "layout": "3x3",
                 "layout_m": "4x2",
                 "expanded": {
+                    "alanine amino": [("lg", 2), ("md", 2)], #scale by 2 for large and medium devices
+                    "urea nitro": [("lg", 2)],
                 }
             }
         },
@@ -292,6 +301,9 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             "mortality": {
                 "layout": "2x2",
                 "layout_m": "2x2",
+                "expanded": {
+                    "red cell": 2,
+                }
             }
         },
         {
@@ -299,7 +311,11 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             "features": ["C-reactive protein", "prothrombin time"],
             "mortality": {
                 "layout": "2x1",
-                "layout_m": "1x2"
+                "layout_m": "1x2",
+                "vertical_expanded": {
+                    "C-reactive protein": 1.5,
+                    "prothrombin time": 1.5
+                }
             }
         },
         {
@@ -334,9 +350,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             for fname in enumerate(grp[1]["features"]):
                 if fname[1].lower() in feature_name.lower():
                     feature_scaffold[grp[0]]["cards"][fname[0]] = (feature_name, feature_card)
-                    print("Adding: " + feature_name + " to " + str(grp[1]))
                     return
-        print("Adding: " + feature_name + " to OTHER")
         # Add card to default group
         feature_scaffold[-1]["cards"].append((feature_name, feature_card))
 
@@ -407,28 +421,56 @@ def build_feature_cards(features, m=True, labs=False, language=0):
 
         w = 12 / c
         w_m = 12 / c_m
+
+        expansions = {}
+        if m and "expanded" in grp["mortality"]:
+            expansions = grp["mortality"]["expanded"]
+        elif not m:
+            if "infection" in grp:
+                if "expanded" in grp["infection"]:
+                    expansions = grp["infection"]["expanded"]
+            elif "expanded" in grp["mortality"]:
+                expansions = grp["mortality"]["expanded"]
+
+        v_expansions = {}
+        if m and "vertical_expanded" in grp["mortality"]:
+            v_expansions = grp["mortality"]["vertical_expanded"]
+        elif not m:
+            if "infection" in grp:
+                if "vertical_expanded" in grp["infection"]:
+                    v_expansions = grp["infection"]["vertical_expanded"]
+            elif "vertical_expanded" in grp["mortality"]:
+                v_expansions = grp["mortality"]["vertical_expanded"]
+
         for name, card in grp["cards"]:
             if name is None:
                 continue
 
-            f = 1
-            expansions = []
-            if m and "expanded" in grp["mortality"]:
-                expansions = grp["mortality"]["expanded"]
-            elif not m and "expanded" in grp["infection"]:
-                expansions = grp["mortality"]["expanded"]
+            # get expansion factor of this card
+            f = {"sm": 1, "md": 1, "lg": 1}
             for n in [ex for ex in expansions if ex.lower() in name.lower()]:
-                f = expansions[n]
+                if type(expansions[n]) == list:
+                    for size, scale in expansions[n]:
+                        f[size] = scale
+                else:
+                    f["sm"] = expansions[n]
+                    f["md"] = expansions[n]
+                    f["lg"] = expansions[n]
+
+            # get vertical expansion factor of this card
+            v_f = 1
+            for n in [ex for ex in v_expansions if ex.lower() in name.lower()]:
+                v_f = v_expansions[n]
 
             content = dbc.Col(
                 xs=12,
-                sm=w_m * f,
-                md=w_m * f,
-                lg=w * f,
+                sm=w_m * f["sm"],
+                md=w_m * f["md"],
+                lg=w * f["lg"],
                 style={"padding": "0px"},
                 children=dbc.Card(
                     style={"borderRadius": "0px",
-                           "height": "150px",
+                           "height": "{}px".format(str(150 * v_f)),
                            "borderWidth": "1px",
                            "background": "rgba(0, 0, 0, 0)"},
                     children=[
