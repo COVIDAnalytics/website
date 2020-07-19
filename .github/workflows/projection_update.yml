@@ -16,6 +16,26 @@ jobs:
     # Check if PR is coming from projection_updates branch
     if: contains(github.head_ref, 'projection_updates') == true
     steps:
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with: 
+        ref: master
+
+    - name: Copy latest deployment-scripts to /tmp
+        cp -r .github/workflows/deployment-scripts /tmp/deployment-scripts
+
+    - name: Copy master CSVs to /tmp
+      run: |
+        cp ./data/predicted/Global.csv /tmp/Global-master.csv
+
+        # chdir to get latest CSVs
+        cd ./data/predicted
+
+        # Match the latest Parameters_Global_V2 in master branch
+        params=`python3 /tmp/deployment-scripts/lsLatestCSV.py \
+                    Parameters_Global_V2_ ./data/predicted | tail -n 1`
+        cp $params /tmp/Parameters_Global_V2_LATEST-master.csv
+
     - name: Checkout projection_updates 
       uses: actions/checkout@v2
       with: 
@@ -26,31 +46,14 @@ jobs:
         cp ./data/predicted/Global.csv /tmp/Global-staged.csv
 
         # Match the latest Global_V2 in pr branch
-        global=`python3 .github/workflows/deployment-scripts/lsLatestCSV.py \
+        global=`python3 /tmp/deployment-scripts/lsLatestCSV.py \
                     Global_V2_ ./data/predicted | tail -n 1`
         cp $global /tmp/Global_V2_LATEST-staged.csv
 
         # Match the latest Parameters_Global_V2 in pr branch
-        params=`python3 .github/workflows/deployment-scripts/lsLatestCSV.py \
+        params=`python3 /tmp/deployment-scripts/lsLatestCSV.py \
                     Parameters_Global_V2_ ./data/predicted | tail -n 1`
         cp $params /tmp/Parameters_Global_V2_LATEST-staged.csv
-
-    - name: Checkout master
-      uses: actions/checkout@v2
-      with: 
-        ref: master
-
-    - name: Copy master CSVs to /tmp
-      run: |
-        cp ./data/predicted/Global.csv /tmp/Global-master.csv
-
-        # chdir to get latest CSVs
-        cd ./data/predicted
-
-        # Match the latest Parameters_Global_V2 in master branch
-        params=`python3 .github/workflows/deployment-scripts/lsLatestCSV.py \
-                    Parameters_Global_V2_ ./data/predicted | tail -n 1`
-        cp $params /tmp/Parameters_Global_V2_LATEST-master.csv
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -64,17 +67,17 @@ jobs:
     - name: Run Checks 
       run: |
         echo "[*] Comparing Global CSVs... (Checks 1-4)"
-        python3 ./.github/workflows/deployment-scripts/check_global.py \
+        python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global-master.csv
 
         echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
-        python3 ./.github/workflows/deployment-scripts/check_global.py \
+        python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Parameters_Global_V2_LATEST-staged.csv \
                     /tmp/Parameters_Global_V2_LATEST-master.csv
 
         echo "[*] Checking historic CSV... (Check 5)"
-        python3 ./.github/workflows/deployment-scripts/check_equal.py \
+        python3 /tmp/deployment-scripts/check_equal.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global_V2_LATEST-staged.csv
 
