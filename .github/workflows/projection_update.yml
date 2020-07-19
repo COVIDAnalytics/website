@@ -29,9 +29,6 @@ jobs:
       run: |
         cp ./data/predicted/Global.csv /tmp/Global-master.csv
 
-        # chdir to get latest CSVs
-        cd ./data/predicted
-
         # Match the latest Parameters_Global_V2 in master branch
         params=`python3 /tmp/deployment-scripts/lsLatestCSV.py \
                     Parameters_Global_V2_ ./data/predicted | tail -n 1`
