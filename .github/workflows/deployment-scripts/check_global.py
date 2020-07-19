@@ -109,5 +109,5 @@ if not (latest_dates >= date_thresh).all():
                "with latest date {}".format(latest_dates.min()))
 
 # Success
-info_check("Success! Staged Global.csv passed Checks 1-4")
+info_check("Success! Staged CSV passed Checks 1-4")
 

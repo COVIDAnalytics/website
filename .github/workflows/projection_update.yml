@@ -25,13 +25,15 @@ jobs:
       run: |
         cp ./data/predicted/Global.csv /tmp/Global-staged.csv
 
-        # Get the date of the latest commit to projection_updates branch
-        date=`git log -1 --format="%at" origin/projection_updates | \
-              xargs -I{} date -d @{} +%Y%m%d`
-        
-        # Match the latest Global_V2. Note: This will fail iff the PR
-        # was opened with an outdated V2 CSV 
-        cp ./data/predicted/Global_V2_$date.csv /tmp/Global_V2_DATE.csv
+        # Match the latest Global_V2 in pr branch
+        global=`python3 .github/workflows/deployment-scripts/lsLatestCSV.py \
+                    Global_V2_ ./data/predicted | tail -n 1`
+        cp $global /tmp/Global_V2_LATEST-staged.csv
+
+        # Match the latest Parameters_Global_V2 in pr branch
+        params=`python3 .github/workflows/deployment-scripts/lsLatestCSV.py \
+                    Parameters_Global_V2_ ./data/predicted | tail -n 1`
+        cp $params /tmp/Parameters_Global_V2_LATEST-staged.csv
 
     - name: Checkout master
       uses: actions/checkout@v2
@@ -39,7 +41,16 @@ jobs:
         ref: master
 
     - name: Copy master CSVs to /tmp
-      run: cp ./data/predicted/Global.csv /tmp/Global-master.csv
+      run: |
+        cp ./data/predicted/Global.csv /tmp/Global-master.csv
+
+        # chdir to get latest CSVs
+        cd ./data/predicted
+
+        # Match the latest Parameters_Global_V2 in master branch
+        params=`python3 .github/workflows/deployment-scripts/lsLatestCSV.py \
+                    Parameters_Global_V2_ ./data/predicted | tail -n 1`
+        cp $params /tmp/Parameters_Global_V2_LATEST-master.csv
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -57,15 +68,20 @@ jobs:
                     /tmp/Global-staged.csv \
                     /tmp/Global-master.csv
 
+        echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
+        python3 ./.github/workflows/deployment-scripts/check_global.py \
+                    /tmp/Parameters_Global_V2_LATEST-staged.csv \
+                    /tmp/Parameters_Global_V2_LATEST-master.csv
+
         echo "[*] Checking historic CSV... (Check 5)"
         python3 ./.github/workflows/deployment-scripts/check_equal.py \
                     /tmp/Global-staged.csv \
-                    /tmp/Global_V2_DATE.csv
+                    /tmp/Global_V2_LATEST-staged.csv
 
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
       env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        GITHUB_TOKEN: "${{ secrets.TRAVIS_TOKEN_AUTOMERGE }}"
 
         # TODO: As a safety measure for now, only auto-merge new pull requests 
         # iff they are labelled with 'automerge' (The DELPHI team would have to
