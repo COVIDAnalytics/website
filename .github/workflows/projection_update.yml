@@ -22,6 +22,7 @@ jobs:
         ref: master
 
     - name: Copy latest deployment-scripts to /tmp
+      run:  |
         cp -r .github/workflows/deployment-scripts /tmp/deployment-scripts
 
     - name: Copy master CSVs to /tmp
