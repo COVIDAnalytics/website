@@ -38,5 +38,5 @@ if target is None:
 print("[*] Found latest CSV: " + target + "...")
 
 # This last print statement can get fed into bash through tail pipe
-print(target)
+print(new_dir + "/" + target)
 
