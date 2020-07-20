@@ -67,12 +67,14 @@ jobs:
         echo "[*] Comparing Global CSVs... (Checks 1-4)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Global-staged.csv \
-                    /tmp/Global-master.csv
+                    /tmp/Global-master.csv \
+                    "Day"
 
         echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Parameters_Global_V2_LATEST-staged.csv \
-                    /tmp/Parameters_Global_V2_LATEST-master.csv
+                    /tmp/Parameters_Global_V2_LATEST-master.csv \
+                    "Data Start Date"
 
         echo "[*] Checking historic CSV... (Check 5)"
         python3 /tmp/deployment-scripts/check_equal.py \

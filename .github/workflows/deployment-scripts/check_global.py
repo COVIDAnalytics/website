@@ -1,4 +1,4 @@
-# Usage: python check_global.py /path/to/df_new /path/to/df_old
+# Usage: python check_global.py /path/to/df_new /path/to/df_old date_col
 #
 # Returns non-zero exit value if the new Global.csv dataframe fails a check
 
@@ -26,19 +26,23 @@ try:
     staged_csv_path = sys.argv[1]
     master_csv_path = sys.argv[2]
 
+    # For Global.csv, should be 'Day', for Parameters_Global should be 
+    # 'Data Start Date'
+    date_col = sys.argv[3]
+
     info_check("Reading staged CSV ({}), and master CSV ({})".format(
           staged_csv_path, master_csv_path))
 
-    df_staged = pd.read_csv(staged_csv_path, sep=',', parse_dates=["Day"])
-    df_master = pd.read_csv(master_csv_path, sep=',', parse_dates=["Day"])
+    df_staged = pd.read_csv(staged_csv_path, sep=',', parse_dates=[date_col])
+    df_master = pd.read_csv(master_csv_path, sep=',', parse_dates=[date_col])
 except: 
     fail_check("Failed to read CSVs")
 
 # Parse Dates 
 try:
-    df_staged.loc[:, "Day"] = pd.to_datetime(df_staged["Day"], 
+    df_staged.loc[:, date_col] = pd.to_datetime(df_staged[date_col], 
                                 format="y%m%d").dt.date
-    df_master.loc[:, "Day"] = pd.to_datetime(df_master["Day"], 
+    df_master.loc[:, date_col] = pd.to_datetime(df_master[date_col], 
                                 format="y%m%d").dt.date
 except: 
     fail_check("Failed to parse dates")
@@ -103,7 +107,7 @@ info_check("Checking that all latest predictions are >= {}".format(\
             str(date_thresh)))
 
 # Get the last dates from each area
-latest_dates = df_staged.groupby(["Continent", "Country", "Province"]).Day.tail(1)
+latest_dates = df_staged.groupby(["Continent", "Country", "Province"])[date_col].tail(1)
 if not (latest_dates >= date_thresh).all(): 
     fail_check("The staged df contains outdated data, " + 
                "with latest date {}".format(latest_dates.min()))
