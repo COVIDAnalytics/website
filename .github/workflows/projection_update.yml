@@ -68,17 +68,18 @@ jobs:
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global-master.csv \
-                    "Day" \     # date column name
-                    0.0 \       # NAN tolerance 
-                    0           # skip check number
+                    "Day" 0 0
+                    # date column
+                          # no NAN tolerance
+                            # don't skip any check
 
         echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Parameters_Global_V2_LATEST-staged.csv \
                     /tmp/Parameters_Global_V2_LATEST-master.csv \
-                    "Data Start Date" \ # date column name
-                    0.1 \       # NAN tolerance (for MAPE)
-                    4           # skip check number (for date)
+                    "Data Start Date" 0.1 4 
+                    # date column     # NAN tolerance (MAPE)
+                                          # skip check 4
 
         echo "[*] Checking historic CSV... (Check 5)"
         python3 /tmp/deployment-scripts/check_equal.py \
