@@ -1,4 +1,4 @@
-# Usage: python check_global.py /path/to/df_new /path/to/df_old date_col
+# Usage: python check_global.py /path/to/df_new /path/to/df_old date_col NAN_tolerance skip_check 
 #
 # Returns non-zero exit value if the new Global.csv dataframe fails a check
 
@@ -29,6 +29,9 @@ try:
     # For Global.csv, should be 'Day', for Parameters_Global should be 
     # 'Data Start Date'
     date_col = sys.argv[3]
+    na_tolerance = float(sys.argv[4])
+
+    skip_check = int(sys.argv[5])
 
     info_check("Reading staged CSV ({}), and master CSV ({})".format(
           staged_csv_path, master_csv_path))
@@ -36,7 +39,7 @@ try:
     df_staged = pd.read_csv(staged_csv_path, sep=',', parse_dates=[date_col])
     df_master = pd.read_csv(master_csv_path, sep=',', parse_dates=[date_col])
 except: 
-    fail_check("Failed to read CSVs")
+    fail_check("Failed to read CSVs or input arguments")
 
 # Parse Dates 
 try:
@@ -62,11 +65,16 @@ if set(df_staged.columns) != set(df_master.columns):
 # Check #2: "Check if in each column there are no NA values"
 #
 info_check("Checking for NaNs")
-if df_staged.isnull().values.any(): 
-    rows = list(df_staged[df_staged.isnull().any(axis=1)].index.to_numpy())
-    fail_check("Found NaN entries in {}, at rows {}".format(
-                staged_csv_path, rows))
-
+for c in df_master.columns: 
+    num_na = df_staged[c].isnull().sum()
+    total = df_staged[c].count() 
+    if c == "MAPE" and num_na > 0 and num_na / total < na_tolerance:
+        info_check("Found MAPE NANs: " + str(num_na / total * 100) + "%")
+        continue
+    if num_na > 0:
+        rows = list(df_staged[df_staged.isnull().any(axis=1)].index.to_numpy())
+        fail_check("Found NaN entries in {}, at rows {}".format(
+            staged_csv_path, rows))
 #
 # Check #2.5: "as well as the type of the entries"
 #
@@ -102,15 +110,18 @@ for area in areas:
 #
 # Check #4: "Latest date predicted for each country should be >= 2020-10-15"
 # 
-date_thresh = datetime.date(2020, 10, 15)
-info_check("Checking that all latest predictions are >= {}".format(\
-            str(date_thresh)))
+if skip_check != 4:
+    date_thresh = datetime.date(2020, 10, 15)
+    info_check("Checking that all latest predictions are >= {}".format(\
+                str(date_thresh)))
 
-# Get the last dates from each area
-latest_dates = df_staged.groupby(["Continent", "Country", "Province"])[date_col].tail(1)
-if not (latest_dates >= date_thresh).all(): 
-    fail_check("The staged df contains outdated data, " + 
-               "with latest date {}".format(latest_dates.min()))
+    # Get the last dates from each area
+    latest_dates = df_staged.groupby(["Continent", "Country", "Province"])[date_col].tail(1)
+    if not (latest_dates >= date_thresh).all(): 
+        fail_check("The staged df contains outdated data, " + 
+                   "with latest date {}".format(latest_dates.min()))
+else:
+    info_check("Skipping check 4")
 
 # Success
 info_check("Success! Staged CSV passed Checks 1-4")
