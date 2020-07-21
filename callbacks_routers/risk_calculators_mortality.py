@@ -158,13 +158,16 @@ def register_callbacks(app):
             style={"height": "110px"},
             className="results-card elevation-3",
             children=[dbc.CardBody(
-                html.H4(languages["results_card_mortality"][language], className="score-calculator-card-content"),
+                html.H4(languages["results_card_default"][language],
+                        style={"opacity": "0.5", "line-height": "65px"},
+                        className="score-calculator-card-content"),
             )]
         )
         submit = argv[1]
         labs = argv[2]
         feats = argv[3:-1]
         user_features = dash.callback_context.states_list[0]
+        print(user_features)
 
         temp_unit = argv[-1]
         if len(temp_unit) > 0 and temp_unit[0] == "°C":

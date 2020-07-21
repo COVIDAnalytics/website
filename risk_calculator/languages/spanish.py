@@ -91,6 +91,10 @@ def get_results_card_mortality():
     return "El puntaje de riesgo de mortalidad es:"
 
 
+def get_results_card_default():
+    return "Sus resultados se mostrarán aquí"
+
+
 def get_results_card_infection():
     return ["El puntaje de riesgo de infección es:", " de 10"]
 

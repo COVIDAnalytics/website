@@ -160,7 +160,9 @@ def register_callbacks(app):
             style={"height": "110px"},
             className="results-card elevation-3",
             children=[dbc.CardBody(
-                html.H4(languages["results_card_infection"][language], className="score-calculator-card-content"),
+                html.H4(languages["results_card_default"][language],
+                        style={"opacity": "0.5", "line-height": "65px"},
+                        className="score-calculator-card-content"),
             )]
         )
         submit = argv[1]

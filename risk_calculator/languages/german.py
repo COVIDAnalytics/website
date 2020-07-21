@@ -93,6 +93,10 @@ def get_results_card_mortality():
     return "Die Mortalitätsrate ist:"
 
 
+def get_results_card_default():
+    return "Ihre Ergebnisse werden hier angezeigt"
+
+
 def get_results_card_infection():
     return ["Die Infektionsrate ist:", " von 10"]
 

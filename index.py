@@ -38,7 +38,6 @@ import callbacks_routers.risk_calculators_mortality as risk_calculators_mortalit
 import callbacks_routers.risk_calculators_infection as risk_calculators_infection
 import callbacks_routers.policies as policies
 
-print(dbc.themes.UNITED)
 external_stylesheets = [
     dbc.themes.UNITED,
     {

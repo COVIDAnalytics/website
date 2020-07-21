@@ -55,9 +55,7 @@ def valid_input(numeric_features, user_features, language):
     title_mapping = get_title_mapping()
     missing = 0
 
-    print("USER FEATURES: " + str(user_features))
     for i, user_feature in enumerate(user_features):
-        print("Examining: " + str(user_feature))
         f_name = user_feature["id"]["feature"]
 
         # Only check for numeric values

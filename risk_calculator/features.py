@@ -246,7 +246,6 @@ def build_multidrop_card(_id, m, content_dict, language, feature_name):
 # TODO: Dropdown tooltips are not translated
 def build_feature_cards(features, m=True, labs=False, language=0):
     """This builds all the feature cards"""
-    cards = []
     inputs = features["numeric"]
     dropdowns = features["categorical"]
     multidrop = features["multidrop"]
@@ -276,6 +275,11 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             "mortality": {
                 "layout": "2x2",
                 "expanded": {
+                    "SaO2": 2,
+                }
+            },
+            "infection": {
+                "expanded": {
                     "SaO2": 1 if labs else 2,           # Expand Sao2 card by a factor of 2
                     "respiratory freq": 1 if labs else 2
                 }
@@ -284,13 +288,19 @@ def build_feature_cards(features, m=True, labs=False, language=0):
         {
             "group": "Metabolic Panel",
             "features": ["alanine amino", "aspartate amino", "bilirubin", "calcium",
-                         "creatin", "sodium", "urea nitro", "potas"],
+                         "creatin", "sodium", "urea nitro", "potas", "glyc"],
             "mortality": {
                 "layout": "3x3",
                 "layout_m": "4x2",
                 "expanded": {
+                    "alanine amino": 2,
+                    "glyc": 2
+                }
+            },
+            "infection": {
+                "expanded": {
                     "alanine amino": [("lg", 2), ("md", 2)], #scale by 2 for large and medium devices
-                    "urea nitro": [("lg", 2)],
+                    "urea nitro": [("lg", 2), ("sm", 2)],
                 }
             }
         },
@@ -312,6 +322,8 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             "mortality": {
                 "layout": "2x1",
                 "layout_m": "1x2",
+            },
+            "infection": {
                 "vertical_expanded": {
                     "C-reactive protein": 1.5,
                     "prothrombin time": 1.5
@@ -372,7 +384,8 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             print("Adding feature: " + content_dict['name'])
             add_feature(
                 content_dict['name'],
-                build_input_card(str(_id), m, content_dict, content_dict['name'],
+                # Give different IDs to fix input box not clearing when change
+                build_input_card(str(_id) + str(labs), m, content_dict, content_dict['name'],
                                  title_mapping[language][content_dict['name']])
             )
     if m:
@@ -382,46 +395,29 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 build_multidrop_card(str(_id), m, content_dict, language, content_dict['name'])
             )
 
-    '''
-    # 2, 4, 7, 5, 2, 1
-    LEN             | MOBILE
-    - length: 2 
-        #           # # 
-        #
-    - length: 4
-          # #       ###  
-          ###       ###     (oxygen
-          # #       # #     
-    - length: 5
-        ### #       ### 
-        # # #       # #  
-                    # #
-    - length: 7     
-        ### #       ### 
-        # # #       # #
-        # ###       # #
-                    # #
-    - length: 2
-        #           # #
-        #           
-    - length: 1     
-          ###       ###     (comobirtides)
-          ###
-    '''
+    # final card layout
+    feature_content = []
 
+    # card number to keep track of increasing delay
     card_num = 0
+
+    # Loop through all the groups
     for grp in feature_scaffold:
-        if "mortality" not in grp: continue
+        # Get the layout dimensions, row x col
         r, c = [int(x) for x in grp["mortality"]["layout"].split('x')]
         r_m, c_m = r, c
         if "layout_m" in grp["mortality"]:
             r_m, c_m = [int(x) for x in grp["mortality"]["layout_m"].split('x')]
+
+        # If there are no cards, skip this group
         if all([x[0] is None for x in grp["cards"]]): continue
+
         group_content = []
 
         w = 12 / c
         w_m = 12 / c_m
 
+        # Get all the correct horizontal expansion factors from group
         expansions = {}
         if m and "expanded" in grp["mortality"]:
             expansions = grp["mortality"]["expanded"]
@@ -432,6 +428,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             elif "expanded" in grp["mortality"]:
                 expansions = grp["mortality"]["expanded"]
 
+        # Get all the correct vertical expansion factors from group
         v_expansions = {}
         if m and "vertical_expanded" in grp["mortality"]:
             v_expansions = grp["mortality"]["vertical_expanded"]
@@ -442,6 +439,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             elif "vertical_expanded" in grp["mortality"]:
                 v_expansions = grp["mortality"]["vertical_expanded"]
 
+        # Loop throgh all the cards in this group
         for name, card in grp["cards"]:
             if name is None:
                 continue
@@ -462,7 +460,8 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             for n in [ex for ex in v_expansions if ex.lower() in name.lower()]:
                 v_f = v_expansions[n]
 
-            content = dbc.Col(
+            # Create card content and add it to the group content
+            group_content.append(dbc.Col(
                 xs=12,
                 sm=w_m * f["sm"],
                 md=w_m * f["md"],
@@ -476,12 +475,12 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                     children=[
                         dbc.CardBody(card, className="feat-options-body")
                     ])
-            )
-
-            group_content.append(content)
+            ))
 
         card_num += 1
-        group_card = dbc.Col(
+
+        # Add the group content to the feature content
+        feature_content.append(dbc.Col(
             style={
                 'paddingBottom': 30,
                 'borderColor': 'red',
@@ -509,7 +508,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                     )
                 )
             ],
-        )
-        cards.append(group_card)
-    return cards
+        ))
+    return feature_content
 

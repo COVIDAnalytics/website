@@ -10,10 +10,14 @@ def get_page_desc(_id):
         dbc.Row(
            children=[
                 dbc.Col([
-                    dbc.Jumbotron(
-                        style={"padding": "4%"},
-                        className="elevation-3",
-                        id=_id,
+                    html.Div(
+                        ** {"data-aos": "fade-up"},
+                        className="aos-refresh-onload",
+                        children=dbc.Jumbotron(
+                            style={"padding": "4%"},
+                            className="elevation-3",
+                            id=_id,
+                        )
                     )
                 ]),
             ]
@@ -33,6 +37,7 @@ def get_labs_indicator(_id, instructions_id):
                     children=html.Div(
                         **{"data-aos": "fade-up", "data-aos-delay": "0"},
                         style={"transformStyle": "flat", "zIndex": "50", "position": "relative"},
+                        className="aos-refresh-onload",
                         children=dbc.Card(
                             style={"borderWidth": "0px",
                                    "height": "125px",
@@ -63,6 +68,7 @@ def get_labs_indicator(_id, instructions_id):
                     xs=12, sm=12, md=12, lg=6,
                     children=html.Div(
                         **{"data-aos": "fade-up", "data-aos-delay": "100"},
+                        className="aos-refresh-onload",
                         children=dbc.Card(
                             className="elevation-3",
                             style={"borderWidth": "0px", "height": "125px", "marginBottom": 30},
@@ -102,16 +108,19 @@ def get_labs_indicator(_id, instructions_id):
     ]
 
 
-def get_model_desc(id):
+def get_model_desc(_id):
     """This is the big text card that has the technical details of the model"""
     return [
         dbc.Row(
             justify="center",
-            children=dbc.Col(dbc.Jumbotron(
-                style={"padding": "4%"},
-                className="elevation-3",
-                id=id,
-            )),
+            children=dbc.Col(html.Div(
+                **{"data-aos": "fade-up"},
+                children=dbc.Jumbotron(
+                    style={"padding": "4%"},
+                    className="elevation-3",
+                    id=_id,
+                )
+            ))
         ),
     ]
 
@@ -137,7 +146,7 @@ def get_feature_cards(_id):
     return [
         # The container of feature cards
         html.Div(
-            style={"min-height": "500px"},
+            style={"min-height": "550px"},
             children=[
             dbc.Row(
                 id=_id,
@@ -152,6 +161,8 @@ def get_submit_button(_id, res_id, err_id, imputed_id):
     return [
         dbc.Row(
             justify="center",
+            # To fix the white line bug Jumbotron causes
+            style={"position": "relative", "zIndex": "1"},
             children=[
                 dbc.Col(
                     xs=12,
@@ -160,7 +171,7 @@ def get_submit_button(_id, res_id, err_id, imputed_id):
                     lg=4,
                     style={"paddingBottom": 20},
                     children=html.Div(
-                        **{"data-aos": "fade-up"},
+                        **{"data-aos": "fade-up", "data-aos-delay": "400"},
                         id="submit-features-calc-wrapper",
                         className="aos-refresh-onload",
                         children=dbc.Button(
@@ -178,7 +189,7 @@ def get_submit_button(_id, res_id, err_id, imputed_id):
                     lg=8,
                     style={"paddingBottom": 20},
                     children=html.Div(
-                        **{"data-aos": "fade-up", "data-aos-delay": "100"},
+                        **{"data-aos": "fade-up", "data-aos-delay": "500"},
                         className="aos-refresh-onload",
                         id=res_id
                     )

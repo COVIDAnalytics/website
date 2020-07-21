@@ -49,6 +49,9 @@ def get_languages(labs_auc, labs_population, labs_positive, no_labs_auc, no_labs
         "results_card_mortality": {
             num: lan.get_results_card_mortality() for (num, lan) in zip(range(len(langs)), langs)
         },
+        "results_card_default": {
+            num: lan.get_results_card_default() for (num, lan) in zip(range(len(langs)), langs)
+        },
         "technical_details_mortality_labs": {
             num: lan.get_model_desc_mortality(labs_auc, labs_population, labs_positive)
             for (num, lan) in zip(range(len(langs)), langs)

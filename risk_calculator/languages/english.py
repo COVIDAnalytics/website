@@ -93,6 +93,10 @@ def get_results_card_mortality():
     return "The mortality risk score is:"
 
 
+def get_results_card_default():
+    return "Your results will show here"
+
+
 def get_results_card_infection():
     return ["The infection risk score is:", " out of 10"]
 
