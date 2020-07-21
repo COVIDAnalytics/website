@@ -25,11 +25,11 @@ delta = timedelta(days=1)
 
 target = None
 while target is None and date.year >= 2020: 
-    date = date - delta
     match = date.strftime("%Y%m%d")
     candidate = prefix + match + ".csv" 
     if candidate in targets: 
         target = prefix + match + ".csv"
+    date = date - delta
 
 if target is None: 
     print("[*] Could not find latest CSV with prefix " + prefix)
