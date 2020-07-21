@@ -1,0 +1,98 @@
+name: Projection Update Pre-Deployment
+
+# Controls when the action will run. Triggers the workflow on PR 
+# events but only for the master branch
+on:
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  csv_checks:
+
+    # The type of docker container that the job will run on
+    runs-on: ubuntu-latest
+
+    # Check if PR is coming from projection_updates branch
+    if: contains(github.head_ref, 'projection_updates') == true
+    steps:
+    - name: Checkout master
+      uses: actions/checkout@v2
+      with: 
+        ref: master
+
+    - name: Copy latest deployment-scripts to /tmp
+      run:  |
+        cp -r .github/workflows/deployment-scripts /tmp/deployment-scripts
+
+    - name: Copy master CSVs to /tmp
+      run: |
+        cp ./data/predicted/Global.csv /tmp/Global-master.csv
+
+        # Match the latest Parameters_Global_V2 in master branch
+        params=`python3 /tmp/deployment-scripts/ls_latest_csv.py \
+                    Parameters_Global_V2_ ./data/predicted | tail -n 1`
+        cp $params /tmp/Parameters_Global_V2_LATEST-master.csv
+
+    - name: Checkout projection_updates 
+      uses: actions/checkout@v2
+      with: 
+        ref: projection_updates 
+
+    - name: Copy staged CSVs to /tmp
+      run: |
+        cp ./data/predicted/Global.csv /tmp/Global-staged.csv
+
+        # Match the latest Global_V2 in pr branch
+        global=`python3 /tmp/deployment-scripts/ls_latest_csv.py \
+                    Global_V2_ ./data/predicted | tail -n 1`
+        cp $global /tmp/Global_V2_LATEST-staged.csv
+
+        # Match the latest Parameters_Global_V2 in pr branch
+        params=`python3 /tmp/deployment-scripts/ls_latest_csv.py \
+                    Parameters_Global_V2_ ./data/predicted | tail -n 1`
+        cp $params /tmp/Parameters_Global_V2_LATEST-staged.csv
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Install Dependencies
+      run: |
+        pip3 install pandas
+
+    - name: Run Checks 
+      run: |
+        echo "[*] Comparing Global CSVs... (Checks 1-4)"
+        python3 /tmp/deployment-scripts/check_global.py \
+                    /tmp/Global-staged.csv \
+                    /tmp/Global-master.csv \
+                    "Day" 0 0
+                    # date column
+                          # no NAN tolerance
+                            # don't skip any check
+
+        echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
+        python3 /tmp/deployment-scripts/check_global.py \
+                    /tmp/Parameters_Global_V2_LATEST-staged.csv \
+                    /tmp/Parameters_Global_V2_LATEST-master.csv \
+                    "Data Start Date" 0.1 4 
+                    # date column     # NAN tolerance (MAPE)
+                                          # skip check 4
+
+        echo "[*] Checking historic CSV... (Check 5)"
+        python3 /tmp/deployment-scripts/check_equal.py \
+                    /tmp/Global-staged.csv \
+                    /tmp/Global_V2_LATEST-staged.csv
+
+    - name: Auto-Merge PR 
+      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
+      env:
+        GITHUB_TOKEN: "${{ secrets.TRAVIS_TOKEN_AUTOMERGE }}"
+
+        # TODO: As a safety measure for now, only auto-merge new pull requests 
+        # iff they are labelled with 'automerge' (The DELPHI team would have to
+        # add this label when we are ready to deploy fully auutomatically). For
+        # now, the check will still run and pass/fail but no auto-merge will be done.
+        MERGE_LABELS: "automerge"
