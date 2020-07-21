@@ -7,11 +7,12 @@ import flask
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
 from projections.utils import get_world_map_text
 
+
 def register_callbacks(app):
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
-    df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
+    #df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
+    df_projections = pd.read_csv('data/test/global_v2_test_since100_20200719.csv', sep=",", parse_dates=['Day'])
+    df_projections.loc[:, 'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
     today = pd.Timestamp('today')
-    df_projections = df_projections.loc[df_projections['Day']>=today]
 
     pop_info = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
 
