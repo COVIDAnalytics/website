@@ -23,7 +23,8 @@ def RiskCalc():
                               'imputed-text-mortality') +
             get_personal_visual('visual-1-mortality') +
             get_model_desc('mortality-model-desc') +
-            get_feature_importance('feature-importance-bar-graph'),
+            get_feature_importance('feature-importance-bar-graph') +
+            [html.Div(style={"height": "100px"})],
             className="page-body"
         )
 

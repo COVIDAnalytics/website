@@ -27,7 +27,8 @@ def InfectionRiskCalc():
         get_inputed_vals('imputed-text-infection') +
         get_personal_visual('visual-1-infection') +
         get_model_desc('infection-model-desc') +
-        get_feature_importance('feature-importance-bar-graph-infection'),
+        get_feature_importance('feature-importance-bar-graph-infection') +
+        [html.Div(style={"height": "100px"})],
         className="page-body"
     )
     layout = html.Div([

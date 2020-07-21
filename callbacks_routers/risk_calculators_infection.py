@@ -128,9 +128,15 @@ def register_callbacks(app):
     def set_submit_button_infection(language):
         return html.Div(children=[
             html.Div(className="material-icons",
-                     children=["face"],
-                     style={"display": "inline"}),
-            languages["submit"][language],
+                     children=["send"],
+                     style={"display": "inline",
+                            "verticalAlign": "middle"}
+                     ),
+            html.Div(languages["submit"][language],
+                     style={"fontSize": "24px",
+                            "display": "inline",
+                            "paddingLeft": "10px",
+                            "verticalAlign": "middle"})
         ])
 
     @app.callback(

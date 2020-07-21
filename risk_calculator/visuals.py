@@ -7,14 +7,17 @@ from .utils import lang_names
 def get_page_desc(_id):
     """Builds the first big text card that introduces users to the page"""
     return [
-        dbc.Row([
-            dbc.Col([
-                dbc.Jumbotron(
-                    id=_id,
-                    style={'paddingBottom': '0.5rem', 'paddingTop': '0.8rem'}
-                )
-            ]),
-        ])
+        dbc.Row(
+           children=[
+                dbc.Col([
+                    dbc.Jumbotron(
+                        style={"padding": "4%"},
+                        className="elevation-3",
+                        id=_id,
+                    )
+                ]),
+            ]
+        )
     ]
 
 
@@ -104,10 +107,11 @@ def get_model_desc(id):
     return [
         dbc.Row(
             justify="center",
-            children=dbc.Jumbotron(
+            children=dbc.Col(dbc.Jumbotron(
+                style={"padding": "4%"},
+                className="elevation-3",
                 id=id,
-                style={'paddingBottom': '0.5rem', 'paddingTop': '0.8rem'}
-            ),
+            )),
         ),
     ]
 
@@ -120,7 +124,8 @@ def get_feature_importance(_id):
             children=dbc.Col([
                 dbc.Card(
                     id=_id,
-                    style={"borderColor": "#800020", "paddingTop": 20, "paddingBottom": 20},
+                    style={"padding": "4%"},
+                    className="elevation-3",
                 ),
             ]),
         ),
@@ -131,10 +136,14 @@ def get_feature_cards(_id):
     """Create feature card container"""
     return [
         # The container of feature cards
-        dbc.Row(
-            id=_id,
-            justify="center"
-        )
+        html.Div(
+            style={"min-height": "500px"},
+            children=[
+            dbc.Row(
+                id=_id,
+                justify="center"
+            )
+        ])
     ]
 
 
@@ -143,7 +152,6 @@ def get_submit_button(_id, res_id, err_id, imputed_id):
     return [
         dbc.Row(
             justify="center",
-            style={"paddingBottom": 50},
             children=[
                 dbc.Col(
                     xs=12,
