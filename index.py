@@ -66,8 +66,8 @@ app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
 
 app.layout = html.Div([
-    dcc.Location(id = 'url', refresh = False),
-    html.Div(id = 'page-content')
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
 ])
 app.scripts.append_script({'external_url': 'https://covidanalytics.io/assets/gtag.js'})
 app.scripts.append_script({'external_url': 'https://localhost:8085/assets/js/aos.js'})
@@ -122,7 +122,7 @@ def display_page(pathname):
         return Homepage()
 
 
-#Callbacks for navbar
+# Callbacks for navbar
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],

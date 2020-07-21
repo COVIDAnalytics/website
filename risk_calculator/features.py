@@ -251,8 +251,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
     multidrop = features["multidrop"]
     title_mapping = get_title_mapping()
 
-    print(features)
-
     # The scaffold that will hold ordered feature cards
     feature_scaffold = [
         {
@@ -381,7 +379,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 build_oxygen_card(str(_id), labs, m, content_dict, language)
             )
         else:
-            print("Adding feature: " + content_dict['name'])
             add_feature(
                 content_dict['name'],
                 # Give different IDs to fix input box not clearing when change
