@@ -86,7 +86,12 @@ jobs:
                     /tmp/Global-staged.csv \
                     /tmp/Global_V2_LATEST-staged.csv
 
-    if: contains(github.event.pull_request.labels.*.name, 'automerge')
+  automerge:
+
+    # The type of docker container that the job will run on
+    runs-on: ubuntu-latest
+
+    if: contains(github.event.pull_request.labels.*.name, 'automerge') == true
     steps:
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
