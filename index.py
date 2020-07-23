@@ -94,6 +94,7 @@ def display_page(pathname):
     else:
         return Homepage()
 
+
 #Callbacks for navbar
 @app.callback(
     Output("navbar-collapse", "is_open"),
