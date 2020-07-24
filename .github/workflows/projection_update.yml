@@ -19,7 +19,10 @@ jobs:
     - name: Dump GitHub context
       env: 
         GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
+        JOB_CONTEXT: ${{ toJson(job) }}
+      run: |
+        echo "github context: $GITHUB_CONTEXT"
+        echo "job context: $JOB_CONTEXT"
 
     - name: Checkout master
       uses: actions/checkout@v2
