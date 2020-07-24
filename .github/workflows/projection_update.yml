@@ -16,6 +16,11 @@ jobs:
     # Check if PR is coming from projection_updates branch
     if: contains(github.head_ref, 'projection_updates') == true
     steps:
+    - name: Dump GitHub context
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+      run: echo "$GITHUB_CONTEXT"
+
     - name: Checkout master
       uses: actions/checkout@v2
       with: 
