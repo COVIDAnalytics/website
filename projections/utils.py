@@ -25,22 +25,8 @@ def add_cases(w):
         w += ' Cases'
     return w
 
-def build_card(id):
-    return dbc.Col(
-                [
-                dbc.Card(
-                    [],
-                    id = id,
-                    color="dark",
-                    inverse=True,
-                    style={'marginBottom':20,'paddingTop':20,"height":"12rem"},
-                    ),
-                ],
-                xs=12,
-                sm=6,
-                md=6,
-                lg=3,
-            )
+
+
 def get_df_projections():
     df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
     df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date

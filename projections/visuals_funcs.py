@@ -8,6 +8,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 
 from assets.mappings import get_states, get_colors
+from projections.map import build_card_content
 from projections.utils import get_cols, add_cases
 
 def build_continent_map(df_continent,PopInfo,map_date,val='Active', continent = 'World', pop = 1):
@@ -267,7 +268,8 @@ def build_state_projection(df_projections, state, country, continent, vals):
     )
     return graph
 
-def get_stat(df_projections,d, val, scope):
+
+def get_stat(df_projections, d, val, scope):
     if d is None:
         return None
     if isinstance(d, str):
@@ -284,15 +286,5 @@ def get_stat(df_projections,d, val, scope):
     if df_projections_sub.empty:
         return None
 
-    card_content = [
-        dbc.CardHeader(
-            f'{df_projections_sub.iloc[0][val]:,}',
-            style={"textAlign":"center","fontSize":30,"fontWeight": "bold","color":'#1E74F0'}
-        ),
-        dbc.CardBody(
-            [
-                html.H5(add_cases(val),id='us-stats-cards'),
-            ]
-        ),
-    ]
-    return card_content
+
+    return build_card_content(f'{df_projections_sub.iloc[0][val]:,}', add_cases(val))
