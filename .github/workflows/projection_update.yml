@@ -29,6 +29,16 @@ jobs:
       with: 
         ref: master
 
+    - name: Dump Job context
+      env: 
+        JOB_CONTEXT: ${{ toJson(job) }}
+      run: |
+        echo "job context: $JOB_CONTEXT"
+
+    - name: Hello sanity
+      run: |
+        echo "bye bye sanity"
+
     - name: Copy latest deployment-scripts to /tmp
       run:  |
         cp -r .github/workflows/deployment-scripts /tmp/deployment-scripts
