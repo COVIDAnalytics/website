@@ -3,8 +3,10 @@ name: Projection Update Pre-Deployment
 # Controls when the action will run. Triggers the workflow on PR 
 # events but only for the master branch
 on:
-  pull_request:
-    branches: [ master ]
+  #pull_request:
+    #branches: [ master ]
+  label:
+    types: [created]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
