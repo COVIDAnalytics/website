@@ -286,5 +286,8 @@ def get_stat(df_projections, d, val, scope):
     if df_projections_sub.empty:
         return None
 
-
-    return build_card_content(f'{df_projections_sub.iloc[0][val]:,}', add_cases(val))
+    if val != "Active Hospitalized":
+        t = add_cases(val)
+    else:
+        t = val
+    return build_card_content(f'{df_projections_sub.iloc[0][val]:,}', t)
