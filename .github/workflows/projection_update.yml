@@ -29,16 +29,6 @@ jobs:
       with: 
         ref: master
 
-    - name: Dump Job context
-      env: 
-        JOB_CONTEXT: ${{ toJson(job) }}
-      run: |
-        echo "job context: $JOB_CONTEXT"
-
-    - name: Hello sanity
-      run: |
-        echo "bye bye sanity"
-
     - name: Copy latest deployment-scripts to /tmp
       run:  |
         cp -r .github/workflows/deployment-scripts /tmp/deployment-scripts
@@ -111,8 +101,18 @@ jobs:
 
     needs: csv_checks
 
-    if: contains(github.event.pull_request.labels.*.name, 'automerge') == true
     steps:
+    - name: Check if automerge label exists
+      env: 
+        PR: ${{ github.event.number }}
+      run: |
+        echo "Checking if label exists on PR $PR"
+        # This command succeeds IFF the label automerge exists on this PR
+        curl -s "https://api.github.com/repos/COVIDAnalytics/website/pulls/$PR" \
+            | python3 -c \
+                "import sys, json;\
+                 assert json.load(sys.stdin)['labels'][0]['name'] == 'automerge'"
+
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
       env:
