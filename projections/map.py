@@ -154,19 +154,18 @@ def get_top_visual():
             children=[dbc.Card(
                 className="country-control-card elevation-3",
                 children=[dbc.CardBody([
-                    dcc.Markdown("And for which population type?"),
                     dbc.Row([
                         dbc.Col(
                             html.Div([
-                                dcc.RadioItems(
+                                dcc.Dropdown(
+                                    className="flat-location-picker flat-map-drop flat-map-scale",
+                                    clearable=False,
+                                    id='radio_botton',
                                     options=[
-                                        {'label': '  Full population', 'value': 1},
-                                        {'label': '  Value per million', 'value': 2}
+                                        {'label': 'Absolute (full population)', 'value': 1},
+                                        {'label': 'Relative (value/million)', 'value': 2}
                                     ],
                                     value=1,
-                                    id = 'radio_botton',
-                                    labelStyle={'display': 'inline-block', 'margin-right': '20px'},
-                                    style={'textAlign': 'center'}
                                 ),
                             ]),
                         ),

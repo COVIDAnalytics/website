@@ -289,15 +289,19 @@ input[type="number"] {
 }
 
 .projections-notes {
-    display: none !important;
-    transition: max-height 1s;
-    max-height: 0px;
+    transition: all 1s;
+    max-height: 800px;
     overflow: hidden;
+    margin-bottom: 30px;
+    border: none;
+    opacity: 0.0;
+    background-color: white;
 }
 
 .country-control-card {
     background-color: black !important;
     border-radius: 0px !important;
-    padding: 0px 20px;
+    padding: 0px 0px;
+    padding-bottom: 7px;
 }
 

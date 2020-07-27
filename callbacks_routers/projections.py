@@ -5,7 +5,8 @@ from dash.dependencies import Output, Input
 import flask
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_world_map_text
+from projections.utils import get_world_map_text, build_notes_content
+
 
 def register_callbacks(app):
     df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
@@ -115,3 +116,13 @@ def register_callbacks(app):
             d = dt.strptime(d, '%Y-%m-%d').date()
             return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
         return ''
+
+    @app.callback(
+        Output("projection-notes-card", "style"),
+        [Input("projection-show-notes-btn", "n_clicks")])
+    def toggle_notes(clicks):
+        print(clicks)
+        if clicks is not None and clicks % 2 == 1:
+            return {"max-height": "2000px", "opacity": "1.0", "padding": "10px"}
+        else:
+            return {"max-height": "0px", "opacity": "0.0", "margin": "0px"}

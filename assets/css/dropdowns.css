@@ -219,15 +219,17 @@
 }
 
 .flat-location-picker span {
+    font-family: "Ubuntu" !important;
     color: white !important;
     background-color: black;
-    font-size: 30px;
+    font-size: 25px;
     position: relative;
     z-index: 40;
 }
 
 .flat-location-picker::before {
     content: "In";
+    font-family: "Ubuntu" !important;
     color: grey;
     font-size: 20px;
     bottom: 10px;
@@ -248,9 +250,24 @@
 .flat-map-drop .Select-value span {
     margin-left: 80px !important;
     margin-right: auto !important;
+    margin-top: 3px;
 }
-
 
 .flat-map-drop::before {
     content: "Showing"
+}
+
+.flat-radio-label {
+    color: white !important;
+}
+
+.flat-map-scale::before {
+    content: "With scale" !important;
+}
+
+
+.flat-map-scale .Select-value span {
+    margin-left: 95px !important;
+    margin-right: auto !important;
+    margin-top: 3px;
 }
