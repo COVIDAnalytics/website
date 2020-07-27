@@ -72,7 +72,7 @@ jobs:
 
     - name: Run Checks 
       run: |
-        echo "[*] Comparing Global CSVs... (Checks 1-4)"
+        echo "[*] Comparing Global CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global-master.csv \
@@ -81,7 +81,7 @@ jobs:
                           # no NAN tolerance
                             # don't skip any check
 
-        echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
+        echo "[*] Comparing Parameter CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Parameters_Global_V2_LATEST-staged.csv \
                     /tmp/Parameters_Global_V2_LATEST-master.csv \
@@ -89,7 +89,7 @@ jobs:
                     # date column     # NAN tolerance (MAPE)
                                           # skip check 4
 
-        echo "[*] Checking historic CSV... (Check 5)"
+        echo "[*] Checking historic CSV... (Extra Check)"
         python3 /tmp/deployment-scripts/check_equal.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global_V2_LATEST-staged.csv
