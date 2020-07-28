@@ -18,7 +18,6 @@ def build_feature_importance_graph(m=True, labs=False):
 def map_feat_vals(x, name, language):
     if name == "Gender":
         return langs[language].get_gender(x == 0)
-    return "Chungus"
 
 
 def build_dropdown_card(_id, m, content_dict, language, feature_name, readable_name):
@@ -92,7 +91,7 @@ def oxygen_options(_id, m, have_val, text, language):
     return [
         html.Div(html.H5(label,
                          className="input-label",
-                         style={"height": "48px"} if small_label else {}),
+                         style={"max-height": "60px"} if small_label else {}),
                  style={"textAlign": "end"}),
         dbc.Row(
             content,
@@ -115,7 +114,7 @@ def build_oxygen_card(_id, labs, m, content_dict, language):
                 dbc.Col(
                     children=[
                     html.H5(langs[language].hasO2Value, className="input-label",
-                            style={"height": "36px"}),
+                            style={"max-height": "60px"}),
                     dcc.Dropdown(
                         id="oxygen-answer-{}".format(model),
                         options=[{'label': labs_ques(x, language), 'value': x} for x in [1, 0]],
@@ -315,7 +314,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             }
         },
         {
-            "group": "Misc.",
+            "group": "Other Lab Values",
             "features": ["C-reactive protein", "prothrombin time"],
             "mortality": {
                 "layout": "2x1",
