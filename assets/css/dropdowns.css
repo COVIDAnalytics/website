@@ -150,6 +150,10 @@
     background-color: black;
 }
 
+.flat-date-picker .SingleDatePicker_picker {
+    z-index: 3 !important;
+}
+
 .flat-date-picker input {
     background-color: black;
     color: white;
@@ -206,6 +210,7 @@
     border-bottom-width: 2px;
     border-radius: 4px;
     height: 100%;
+    text-align: center !important;
 }
 
 .flat-location-picker .Select-value {
@@ -262,7 +267,6 @@
 }
 
 .flat-map-drop .Select-menu-outer {
-    position: relative;
     z-index: 2;
 }
 
@@ -278,11 +282,22 @@
     content: "With scale" !important;
 }
 
-
 .flat-map-scale .Select-value span {
     margin-left: 95px !important;
     margin-right: auto !important;
     margin-top: 3px;
+}
+
+.flat-location-picker .Select-input {
+    margin-left: 30px !important;
+    margin-right: auto !important;
+    margin-top: 13px !important;
+}
+
+.flat-map-drop .Select-input {
+    margin-left: 95px !important;
+    margin-right: auto !important;
+    margin-top: 13px !important;
 }
 
 .flat-map-multi {
