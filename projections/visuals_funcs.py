@@ -198,7 +198,7 @@ def build_us_map(df_projections,PopInfo,map_date,val='Active', pop = 1):
 def find_smallest_scope(state, country, continent):
     location = state
     if state in 'None':
-        if country is 'None':
+        if country in 'None':
             location = continent
         else:
             location = country
@@ -206,6 +206,7 @@ def find_smallest_scope(state, country, continent):
 
 def build_state_projection(df_projections, state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
+    print("LOcation is : " + location)
     df_projections_sub = df_projections.loc[ (df_projections.Province == state) & (df_projections.Country == country)]
     if continent not in ['US', 'World']:
         df_projections_sub = df_projections_sub.loc[(df_projections_sub.Continent == continent)]
@@ -226,7 +227,7 @@ def build_state_projection(df_projections, state, country, continent, vals):
                 showlegend=True,
                 x=df_projections_sub['Day'],
                 y=df_projections_sub[val].values,
-                mode="lines+markers",
+                mode="lines",
                 marker=dict(color=colors[i]),
                 line=dict(color=colors[i])
             ))

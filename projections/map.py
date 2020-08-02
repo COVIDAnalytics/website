@@ -30,6 +30,11 @@ def build_card(_id, c):
         lg=6,
         className=c,
         style={},
+        children=html.Div(style={
+            "backgroundColor": "white",
+            "width": "100%",
+            "height": "134px"
+        })
     )
 
 
@@ -40,21 +45,10 @@ def build_death_cards():
     df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
     df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
     df_projections = df_projections.loc[df_projections['Day']>=today]
-    return [
-        dbc.Row([
-            html.Div(
-                id='us-stats-title',
-                style={
-                    'display': 'none',
-                    'width': '100%',
-                    'color': 'black',
-                    'textAlign': 'center',
-                    'fontSize': 30,
-                    'fontWeight': 'bold'
-                }
-            ),
-        ]),
-        dbc.Row(
+    return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
+        className="aos-refresh-onload",
+        style={"zIndex": 2, "position": "relative"},
+        children=dbc.Row(
             align="center",
             no_gutters=True,
             className="elevation-3",
@@ -89,14 +83,13 @@ def build_death_cards():
                                         date = oneWeekFromNow,
                                         initial_visible_month = oneWeekFromNow,
                                     ),
-                                    html.Div(className="buffer", style={"width": "55px"}),
+                                    html.Div(className="buffer", style={"width": "45px"}),
                                     dcc.Dropdown(
                                         id='location_map_dropdown',
                                         className="flat-location-picker",
                                         options=[{'label': x, 'value': x} for x in map_locations],
                                         value='US',
                                         clearable=False,
-
                                     ),
                                 ])
                             ]
@@ -104,7 +97,7 @@ def build_death_cards():
                     ]
                 )
             ],
-        )
+        ))
     ]
 
 def get_top_visual():
@@ -115,7 +108,6 @@ def get_top_visual():
 
     map_controls = [dbc.Row(
         no_gutters=True,
-        style={'marginBottom': 20},
         children=[dbc.Col(
             xs=12,
             sm=12,
@@ -173,28 +165,25 @@ def get_top_visual():
                 ])],
             )]
         ),
-        html.P(
+        html.Div(
             children=[],
             style={'color': 'gray'},
             id='grey-countries-text'
         ),
     ])]
-    map_graph = [
-            dbc.Row(
-            [
-                dbc.Col(
-                [
-                    html.Div(
-                        id='map_projections',
-                        className="elevation-3",
-                        style={"padding": "20px"},
-                        children = [],
-                    ),
+    map_graph = [dbc.Row([
+        dbc.Col([
+            html.Div(
+                id='map_projections',
+                className="elevation-3",
+                style={"padding": "20px"},
+                children=[
+                    html.Div(style={"width": "100%", "background-color": "white", "height": "450px"})
+                ],
+            ),
+        ]),
+    ])]
 
-                ]
-                ),
-
-            ],
-            )
-        ]
-    return map_graph + map_controls
+    return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
+                     className="aos-refresh-onload",
+                     children=map_graph + map_controls)]

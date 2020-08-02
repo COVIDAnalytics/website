@@ -6,12 +6,12 @@ import matplotlib
 import matplotlib.pyplot as plt
 from textwrap import wrap
 
-import risk_calculator.languages.english as english
-import risk_calculator.languages.spanish as spanish
-import risk_calculator.languages.italian as italian
-import risk_calculator.languages.german as german
+from risk_calculator.languages.english import English
+from risk_calculator.languages.german import German
+from risk_calculator.languages.italian import Italian
+from risk_calculator.languages.spanish import Spanish
 
-langs = [english, german, spanish, italian]
+langs = [English, German, Spanish, Italian]
 lang_names = {
     0: "English",
     1: "Deutsch",

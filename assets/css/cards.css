@@ -303,5 +303,8 @@ input[type="number"] {
     border-radius: 0px !important;
     padding: 0px 0px;
     padding-bottom: 7px;
+    height: 100%;
 }
+
+
 

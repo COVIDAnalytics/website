@@ -146,18 +146,24 @@
     color: white;
 }
 
+.flat-date-picker .SingleDatePickerInput {
+    background-color: black;
+}
+
 .flat-date-picker input {
     background-color: black;
     color: white;
     border: none;
-    text-align: right;
+    text-align: center;
     padding: 10.5px 0;
+    padding-left: 20px;
     padding-bottom: 10px;
-    font-size: 30px;
+    padding-top: 16px;
+    font-size: 25px;
 }
 
 .flat-date-picker .DateInput {
-    width: 205px !important;
+    width: 215px !important;
 }
 
 .flat-date-picker input::placeholder {
@@ -176,13 +182,12 @@
     bottom: 10px;
     left: 5px;
     position: absolute;
-    z-index: 10;
+    z-index: 1
 }
 
 .flat-location-picker {
     position: relative;
-    z-index: 20;
-    width: 205px;
+    width: 215px;
     height: 100%;
     min-height: 57px;
 }
@@ -196,10 +201,10 @@
 }
 
 .flat-location-picker .Select-control {
-    background-color: black;
+    background-color: black !important;
     border-width: 0px;
     border-bottom-width: 2px;
-    border-radius: 2px;
+    border-radius: 4px;
     height: 100%;
 }
 
@@ -211,10 +216,9 @@
 .flat-location-picker .Select-value span {
     position: relative;
     display: inline-block;
-    padding-top: 11px;
+    padding-top: 13.5px;
     margin-left: 15px;
     paddin-left: 25px;
-    z-index: 30;
     background-color: black;
 }
 
@@ -224,7 +228,10 @@
     background-color: black;
     font-size: 25px;
     position: relative;
-    z-index: 40;
+}
+
+.flat-location-picker input {
+    color: white;
 }
 
 .flat-location-picker::before {
@@ -235,7 +242,7 @@
     bottom: 10px;
     left: 5px;
     position: absolute;
-    z-index: 10;
+    z-index: 1
 }
 
 .flat-map-drop {
@@ -251,6 +258,12 @@
     margin-left: 80px !important;
     margin-right: auto !important;
     margin-top: 3px;
+    padding-top: 10.5px !important;
+}
+
+.flat-map-drop .Select-menu-outer {
+    position: relative;
+    z-index: 2;
 }
 
 .flat-map-drop::before {
@@ -270,4 +283,135 @@
     margin-left: 95px !important;
     margin-right: auto !important;
     margin-top: 3px;
+}
+
+.flat-map-multi {
+    background-color: black;
+    width: 100%;
+}
+
+.loc-sel-drop {
+    width: 100%;
+    background-color: black !important;
+    padding: 0 20px;
+}
+
+.loc-sel-slash::after {
+    content: "/";
+    color: white;
+    position: absolute;
+    right: -10px;
+    top: 0px;
+    font-size: 30px;
+    font-family: "Ubuntu";
+    z-index: 1
+}
+
+.no-sel-slash::after {
+    content: "" !important;
+}
+
+.loc-sel-drop .Select-control {
+    background-color: black !important;
+    border: none !important;
+    border-bottom: 2px solid white !important;
+    width: 100% !important;
+}
+
+.loc-sel-drop .Select-placeholder {
+    color: grey;
+    font-family: "Ubuntu";
+    font-size: 25px;
+}
+
+.loc-sel-drop .Select-control {
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+.loc-sel-drop .Select-value span {
+    color: white !important;
+    font-family: "Ubuntu";
+    font-size: 25px;
+    margin-right: 20px !important;
+    padding-left: 20px !important;
+}
+
+.loc-sel-drop input {
+    color: white;
+}
+
+@media only screen and (max-width: 1200px) {
+    #continent_dropdown {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    .loc-sel-slash::after {
+        content: '' !important;
+    }
+    #country_dropdown {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    #continent_dropdown .Select {
+        padding: 0px !important;
+    }
+    #country_dropdown .Select {
+        padding: 0px !important;
+    }
+    #province_dropdown .Select {
+        padding: 0px !important;
+    }
+    #province_dropdown {
+        width: 100% !important;
+    }
+}
+
+#continent_dropdown {
+    width: 100%;
+}
+
+#continent_dropdown span {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+#country_dropdown {
+    width: 25%;
+}
+
+#province_dropdown {
+    width: 25%;
+}
+
+.flat-map-multi .Select-control {
+    border: none;
+    background-color: black;
+    border-bottom: 2px solid white;
+}
+
+.flat-map-multi span {
+    color: white !important;
+    font-family: "Ubuntu" !important;
+    font-size: 25px;
+}
+
+.flat-map-multi-small span {
+    font-size: 16px;
+}
+
+.flat-map-multi .Select-value {
+    border: none !important;
+}
+
+.flat-map-multi .Select-value-icon {
+    border: none !important;
+}
+
+.no-left-padding {
+    padding-left: 0px !important;
+}
+
+.flat-map-multi input {
+    color: white;
 }

@@ -17,9 +17,38 @@ document.body.onload = function() {
             updating = false;
             AOS.refreshHard();
             console.log("Page loaded")
+            onPageLoad()
         }
     }).observe(
         document.querySelector('title'),
         { subtree: true, characterData: true, childList:true }
     );
+
+    function onPageLoad() {
+        var dropdown = document.getElementById("continent_dropdown");
+        dropdown.onclick = function () {
+            document.getElementById("location_map_dropdown")
+                .scrollIntoView({block: "start", behavior: "smooth"});
+
+            var isScrolling;
+            function onStopScroll(event) {
+                window.clearTimeout( isScrolling );
+                isScrolling = setTimeout(function() {
+                    //scrolling has stopped
+                    var input = document.querySelector("#location_map_dropdown input")
+                    function injectVal(val) {
+                        var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+                        nativeInputValueSetter.call(input, val);
+
+                        var ev2 = new Event('input', { bubbles: true});
+                        input.dispatchEvent(ev2);
+                    }
+                    injectVal(' ')
+                    injectVal('')
+                    window.removeEventListener("scroll", onStopScroll);
+                }, 66);
+            }
+            window.addEventListener('scroll', onStopScroll, false)
+        }
+    }
 }

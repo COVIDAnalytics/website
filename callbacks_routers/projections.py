@@ -1,11 +1,15 @@
 import os
 from datetime import datetime as dt
 import pandas as pd
-from dash.dependencies import Output, Input
+from dash import dash
+from dash.dependencies import Output, Input, State
 import flask
+import time
+
+from dash.exceptions import PreventUpdate
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_world_map_text, build_notes_content
+from projections.utils import get_world_map_text, build_notes_content, get_state_abbr
 
 
 def register_callbacks(app):
@@ -29,18 +33,23 @@ def register_callbacks(app):
     #Reset country_dropdown when main location (scope) changes
     @app.callback(
         [Output('country_dropdown', 'options'),
-         Output('country_dropdown', 'value'),
-         Output('country_dropdown', 'disabled')],
+         Output('country_dropdown', 'clearable'),
+         Output('continent_dropdown', 'value'),
+         Output('country_dropdown', 'value')],
         [Input('location_map_dropdown', 'value')])
     def set_countries_options(selected_continent):
         if selected_continent == 'World':
             df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
-            return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
+            return [[{'label': i, 'value': i} for i in df.Country.unique()],
+                   True, None, None]
         if selected_continent != 'US':
             df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
-            return [[{'label': i, 'value': i} for i in df.Country.unique()], None, False]
+            return [[{'label': i, 'value': i} for i in df.Country.unique()],
+                    True, selected_continent, None]
         else:
-            return [[{'label': 'US', 'value': 'US'}], 'US', True]
+            df = df_projections[(df_projections.Continent == "North America") & (df_projections.Country != 'None')]
+            return [[{'label': i, 'value': i} for i in df.Country.unique()],
+                    False, "North America", "US"]
 
     @app.callback(
         Output('grey-countries-text', 'children'),
@@ -55,23 +64,36 @@ def register_callbacks(app):
         Output('province-card-title', 'children'),
         [Input('location_map_dropdown', 'value')])
     def set_province_card_title(selected_continent):
-        return "For which location in {}?".format(selected_continent)
+        return "And for location"
 
     @app.callback(
         [Output('province_dropdown', 'options'),
          Output('province_dropdown', 'value'),
-         Output('province_dropdown', 'disabled')],
+         Output('province_dropdown', 'disabled'),
+         Output('country_dropdown', 'className'),
+         Output('province_dropdown', 'style'),
+         Output('country_dropdown', 'style'),
+         Output('continent_dropdown', 'style')],
         [Input('country_dropdown', 'value')])
     def set_province_options(selected_country):
+        default_class = ["loc-sel-drop loc-sel-slash "]
+        no_province_class = [default_class[0] + "no-sel-slash", {"display": "none"},
+                             {"width": "60%"}, {"width": "40%"}]
+        yes_province_class = [default_class[0], {"display": "table"}]
+        yes_us_class = [{"width": "25%"}, {"width": "50%"}]
+        no_us_class = [{"width": "37.5%"}, {"width": "37.5%"}]
         countries_with_provinces = ["US","Canada","Australia"]
         if selected_country is None or selected_country not in countries_with_provinces:
-            return [[], None, True]
+            return [[], None, True] + no_province_class
         else:
             df = df_projections[df_projections.Country == selected_country]
-            return [[{'label': i, 'value': i} for i in df.Province.unique()], None, False]
+            us_class = yes_us_class if selected_country == "US" else no_us_class
+            return tuple([[{'label': get_state_abbr()[i], 'value': i} for i in df.Province.unique()],
+                          None, False] + yes_province_class + us_class)
 
     @app.callback(
-        Output('state_projection_graph', 'children'),
+        [Output('state_projection_graph', 'children'),
+         Output('predicted_timeline', 'className')],
         [Input('province_dropdown', 'value'),
          Input('country_dropdown', 'value'),
          Input('location_map_dropdown', 'value'),
@@ -80,7 +102,13 @@ def register_callbacks(app):
     def update_projection(state, country, continent, val):
         state = 'None' if state == None else state
         country = 'None' if country == None else country
-        return build_state_projection(df_projections,state, country, continent, val)
+
+        # make dropdwon text smaller if more options are selectedj
+        dropdown_classes = "flat-map-multi "
+        if len(val) > 1:
+            dropdown_classes += "flat-map-multi-small"
+
+        return build_state_projection(df_projections,state, country, continent, val), dropdown_classes
 
     @app.callback(
         Output('map_projections', 'children'),
@@ -123,6 +151,6 @@ def register_callbacks(app):
     def toggle_notes(clicks):
         print(clicks)
         if clicks is not None and clicks % 2 == 1:
-            return {"max-height": "2000px", "opacity": "1.0", "padding": "10px"}
+            return {"maxHeight": "2000px", "opacity": "1.0", "padding": "10px"}
         else:
-            return {"max-height": "0px", "opacity": "0.0", "margin": "0px"}
+            return {"maxHeight": "0px", "opacity": "0.0", "margin": "0px"}

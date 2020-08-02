@@ -14,13 +14,22 @@ def get_cols():
             }
 
 def get_world_map_text():
-    return "* Note and Disclaimer: These Plotly maps are only proposed to give an \
+    return dbc.Card(
+        className="elevation-3",
+        style={
+            "marginTop": "30px",
+            "padding": "20px",
+            "border": "none",
+        },
+        children=html.P(
+            style={ "color": "grey", "margin": "0px" },
+            children="* Note and Disclaimer: These Plotly maps are only proposed to give an \
             approximate visual of the expansion of the disease.  \
             Borders are by definition subject to change, debate and dispute. \
             Plotly includes data from Natural Earth and defers to \
             the Natural Earth policy regarding disputed borders. \
             Grey countries correspond to those that currently have insufficient \
-            data for projections or those in which the outbreak has largely passed."
+            data for projections or those in which the outbreak has largely passed."))
 
 def add_cases(w):
     if 'Deaths' not in w:
@@ -67,3 +76,93 @@ def build_notes_content(visible):
                         the model may not exactly correspond with reports."),
             ])],
     )
+
+
+def get_state_abbr(reverse=False):
+    states = {
+        # us states
+        'Alabama': 'AL',
+        'Alaska': 'AK',
+        'American Samoa': 'AS',
+        'Arizona': 'AZ',
+        'Arkansas': 'AR',
+        'California': 'CA',
+        'Colorado': 'CO',
+        'Connecticut': 'CT',
+        'Delaware': 'DE',
+        'District of Columbia': 'DC',
+        'Florida': 'FL',
+        'Georgia': 'GA',
+        'Guam': 'GU',
+        'Hawaii': 'HI',
+        'Idaho': 'ID',
+        'Illinois': 'IL',
+        'Indiana': 'IN',
+        'Iowa': 'IA',
+        'Kansas': 'KS',
+        'Kentucky': 'KY',
+        'Louisiana': 'LA',
+        'Maine': 'ME',
+        'Maryland': 'MD',
+        'Massachusetts': 'MA',
+        'Michigan': 'MI',
+        'Minnesota': 'MN',
+        'Mississippi': 'MS',
+        'Missouri': 'MO',
+        'Montana': 'MT',
+        'Nebraska': 'NE',
+        'Nevada': 'NV',
+        'New Hampshire': 'NH',
+        'New Jersey': 'NJ',
+        'New Mexico': 'NM',
+        'New York': 'NY',
+        'North Carolina': 'NC',
+        'North Dakota': 'ND',
+        'Northern Mariana Islands':'MP',
+        'Ohio': 'OH',
+        'Oklahoma': 'OK',
+        'Oregon': 'OR',
+        'Pennsylvania': 'PA',
+        'Puerto Rico': 'PR',
+        'Rhode Island': 'RI',
+        'South Carolina': 'SC',
+        'South Dakota': 'SD',
+        'Tennessee': 'TN',
+        'Texas': 'TX',
+        'Utah': 'UT',
+        'Vermont': 'VT',
+        'Virgin Islands': 'VI',
+        'Virginia': 'VA',
+        'Washington': 'WA',
+        'West Virginia': 'WV',
+        'Wisconsin': 'WI',
+        'Wyoming': 'WY',
+        # Canada states
+        'Alberta': 'AB',
+        'British Columbia': 'BC',
+        'Manitoba': 'MB',
+        'New Brunswick': 'NB',
+        'Newfoundland and Labrador': 'NL',
+        'Northwest Territories': 'NT',
+        'Nova Scotia': 'NS',
+        'Nunavut': 'NU',
+        'Ontario': 'ON',
+        'Prince Edward Island': 'PE',
+        'Quebec': 'QC',
+        'Saskatchewan': 'SK',
+        'Yukon': 'YT',
+        # Australia states
+        'New South Wales': 'NSW',
+        'Northern Territory': 'NT',
+        'Queensland': 'Qld',
+        'South Australia': 'SA',
+        'Tasmania': 'Tas',
+        'Victoria': 'Vic',
+        'Western Australia': 'WA',
+        'Australian Capital Territory': 'ACT',
+        # None
+        'None': 'All'
+    }
+    if reverse:
+        states = dict(map(reversed, states.items()))
+    return states
