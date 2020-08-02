@@ -123,5 +123,5 @@ def get_bottom_visual():
     ])]
 
     return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "100"},
-                     className="aos-refresh-onload",
+                     className="aos-refresh-onload-strict",
                      children=history_graph + bottom_visual + pre_footer)]

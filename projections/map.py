@@ -46,7 +46,7 @@ def build_death_cards():
     df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
     df_projections = df_projections.loc[df_projections['Day']>=today]
     return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
-        className="aos-refresh-onload",
+        className="aos-refresh-onload-strict",
         style={"zIndex": 2, "position": "relative"},
         children=dbc.Row(
             align="center",
@@ -185,5 +185,5 @@ def get_top_visual():
     ])]
 
     return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
-                     className="aos-refresh-onload",
+                     className="aos-refresh-onload-strict",
                      children=map_graph + map_controls)]

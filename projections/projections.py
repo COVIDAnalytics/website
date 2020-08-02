@@ -22,11 +22,11 @@ def ProjectState():
                 dbc.Col(
                     lg=12,
                     style={"marginBottom": "20px"},
-                    children=[html.H2("DELPHI Epidemiological Case Predictions"),],
+                    children=[html.H2("DELPHI Epidemiological Case Predictions")],
                 ),
                 dbc.Col(
                     lg=12,
-                    children=build_notes_content(False),
+                    children=build_notes_content(),
                 ),
                 dbc.Col(
                     xs=12,
@@ -36,7 +36,7 @@ def ProjectState():
                     lg=5,
                     style={"marginBottom": "30px"},
                     children=[
-                        html.Div(** {"data-aos": "fade-up"}, className="aos-refresh-onload", children=dbc.Card(
+                        html.Div(** {"data-aos": "fade-up"}, className="aos-refresh-onload-strict", children=dbc.Card(
                             className="elevation-3",
                             style={"padding": "30px", "border": "none", "height": "100%", "backgroundColor": "#e9ecef"},
                             children=[
@@ -52,7 +52,8 @@ def ProjectState():
                                                differentiated government intervention.
                                        """, style={"marginTop": "auto"}),
                                 dbc.Button(children=["Expand notes",
-                                                     html.Span("chevron_right", className="material-icons", style={"margin": "0px"})],
+                                                     html.Span("chevron_right", className="material-icons",
+                                                               style={"margin": "0px"})],
                                            id="projection-show-notes-btn", color="dark",
                                            style={"borderRadius": "0px",
                                                   "maxWidth": "170px",
@@ -75,9 +76,7 @@ def ProjectState():
                     children=build_death_cards()),
 
             ])
-        ] + \
-            get_top_visual() + \
-            get_bottom_visual(),
+        ] + get_top_visual() + get_bottom_visual(),
     )
 
     layout = html.Div([nav, body, footer], className="site")

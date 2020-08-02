@@ -1,22 +1,18 @@
 import os
 from datetime import datetime as dt
 import pandas as pd
-from dash import dash
-from dash.dependencies import Output, Input, State
+from dash.dependencies import Output, Input
 import flask
-import time
-
-from dash.exceptions import PreventUpdate
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_world_map_text, build_notes_content, get_state_abbr
+from projections.utils import get_world_map_text, get_state_abbr
 
 
 def register_callbacks(app):
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
-    df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
+    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates=['Day'])
+    df_projections.loc[:, 'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
     today = pd.Timestamp('today')
-    df_projections = df_projections.loc[df_projections['Day']>=today]
+    df_projections = df_projections.loc[df_projections['Day'] >= today]
 
     pop_info = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
 
@@ -30,7 +26,7 @@ def register_callbacks(app):
         return flask.send_from_directory(directory=os.path.join(app.server.root_path, "assets/documentations"),
                                          filename="Policy_Eval_Documentation.pdf")
 
-    #Reset country_dropdown when main location (scope) changes
+    # Reset country_dropdown when main location (scope) changes
     @app.callback(
         [Output('country_dropdown', 'options'),
          Output('country_dropdown', 'clearable'),
@@ -40,16 +36,13 @@ def register_callbacks(app):
     def set_countries_options(selected_continent):
         if selected_continent == 'World':
             df = df_projections[(df_projections.Continent != 'None') & (df_projections.Country != 'None')]
-            return [[{'label': i, 'value': i} for i in df.Country.unique()],
-                   True, None, None]
+            return [[{'label': i, 'value': i} for i in df.Country.unique()], True, None, None]
         if selected_continent != 'US':
             df = df_projections[(df_projections.Continent == selected_continent) & (df_projections.Country != 'None')]
-            return [[{'label': i, 'value': i} for i in df.Country.unique()],
-                    True, selected_continent, None]
+            return [[{'label': i, 'value': i} for i in df.Country.unique()], True, selected_continent, None]
         else:
             df = df_projections[(df_projections.Continent == "North America") & (df_projections.Country != 'None')]
-            return [[{'label': i, 'value': i} for i in df.Country.unique()],
-                    False, "North America", "US"]
+            return [[{'label': i, 'value': i} for i in df.Country.unique()], False, "North America", "US"]
 
     @app.callback(
         Output('grey-countries-text', 'children'),
@@ -82,7 +75,7 @@ def register_callbacks(app):
         yes_province_class = [default_class[0], {"display": "table"}]
         yes_us_class = [{"width": "25%"}, {"width": "50%"}]
         no_us_class = [{"width": "37.5%"}, {"width": "37.5%"}]
-        countries_with_provinces = ["US","Canada","Australia"]
+        countries_with_provinces = ["US", "Canada", "Australia"]
         if selected_country is None or selected_country not in countries_with_provinces:
             return [[], None, True] + no_province_class
         else:
@@ -100,15 +93,15 @@ def register_callbacks(app):
          Input('predicted_timeline', 'value')
          ])
     def update_projection(state, country, continent, val):
-        state = 'None' if state == None else state
-        country = 'None' if country == None else country
+        state = 'None' if state is None else state
+        country = 'None' if country is None else country
 
         # make dropdwon text smaller if more options are selectedj
         dropdown_classes = "flat-map-multi "
         if len(val) > 1:
             dropdown_classes += "flat-map-multi-small"
 
-        return build_state_projection(df_projections,state, country, continent, val), dropdown_classes
+        return build_state_projection(df_projections, state, country, continent, val), dropdown_classes
 
     @app.callback(
         Output('map_projections', 'children'),
@@ -116,11 +109,11 @@ def register_callbacks(app):
          Input('us_map_dropdown', 'value'),
          Input('location_map_dropdown', 'value'),
          Input('radio_botton', 'value')])
-    def update_us_map(chosen_date,val, location,pop):
+    def update_us_map(chosen_date, val, location, pop):
         if location == 'US':
-            return build_us_map(df_projections,pop_info,chosen_date,val,pop)
+            return build_us_map(df_projections, pop_info, chosen_date, val, pop)
         else:
-            return build_continent_map(df_projections,pop_info,chosen_date,val, location,pop)
+            return build_continent_map(df_projections, pop_info, chosen_date, val, location, pop)
 
     @app.callback(
         [Output('us_tot_det', 'children'),
@@ -130,19 +123,19 @@ def register_callbacks(app):
         [Input('us-map-date-picker-range', 'date'),
          Input('location_map_dropdown', 'value')])
     def update_stats(chosen_date, scope):
-        return [get_stat(df_projections,chosen_date,'Total Detected', scope),
-                get_stat(df_projections,chosen_date,'Active', scope),
-                get_stat(df_projections,chosen_date,'Active Hospitalized', scope),
-                get_stat(df_projections,chosen_date,'Total Detected Deaths', scope)]
+        return [get_stat(df_projections, chosen_date, 'Total Detected', scope),
+                get_stat(df_projections, chosen_date, 'Active', scope),
+                get_stat(df_projections, chosen_date, 'Active Hospitalized', scope),
+                get_stat(df_projections, chosen_date, 'Total Detected Deaths', scope)]
 
     @app.callback(
         Output('us-stats-title', 'children'),
         [Input('us-map-date-picker-range', 'date'),
          Input('location_map_dropdown', 'value')])
-    def display_US_stats_title(d, location):
+    def display_us_stats_title(d, location):
         if d is not None:
             d = dt.strptime(d, '%Y-%m-%d').date()
-            return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'),location)
+            return u'{} Predicted {} Counts'.format(d.strftime('%b %d,%Y'), location)
         return ''
 
     @app.callback(

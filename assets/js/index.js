@@ -5,13 +5,22 @@ AOS.init({
 
 document.body.onload = function() {
     var updating = false;
+    var lastURL = window.location.href;
     new MutationObserver(function(mutations) {
         var title = mutations[0].addedNodes[0].nodeValue;
         if (title === "Updating..." && !updating) {
             updating = true;
+
             Array.from(document.querySelectorAll('.aos-refresh-onload')).forEach(function(element) {
                 element.classList.remove("aos-animate");
             });
+
+            if (window.location.href != lastURL) {
+                Array.from(document.querySelectorAll('.aos-refresh-onload-strict')).forEach(function(element) {
+                    element.classList.remove("aos-animate");
+                });
+                lastURL = window.location.href;
+            }
         }
         else if (title === "COVIDAnalytics" && updating) {
             updating = false;
