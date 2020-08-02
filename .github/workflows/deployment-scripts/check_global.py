@@ -123,6 +123,24 @@ if skip_check != 4:
 else:
     info_check("Skipping check 4")
 
+#
+# Check #5: "Check for any negative numerical values"
+#
+if skip_check != 5: 
+    def func(s): 
+        to_num = pd.to_numeric(s, errors='coerce')
+        if not to_num.isnull().any() and (to_num >= 0).all():
+            return True
+        if to_num.isnull().any():
+            return True
+        info_check("Found negative values on these rows")
+        info_check("\n" + str(s[s < 0]))
+        return False
+    if (df_staged.apply(func) == False).any():
+        fail_check("Negative values were found")
+else:
+    info_check("Skipping check 5")
+
 # Success
-info_check("Success! Staged CSV passed Checks 1-4")
+info_check("Success! Staged CSV passed Checks 1-5")
 
