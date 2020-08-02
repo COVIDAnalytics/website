@@ -11,7 +11,7 @@ from risk_calculator.languages.german import German
 from risk_calculator.languages.italian import Italian
 from risk_calculator.languages.spanish import Spanish
 
-langs = [English, German, Spanish, Italian]
+langs = [English(), German(), Spanish(), Italian()]
 lang_names = {
     0: "English",
     1: "Deutsch",

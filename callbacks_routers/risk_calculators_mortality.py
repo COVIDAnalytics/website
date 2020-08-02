@@ -167,7 +167,6 @@ def register_callbacks(app):
         labs = argv[2]
         feats = argv[3:-1]
         user_features = dash.callback_context.states_list[0]
-        print(user_features)
 
         temp_unit = argv[-1]
         if len(temp_unit) > 0 and temp_unit[0] == "°C":
