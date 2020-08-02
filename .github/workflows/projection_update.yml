@@ -16,6 +16,14 @@ jobs:
     # Check if PR is coming from projection_updates branch
     if: contains(github.head_ref, 'projection_updates') == true
     steps:
+    - name: Dump GitHub context
+      env: 
+        GITHUB_CONTEXT: ${{ toJson(github) }}
+        JOB_CONTEXT: ${{ toJson(job) }}
+      run: |
+        echo "github context: $GITHUB_CONTEXT"
+        echo "job context: $JOB_CONTEXT"
+
     - name: Checkout master
       uses: actions/checkout@v2
       with: 
@@ -64,7 +72,7 @@ jobs:
 
     - name: Run Checks 
       run: |
-        echo "[*] Comparing Global CSVs... (Checks 1-4)"
+        echo "[*] Comparing Global CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global-master.csv \
@@ -73,7 +81,7 @@ jobs:
                           # no NAN tolerance
                             # don't skip any check
 
-        echo "[*] Comparing Parameter CSVs... (Checks 1-4)"
+        echo "[*] Comparing Parameter CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
                     /tmp/Parameters_Global_V2_LATEST-staged.csv \
                     /tmp/Parameters_Global_V2_LATEST-master.csv \
@@ -81,10 +89,29 @@ jobs:
                     # date column     # NAN tolerance (MAPE)
                                           # skip check 4
 
-        echo "[*] Checking historic CSV... (Check 5)"
+        echo "[*] Checking historic CSV... (Extra Check)"
         python3 /tmp/deployment-scripts/check_equal.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global_V2_LATEST-staged.csv
+
+  automerge:
+
+    # The type of docker container that the job will run on
+    runs-on: ubuntu-latest
+
+    needs: csv_checks
+
+    steps:
+    - name: Check if automerge label exists
+      env: 
+        PR: ${{ github.event.number }}
+      run: |
+        echo "Checking if label exists on PR $PR"
+        # This command succeeds IFF the label automerge exists on this PR
+        curl -s "https://api.github.com/repos/COVIDAnalytics/website/pulls/$PR" \
+            | python3 -c \
+                "import sys, json;\
+                 assert json.load(sys.stdin)['labels'][0]['name'] == 'automerge'"
 
     - name: Auto-Merge PR 
       uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
@@ -95,4 +122,4 @@ jobs:
         # iff they are labelled with 'automerge' (The DELPHI team would have to
         # add this label when we are ready to deploy fully auutomatically). For
         # now, the check will still run and pass/fail but no auto-merge will be done.
-        MERGE_LABELS: "automerge"
+        MERGE_LABELS: ""
