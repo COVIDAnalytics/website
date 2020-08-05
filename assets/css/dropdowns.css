@@ -181,7 +181,7 @@
 
 .flat-date-picker::before {
     content: "For";
-    color: grey;
+    color: lightgrey;
     font-size: 20px;
     bottom: 10px;
     left: 5px;
@@ -242,7 +242,7 @@
 .flat-location-picker::before {
     content: "In";
     font-family: "Ubuntu" !important;
-    color: grey;
+    color: lightgrey;
     font-size: 20px;
     bottom: 10px;
     left: 5px;

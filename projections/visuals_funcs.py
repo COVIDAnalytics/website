@@ -280,7 +280,7 @@ def build_state_projection(df_projections, state, country, continent, vals):
                 title_font_size=25,
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
-                legend_title='<b> Values Predicted </b>',
+                legend_title='<b> Predicted Values: </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',

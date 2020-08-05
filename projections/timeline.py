@@ -36,7 +36,7 @@ def get_bottom_visual():
                                     "Which projections should be plotted?",
                                     style={
                                         "fontFamily": "Ubuntu",
-                                        "color": "grey",
+                                        "color": "lightgrey",
                                         "fontSize": "20px",
                                     }
                                 ),
@@ -69,7 +69,7 @@ def get_bottom_visual():
                         id='province-card-title',
                         style={
                             "fontFamily": "Ubuntu",
-                            "color": "grey",
+                            "color": "lightgrey",
                             "paddingBottom": "6px",
                             "fontSize": "20px"
                         },
