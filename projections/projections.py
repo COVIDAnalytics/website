@@ -1,3 +1,5 @@
+import urllib
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -7,12 +9,17 @@ from footer import Footer
 
 from projections.map import get_top_visual, build_death_cards
 from projections.timeline import get_bottom_visual
-from projections.utils import build_notes_content
+from projections.utils import build_notes_content, get_df_projections
 
 
 def ProjectState():
     nav = Navbar()
     footer = Footer()
+
+    df_projections = get_df_projections()
+
+    with open("data/predicted/Global.csv", "r") as raw:
+        data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote('\n'.join(raw.readlines()))
 
     body = dbc.Container(
         className="page-body",
@@ -87,10 +94,26 @@ def ProjectState():
                      lg=7,
                      xl=6,
                      style={"marginTop": "auto"},
-                     children=build_death_cards()),
+                     children=build_death_cards(df_projections)),
 
              ])
-         ] + get_top_visual() + get_bottom_visual(),
+        ]
+        + get_bottom_visual()
+        + get_top_visual()
+        + [dbc.Row([
+            dbc.Col(
+                html.Div(
+                    style={'textAlign': "center", "margin": "30px", "marginTop": "40px"},
+                    children=html.A(
+                        "Download Most Recent Predictions",
+                        id="download-link",
+                        download="covid_analytics_projections.csv",
+                        href=data_csv_string,
+                        target="_blank"
+                    ),
+                )
+            ),
+        ])]
     )
 
     layout = html.Div([nav, body, footer], className="site")

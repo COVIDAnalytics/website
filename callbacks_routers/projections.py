@@ -5,12 +5,11 @@ from dash.dependencies import Output, Input
 import flask
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_world_map_text, get_state_abbr, build_notes_btn_content
+from projections.utils import get_world_map_text, get_state_abbr, build_notes_btn_content, get_df_projections
 
 
 def register_callbacks(app):
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates=['Day'])
-    df_projections.loc[:, 'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
+    df_projections = get_df_projections()
     today = pd.Timestamp('today')
     df_projections = df_projections.loc[df_projections['Day'] >= today]
 

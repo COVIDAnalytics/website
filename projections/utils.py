@@ -52,10 +52,8 @@ def build_notes_btn_content(show):
 
 
 def get_df_projections():
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates=['Day'])
+    df_projections = pd.read_csv('data/predicted/Global_V2_since100_CI_20200803.csv', sep=",", parse_dates=['Day'])
     df_projections.loc[:, 'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
-    today = pd.Timestamp('today')
-    df_projections = df_projections.loc[df_projections['Day'] >= today]
     return df_projections
 
 

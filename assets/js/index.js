@@ -39,25 +39,30 @@ document.body.onload = function() {
             document.getElementById("location_map_dropdown")
                 .scrollIntoView({block: "start", behavior: "smooth"});
 
-            var isScrolling;
+            function openDropdown() {
+                //scrolling has stopped
+                var input = document.querySelector("#location_map_dropdown input")
+                function injectVal(val) {
+                    var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+                    nativeInputValueSetter.call(input, val);
+
+                    var ev2 = new Event('input', { bubbles: true});
+                    input.dispatchEvent(ev2);
+                }
+                injectVal(' ')
+                injectVal('')
+                window.removeEventListener("scroll", onStopScroll);
+            }
+
+            var isScrolling = "none";
             function onStopScroll(event) {
                 window.clearTimeout( isScrolling );
-                isScrolling = setTimeout(function() {
-                    //scrolling has stopped
-                    var input = document.querySelector("#location_map_dropdown input")
-                    function injectVal(val) {
-                        var nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-                        nativeInputValueSetter.call(input, val);
-
-                        var ev2 = new Event('input', { bubbles: true});
-                        input.dispatchEvent(ev2);
-                    }
-                    injectVal(' ')
-                    injectVal('')
-                    window.removeEventListener("scroll", onStopScroll);
-                }, 66);
+                isScrolling = setTimeout(openDropdown, 66);
             }
             window.addEventListener('scroll', onStopScroll, false)
+            setTimeout(function() {
+                if (isScrolling == "none") openDropdown();
+            }, 140);
         }
     }
 }

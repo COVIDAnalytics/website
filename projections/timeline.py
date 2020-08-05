@@ -3,6 +3,7 @@ import dash_html_components as html
 import dash_bootstrap_components as dbc
 import urllib
 from projections.utils import get_cols, add_cases, get_df_projections, get_state_abbr
+import pandas as pd
 
 
 def get_bottom_visual():
@@ -11,15 +12,12 @@ def get_bottom_visual():
                                'US']
     map_locations = ['US', "Europe", "Asia", "North America", "South America", "Africa", 'World']
     df_projections = get_df_projections()
+    today = pd.Timestamp('today')
+    df_projections = df_projections.loc[df_projections['Day'] >= today]
     data_csv_string = df_projections.to_csv(index=False, encoding='utf-8')
     data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote(data_csv_string)
     cols = get_cols()
 
-    explanation = [dbc.Row([
-        dbc.Col([
-            html.H5('Use the tool below to explore our predictions for different locations.'),
-        ]),
-    ])]
     bottom_visual = [dbc.Row(
         no_gutters=True,
         children=[dbc.Col(
@@ -113,26 +111,12 @@ def get_bottom_visual():
                 style={
                     'width': '100%',
                     'padding': 20,
-                    'marginTop': "30px"
                 }
             ),
         ])
     ])]
-    pre_footer = [dbc.Row([
-        dbc.Col(
-            html.Div(
-                style={'textAlign': "center", "margin": "30px", "marginTop": "40px"},
-                children=html.A(
-                    "Download Most Recent Predictions",
-                    id="download-link",
-                    download="covid_analytics_projections.csv",
-                    href=data_csv_string,
-                    target="_blank"
-                ),
-            )
-        ),
-    ])]
 
-    return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "100"},
+    return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
+                     style={"zIndex": 2},
                      className="aos-refresh-onload-strict",
-                     children=history_graph + bottom_visual + pre_footer)]
+                     children=history_graph + bottom_visual)]

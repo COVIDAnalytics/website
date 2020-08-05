@@ -5,7 +5,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
 
-from projections.utils import get_cols, add_cases
+from projections.utils import get_cols, add_cases, get_df_projections
+
 
 def build_card_content(num, title):
     return [html.Div(
@@ -38,16 +39,13 @@ def build_card(_id, c):
     )
 
 
-def build_death_cards():
+def build_death_cards(df_projections):
     today = pd.Timestamp('today')
     oneWeekFromNow = datetime.date.today() + datetime.timedelta(days=7)
     map_locations = ['US', "Europe", "Asia", "North America", "South America", "Africa", 'World']
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
-    df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
-    df_projections = df_projections.loc[df_projections['Day']>=today]
     return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
         className="aos-refresh-onload-strict",
-        style={"zIndex": 2, "position": "relative"},
+        style={"zIndex": 3, "position": "relative"},
         children=dbc.Row(
             align="center",
             no_gutters=True,
@@ -100,11 +98,9 @@ def build_death_cards():
         ))
     ]
 
+
 def get_top_visual():
     cols = get_cols()
-    today = pd.Timestamp('today')
-    df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates = ['Day'])
-    df_projections.loc[:,'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
 
     map_controls = [dbc.Row(
         no_gutters=True,
@@ -176,7 +172,7 @@ def get_top_visual():
             html.Div(
                 id='map_projections',
                 className="elevation-3",
-                style={"padding": "20px"},
+                style={"padding": "20px", "marginTop": "30px"},
                 children=[
                     html.Div(style={"width": "100%", "background-color": "white", "height": "450px"})
                 ],
@@ -184,7 +180,7 @@ def get_top_visual():
         ]),
     ])]
 
-    return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
+    return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "100"},
                      style={"position": "relative", "zIndex": "1"},
                      className="aos-refresh-onload-strict",
                      children=map_graph + map_controls)]

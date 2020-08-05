@@ -3,6 +3,7 @@ import numpy as np
 import plotly.graph_objects as go
 from textwrap import wrap
 
+import pandas as pd
 import dash_core_components as dcc
 
 from assets.mappings import get_states, get_colors
@@ -193,6 +194,7 @@ def build_us_map(df_projections,PopInfo,map_date,val='Active', pop = 1):
         return graph
     return
 
+
 def find_smallest_scope(state, country, continent):
     location = state
     if state in 'None':
@@ -201,6 +203,7 @@ def find_smallest_scope(state, country, continent):
         else:
             location = country
     return location
+
 
 def build_state_projection(df_projections, state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
@@ -220,14 +223,49 @@ def build_state_projection(df_projections, state, country, continent, vals):
         colors = get_colors()
         for val in vals:
             i = cols[val]
+
+            today = pd.Timestamp('today')
+            predicted = df_projections_sub.loc[df_projections['Day'] >= today]
+            historic = df_projections_sub.loc[df_projections['Day'] < today]
+
+            fig.add_trace(go.Scatter(
+                name=val,
+                showlegend=False,
+                x=predicted['Day'],
+                y=predicted[val + " LB"].values,
+                mode="lines",
+                marker=dict(color=colors[i]),
+                line=dict(width=0),
+            ))
+            fig.add_trace(go.Scatter(
+                name=val,
+                showlegend=False,
+                x=predicted['Day'],
+                y=predicted[val + " UB"].values,
+                mode="lines",
+                marker=dict(color=colors[i]),
+                line=dict(width=0),
+                fillcolor="rgba(100, 0, 0, 0.3)",
+                fill="tonexty"
+            ))
+
             fig.add_trace(go.Scatter(
                 name=val,
                 showlegend=True,
-                x=df_projections_sub['Day'],
-                y=df_projections_sub[val].values,
+                x=predicted['Day'],
+                y=predicted[val].values,
                 mode="lines",
                 marker=dict(color=colors[i]),
                 line=dict(color=colors[i])
+            ))
+            fig.add_trace(go.Scatter(
+                name="Actual " + val,
+                showlegend=False,
+                x=historic['Day'],
+                y=historic[val].values,
+                mode="lines+markers",
+                marker=dict(color="#a0a0a0"),
+                line=dict(color="#a0a0a0")
             ))
 
     title = '<br>'.join(wrap('<b> Projections for {} </b>'.format(location), width=26))
