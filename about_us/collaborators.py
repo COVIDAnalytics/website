@@ -15,7 +15,7 @@ def Collaborators():
 
     def get_card(collab):
         return dbc.Col(
-            style={"margin-bottom": "32px"},
+            style={"marginBottom": "32px"},
             xs=12, sm=6, md=4, xl=4,
             children=dbc.Card(
                 style={"borderColor": "#800020"},

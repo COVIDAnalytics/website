@@ -1,3 +1,115 @@
+input[type="number"] {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+
+@keyframes anim-card-flip {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes anim-reveal {
+  from {
+    opacity: 0.0;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+
+.results-card {
+    transform-style: preserve-3d;
+    /* Use the animation name with additional properties */
+    animation-name: anim-card-flip;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.results-card:after {
+    content: '';
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #343a40 !important;
+    -webkit-transform: rotateX( 180deg );
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+}
+
+.results-card h3 {
+    opacity: 0.0;
+    animation-name: anim-reveal;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+    animation-play-state: running;
+}
+
+.elevation-1 {
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+}
+
+.elevation-2 {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+}
+
+.elevation-3 {
+    box-shadow: 0 7px 14px 0 rgba(60,66,87,.08),0 3px 6px 0 rgba(0,0,0,.12)
+}
+
+.elevation-4 {
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+}
+
+.elevation-6 {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.20);
+}
+
+.elevation-8 {
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+}
+
+.elevation-9 {
+    box-shadow: 0 9px 12px 1px rgba(0,0,0,0.14), 0 3px 16px 2px rgba(0,0,0,0.12), 0 5px 6px -3px rgba(0,0,0,0.20);
+}
+
+.elevation-12 {
+    box-shadow: 0 12px 17px 2px rgba(0,0,0,0.14), 0 5px 22px 4px rgba(0,0,0,0.12), 0 7px 8px -4px rgba(0,0,0,0.20);
+}
+
+.elevation-16 {
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.20);
+}
+
+.elevation-24 {
+    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.20);
+}
+
+.input-label {
+    width: 80;
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+.numeric-input {
+    width: 100%;
+    padding: 10px;
+    text-align: right;
+    position: relative;
+    z-index: 1
+}
+
 .team-card-body{
   display: flex;
   align-items: center;
