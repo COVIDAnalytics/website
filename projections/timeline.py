@@ -34,8 +34,14 @@ def get_bottom_visual():
                         children=[dbc.Col(
                             style={"padding": "0px"},
                             children=[
-                                html.H6("Plotting predictions for",
-                                        style={"fontFamily": "Ubuntu", "color": "grey"}),
+                                html.H6(
+                                    "Which projections should be plotted?",
+                                    style={
+                                        "fontFamily": "Ubuntu",
+                                        "color": "grey",
+                                        "fontSize": "20px",
+                                    }
+                                ),
                                 html.Div(
                                     id="p2-transfer-dropdown-wrapper",
                                     children=dcc.Dropdown(
@@ -61,9 +67,14 @@ def get_bottom_visual():
             children=[dbc.Card(
                 className="elevation-3 country-control-card",
                 children=[dbc.CardBody([
-                    html.Div(
+                    html.H6(
                         id='province-card-title',
-                        style={"fontFamily": "Ubuntu", "color": "grey", "paddingBottom": "10px"},
+                        style={
+                            "fontFamily": "Ubuntu",
+                            "color": "grey",
+                            "paddingBottom": "6px",
+                            "fontSize": "20px"
+                        },
                     ),
                     dbc.Row(
                         style={"padding": "0 15px"},

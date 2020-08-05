@@ -185,5 +185,6 @@ def get_top_visual():
     ])]
 
     return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
+                     style={"position": "relative", "zIndex": "1"},
                      className="aos-refresh-onload-strict",
                      children=map_graph + map_controls)]

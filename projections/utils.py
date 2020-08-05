@@ -40,6 +40,17 @@ def add_cases(w):
     return w
 
 
+def build_notes_btn_content(show):
+    return [
+        "Expand notes" if show else "Hide notes",
+        html.Span(
+            "chevron_right" if show else "chevron_left",
+            className="material-icons",
+            style={"margin": "0px"}
+        )
+    ]
+
+
 def get_df_projections():
     df_projections = pd.read_csv('data/predicted/Global.csv', sep=",", parse_dates=['Day'])
     df_projections.loc[:, 'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date

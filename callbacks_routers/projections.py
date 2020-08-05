@@ -5,7 +5,7 @@ from dash.dependencies import Output, Input
 import flask
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_world_map_text, get_state_abbr
+from projections.utils import get_world_map_text, get_state_abbr, build_notes_btn_content
 
 
 def register_callbacks(app):
@@ -55,9 +55,15 @@ def register_callbacks(app):
 
     @app.callback(
         Output('province-card-title', 'children'),
-        [Input('location_map_dropdown', 'value')])
-    def set_province_card_title(selected_continent):
-        return "And for location"
+        [Input('country_dropdown', 'value'),
+         Input('location_map_dropdown', 'value')])
+    def set_province_card_title(country, continent):
+        if country == "US" or country == "Australia":
+            return "And for which Continent / Country / State?"
+        elif country == "Canada":
+            return "And for which Continent / Country / Province?"
+        else:
+            return "And for which Continent / Country?"
 
     @app.callback(
         [Output('province_dropdown', 'options'),
@@ -139,11 +145,11 @@ def register_callbacks(app):
         return ''
 
     @app.callback(
-        Output("projection-notes-card", "style"),
+        [Output("projection-notes-card", "style"),
+         Output("projection-show-notes-btn", "children")],
         [Input("projection-show-notes-btn", "n_clicks")])
     def toggle_notes(clicks):
-        print(clicks)
         if clicks is not None and clicks % 2 == 1:
-            return {"maxHeight": "2000px", "opacity": "1.0", "padding": "10px"}
+            return {"maxHeight": "2000px", "opacity": "1.0", "padding": "10px"}, build_notes_btn_content(False)
         else:
-            return {"maxHeight": "0px", "opacity": "0.0", "margin": "0px"}
+            return {"maxHeight": "0px", "opacity": "0.0", "margin": "0px"}, build_notes_btn_content(True)
