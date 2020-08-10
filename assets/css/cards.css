@@ -274,6 +274,20 @@ input[type="number"] {
     .statConfig .buffer {
         display: none;
     }
+    #state_projection_graph {
+        padding: 20px 0px !important;
+    }
+    .projections-body {
+        padding: 0px !important;
+        overflow: hidden;
+    }
+    .projections-headline {
+        margin-left: 30px !important;
+    }
+}
+
+#state_projection_graph {
+    padding: 20px;
 }
 
 .press-card{

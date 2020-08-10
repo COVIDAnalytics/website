@@ -102,21 +102,18 @@ def get_bottom_visual():
             )],
         )],
     )]
-    history_graph = [dbc.Row([
-        dbc.Col([
-            html.Div(
-                id='state_projection_graph',
-                className="elevation-3",
-                children=[],
-                style={
-                    'width': '100%',
-                    'padding': 20,
-                }
-            ),
-        ])
-    ])]
+    history_graph = [
+        html.Div(
+            id='state_projection_graph',
+            className="elevation-3",
+            children=[],
+            style={
+                'width': '100%',
+            }
+        ),
+    ]
 
     return [html.Div(**{"data-aos": "fade-up", "data-aos-delay": "300"},
-                     style={"zIndex": 2},
+                     style={"zIndex": 2, "position": "relative"},
                      className="aos-refresh-onload-strict",
                      children=history_graph + bottom_visual)]

@@ -1,5 +1,6 @@
 import json
 import urllib.parse
+import sys
 
 from flask import Flask
 from flask_restful import Resource, Api
@@ -133,4 +134,7 @@ def toggle_navbar_collapse(n, is_open):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    if len(sys.argv) == 1:
+        app.run_server(debug=True)
+    else: 
+        app.run_server(debug=True, host=sys.argv[1])

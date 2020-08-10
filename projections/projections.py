@@ -22,14 +22,14 @@ def ProjectState():
         data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote('\n'.join(raw.readlines()))
 
     body = dbc.Container(
-        className="page-body",
+        className="page-body projections-body",
         children=[
              dcc.Store(id='sync', data='US'),
              dbc.Row([
                  dbc.Col(
                      lg=12,
                      style={"marginBottom": "20px"},
-                     children=[html.H2("DELPHI Epidemiological Case Predictions")],
+                     children=[html.H2("DELPHI Epidemiological Case Predictions", className="projections-headline")],
                  ),
                  dbc.Col(
                      lg=12,

@@ -11,7 +11,7 @@ from projections.utils import get_world_map_text, get_state_abbr, build_notes_bt
 def register_callbacks(app):
     df_projections = get_df_projections()
     today = pd.Timestamp('today')
-    df_projections = df_projections.loc[df_projections['Day'] >= today]
+    #df_projections = df_projections.loc[df_projections['Day'] >= today]
 
     pop_info = pd.read_csv('data/predicted/WorldPopulationInformation.csv', sep=",")
 

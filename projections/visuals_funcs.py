@@ -226,7 +226,7 @@ def build_state_projection(df_projections, state, country, continent, vals):
 
             today = pd.Timestamp('today')
             predicted = df_projections_sub.loc[df_projections['Day'] >= today]
-            historic = df_projections_sub.loc[df_projections['Day'] < today]
+            historic = df_projections_sub.loc[df_projections['Day'] <= today]
 
             fig.add_trace(go.Scatter(
                 name=val,
@@ -263,7 +263,7 @@ def build_state_projection(df_projections, state, country, continent, vals):
                 showlegend=False,
                 x=historic['Day'],
                 y=historic[val].values,
-                mode="lines+markers",
+                mode="lines",
                 marker=dict(color="#a0a0a0"),
                 line=dict(color="#a0a0a0")
             ))
