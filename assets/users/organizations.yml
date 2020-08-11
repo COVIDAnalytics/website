@@ -1,0 +1,5 @@
+- name: "The Federal Reserve Bank of Philadelphia"
+  photo: "fed_phil.png"
+  website: "https://www.philadelphiafed.org/"
+  text: "The Federal Reserve Bank of Philadelphia helps formulate and implement monetary policy, supervises banks and bank and savings and loan holding companies, and provides financial services to depository institutions and the federal government. It is one of the 12 regional Reserve Banks that, together with the Board of Governors in Washington, D.C., make up the Federal Reserve System. The Philadelphia Federal Reserve Bank serves eastern Pennsylvania, southern New Jersey, and Delaware."
+  padding: 20
