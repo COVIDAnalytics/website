@@ -41,6 +41,11 @@ def Users():
                                 className="stretched-link collab-name"
                             ),
                         ],
+                    ),
+                    dbc.CardFooter(
+                        children=[
+                            html.P("Model Used: " + collab["modelUsed"], style={"opacity": "0.6", "fontSize": 18})
+                        ]
                     )
                 ],
             ),
@@ -53,7 +58,7 @@ def Users():
                 children=[
                     dbc.Col([
                         html.H2("Model Users"),
-                        html.P('Listed here are organizations who use our models. **EDIT ME**.')
+                        html.P('Listed here are organizations who use our models to aid their decision making process.')
                     ])
                 ],
             ),

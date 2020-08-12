@@ -40,6 +40,6 @@
   padding: 50
 - name: "Janssen Pharmaceutica"
   photo: "jj.png"
-  text: "Janssen consists of the Pharmaceutical Companies of Johnson & Johnson. It operates in more than 150 countries globally and is an industry leading innovator. Janssen focuses on areas of medicine such as Immunology, Neuroscience, and Pulmonary Hypertension. It is currently in the advanced stages of developing one of the leading candidates for a vaccine against COVID-19 and is collaborating with the COVIDAnalytics team regarding site selection, distribution, and more."
+  text: "Janssen consists of the Pharmaceutical Companies of Johnson & Johnson. It operates in more than 150 countries globally and is an industry leading innovator. It is currently in the advanced stages of developing one of the leading candidates for a vaccine against COVID-19 and is collaborating with the COVIDAnalytics team regarding site selection, distribution, and more."
   website: "https://www.janssen.com/"
   padding: 31

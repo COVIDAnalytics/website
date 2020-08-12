@@ -3,3 +3,16 @@
   website: "https://www.philadelphiafed.org/"
   text: "The Federal Reserve Bank of Philadelphia helps formulate and implement monetary policy, supervises banks and bank and savings and loan holding companies, and provides financial services to depository institutions and the federal government. It is one of the 12 regional Reserve Banks that, together with the Board of Governors in Washington, D.C., make up the Federal Reserve System. The Philadelphia Federal Reserve Bank serves eastern Pennsylvania, southern New Jersey, and Delaware."
   padding: 20
+  modelUsed: "DELPHI"
+- name: "Janssen Pharmaceutica"
+  photo: "jj.png"
+  text: "Janssen consists of the Pharmaceutical Companies of Johnson & Johnson. It operates in more than 150 countries globally and is an industry leading innovator. It is currently in the advanced stages of developing one of the leading candidates for a vaccine against COVID-19 and is collaborating with the COVIDAnalytics team regarding site selection, distribution, and more."
+  website: "https://www.janssen.com/"
+  padding: 31
+  modelUsed: "DELPHI"
+- name: "Hartford Hospital"
+  photo: "Hartford_logo.jpg"
+  website: "https://hartfordhospital.org/"
+  text: "Hartford Hospital is a 938-bed acute care teaching hospital located in the South End of Hartford, Connecticut. It was established in 1854 and today, it includes seven different clinical centers across the state of Connecticut. The emergency room receives about 96,000 visits per year."
+  padding: 40
+  modelUsed: "DELPHI"
