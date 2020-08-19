@@ -4,9 +4,9 @@
   text: "The Federal Reserve Bank of Philadelphia helps formulate and implement monetary policy, supervises banks and bank and savings and loan holding companies, and provides financial services to depository institutions and the federal government. It is one of the 12 regional Reserve Banks that, together with the Board of Governors in Washington, D.C., make up the Federal Reserve System. The Philadelphia Federal Reserve Bank serves eastern Pennsylvania, southern New Jersey, and Delaware."
   padding: 20
   modelUsed: "DELPHI"
-- name: "Janssen Pharmaceutica"
+- name: "Janssen"
   photo: "jj.png"
-  text: "Janssen consists of the Pharmaceutical Companies of Johnson & Johnson. It operates in more than 150 countries globally and is an industry leading innovator. It is currently in the advanced stages of developing one of the leading candidates for a vaccine against COVID-19 and is collaborating with the COVIDAnalytics team regarding site selection, distribution, and more."
+  text: "Janssen is the Pharmaceutical Companies of Johnson & Johnson. It operates in more than 150 countries and is an industry-leading innovator. It is currently developing one of the leading candidates for a potential vaccine against COVID-19 and is collaborating with the COVIDanalytics team regarding site selection, distribution, and more."
   website: "https://www.janssen.com/"
   padding: 31
   modelUsed: "DELPHI"
