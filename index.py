@@ -28,6 +28,7 @@ from projections.projections_documentation import Projections_documentation
 from policies.main import Policies
 from risk_calculator.mortality.calculator import RiskCalc
 from risk_calculator.infection.calculator import InfectionRiskCalc
+from treatment_calculator.calculator import TreatmentCalc
 from ventilators.allocations import VentilatorAllocations
 from financial.main import FinancialReliefPlanning
 
@@ -37,6 +38,7 @@ import callbacks_routers.projections as projections
 import callbacks_routers.risk_calculators_mortality as risk_calculators_mortality
 import callbacks_routers.risk_calculators_infection as risk_calculators_infection
 import callbacks_routers.policies as policies
+import callbacks_routers.risk_calculators_treatment as treatments
 
 external_stylesheets = [
     dbc.themes.UNITED,
@@ -79,6 +81,7 @@ projections.register_callbacks(app)
 risk_calculators_mortality.register_callbacks(app)
 risk_calculators_infection.register_callbacks(app)
 policies.register_callbacks(app)
+treatments.register_callbacks(app)
 
 
 @app.server.route('/favicon.ico')
@@ -118,6 +121,8 @@ def display_page(pathname):
         return Press()
     if pathname == '/collaborators':
         return Collaborators()
+    if pathname == '/treatments':
+        return TreatmentCalc()
     else:
         return Homepage()
 
