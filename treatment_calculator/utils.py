@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 from textwrap import wrap
 
 from treatment_calculator.languages.english import English
+import dash_core_components as dcc
+import plotly.graph_objects as go
 
 langs = [English()]
 lang_names = {
@@ -14,6 +16,8 @@ lang_names = {
 }
 matplotlib.use('Agg')
 oxygen = 'Oxygen Saturation'
+
+treatments = ["Corticosteroids"]
 
 
 def get_title_mapping():
@@ -167,3 +171,64 @@ def switch_oxygen(vec, ind):
         return tuple(vec)
     vec[0] = vals
     return tuple(vec)
+
+def build_results_graph(results, names, treatment):
+
+    tname = treatments[treatment]
+    groups = ["Without treatment", "With Treatment"]
+    traces = []
+
+    model_map = {
+        "lr": "Logistic Regression",
+        "rf": "Random Forest Class.",
+        "cart": "Decision Tree Class.",
+        "xgboost": "XGBoost Class.",
+        "qda": "QuadDiscr. Analysis",
+        "gb": "Gaussian NB"
+    }
+
+    for name in names:
+        fig = go.Bar()
+        fig.x = groups
+        fig.y = [results["ntreat"][name] * 100, results["treat"][name] * 100]
+        fig.text = [str(int(round(results["ntreat"][name] * 100))) + "%",
+                    str(int(round(results["treat"][name] * 100))) + "%"]
+        fig.name = model_map[name]
+        fig.textposition = "outside"
+        traces.append(fig)
+
+    bargap = 0.2
+    layout = go.Layout(
+        barmode='group',
+        bargap=bargap,
+      #  showlegend=False,
+    )
+
+    # Create initial figure with grouped bar traces
+    figure = go.Figure(
+       data=traces, layout=layout)
+    figure.update_layout(
+        title="Effectiveness of {} Treatment".format(tname),
+        yaxis_title="Survival Rate (in %)",
+        yaxis_range=[0, 101],
+        title_x=0.5,
+    )
+
+    # Add secondary x-axis that overlays categorical xaxis
+    figure.layout.xaxis2 = go.layout.XAxis(
+        overlaying='x', range=[0, len(traces[0].x)], showticklabels=False)
+
+    # Add a line traces, and associate with the second xaxis
+    for i in range(2):
+        x = [i, i + 1]
+        avg = results["avgntreat"] * 100 if i == 0 else results["avgtreat"] * 100
+        y = [avg, avg]
+        scatt = figure.add_scatter(x=x, y=y, mode='lines+text', xaxis='x2',
+                                   text=[" Avg: " + str(int(round(avg))) + "%", ""], textposition="top right",
+                                   showlegend=False, line={'color': 'gray'})
+
+
+    graph = dcc.Graph(
+        figure=figure
+    )
+    return graph
