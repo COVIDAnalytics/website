@@ -207,11 +207,16 @@ def find_smallest_scope(state, country, continent):
 
 def build_state_projection(df_projections, state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
+    print("continent: " + continent)
+    print("country:" + country)
     print("LOcation is : " + location)
-    df_projections_sub = df_projections.loc[ (df_projections.Province == state) & (df_projections.Country == country)]
-    if continent not in ['US', 'World']:
+    df_projections_sub = df_projections.loc[(df_projections.Province == state) & (df_projections.Country == country)]
+    if country != 'US' and continent == 'US':
+        continent = 'World'
+
+    if continent not in ['World']:
         df_projections_sub = df_projections_sub.loc[(df_projections_sub.Continent == continent)]
-    if continent == 'US':
+    if country == 'US':
         df_projections_sub = df_projections.loc[(df_projections.Country == 'US') & (df_projections.Province == state)]
     if continent == 'World':
         if country =='None':
