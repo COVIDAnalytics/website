@@ -12,13 +12,14 @@ from treatment_calculator.features import build_feature_cards
 import numpy as np
 
 from treatment_calculator.utils import build_results_graph
+import pandas as pd
 
 
 def register_callbacks(app):
     with open('assets/treatment_calculators/COMORB_DEATH/CORTICOSTEROIDS.pkl', 'rb') as pkl:
         cd_corti = pickle.load(pkl)
 
-    model_names = ['lr', 'rf', 'cart', 'qda', 'gb'] # add xgboost
+    model_names = ['lr', 'rf', 'cart', 'qda', 'gb', 'xgboost']
     treatment_models = cd_corti["treatment-models"]
     no_treatment_models = cd_corti["no-treatment-models"]
     treatment_features = cd_corti["json"]
@@ -39,7 +40,7 @@ def register_callbacks(app):
          Input('treatments-sel', 'value')],
         [State({'type': 'treatments-checkbox', 'feature': ALL, 'index': ALL, 'f_idx': ALL}, 'checked'),
          State({'type': 'treatments', 'feature': ALL, 'index': ALL, 'f_idx': ALL, 'f_def': ALL}, 'value'),
-         State({'type': 'treatments-multi', 'feature': ALL, 'index': ALL,}, 'value')]
+         State({'type': 'treatments-multi', 'feature': ALL, 'index': ALL, }, 'value')]
     )
     def calc_risk_score_mortality(*argv):
         language = argv[0]
@@ -82,13 +83,28 @@ def register_callbacks(app):
         for name in model_names:
             model = treatment_models[name]["model"]
             try:
-                #print("FEATURES" + str(model.coef_.shape[-1]))
+                # print("FEATURES" + str(model.coef_.shape[-1]))
                 num_features = model.n_features_
             except:
                 pass
 
         X = X[0:num_features]
-        X = np.array(X).reshape(1, -1)
+        print(X)
+        #X = np.array(X).reshape(1, -1)
+        X = pd.DataFrame(np.array(X)).transpose()
+        print(X)
+        print(X.columns)
+        X.columns = np.array(['AGE', 'DIABETES', 'HYPERTENSION', 'DISLIPIDEMIA', 'OBESITY',
+                     'RENALINSUF', 'ANYLUNGDISEASE', 'AF', 'VIH', 'ANYHEARTDISEASE',
+                     'ANYCEREBROVASCULARDISEASE', 'CONECTIVEDISEASE', 'LIVER_DISEASE',
+                     'CANCER', 'MAXTEMPERATURE_ADMISSION', 'SAT02_BELOW92',
+                     'BLOOD_PRESSURE_ABNORMAL_B', 'DDDIMER_B', 'PCR_B', 'TRANSAMINASES_B',
+                     'LDL_B', 'CREATININE', 'SODIUM', 'LEUCOCYTES', 'LYMPHOCYTES',
+                     'HEMOGLOBIN', 'PLATELETS', 'CLOROQUINE', 'ANTIVIRAL', 'ANTICOAGULANTS',
+                     'INTERFERONOR', 'TOCILIZUMAB', 'ANTIBIOTICS', 'ACEI_ARBS',
+                     'GENDER_MALE', 'RACE_CAUC', 'RACE_LATIN', 'RACE_ORIENTAL',
+                     'RACE_OTHER'])
+
         print("X = ")
         print(X)
 
@@ -96,8 +112,8 @@ def register_callbacks(app):
         for name in model_names:
             tmodel = treatment_models[name]["model"]
             ntmodel = no_treatment_models[name]["model"]
-            results["treat"][name] = tmodel.predict_proba(X)[0][0]
-            results["ntreat"][name] = ntmodel.predict_proba(X)[0][0]
+            results["treat"][name] = tmodel.predict_proba(X)[0][1]
+            results["ntreat"][name] = ntmodel.predict_proba(X)[0][1]
             results["avgtreat"] += results["treat"][name]
             results["avgntreat"] += results["ntreat"][name]
 

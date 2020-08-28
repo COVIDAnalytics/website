@@ -8,7 +8,7 @@ from treatment_calculator.utils import langs, get_title_mapping, labs_ques, oxyg
 
 def map_feat_vals(x, name, language):
     if name == "Gender":
-        return langs[language].get_gender(x == 0)
+        return langs[language].get_gender(x == 1)
     else:
         return name
 
@@ -31,7 +31,7 @@ def build_dropdown_card(_id, m, content_dict, language, feature_name, readable_n
                         },
                         options=[{'label': map_feat_vals(x, readable_name, language), 'value': x}
                                  for x in content_dict['vals']],
-                        value=0,
+                        value=1,
                         className="dcc_dropdown feature-dropdown",
                         clearable=False,
                     ),
@@ -240,17 +240,14 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             }
         },
         {
-            "group": "Comorbidities",
-            "features": ["comorbid"],
+            "group": "Miscellaneous",
+            "features": ["comorbid", "treatmen"],
             "mortality": {
                 "layout": "2x1",
                 "layout_m": "1x2",
                 "expanded": {
                     "comorbid": 3
                 },
-                "vertical_expanded": {
-                    "comorbid": 2,
-                }
             }
         },
         {
@@ -312,8 +309,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                              title_mapping[language][content_dict['name']])
         )
     for _id, content_dict in enumerate(multidrop):
-        if content_dict['name'] == "Treatments":
-            continue
         add_feature(
             content_dict['name'],
             build_multidrop_card(str(_id),

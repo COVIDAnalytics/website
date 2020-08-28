@@ -175,7 +175,7 @@ def switch_oxygen(vec, ind):
 def build_results_graph(results, names, treatment):
 
     tname = treatments[treatment]
-    groups = ["Without treatment", "With Treatment"]
+    groups = ["Without Treatment", "With Treatment"]
     traces = []
 
     model_map = {
@@ -209,7 +209,7 @@ def build_results_graph(results, names, treatment):
        data=traces, layout=layout)
     figure.update_layout(
         title="Effectiveness of {} Treatment".format(tname),
-        yaxis_title="Survival Rate (in %)",
+        yaxis_title="Mortality Rate (in %)",
         yaxis_range=[0, 101],
         title_x=0.5,
     )
