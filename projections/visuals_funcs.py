@@ -233,26 +233,27 @@ def build_state_projection(df_projections, state, country, continent, vals):
             predicted = df_projections_sub.loc[df_projections['Day'] >= today]
             historic = df_projections_sub.loc[df_projections['Day'] <= today]
 
-            fig.add_trace(go.Scatter(
-                name=val,
-                showlegend=False,
-                x=predicted['Day'],
-                y=predicted[val + " LB"].values,
-                mode="lines",
-                marker=dict(color=colors[i]),
-                line=dict(width=0),
-            ))
-            fig.add_trace(go.Scatter(
-                name=val,
-                showlegend=False,
-                x=predicted['Day'],
-                y=predicted[val + " UB"].values,
-                mode="lines",
-                marker=dict(color=colors[i]),
-                line=dict(width=0),
-                fillcolor="rgba(100, 0, 0, 0.3)",
-                fill="tonexty"
-            ))
+            if val == "Total Detected" or val == "Total Detected Deaths":
+                fig.add_trace(go.Scatter(
+                    name=val,
+                    showlegend=False,
+                    x=predicted['Day'],
+                    y=predicted[val + " LB"].values,
+                    mode="lines",
+                    marker=dict(color=colors[i]),
+                    line=dict(width=0),
+                ))
+                fig.add_trace(go.Scatter(
+                    name=val,
+                    showlegend=False,
+                    x=predicted['Day'],
+                    y=predicted[val + " UB"].values,
+                    mode="lines",
+                    marker=dict(color=colors[i]),
+                    line=dict(width=0),
+                    fillcolor="rgba(100, 0, 0, 0.3)",
+                    fill="tonexty"
+                ))
 
             fig.add_trace(go.Scatter(
                 name=val,
