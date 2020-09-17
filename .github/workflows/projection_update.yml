@@ -1,7 +1,6 @@
 name: Projection Update Pre-Deployment
 
-# Controls when the action will run. Triggers the workflow on PR 
-# events but only for the master branch
+# Controls when the action will run. Triggers the workflow on PR # events but only for the master branch
 on:
   pull_request:
     branches: [ master ]
@@ -74,20 +73,17 @@ jobs:
       run: |
         echo "[*] Comparing Global CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
-                    /tmp/Global-staged.csv \
-                    /tmp/Global-master.csv \
-                    "Day" 0 0
-                    # date column
-                          # no NAN tolerance
-                            # don't skip any check
+            /tmp/Global-staged.csv \
+            /tmp/Global-master.csv
 
         echo "[*] Comparing Parameter CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
-                    /tmp/Parameters_Global_V2_LATEST-staged.csv \
-                    /tmp/Parameters_Global_V2_LATEST-master.csv \
-                    "Data Start Date" 0.1 4 
-                    # date column     # NAN tolerance (MAPE)
-                                          # skip check 4
+            /tmp/Parameters_Global_V2_LATEST-staged.csv \
+            /tmp/Parameters_Global_V2_LATEST-master.csv \
+            --date-col "Data Start Date" \
+            --skip-checks 4 \
+            --mape-tolerance 0.1 \
+            --allow-neg "Median Day of Action"
 
         echo "[*] Checking historic CSV... (Extra Check)"
         python3 /tmp/deployment-scripts/check_equal.py \

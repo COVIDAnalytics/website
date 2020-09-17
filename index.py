@@ -5,6 +5,7 @@ import sys
 from flask import Flask
 from flask_restful import Resource, Api
 
+from about_us.users import Users
 from api.rest_interface import MortalityCalcNoLabsEndpoint, MortalityCalcLabsEndpoint, InfectionCalcLabsEndpoint,\
     InfectionCalcNoLabsEndpoint
 
@@ -119,6 +120,8 @@ def display_page(pathname):
         return Press()
     if pathname == '/collaborators':
         return Collaborators()
+    if pathname == '/users':
+        return Users()
     else:
         return Homepage()
 
