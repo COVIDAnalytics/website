@@ -31,11 +31,9 @@ Once you are done and have checked your changes locally, make a pull request.
 For easy integration, we provide a RESTful HTTP API. 
 
 ### Functionality
-<<<<<<< HEAD
 As of now, we only expose our models to calculate patient risk. The base path for this API is `https://covidanalytics.io/api/` and we provide the following functionality:
-=======
+
 As of now, we only expose our models to calculate patient risk. The base path for this API is `https://covidanalytics.io/api/` with these endpoints:
->>>>>>> fed-phil
 
 | Endpoint | Function |
 | -------- | -------- |
@@ -44,7 +42,6 @@ As of now, we only expose our models to calculate patient risk. The base path fo
 | `infection_calc_no_labs` | Runs the infection risk calculator model **without** lab values |
 | `infection_calc_labs`    | Runs the infection risk calculator model **with** lab values |
 
-<<<<<<< HEAD
 ### Parameters
 | Parameter | Description |
 | --------  | ----------- | 
@@ -75,7 +72,7 @@ As of now, we only expose our models to calculate patient risk. The base path fo
 | `rdw` | CBC: Red cell Distribution Width (RDW) |
 | `resp_freq` | Respiratory Frequency |
 | `calcium` | Blood Calcium |
-=======
+
 ### Example
 From the browser go to:  
 ```
@@ -128,5 +125,4 @@ Here is a table of all available parameters. Note that not all parameters are av
 |`kidney`       | Chronic kidney disease                | boolean  | true/false         | Disease |
 |`atheros`      | Coronary atherosclerosis and other heart disease| boolean  | true/false       | Disease |
 |`diabetes`     | Diabetes                              | boolean  | true/false         | Disease |
->>>>>>> fed-phil
 

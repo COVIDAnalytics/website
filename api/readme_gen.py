@@ -7,8 +7,6 @@ paths = [
     "../assets/risk_calculators/mortality/model_with_lab.pkl"
 ]
 
-<<<<<<< HEAD
-=======
 inv_map = {
    'age': 'Age',
    'sao2-labs': 'ABG: Oxygen Saturation (SaO2)',
@@ -40,16 +38,12 @@ inv_map = {
 }
 mapping = {v: k for k, v in inv_map.items()}
 
->>>>>>> fed-phil
 numeric = {}
 comorb = {}
 cat = {}
 for path in paths: 
     json = pickle.load(open(path, "rb"))["json"]
-<<<<<<< HEAD
     print(json)
-=======
->>>>>>> fed-phil
     for category, features in json.items(): 
         if category == "numeric": 
             for feature in features:  
@@ -62,7 +56,6 @@ for path in paths:
                     comorb[com] = "boolean  | true/false \t| Disease"
         elif category == "categorical":
             for feature in features:  
-<<<<<<< HEAD
                 cat[feature["name"]] = "vals: " + str(feature["vals"])
 
 print("Feature Name" + ('\t' * 4) + " | Datatype | Value Range\t| Explanation |")
@@ -78,11 +71,10 @@ print("Comorbitiites")
 for key, val in comorb.items(): 
     tabs = 5 - int(len(key) / 8)
     print("{}{} | {}".format(key, '\t' * tabs, str(val)))
-=======
-                exp = feature["explanation"]
-                if feature["name"] == "Gender":
-                    exp += ". 0.0 -> male; 1.0 -> female"
-                cat[feature["name"]] = "category | " + str(feature["vals"]) + "\t| " + exp
+    exp = feature["explanation"]
+    if feature["name"] == "Gender":
+        exp += ". 0.0 -> male; 1.0 -> female"
+    cat[feature["name"]] = "category | " + str(feature["vals"]) + "\t| " + exp
 print("| Get Param\t| Feature Name" + ('\t' * 4) + "| Datatype | Value Range\t| Explanation |")
 print("|-----------\t| ------------" + ('\t' * 4) + "| -------- | -----------\t| ----------- |")
 namecol = 5
@@ -98,4 +90,3 @@ for key, val in comorb.items():
     tabs = namecol - int(round(len(key) / 8))
     tabs2 = 2 - int(len(mapping[key]) / 8)
     print("|`{}`{}| {}{}| {} |".format(mapping[key], '\t' * tabs2, key, '\t' * tabs, str(val)))
->>>>>>> fed-phil
