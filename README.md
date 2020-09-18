@@ -31,6 +31,8 @@ Once you are done and have checked your changes locally, make a pull request.
 For easy integration, we provide a RESTful HTTP API. 
 
 ### Functionality
+As of now, we only expose our models to calculate patient risk. The base path for this API is `https://covidanalytics.io/api/` and we provide the following functionality:
+
 As of now, we only expose our models to calculate patient risk. The base path for this API is `https://covidanalytics.io/api/` with these endpoints:
 
 | Endpoint | Function |
@@ -39,6 +41,37 @@ As of now, we only expose our models to calculate patient risk. The base path fo
 | `mortality_calc_labs`    | Runs the mortality risk calculator model **with** lab values |
 | `infection_calc_no_labs` | Runs the infection risk calculator model **without** lab values |
 | `infection_calc_labs`    | Runs the infection risk calculator model **with** lab values |
+
+### Parameters
+| Parameter | Description |
+| --------  | ----------- | 
+| `age` | Age |
+| `sao2-labs` | ABG: Oxygen Saturation (SaO2) |
+| `sao2-nolabs` | SaO2 |
+| `cardiac_freq` | Cardiac Frequency |
+| `alt` | Alanine Aminotransferase (ALT) |
+| `creat` | Blood Creatinine |
+| `sodium` | Blood Sodium |
+| `bun` | Blood Urea Nitrogen (BUN) |
+| `temp` | Body Temperature |
+| `crp` | C-Reactive Protein (CRP) |
+| `hemo` | CBC: Hemoglobin |
+| `leuko` | CBC: Leukocytes |
+| `mcv` | CBC: Mean Corpuscular Volume (MCV) |
+| `ast` | Aspartate Aminotransferase (AST) |
+| `platel` | CBC: Platelets |
+| `glyc` | Glycemia |
+| `pot` | Potassium Blood Level |
+| `inr` | Prothrombin Time (INR) |
+| `gender` | Gender |
+| `dysrh` | Cardiac dysrhythmias |
+| `kidney` | Chronic kidney disease |
+| `atheros` | Coronary atherosclerosis and other heart disease |
+| `diabetes` | Diabetes |
+| `bili` | Total Bilirubin |
+| `rdw` | CBC: Red cell Distribution Width (RDW) |
+| `resp_freq` | Respiratory Frequency |
+| `calcium` | Blood Calcium |
 
 ### Example
 From the browser go to:  

@@ -43,6 +43,7 @@ comorb = {}
 cat = {}
 for path in paths: 
     json = pickle.load(open(path, "rb"))["json"]
+    print(json)
     for category, features in json.items(): 
         if category == "numeric": 
             for feature in features:  
@@ -55,10 +56,25 @@ for path in paths:
                     comorb[com] = "boolean  | true/false \t| Disease"
         elif category == "categorical":
             for feature in features:  
-                exp = feature["explanation"]
-                if feature["name"] == "Gender":
-                    exp += ". 0.0 -> male; 1.0 -> female"
-                cat[feature["name"]] = "category | " + str(feature["vals"]) + "\t| " + exp
+                cat[feature["name"]] = "vals: " + str(feature["vals"])
+
+print("Feature Name" + ('\t' * 4) + " | Datatype | Value Range\t| Explanation |")
+print("Numeric")
+print("------------" + ('\t' * 4) + " | -------- | -----------\t| ----------- |")
+for key, val in numeric.items(): 
+    tabs = 5 - int(len(key) / 8)
+    print("{}{} | {}".format(key, "\t" * tabs, str(val)))
+print("Categorical")
+for key, val in cat.items(): 
+    print("{} \t\t\t| {}".format(key, str(val)))
+print("Comorbitiites")
+for key, val in comorb.items(): 
+    tabs = 5 - int(len(key) / 8)
+    print("{}{} | {}".format(key, '\t' * tabs, str(val)))
+    exp = feature["explanation"]
+    if feature["name"] == "Gender":
+        exp += ". 0.0 -> male; 1.0 -> female"
+    cat[feature["name"]] = "category | " + str(feature["vals"]) + "\t| " + exp
 print("| Get Param\t| Feature Name" + ('\t' * 4) + "| Datatype | Value Range\t| Explanation |")
 print("|-----------\t| ------------" + ('\t' * 4) + "| -------- | -----------\t| ----------- |")
 namecol = 5
