@@ -83,6 +83,8 @@ else:
         if c == "MAPE" and num_na > 0 and num_na / total < args.mape_tolerance:
             info_check("Found MAPE NANs: " + str(num_na / total * 100) + "%")
             continue
+        if c == "Total Detected True" or c == "Total Detected Deaths True": 
+            continue
         if num_na > 0:
             rows = list(df_staged[df_staged.isnull().any(axis=1)].index.to_numpy())
             fail_check("Found NaN entries in {}, at rows {}".format(
