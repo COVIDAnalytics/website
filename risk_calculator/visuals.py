@@ -4,45 +4,123 @@ import dash_html_components as html
 from .utils import lang_names
 
 
-def get_labs_indicator(_id):
-    """This is the card where user selects if he has lab values or not"""
+def get_page_desc(_id):
+    """Builds the first big text card that introduces users to the page"""
     return [
         dbc.Row(
-            justify="center", style={"paddingBottom": 20},
-            children=dbc.Col(
-                xs=12, sm=12, md=6, lg=6,
-                children=dbc.Card(
-                    className="projections-general-card h-100",
-                    children=dbc.CardBody([
-                        dcc.Markdown(id=_id + "_text"),
-                        dbc.Row([
-                            dbc.Col(
-                                html.Div([
-                                    dcc.Dropdown(
-                                        clearable=False,
-                                        id=_id,
-                                        value=0,
-                                        className="dcc_dropdown",
-                                    ),
-                                ]),
-                            ),
-                        ]),
-                    ]),
-                ),
-            ),
+           children=[
+                dbc.Col([
+                    html.Div(
+                        ** {"data-aos": "fade-up"},
+                        className="aos-refresh-onload",
+                        children=dbc.Jumbotron(
+                            style={"padding": "4%"},
+                            className="elevation-3",
+                            id=_id,
+                        )
+                    )
+                ]),
+            ]
         )
     ]
 
 
-def get_model_desc(id):
+def get_labs_indicator(_id, instructions_id):
+    """This is the card where user selects if he has lab values or not"""
+    return [
+        dbc.Row(
+            justify="center",
+            align="stretch",
+            children=[
+                dbc.Col(
+                    xs=12, sm=12, md=12, lg=6,
+                    children=html.Div(
+                        **{"data-aos": "fade-up", "data-aos-delay": "0"},
+                        style={"transformStyle": "flat", "zIndex": "50", "position": "relative"},
+                        className="aos-refresh-onload",
+                        children=dbc.Card(
+                            style={"borderWidth": "0px",
+                                   "height": "125px",
+                                   "marginBottom": 30},
+                            className="elevation-3",
+                            children=[
+                                dbc.CardHeader(id=_id + "_text",
+                                               style={"fontWeight": "bold"}),
+                                dbc.CardBody([
+                                   dbc.Row([
+                                        dbc.Col(
+                                            html.Div([
+                                                dcc.Dropdown(
+                                                    clearable=False,
+                                                    id=_id,
+                                                    value=0,
+                                                    className="dcc_dropdown",
+                                                ),
+                                            ]),
+                                        ),
+                                    ]),
+                                ]),
+                            ]
+                        ),
+                    )
+                ),
+                dbc.Col(
+                    xs=12, sm=12, md=12, lg=6,
+                    children=html.Div(
+                        **{"data-aos": "fade-up", "data-aos-delay": "100"},
+                        className="aos-refresh-onload",
+                        children=dbc.Card(
+                            className="elevation-3",
+                            style={"borderWidth": "0px", "height": "125px", "marginBottom": 30},
+                            children=[
+                                dbc.CardBody([
+                                    # The headline that says 'insert the features below'
+                                    dbc.Row(
+                                        justify="center",
+                                        style={"height": "100%", "padding": 2, "opacity": "0.6"},
+                                        no_gutters=True,
+                                        children=[
+                                            dbc.Col(
+                                                style={"flexGrow": "0"},
+                                                align="center",
+                                                children=html.Div(
+                                                    className="material-icons",
+                                                    children="info",
+                                                    style={"fontSize": "40px", "paddingRight": 20}
+                                                ),
+                                            ),
+                                            dbc.Col(
+                                                align="center",
+                                                children=html.H5(
+                                                    id=instructions_id,
+                                                    style={"fontSize": "18px"}
+                                                ),
+                                            )
+                                        ]
+                                    ),
+                                ]),
+                            ]
+                        ),
+                    )
+                )
+            ]
+        ),
+    ]
+
+
+def get_model_desc(_id):
     """This is the big text card that has the technical details of the model"""
     return [
         dbc.Row(
             justify="center",
-            children=dbc.Jumbotron(
-                id=id,
-                style={'paddingBottom': '0.5rem', 'paddingTop': '0.8rem'}
-            ),
+            children=dbc.Col(html.Div(
+                **{"data-aos": "fade-up"},
+                children=dbc.Jumbotron(
+                    style={"padding": "4%"},
+                    className="elevation-3",
+                    id=_id,
+                )
+            ))
         ),
     ]
 
@@ -55,7 +133,8 @@ def get_feature_importance(_id):
             children=dbc.Col([
                 dbc.Card(
                     id=_id,
-                    style={"borderColor": "#800020", "paddingTop": 20, "paddingBottom": 20},
+                    style={"padding": "4%"},
+                    className="elevation-3",
                 ),
             ]),
         ),
@@ -65,35 +144,68 @@ def get_feature_importance(_id):
 def get_feature_cards(_id):
     """Create feature card container"""
     return [
-        # The headline that says 'insert the features below'
-        dbc.Row([
-            dbc.Col(
-                id=_id + "-text",
-            ),
-        ]),
         # The container of feature cards
-        dbc.Row(
-            id=_id,
-            justify="center"
-        )
+        html.Div(
+            style={"min-height": "550px"},
+            children=[
+            dbc.Row(
+                id=_id,
+                justify="center"
+            )
+        ])
     ]
 
 
-def get_submit_button(_id):
+def get_submit_button(_id, res_id, err_id, imputed_id):
     """Build submit button"""
     return [
         dbc.Row(
-            style={"paddingBottom": 10},
-            children=dbc.Col(
-                html.Div(
-                    id="submit-features-calc-wrapper",
-                    children=dbc.Button(
-                        id=_id,
-                        n_clicks=0,
-                        className="mr-1"
+            justify="center",
+            # To fix the white line bug Jumbotron causes
+            style={"position": "relative", "zIndex": "1"},
+            children=[
+                dbc.Col(
+                    xs=12,
+                    sm=4,
+                    md=4,
+                    lg=4,
+                    style={"paddingBottom": 20},
+                    children=html.Div(
+                        **{"data-aos": "fade-up", "data-aos-delay": "400"},
+                        id="submit-features-calc-wrapper",
+                        className="aos-refresh-onload",
+                        children=dbc.Button(
+                            id=_id,
+                            n_clicks=0,
+                            className="mr-1 calc-submit-button elevation-3"
+                        ),
+                    )
+                ),
+                # The card that shows the user's score
+                dbc.Col(
+                    xs=12,
+                    sm=8,
+                    md=8,
+                    lg=8,
+                    style={"paddingBottom": 20},
+                    children=html.Div(
+                        **{"data-aos": "fade-up", "data-aos-delay": "500"},
+                        className="aos-refresh-onload",
+                        id=res_id
+                    )
+                ),
+                dbc.Col(
+                    xs=12, sm=12, md=12, lg=12,
+                    children=html.P(
+                        id=err_id,
+                        style={"color": "red", "textAlign": "center"}
                     ),
-                )
-            ),
+                ),
+                dbc.Col(
+                    xs=12, sm=12, md=12, lg=12,
+                    children=dcc.Markdown(id=imputed_id)
+                ),
+            ],
         ),
     ]
 
@@ -101,44 +213,12 @@ def get_submit_button(_id):
 def get_results_card(_id, err_id):
     """Build score card and error message text"""
     return [
-        # The red error text below the submit button
-        dbc.Row(
-            justify="center",
-            children=dbc.Col(
-                xs=12, sm=12, md=12, lg=12,
-                children=html.P(
-                    id=err_id,
-                    style={"color": "red", "textAlign": "center"}
-                ),
-            ),
-        ),
-        # The card that shows the user's score
-        dbc.Row(
-            justify="center",
-            children=dbc.Col(
-                xs=12, sm=6, md=6, lg=3,
-                children=dbc.Card(
-                    color="dark",
-                    inverse=True,
-                    style={"marginTop": 10, "marginBottom": 20},
-                    children=dbc.CardBody(id=_id)
-                ),
-            ),
-        ),
     ]
 
 
 def get_inputed_vals(_id):
     """Build the text that says what values where imputed"""
     return [
-        dbc.Row(
-            justify="center",
-            children=dbc.Col([
-                dcc.Markdown(
-                    id=_id
-                )
-            ]),
-        )
     ]
 
 
@@ -190,15 +270,3 @@ def get_lang(_id):
     ]
 
 
-def get_page_desc(_id):
-    """Builds the first big text card that introduces users to the page"""
-    return [
-        dbc.Row([
-            dbc.Col([
-                dbc.Jumbotron(
-                    id=_id,
-                    style={'paddingBottom': '0.5rem', 'paddingTop': '0.8rem'}
-                )
-            ]),
-        ])
-    ]

@@ -1,3 +1,6 @@
+- name: "Galit Lukin"
+  photo: "Lukin_Galit.jpg"
+  website: ""
 - name: "Hari Bandi"
   photo: "Bandi_Hari.jpg"
   website: ""
@@ -37,3 +40,4 @@
 - name: "Cynthia Zeng"
   photo: "Cynthia_Zeng.jpg"
   website: "https://cynthiazeng.github.io/"
+
