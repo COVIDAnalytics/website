@@ -1,3 +1,115 @@
+input[type="number"] {
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+
+@keyframes anim-card-flip {
+  from {
+    transform: rotateX(0deg);
+  }
+  to {
+    transform: rotateX(360deg);
+  }
+}
+
+@keyframes anim-reveal {
+  from {
+    opacity: 0.0;
+  }
+  to {
+    opacity: 1.0;
+  }
+}
+
+.results-card {
+    transform-style: preserve-3d;
+    /* Use the animation name with additional properties */
+    animation-name: anim-card-flip;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-play-state: running;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.results-card:after {
+    content: '';
+    right: 0px;
+    bottom: 0px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: #343a40 !important;
+    -webkit-transform: rotateX( 180deg );
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+}
+
+.results-card h3 {
+    opacity: 0.0;
+    animation-name: anim-reveal;
+    animation-duration: 0.5s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s;
+    animation-play-state: running;
+}
+
+.elevation-1 {
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,0.14), 0 2px 1px -1px rgba(0,0,0,0.12), 0 1px 3px 0 rgba(0,0,0,0.20);
+}
+
+.elevation-2 {
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 3px 1px -2px rgba(0,0,0,0.12), 0 1px 5px 0 rgba(0,0,0,0.20);
+}
+
+.elevation-3 {
+    box-shadow: 0 7px 14px 0 rgba(60,66,87,.08),0 3px 6px 0 rgba(0,0,0,.12)
+}
+
+.elevation-4 {
+    box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.20);
+}
+
+.elevation-6 {
+    box-shadow: 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12), 0 3px 5px -1px rgba(0,0,0,0.20);
+}
+
+.elevation-8 {
+    box-shadow: 0 8px 10px 1px rgba(0,0,0,0.14), 0 3px 14px 2px rgba(0,0,0,0.12), 0 5px 5px -3px rgba(0,0,0,0.20);
+}
+
+.elevation-9 {
+    box-shadow: 0 9px 12px 1px rgba(0,0,0,0.14), 0 3px 16px 2px rgba(0,0,0,0.12), 0 5px 6px -3px rgba(0,0,0,0.20);
+}
+
+.elevation-12 {
+    box-shadow: 0 12px 17px 2px rgba(0,0,0,0.14), 0 5px 22px 4px rgba(0,0,0,0.12), 0 7px 8px -4px rgba(0,0,0,0.20);
+}
+
+.elevation-16 {
+    box-shadow: 0 16px 24px 2px rgba(0,0,0,0.14), 0 6px 30px 5px rgba(0,0,0,0.12), 0 8px 10px -5px rgba(0,0,0,0.20);
+}
+
+.elevation-24 {
+    box-shadow: 0 24px 38px 3px rgba(0,0,0,0.14), 0 9px 46px 8px rgba(0,0,0,0.12), 0 11px 15px -7px rgba(0,0,0,0.20);
+}
+
+.input-label {
+    width: 80;
+    font-size: 18px;
+    opacity: 0.5;
+}
+
+.numeric-input {
+    width: 100%;
+    padding: 10px;
+    text-align: right;
+    position: relative;
+    z-index: 1
+}
+
 .team-card-body{
   display: flex;
   align-items: center;
@@ -69,15 +181,113 @@
   width:100%;
 }
 
-.projections-general-card{
-  border-color: #800020 !important;
-}
-
 #us-stats-cards{
-  color: white;
-  text-align: center;
+  text-align: left;
   font-size: 20px;
   font-weight: bold;
+}
+
+.statSubCard h3 {
+    font-size: 40px;
+    font-weight: light;
+}
+
+.statSubCard h4 {
+    font-size: 18px;
+    height: 20px;
+    opacity: 0.7
+}
+
+.statCard {
+    padding: 10px 20px;
+    font-family: Ubuntu;
+}
+
+.tr {
+    border: 0.5px solid lightgrey;
+    border-right-width: 0px !important;
+    border-top-width: 0px !important;
+}
+
+.tl {
+    border: 0.5px solid lightgrey;
+    border-top-width: 0px;
+    border-left-width: 0px;
+}
+
+.br {
+    border: 0.5px solid lightgrey;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+}
+
+.bl {
+    border: 0.5px solid lightgrey;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.statConfig {
+    background-color: black;
+    padding: 10px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.statConfig::before {
+    content: "hello";
+    color: black;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    /*transform: rotateZ(45deg);*/
+    position: absolute;
+    transform: translate(-25px, 0px) rotateZ(45deg);
+    top: -15px;
+    z-index: 10;
+}
+
+
+.statConfig::after {
+    content: "hello";
+    color: black;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    /*transform: rotateZ(45deg);*/
+    position: absolute;
+    transform: translate(-25px, 0px) rotateZ(45deg);
+    bottom: -15px;
+    z-index: 10;
+}
+
+.statConfig h4 {
+    color: white !important;
+    position: relative;
+    left: 28px;
+    top: 20px;
+    z-index: 1;
+    font-family: Ubuntu;
+}
+@media only screen and (max-width: 600px) {
+    .statConfig .buffer {
+        display: none;
+    }
+    #state_projection_graph {
+        padding: 20px 0px !important;
+    }
+    .projections-body {
+        padding: 0px !important;
+        overflow: hidden;
+    }
+    .projections-headline {
+        margin-left: 30px !important;
+    }
+}
+
+#state_projection_graph {
+    padding: 20px;
 }
 
 .press-card{
@@ -87,3 +297,28 @@
 .press-card:hover{
   border-color: #0000A0 !important;
 }
+
+.projections-general-card{
+  border-color: #800020 !important;
+}
+
+.projections-notes {
+    transition: all 1s;
+    max-height: 800px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: none;
+    opacity: 0.0;
+    background-color: white;
+}
+
+.country-control-card {
+    background-color: black !important;
+    border-radius: 0px !important;
+    padding: 0px 0px;
+    padding-bottom: 7px;
+    height: 100%;
+}
+
+
+

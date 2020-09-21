@@ -15,14 +15,16 @@ def RiskCalc():
     body = dbc.Container(
             get_lang('language-calc-mortality') +
             get_page_desc('page-desc-mortality') +
-            get_labs_indicator('lab_values_indicator') +
+            get_labs_indicator('lab_values_indicator', 'features-mortality-text') +
             get_feature_cards('features-mortality') +
-            get_submit_button('submit-features-calc') +
-            get_results_card('score-calculator-card-body', 'calc-input-error') +
-            get_inputed_vals('imputed-text-mortality') +
+            get_submit_button('submit-features-calc',
+                              'score-calculator-card',
+                              'calc-input-error',
+                              'imputed-text-mortality') +
             get_personal_visual('visual-1-mortality') +
             get_model_desc('mortality-model-desc') +
-            get_feature_importance('feature-importance-bar-graph'),
+            get_feature_importance('feature-importance-bar-graph') +
+            [html.Div(style={"height": "100px"})],
             className="page-body"
         )
 
@@ -47,6 +49,9 @@ def get_languages(labs_auc, labs_population, labs_positive, no_labs_auc, no_labs
         "results_card_mortality": {
             num: lan.get_results_card_mortality() for (num, lan) in zip(range(len(langs)), langs)
         },
+        "results_card_default": {
+            num: lan.get_results_card_default() for (num, lan) in zip(range(len(langs)), langs)
+        },
         "technical_details_mortality_labs": {
             num: lan.get_model_desc_mortality(labs_auc, labs_population, labs_positive)
             for (num, lan) in zip(range(len(langs)), langs)
@@ -61,12 +66,12 @@ def get_languages(labs_auc, labs_population, labs_positive, no_labs_auc, no_labs
     }
 
 
-def predict_risk_mort(cols, model, features, imputer, explainer, feature_vals, temp_unit, card_text, language):
+def predict_risk_mort(cols, model, features, imputer, explainer, user_features, card_text, language):
     """Given features, other input, etc. calculate a score and return score_card, imputed_text, and user plot"""
     score, imputed_text, plot = predict_risk(True, model, features, imputer, explainer,
-                                             feature_vals, cols, temp_unit, language)
+                                             user_features, cols, language)
     card_content = [
         html.H4(card_text, className="score-calculator-card-content"),
-        html.H4(str(score)+"%", className="score-calculator-card-content"),
+        html.H3(str(score)+"%", className="score-calculator-card-content"),
     ]
     return card_content, imputed_text, plot
