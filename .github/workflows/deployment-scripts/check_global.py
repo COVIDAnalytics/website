@@ -105,7 +105,11 @@ else:
 
         # Check if the sets are equal
         if set(unique_staged_types) != set(unique_master_types): 
-            fail_check("Mismatching datatypes detected")
+            fail_check("Mismatching datatypes in column {} detected: staged types: {} versus master types: {}".format(
+                    c, unique_staged_types, unique_master_types
+                ))
+
+
 
 #
 # Check #3: "Check the number of areas we have (>= than certain number)"
