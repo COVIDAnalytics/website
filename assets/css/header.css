@@ -81,3 +81,14 @@ P {
 #policy-header-2{
   color: #ed6925;
 }
+
+.treatments-header {
+    background-color: #A31F34 !important;
+    padding: 20px !important;
+}
+
+.treatments-header h3 {
+    color: white !important;
+    margin: 0px !important;
+    font-weight: bold !important;
+}

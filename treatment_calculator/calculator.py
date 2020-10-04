@@ -5,7 +5,22 @@ import dash_core_components as dcc
 from navbar import Navbar
 from footer import Footer
 from risk_calculator.visuals import get_lang
+from treatment_calculator.utils import treatments
 
+
+def build_row_header(name):
+    return [dbc.Row(
+        justify="start",
+        style={
+            "marginBottom": "20px",
+        },
+        children=dbc.Col(
+            dbc.Card(
+                className="elevation-3 treatments-header",
+                children=html.H3(name)
+            )
+        )
+    )]
 
 def TreatmentCalc():
     nav = Navbar()
@@ -18,14 +33,32 @@ def TreatmentCalc():
             id="treatments-calc-tabs",
             children=[
                 dcc.Tab(
-                    label='Tab one',
+                    label='Inputs',
                     value='tab-1',
                     className='custom-tab',
                     selected_className='custom-tab--selected',
                     children=[
                         html.Div(
                             style={"min-height": "550px"},
-                            children=[
+                            children=
+                                build_row_header("Treatment Selection") + [
+                                    dbc.Row(
+                                        justify="center",
+                                        style={"marginBottom": "40px", "marginTop": "40px"},
+                                        children=dbc.Col(
+                                        xs=12,
+                                        sm=12,
+                                        md=8,
+                                        lg=6,
+                                        children=
+                                            dcc.Dropdown(
+                                                id="treatments-sel",
+                                                value=0,
+                                                options=[{"label": treatments[x], "value": x}
+                                                         for x in range(len(treatments))]),
+                                    ))
+                                ] +
+                                build_row_header("Patient Information") + [
                                 dbc.Row(
                                     id="treatments-calc-feature-cards",
                                     justify="center"
@@ -39,6 +72,7 @@ def TreatmentCalc():
                                         sm=12,
                                         children=[
                                             dbc.Button(
+                                                id="submit-treatments-calc",
                                                 style={"width": "100%", "height": 120},
                                                 color="danger",
                                                 children=[
@@ -55,10 +89,13 @@ def TreatmentCalc():
                     ]
                 ),
                 dcc.Tab(
-                    label='Tab two',
+                    label='Results',
                     value='tab-2',
                     className='custom-tab',
-                    selected_className='custom-tab--selected'
+                    selected_className='custom-tab--selected',
+                    children=[
+                        html.Div(id="treatments-results-graph"),
+                    ]
                 ),
             ]
         )] +

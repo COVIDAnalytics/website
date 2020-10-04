@@ -8,7 +8,7 @@ from treatment_calculator.utils import langs, get_title_mapping, labs_ques, oxyg
 
 def map_feat_vals(x, name, language):
     if name == "Gender":
-        return langs[language].get_gender(x == 0)
+        return langs[language].get_gender(x == 1)
     else:
         return name
 
@@ -23,14 +23,15 @@ def build_dropdown_card(_id, m, content_dict, language, feature_name, readable_n
                     id='calc-categorical-{}-wrapper'.format(_id),
                     children=dcc.Dropdown(
                         id={
-                            'type': 'mortality' if m else 'infection',
+                            'type': 'treatments',
                             'index': 'calc-categorical-{}'.format(_id),
                             'f_idx': content_dict["index"],
-                            'feature': feature_name
+                            'feature': feature_name,
+                            'f_def': content_dict["default"]
                         },
                         options=[{'label': map_feat_vals(x, readable_name, language), 'value': x}
                                  for x in content_dict['vals']],
-                        value=0,
+                        value=1,
                         className="dcc_dropdown feature-dropdown",
                         clearable=False,
                     ),
@@ -61,10 +62,11 @@ def build_input_card(_id, m, content_dict, feature_name, readable_name):
                 id="calc-numeric-{}-wrapper".format(_id),
                 children=dbc.Input(
                     id={
-                        'type': 'mortality' if m else 'infection',
+                        'type': 'treatments',
                         'index': "calc-numeric-{}".format(_id),
                         'f_idx': content_dict["index"],
-                        'feature': feature_name
+                        'feature': feature_name,
+                        'f_def': content_dict["default"]
                     },
                     type="number",
                     placeholder="e.g. {}".format(int(content_dict['default'])),
@@ -109,14 +111,14 @@ def build_checkbox_card(_id, feature_name, feature_index, readable_name):
         no_gutters=True,
         style={"width": "100%"},
         children=[
-            html.H5(readable_name.split("(")[0], className="input-label", style={"max-width": "250px"}),
+            html.H5(readable_name.split("(")[0], className="input-label", style={"max-width": "100%"}),
             html.Div(
                 id='calc-categorical-{}-wrapper'.format(_id),
                 style={"width": "100%", "display": "flex", "paddingLeft": "10px"},
                 children=[
                     dbc.Checkbox(
                         id={
-                            'type': 'treatments',
+                            'type': 'treatments-checkbox',
                             'index': 'calc-checkbox-{}'.format(_id),
                             'f_idx': feature_index,
                             'feature': feature_name
@@ -124,7 +126,7 @@ def build_checkbox_card(_id, feature_name, feature_index, readable_name):
                         checked=False
                     ),
                     html.H5(readable_name.split("(")[1][0:-1], className="input-label",
-                            style={"marginBottom": "0px", "marginLeft": "20px",
+                            style={"marginBottom": "0px", "marginTop": "0px", "marginLeft": "20px",
                                    "color": "#495057", "fontSize": "15px", "opacity": "1"}),
                 ]
             ),
@@ -136,14 +138,18 @@ def build_checkbox_card(_id, feature_name, feature_index, readable_name):
 def build_multidrop_card(_id, show_name, content_dict, language, feature_name):
     """Used to select multiple from chronic diseases at bottom of mortality calculator"""
     title_mapping = get_title_mapping()
+    options = []
+    for i in range(len(content_dict["index"])):
+       options.append({'label': title_mapping[language][content_dict['vals'][i]],
+                       'value': content_dict['index'][i]})
     return dbc.Col([
         html.H5(content_dict["name"], className="input-label",
                 style={"display": "inline-block" if show_name else "none"}),
         dcc.Dropdown(
-            options=[{'label': title_mapping[language][x], 'value': x} for x in content_dict['vals']],
+            options=options,
             value=[],
             id={
-                'type': 'treatments',
+                'type': 'treatments-multi',
                 'index': "calc-multidrop-{}".format(_id),
                 'feature': feature_name
             },
@@ -167,8 +173,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
     multidrop = features["multidrop"]
     checkboxes = features["checkboxes"]
     title_mapping = get_title_mapping()
-
-    print(features)
 
     # The scaffold that will hold ordered feature cards
     feature_scaffold = [
@@ -236,17 +240,14 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             }
         },
         {
-            "group": "Comorbidities",
-            "features": ["comorbid"],
+            "group": "Miscellaneous",
+            "features": ["comorbid", "treatmen"],
             "mortality": {
                 "layout": "2x1",
                 "layout_m": "1x2",
                 "expanded": {
                     "comorbid": 3
                 },
-                "vertical_expanded": {
-                    "comorbid": 2,
-                }
             }
         },
         {
@@ -308,8 +309,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                              title_mapping[language][content_dict['name']])
         )
     for _id, content_dict in enumerate(multidrop):
-        if content_dict['name'] == "Treatments":
-            continue
         add_feature(
             content_dict['name'],
             build_multidrop_card(str(_id),
