@@ -86,9 +86,10 @@ else:
         if c == "Total Detected True" or c == "Total Detected Deaths True": 
             continue
         if num_na > 0:
-            rows = list(df_staged[df_staged.isnull().any(axis=1)].index.to_numpy())
-            fail_check("Found NaN entries in {}, at rows {}".format(
-                args.staged_csv, rows))
+            rows = str(df_staged[df_staged[c].isnull()][c])
+            #rows = list(df_staged[df_staged[c].isnull()].index.to_numpy())
+            fail_check("Found NaN entries in {}, column {}, at rows\n{}".format(
+                args.staged_csv, c, rows))
     #
     # Check #2.5: "as well as the type of the entries"
     #
