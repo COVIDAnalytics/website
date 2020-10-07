@@ -6,12 +6,13 @@ import dash
 import dash_html_components as html
 from dash.dependencies import Input, Output, State, ALL
 import dash_bootstrap_components as dbc
+from dash.exceptions import PreventUpdate
 
 from risk_calculator.infection.calculator import predict_risk_infec, get_languages
 from treatment_calculator.features import build_feature_cards
 import numpy as np
 
-from treatment_calculator.utils import build_results_graph
+from treatment_calculator.utils import build_results_graph, build_results_graph_v1
 import pandas as pd
 
 
@@ -19,7 +20,7 @@ def register_callbacks(app):
     with open('assets/treatment_calculators/COMORB_DEATH/CORTICOSTEROIDS.pkl', 'rb') as pkl:
         cd_corti = pickle.load(pkl)
 
-    model_names = ['lr', 'rf', 'cart', 'qda', 'gb', 'xgboost']
+    model_names = ['rf', 'cart', 'qda', 'gb', 'xgboost']
     treatment_models = cd_corti["treatment-models"]
     no_treatment_models = cd_corti["no-treatment-models"]
     treatment_features = cd_corti["json"]
@@ -49,7 +50,9 @@ def register_callbacks(app):
 
         print("SUBMIT: " + str(submit))
         if submit is None:
-            return ["tabs-1", []]
+            #raise PreventUpdate()
+            print("Submitting tabs-1")
+            return ["tab-1", []]
         checkbox_features = dash.callback_context.states_list[0]
         other_features = dash.callback_context.states_list[1]
         multi_features = dash.callback_context.states_list[2]
@@ -123,6 +126,6 @@ def register_callbacks(app):
         results["avgtreat"] /= len(model_names)
         results["avgntreat"] /= len(model_names)
 
-        graph = build_results_graph(results, model_names, treatment)
+        graph = build_results_graph_v1(results, model_names, treatment)
 
         return ["tab-2", [graph]]
