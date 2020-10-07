@@ -87,9 +87,11 @@ else:
             continue
         if num_na > 0:
             rows = str(df_staged[df_staged[c].isnull()][c])
-            #rows = list(df_staged[df_staged[c].isnull()].index.to_numpy())
+            country = []
+            if "Country" in df_master.columns:
+                country = df_staged[df_staged[c].isnull()]["Country"].unique()
             fail_check("Found NaN entries in {}, column {}, at rows\n{}".format(
-                args.staged_csv, c, rows))
+                args.staged_csv, c, rows) + "\n[E] Trouble makers are: {}".format(country))
     #
     # Check #2.5: "as well as the type of the entries"
     #

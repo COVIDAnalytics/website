@@ -1,0 +1,18 @@
+[*] Reading staged CSV (/tmp/staged.csv), and master CSV (/tmp/master.csv)...
+[*] Checking matching columns...
+[*] Checking for NaNs...
+[E] Found NaN entries in /tmp/staged.csv, column Total Detected LB, at rows
+9869   NaN
+9870   NaN
+9871   NaN
+9872   NaN
+9873   NaN
+        ..
+9935   NaN
+9936   NaN
+9937   NaN
+9938   NaN
+9939   NaN
+Name: Total Detected LB, Length: 71, dtype: float64
+[E] Trouble makers are: ['Antigua and Barbuda']
+[E] Refusing to auto-merge!
