@@ -74,7 +74,8 @@ jobs:
         echo "[*] Comparing Global CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
             /tmp/Global-staged.csv \
-            /tmp/Global-master.csv
+            /tmp/Global-master.csv \
+            --allow-na-country "Antigua and Barbuda"
 
         echo "[*] Comparing Parameter CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \

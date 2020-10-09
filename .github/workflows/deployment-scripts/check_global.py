@@ -22,6 +22,8 @@ parser.add_argument('--skip-checks', dest='skipping', nargs="+", type=int, defau
                     help='A list of checks to skip for this run')
 parser.add_argument('--allow-neg', dest='allow_neg', nargs="+", type=str, default=[],
                     help='A list of column names which are allowed to have negative numbers.')
+parser.add_argument('--allow-na-country', dest='allow_na_country', nargs="+", type=str, default=[],
+                    help='A list of column names which are allowed to have negative numbers.')
 
 args = parser.parse_args()
 
@@ -90,6 +92,9 @@ else:
             country = []
             if "Country" in df_master.columns:
                 country = df_staged[df_staged[c].isnull()]["Country"].unique()
+                if country in args.allow_na_country:
+                    info_check("Allowing NAs in excepted country: " + str(country))
+                    continue
             fail_check("Found NaN entries in {}, column {}, at rows\n{}".format(
                 args.staged_csv, c, rows) + "\n[E] Trouble makers are: {}".format(country))
     #
@@ -105,6 +110,11 @@ else:
         # Compute sets of unique types in this column
         unique_staged_types = set(df_staged[c].apply(lambda x: type(x)).unique())
         unique_master_types = set(df_master[c].apply(lambda x: type(x)).unique())
+
+        if len(args.allow_na_country) != 0: 
+            if "LB" in c or "UB" in c: 
+                info_check("Skipping type check for {} because of exception {}".format(c, args.allow_na_country))
+                continue
 
         # Check if the sets are equal
         if set(unique_staged_types) != set(unique_master_types): 
