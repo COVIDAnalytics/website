@@ -42,7 +42,18 @@ def add_cases(w):
 
 def build_notes_btn_content(show):
     return [
-        "Expand notes" if show else "Hide notes",
+        "See notes" if show else "Hide notes",
+        html.Span(
+            "chevron_right" if show else "chevron_left",
+            className="material-icons",
+            style={"margin": "0px"}
+        )
+    ]
+
+
+def build_hist_btn_content(show):
+    return [
+        "See accuracy" if show else "Hide accuracy",
         html.Span(
             "chevron_right" if show else "chevron_left",
             className="material-icons",
@@ -86,6 +97,36 @@ def build_notes_content():
                     historical data to increase the accuracy of future \
                     predictions. As such, daily counts extracted from \
                     the model may not exactly correspond with reports."),
+        ])],
+    )
+
+
+def build_hist_content():
+    imgp_mape = "assets/images/predictions/trend_mape.png"
+    imgp_rank = "assets/images/predictions/trend_rank.png"
+    return dbc.Card(
+        style={"maxHeight": "0px"},
+        id="projection-hist-card",
+        className='elevation-3 projections-notes',
+        children=[dbc.CardBody([
+            html.H5("Historic DELPHI Model Performance"),
+            dcc.Markdown('''
+                Here we compare the historical performances of the DELPHI model \
+                with the top models used by the CDC for the last 3 months. \
+                DELPHI ranks 2nd in average for the 4-weeks ahead predictions \
+                for deaths in the US and has always been between the 1st and \
+                the 3rd position, ranking 1st model in the country in 2 weeks \
+                out of 10 (THIS WILL BE UPDATED AFTER WE SEE THE SEPTEMBER RESULTS) \
+                with an average MAPE of 6.9%. The details of the comparison can be \
+                found in the figures below.'''),
+            html.Img(
+                src=imgp_mape,
+                style={"width": "100%"}
+            ),
+            html.Img(
+                src=imgp_rank,
+                style={"width": "100%"}
+            )
         ])],
     )
 

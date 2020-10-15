@@ -98,6 +98,8 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/interactive-graph':
         return InteractiveGraph()
+    if pathname == '/projections/history':
+        return ProjectState(True)
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/projections_documentation':

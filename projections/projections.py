@@ -9,10 +9,10 @@ from footer import Footer
 
 from projections.map import get_top_visual, build_death_cards
 from projections.timeline import get_bottom_visual
-from projections.utils import build_notes_content, get_df_projections
+from projections.utils import build_notes_content, get_df_projections, build_hist_content
 
 
-def ProjectState():
+def ProjectState(show_history=False):
     nav = Navbar()
     footer = Footer()
 
@@ -34,6 +34,10 @@ def ProjectState():
                  dbc.Col(
                      lg=12,
                      children=build_notes_content(),
+                 ),
+                 dbc.Col(
+                     lg=12,
+                     children=build_hist_content(),
                  ),
                  dbc.Col(
                      xs=12,
@@ -69,18 +73,22 @@ def ProjectState():
                                         """,
                                          style={"marginTop": "auto"}
                                      ),
-                                     dbc.Button(
-                                         id="projection-show-notes-btn",
-                                         color="dark",
-                                         style={
-                                             "borderRadius": "0px",
-                                             "maxWidth": "170px",
-                                             "marginBottom": "1rem",
-                                             "display": "flex",
-                                             "backgroundColor": "#A31F34",
-                                             "border": "none",
-                                             "justifyContent": "space-evenly"
-                                         },
+                                     dbc.Row(
+                                         style={"margin": 0},
+                                         children=[
+                                             dbc.Button(
+                                                 id="projection-show-notes-btn",
+                                                 color="dark",
+                                                 className="proj-expand-btn",
+                                                 style={"marginRight": 20},
+                                             ),
+                                             dbc.Button(
+                                                 id="projection-show-hist-btn",
+                                                 color="dark",
+                                                 n_clicks=1 if show_history else 0,
+                                                 className="proj-expand-btn",
+                                             ),
+                                         ]
                                      ),
                                      dcc.Markdown('''If you want to learn more, view our \
                             [documentation](/projections_documentation) or \
