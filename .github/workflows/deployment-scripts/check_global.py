@@ -139,7 +139,8 @@ else:
             master_unique[area], area))
         if staged_unique[area] < master_unique[area]:
             fail_check("The staged df has less unique areas " +
-                       "({}) than master".format(area))
+                       "({}) than master. Staged {} vs Master {}".format(area, 
+                           df_staged[area].unique(), df_master[area].unique()))
 
 #
 # Check #4: "Latest date predicted for each country should be >= 2020-10-15"
