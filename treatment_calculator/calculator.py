@@ -107,7 +107,7 @@ def TreatmentCalc():
                                                         "fontSize": 35,
                                                         "verticalAlign": "top"
                                                     }),
-                                                    html.H5("chevron_right", className="material-icons", style={
+                                                    html.H5("", className="material-icons", style={
                                                         "display": "inline",
                                                         "color": "white",
                                                         "fontSize": 40,
