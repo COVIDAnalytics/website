@@ -12,12 +12,12 @@ from risk_calculator.infection.calculator import predict_risk_infec, get_languag
 from treatment_calculator.features import build_feature_cards
 import numpy as np
 
-from treatment_calculator.utils import build_results_graph, build_results_graph_v1
+from treatment_calculator.utils import build_results_graph
 import pandas as pd
 
 
 def register_callbacks(app):
-    with open('assets/treatment_calculators/COMORB_DEATH/CORTICOSTEROIDS.pkl', 'rb') as pkl:
+    with open('assets/treatment_calculators/COMORB_DEATH/ACEI_ARBS.pkl', 'rb') as pkl:
         cd_corti = pickle.load(pkl)
 
     model_names = ['rf', 'cart', 'qda', 'gb', 'xgboost']
@@ -37,20 +37,24 @@ def register_callbacks(app):
         [Output('treatments-calc-tabs', 'value'),
          Output('treatments-results-graph', 'children')],
         [Input('treatments-calc-language', 'value'),
-         Input('submit-treatments-calc', 'n_clicks'),
-         Input('treatments-sel', 'value')],
+         Input('submit-treatments-calc', 'n_clicks')],
         [State({'type': 'treatments-checkbox', 'feature': ALL, 'index': ALL, 'f_idx': ALL}, 'checked'),
          State({'type': 'treatments', 'feature': ALL, 'index': ALL, 'f_idx': ALL, 'f_def': ALL}, 'value'),
-         State({'type': 'treatments-multi', 'feature': ALL, 'index': ALL, }, 'value')]
+         State({'type': 'treatments-multi', 'feature': ALL, 'index': ALL, }, 'value'),
+         State("treatments-thresh", "value")]
     )
     def calc_risk_score_mortality(*argv):
         language = argv[0]
         submit = argv[1]
-        treatment = argv[2]
+        thresh = dash.callback_context.states_list[3]
+        if "value" in thresh:
+            thresh = thresh["value"]
+        else:
+            thresh = 1
 
         print("SUBMIT: " + str(submit))
         if submit is None:
-            #raise PreventUpdate()
+            # raise PreventUpdate()
             print("Submitting tabs-1")
             return ["tab-1", []]
         checkbox_features = dash.callback_context.states_list[0]
@@ -86,27 +90,42 @@ def register_callbacks(app):
         for name in model_names:
             model = treatment_models[name]["model"]
             try:
-                # print("FEATURES" + str(model.coef_.shape[-1]))
+                print("Getting n_freatuers")
+                print("FEATURES" + str(model.coef_.shape[-1]))
+                print(model.n_features_)
                 num_features = model.n_features_
             except:
                 pass
 
+        num_features = 31
+        print("N features is ", num_features)
         X = X[0:num_features]
         print(X)
-        #X = np.array(X).reshape(1, -1)
+        # X = np.array(X).reshape(1, -1)
         X = pd.DataFrame(np.array(X)).transpose()
         print(X)
         print(X.columns)
+        '''
         X.columns = np.array(['AGE', 'DIABETES', 'HYPERTENSION', 'DISLIPIDEMIA', 'OBESITY',
-                     'RENALINSUF', 'ANYLUNGDISEASE', 'AF', 'VIH', 'ANYHEARTDISEASE',
-                     'ANYCEREBROVASCULARDISEASE', 'CONECTIVEDISEASE', 'LIVER_DISEASE',
-                     'CANCER', 'MAXTEMPERATURE_ADMISSION', 'SAT02_BELOW92',
-                     'BLOOD_PRESSURE_ABNORMAL_B', 'DDDIMER_B', 'PCR_B', 'TRANSAMINASES_B',
-                     'LDL_B', 'CREATININE', 'SODIUM', 'LEUCOCYTES', 'LYMPHOCYTES',
-                     'HEMOGLOBIN', 'PLATELETS', 'CLOROQUINE', 'ANTIVIRAL', 'ANTICOAGULANTS',
-                     'INTERFERONOR', 'TOCILIZUMAB', 'ANTIBIOTICS', 'ACEI_ARBS',
-                     'GENDER_MALE', 'RACE_CAUC', 'RACE_LATIN', 'RACE_ORIENTAL',
-                     'RACE_OTHER'])
+                              'RENALINSUF', 'ANYLUNGDISEASE', 'AF', 'VIH', 'ANYHEARTDISEASE',
+                              'ANYCEREBROVASCULARDISEASE', 'CONECTIVEDISEASE', 'LIVER_DISEASE',
+                              'CANCER', 'MAXTEMPERATURE_ADMISSION', 'SAT02_BELOW92',
+                              'BLOOD_PRESSURE_ABNORMAL_B', 'DDDIMER_B', 'PCR_B', 'TRANSAMINASES_B',
+                              'LDL_B', 'CREATININE', 'SODIUM', 'LEUCOCYTES', 'LYMPHOCYTES',
+                              'HEMOGLOBIN', 'PLATELETS', 'CLOROQUINE', 'ANTIVIRAL', 'ANTICOAGULANTS',
+                              'INTERFERONOR', 'TOCILIZUMAB', 'ANTIBIOTICS', 'ACEI_ARBS',
+                              'GENDER_MALE', 'RACE_CAUC', 'RACE_LATIN', 'RACE_ORIENTAL',
+                              'RACE_OTHER'])
+        '''
+
+        X.columns = np.array(['AGE', 'DIABETES', 'DISLIPIDEMIA', 'OBESITY',
+                              'RENALINSUF', 'ANYLUNGDISEASE', 'AF', 'VIH', 'ANYHEARTDISEASE',
+                              'ANYCEREBROVASCULARDISEASE', 'CONECTIVEDISEASE', 'LIVER_DISEASE',
+                              'CANCER', 'MAXTEMPERATURE_ADMISSION', 'SAT02_BELOW92',
+                              'BLOOD_PRESSURE_ABNORMAL_B', 'DDDIMER_B', 'PCR_B', 'TRANSAMINASES_B',
+                              'LDL_B', 'CREATININE', 'SODIUM', 'LEUCOCYTES', 'LYMPHOCYTES',
+                              'HEMOGLOBIN', 'PLATELETS',
+                              'GENDER_MALE', 'RACE_BLACK', 'RACE_CAUC', 'RACE_LATIN', 'RACE_ORIENTAL'])
 
         print("X = ")
         print(X)
@@ -126,6 +145,19 @@ def register_callbacks(app):
         results["avgtreat"] /= len(model_names)
         results["avgntreat"] /= len(model_names)
 
-        graph = build_results_graph_v1(results, model_names, treatment)
+        graph = build_results_graph(results, model_names, thresh)
+
+        graph = dbc.Card(
+            className="elevation-3",
+            style={
+                "marginTop": "30px"
+            },
+            children=[
+                dbc.CardHeader("Generated Treatment Recommendation",
+                               style={"fontWeight": "bold"}),
+                dbc.CardBody(children=graph
+                             )
+            ]
+        )
 
         return ["tab-2", [graph]]

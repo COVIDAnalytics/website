@@ -227,6 +227,7 @@ class English(CalcLanguage):
                 'RACE_LATIN': 'Hispanic',
                 'RACE_ORIENTAL': 'Asian',
                 'RACE_OTHER': 'Other',
+                'RACE_BLACK': 'Black',
                 'RENALINSUF': 'Renal Insufficiency',
                 'SAT02_BELOW92': 'Low Oxygen Saturation (< 92)',
                 'SODIUM': 'Blood Sodium',

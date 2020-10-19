@@ -4,6 +4,8 @@ import math
 import shap
 import matplotlib
 import matplotlib.pyplot as plt
+
+import dash_html_components as html
 from textwrap import wrap
 
 from treatment_calculator.languages.english import English
@@ -172,9 +174,49 @@ def switch_oxygen(vec, ind):
     vec[0] = vals
     return tuple(vec)
 
-def build_results_graph(results, names, treatment):
+treat_color = "#4141ff"
+treat_high = "#8fc7ff"
+ntreat_high = "#ff4141"
+ntreat_color = "#d02532"
 
-    tname = treatments[treatment]
+def build_vote_bar(should_treat, should_ntreat):
+    nfig = go.Bar()
+    nfig.x = [should_ntreat, should_treat]
+    nfig.y = ["Should NOT Treat&nbsp;&nbsp;", "Should Treat&nbsp;&nbsp;"]
+    nfig.textposition = "auto"
+    nfig.orientation = 'h'
+    nfig.width = [1, 1]
+    nfig.marker.color = [ntreat_color, treat_color]
+    nfig.text = ["<b>%s votes to skip Treatment</b>" % should_ntreat,
+                    "<b>%s votes to do Treatment</b>" % should_treat]
+
+    figure = go.Figure(
+        data=[nfig],
+        layout=go.Layout(
+            title="Cumulative Voting Results",
+            height=160,
+            margin=dict(
+                l=0,
+                r=0,
+                b=0,
+                t=60,
+                pad=0
+            ),
+            bargap=1,
+            bargroupgap = 0.05
+        )
+    )
+    graph = dcc.Graph(
+        figure=figure
+    )
+
+    return  graph
+
+
+
+def build_results_graph(results, names, thresh):
+
+    tname = "ACEI / ARBS"
     groups = ["Without Treatment", "With Treatment"]
     traces = []
 
@@ -185,7 +227,7 @@ def build_results_graph(results, names, treatment):
         "qda": "QuadDiscr. Analysis",
         "gb": "Gaussian NB"
     }
-    model_map = {x: "Treatment vs No Treatment<br>" + y for x, y in model_map.items()}
+    #model_map = {x: "Treatment vs No Treatment<br>" + y for x, y in model_map.items()}
 
     xs = [model_map[name] for name in names]
     tfig = go.Bar()
@@ -193,20 +235,42 @@ def build_results_graph(results, names, treatment):
     tfig.y = [results["treat"][name] * 100 for name in names]
     tfig.name = "Treat"
     tfig.textposition = "outside"
-    tfig.marker_color = "green"
+    #tfig.marker_color = "green"
     nfig = go.Bar()
     nfig.x = xs
     nfig.y = [results["ntreat"][name] * 100 for name in names]
-    nfig.name = "No Treat"
+    nfig.name = "Skip (Don't Treat)"
     nfig.textposition = "outside"
+
+    tfig.marker.color = treat_color
+    nfig.marker.color = ntreat_color
+
+    should_treat = [t - thresh > n for t, n in zip(tfig.y, nfig.y)]
+
+    tfig.text = ["<b>Treat</b>" if x else "" for x in should_treat]
+    nfig.text = ["<b>Skip</b>" if not x else "" for x in should_treat]
+
     traces.append(tfig)
     traces.append(nfig)
+
+    tfig.marker.line.color = treat_high
+    nfig.marker.line.color = ntreat_high
+    tfig.marker.line.width = [8 if x else 0 for x in should_treat]
+    nfig.marker.line.width = [8 if not x else 0 for x in should_treat]
 
 
     bargap = 0.2
     layout = go.Layout(
+        title="Recommendation per Model",
+        yaxis_title="Mortality Rate in %",
+        xaxis_title="Model Used",
         barmode='group',
         bargap=bargap,
+        bargroupgap=0.05,
+        margin=dict(
+            t=60,
+            b=20,
+        ),
         #  showlegend=False,
     )
     figure = go.Figure(
@@ -215,66 +279,9 @@ def build_results_graph(results, names, treatment):
     graph = dcc.Graph(
         figure=figure
     )
-    return graph
 
+    return html.Div([
+        graph,
+        build_vote_bar(should_treat.count(True), should_treat.count(False))
+    ])
 
-def build_results_graph_v1(results, names, treatment):
-
-    tname = treatments[treatment]
-    groups = ["Without Treatment", "With Treatment"]
-    traces = []
-
-    model_map = {
-        "lr": "Logistic Regression",
-        "rf": "Random Forest Class.",
-        "cart": "Decision Tree Class.",
-        "xgboost": "XGBoost Class.",
-        "qda": "QuadDiscr. Analysis",
-        "gb": "Gaussian NB"
-    }
-
-    for name in names:
-        fig = go.Bar()
-        fig.x = groups
-        fig.y = [results["ntreat"][name] * 100, results["treat"][name] * 100]
-        fig.text = [str(int(round(results["ntreat"][name] * 100))) + "%",
-                    str(int(round(results["treat"][name] * 100))) + "%"]
-        fig.name = model_map[name]
-        fig.textposition = "outside"
-        traces.append(fig)
-
-    bargap = 0.2
-    layout = go.Layout(
-        barmode='group',
-        bargap=bargap,
-      #  showlegend=False,
-    )
-
-    # Create initial figure with grouped bar traces
-    figure = go.Figure(
-       data=traces, layout=layout)
-    figure.update_layout(
-        title="Effectiveness of {} Treatment".format(tname),
-        yaxis_title="Mortality Rate (in %)",
-        yaxis_range=[0, 101],
-        title_x=0.5,
-    )
-
-    # Add secondary x-axis that overlays categorical xaxis
-    figure.layout.xaxis2 = go.layout.XAxis(
-        overlaying='x', range=[0, len(traces[0].x)], showticklabels=False)
-
-    # Add a line traces, and associate with the second xaxis
-    for i in range(2):
-        x = [i, i + 1]
-        avg = results["avgntreat"] * 100 if i == 0 else results["avgtreat"] * 100
-        y = [avg, avg]
-        scatt = figure.add_scatter(x=x, y=y, mode='lines+text', xaxis='x2',
-                                   text=[" Avg: " + str(int(round(avg))) + "%", ""], textposition="top right",
-                                   showlegend=False, line={'color': 'gray'})
-
-
-    graph = dcc.Graph(
-        figure=figure
-    )
-    return graph

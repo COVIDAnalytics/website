@@ -29,60 +29,95 @@ def TreatmentCalc():
         className="page-body",
         children=
         get_lang("treatments-calc-language") +
+        [
+            dbc.Row(
+                children=[
+                    dbc.Col([
+                        html.Div(
+                            **{"data-aos": "fade-up"},
+                            className="aos-refresh-onload",
+                            children=dbc.Jumbotron(
+                                style={"padding": "4%"},
+                                className="elevation-3",
+                                children=[
+                                    html.H2("Evaluating ACEI / ARBS Treatments"),
+                                    html.Hr(),
+                                    dcc.Markdown(
+                                        """
+                                        This tool uses various machine learning models to evaluate a patient's risk 
+                                        on undertaking COVID-19 treatment. Based on these results... Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
+                                        """,
+                                    ),
+                                ]
+                            )
+                        )
+                    ]),
+                ]
+            )
+        ] +
         [dcc.Tabs(
             id="treatments-calc-tabs",
             children=[
                 dcc.Tab(
-                    label='Inputs',
+                    label='Patient Information',
                     value='tab-1',
-                    className='custom-tab',
-                    selected_className='custom-tab--selected',
+                    className='treatments-tab',
+                    selected_className='treatments-tab--selected',
                     children=[
                         html.Div(
                             style={"min-height": "550px"},
-                            children=
-                                build_row_header("Treatment Selection") + [
-                                    dbc.Row(
-                                        justify="center",
-                                        style={"marginBottom": "40px", "marginTop": "40px"},
-                                        children=dbc.Col(
-                                        xs=12,
-                                        sm=12,
-                                        md=8,
-                                        lg=6,
-                                        children=
-                                            dcc.Dropdown(
-                                                id="treatments-sel",
-                                                value=0,
-                                                options=[{"label": treatments[x], "value": x}
-                                                         for x in range(len(treatments))]),
-                                    ))
-                                ] +
-                                build_row_header("Patient Information") + [
+                            children=[
                                 dbc.Row(
                                     id="treatments-calc-feature-cards",
                                     justify="center"
                                 ),
                                 dbc.Row(
                                     justify="center",
-                                    children=dbc.Col(
-                                        xl=4,
-                                        lg=4,
-                                        md=8,
-                                        sm=12,
-                                        children=[
-                                            dbc.Button(
-                                                id="submit-treatments-calc",
-                                                style={"width": "100%", "height": 120},
-                                                color="danger",
-                                                children=[
-                                                html.H5("Submit", style={
-                                                    "color": "white",
-                                                    "fontSize": 35
-                                                }),
-                                            ])
-                                        ]
-                                    )
+                                    children=[
+                                        dbc.Col(
+                                            xl=4,
+                                            lg=4,
+                                            md=8,
+                                            sm=12,
+                                            children=[
+                                                dbc.Card(
+                                                    children=[
+                                                        dbc.CardBody([
+                                                            html.H5("Recommend treating if it yields a", style={"color": "grey"}),
+                                                            dbc.Input(id="treatments-thresh", type="number", placeholder="1% improvement to mortality rate"),
+                                                        ])
+                                                    ]
+                                                )
+                                            ]
+                                        ),
+                                        dbc.Col(
+                                            xl=4,
+                                            lg=4,
+                                            md=8,
+                                            sm=12,
+                                            children=[
+                                                dbc.Button(
+                                                    id="submit-treatments-calc",
+                                                    style={"width": "100%", "height": "100%"},
+                                                    color="danger",
+                                                    children=[
+                                                    html.H5("Submit", style={
+                                                        "display": "inline",
+                                                        "color": "white",
+                                                        "fontSize": 35,
+                                                        "verticalAlign": "top"
+                                                    }),
+                                                    html.H5("chevron_right", className="material-icons", style={
+                                                        "display": "inline",
+                                                        "color": "white",
+                                                        "fontSize": 40,
+                                                        "fontWeight": "800",
+                                                        "verticalAlign": "bottom"
+                                                    })
+                                                ])
+                                            ]
+                                        )
+                                    ]
                                 )
                             ]
                         )
@@ -91,8 +126,8 @@ def TreatmentCalc():
                 dcc.Tab(
                     label='Results',
                     value='tab-2',
-                    className='custom-tab',
-                    selected_className='custom-tab--selected',
+                    className='treatments-tab',
+                    selected_className='treatments-tab--selected',
                     children=[
                         html.Div(id="treatments-results-graph"),
                     ]
