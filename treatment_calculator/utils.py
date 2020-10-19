@@ -179,6 +179,52 @@ def build_results_graph(results, names, treatment):
     traces = []
 
     model_map = {
+        "rf": "Random Forest Class.",
+        "cart": "Decision Tree Class.",
+        "xgboost": "XGBoost Class.",
+        "qda": "QuadDiscr. Analysis",
+        "gb": "Gaussian NB"
+    }
+    model_map = {x: "Treatment vs No Treatment<br>" + y for x, y in model_map.items()}
+
+    xs = [model_map[name] for name in names]
+    tfig = go.Bar()
+    tfig.x = xs
+    tfig.y = [results["treat"][name] * 100 for name in names]
+    tfig.name = "Treat"
+    tfig.textposition = "outside"
+    tfig.marker_color = "green"
+    nfig = go.Bar()
+    nfig.x = xs
+    nfig.y = [results["ntreat"][name] * 100 for name in names]
+    nfig.name = "No Treat"
+    nfig.textposition = "outside"
+    traces.append(tfig)
+    traces.append(nfig)
+
+
+    bargap = 0.2
+    layout = go.Layout(
+        barmode='group',
+        bargap=bargap,
+        #  showlegend=False,
+    )
+    figure = go.Figure(
+        data=traces, layout=layout)
+
+    graph = dcc.Graph(
+        figure=figure
+    )
+    return graph
+
+
+def build_results_graph_v1(results, names, treatment):
+
+    tname = treatments[treatment]
+    groups = ["Without Treatment", "With Treatment"]
+    traces = []
+
+    model_map = {
         "lr": "Logistic Regression",
         "rf": "Random Forest Class.",
         "cart": "Decision Tree Class.",
