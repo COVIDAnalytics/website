@@ -5,7 +5,7 @@ from dash.dependencies import Output, Input
 import flask
 
 from projections.visuals_funcs import build_us_map, get_stat, build_continent_map, build_state_projection
-from projections.utils import get_world_map_text, get_state_abbr, build_notes_btn_content, get_df_projections
+from projections.utils import get_world_map_text, get_state_abbr, build_notes_btn_content, get_df_projections, build_hist_btn_content
 
 
 def register_callbacks(app):
@@ -152,3 +152,13 @@ def register_callbacks(app):
             return {"maxHeight": "2000px", "opacity": "1.0", "padding": "10px"}, build_notes_btn_content(False)
         else:
             return {"maxHeight": "0px", "opacity": "0.0", "margin": "0px"}, build_notes_btn_content(True)
+
+    @app.callback(
+        [Output("projection-hist-card", "style"),
+         Output("projection-show-hist-btn", "children")],
+        [Input("projection-show-hist-btn", "n_clicks")])
+    def toggle_history(clicks):
+        if clicks is not None and clicks % 2 == 1:
+            return {"maxHeight": "2000px", "opacity": "1.0", "padding": "10px"}, build_hist_btn_content(False)
+        else:
+            return {"maxHeight": "0px", "opacity": "0.0", "margin": "0px"}, build_hist_btn_content(True)

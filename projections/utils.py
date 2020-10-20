@@ -42,7 +42,18 @@ def add_cases(w):
 
 def build_notes_btn_content(show):
     return [
-        "Expand notes" if show else "Hide notes",
+        "See notes" if show else "Hide notes",
+        html.Span(
+            "chevron_right" if show else "chevron_left",
+            className="material-icons",
+            style={"margin": "0px"}
+        )
+    ]
+
+
+def build_hist_btn_content(show):
+    return [
+        "See accuracy" if show else "Hide accuracy",
         html.Span(
             "chevron_right" if show else "chevron_left",
             className="material-icons",
@@ -86,6 +97,38 @@ def build_notes_content():
                     historical data to increase the accuracy of future \
                     predictions. As such, daily counts extracted from \
                     the model may not exactly correspond with reports."),
+        ])],
+    )
+
+
+def build_hist_content():
+    imgp_mape = "assets/images/predictions/trend_mape.png"
+    imgp_rank = "assets/images/predictions/trend_rank.png"
+    return dbc.Card(
+        style={"maxHeight": "0px"},
+        id="projection-hist-card",
+        className='elevation-3 projections-notes',
+        children=[dbc.CardBody([
+            html.H5("Historic DELPHI Model Performances"),
+            dcc.Markdown('''
+            We compare the historical performances of the DELPHI model with the top models used by \
+            the CDC over the last 3 months. DELPHI ranks 1st on average for the 4-weeks ahead predictions \
+            for total deaths in the US, and 2nd on average for the per-state predictions with an average \
+            MAPE (mean absolute percentage error) below 7%. DELPHI has also been one of the most robust models, \
+            with the best worst-rank \
+            over the last 3 months in the US, ranking between the 1st and the 4th position each week; \
+            and the second per-state ranking between the 1st and the 6th position each week \
+            (worst position being 3rd for the last 2 months). The detailed comparison can be found \
+            in the figures below.
+            '''),
+            html.Img(
+                src=imgp_mape,
+                style={"width": "100%"}
+            ),
+            html.Img(
+                src=imgp_rank,
+                style={"width": "100%"}
+            )
         ])],
     )
 

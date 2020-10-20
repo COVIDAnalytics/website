@@ -207,9 +207,6 @@ def find_smallest_scope(state, country, continent):
 
 def build_state_projection(df_projections, state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
-    print("continent: " + continent)
-    print("country:" + country)
-    print("LOcation is : " + location)
     df_projections_sub = df_projections.loc[(df_projections.Province == state) & (df_projections.Country == country)]
     if country != 'US' and continent == 'US':
         continent = 'World'
@@ -233,7 +230,8 @@ def build_state_projection(df_projections, state, country, continent, vals):
             predicted = df_projections_sub.loc[df_projections['Day'] >= today]
             historic = df_projections_sub.loc[df_projections['Day'] <= today]
 
-            if val == "Total Detected" or val == "Total Detected Deaths":
+            # disable CIs
+            if (val == "Total Detected" or val == "Total Detected Deaths") and False:
                 fig.add_trace(go.Scatter(
                     name=val,
                     showlegend=False,
