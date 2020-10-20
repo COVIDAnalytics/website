@@ -111,12 +111,15 @@ def build_hist_content():
         children=[dbc.CardBody([
             html.H5("Historic DELPHI Model Performances"),
             dcc.Markdown('''
-            We compare the historical performances of the DELPHI model with the top models used by the CDC over the \
-            last 3 months. DELPHI ranks 1st in average for the 4-weeks ahead predictions for deaths in the US and 2nd \
-            in average globally with an average MAPE below 7%. DELPHI has also been one of the most robust models, \
-            with the best worst-rank over the last 3 months in the US, ranking between the 1st and the 4th position \
-            each week; and the second globally ranking between the 1st and the 6th position each (worst position \
-            being 3rd for the last 2 months). The detailed comparison can be found in the figures below.  
+            We compare the historical performances of the DELPHI model with the top models used by \
+            the CDC over the last 3 months. DELPHI ranks 1st on average for the 4-weeks ahead predictions \
+            for total deaths in the US, and 2nd on average for the per-state predictions with an average \
+            MAPE (mean absolute percentage error) below 7%. DELPHI has also been one of the most robust models, \
+            with the best worst-rank \
+            over the last 3 months in the US, ranking between the 1st and the 4th position each week; \
+            and the second per-state ranking between the 1st and the 6th position each week \
+            (worst position being 3rd for the last 2 months). The detailed comparison can be found \
+            in the figures below.
             '''),
             html.Img(
                 src=imgp_mape,
