@@ -102,8 +102,8 @@ def build_notes_content():
 
 
 def build_hist_content():
-    imgp_mape = "assets/images/predictions/trend_mape.png"
-    imgp_rank = "assets/images/predictions/trend_rank.png"
+    imgp_mape = "assets/images/predictions/trend_mape_v1.png"
+    imgp_rank = "assets/images/predictions/trend_rank_v1.png"
     return dbc.Card(
         style={"maxHeight": "0px"},
         id="projection-hist-card",
