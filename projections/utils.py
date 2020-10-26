@@ -63,7 +63,7 @@ def build_hist_btn_content(show):
 
 
 def get_df_projections():
-    df_projections = pd.read_csv('data/predicted/Global_since100.csv', sep=",", parse_dates=['Day'])
+    df_projections = pd.read_csv('data/predicted/Global_V2_since100.csv', sep=",", parse_dates=['Day'])
     df_projections.loc[:, 'Day'] = pd.to_datetime(df_projections['Day'], format='y%m%d').dt.date
     return df_projections
 
