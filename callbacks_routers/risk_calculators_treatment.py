@@ -15,6 +15,8 @@ import numpy as np
 from treatment_calculator.utils import build_results_graph
 import pandas as pd
 
+once = False
+
 
 def register_callbacks(app):
     with open('assets/treatment_calculators/COMORB_DEATH/ACEI_ARBS.pkl', 'rb') as pkl:
@@ -26,17 +28,21 @@ def register_callbacks(app):
     treatment_features = cd_corti["json"]
     print(cd_corti)
 
+
     @app.callback(
         Output('treatments-calc-feature-cards', 'children'),
         [Input("treatments-calc-tabs", "value"),
-         Input('treatments-calc-language', 'value')])
-    def get_infection_model_feat_cards(tabs, language):
-        return build_feature_cards(treatment_features, False, False, language)
+         Input('submit-treatments-calc', 'n_clicks')])
+    def get_infection_model_feat_cards(tabs, clicks):
+        if clicks is None:
+            return build_feature_cards(treatment_features, False, False, 0) # 0 = English
+        else:
+            raise PreventUpdate
 
     @app.callback(
         [Output('treatments-calc-tabs', 'value'),
          Output('treatments-results-graph', 'children')],
-        [Input('treatments-calc-language', 'value'),
+        [#Input('treatments-calc-language', 'value'),
          Input('submit-treatments-calc', 'n_clicks')],
         [State({'type': 'treatments-checkbox', 'feature': ALL, 'index': ALL, 'f_idx': ALL}, 'checked'),
          State({'type': 'treatments', 'feature': ALL, 'index': ALL, 'f_idx': ALL, 'f_def': ALL}, 'value'),
@@ -44,14 +50,16 @@ def register_callbacks(app):
          State("treatments-thresh", "value")]
     )
     def calc_risk_score_mortality(*argv):
-        language = argv[0]
-        submit = argv[1]
+        #language = argv[0]
+        submit = argv[0]
         thresh = dash.callback_context.states_list[3]
         if "value" in thresh:
             thresh = thresh["value"]
         else:
             thresh = 1
 
+        # hello
+        print("THRESH", thresh)
         print("SUBMIT: " + str(submit))
         if submit is None:
             # raise PreventUpdate()

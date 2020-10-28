@@ -207,12 +207,42 @@ def build_vote_bar(should_treat, should_ntreat):
         )
     )
     graph = dcc.Graph(
-        figure=figure
+        figure=figure,
+        config={
+            'displayModeBar': False
+        }
     )
 
     return  graph
 
-
+def get_jumbo_text():
+    return [
+        html.H2("Evaluating ACEI / ARBS Treatments"),
+        html.Hr(),
+        dcc.Markdown(
+            """
+            There are many unanswered questions around how to most effectively treat COVID-19 patients. The
+            medical community is investigating a variety of treatment options, including the repurposing
+            of existing medications. One such group of medications is angiotensin-converting enzyme
+            inhibitors (ACEIs) and angiotensin-receptor blockers (ARBs). These drugs are traditionally
+            used to treat hypertension but have recently gained attention for mixed conclusions on their 
+            effect on COVID-19 patients. The lack of consensus suggests that a "one-size-fits-all" approach 
+            might be insufficient and that there could be a benefit to personalization of treatment decisions 
+            for ACEI / ARBs in these patients. 
+            
+            The calculator below offers a machine learning-based approach
+            for personalizing prescriptions of ACEI / ARBs for hospitalized, hypertensive patients with COVID-19. 
+            We leverage several popular binary classification models to generate individualized predictions of 
+            mortality / morbidity for each treatment alternative based on the clinical features entered by the 
+            user. We then employ a voting scheme: each model "votes" whether to recommend ACEI / ARBs based
+            on the predicted benefit of the drugs. An optional improvement threshold allows the user to select
+            a necessary percent improvement with ACEI / ARBs that is required to vote for prescribing the drugs; 
+            this is intended to limit unnecessary prescriptions. The final recommendation is based on the majority 
+            vote of the individual methods. More details on the methodology and clinical insights are available 
+            here, and the source code is available here.
+            """
+        )
+    ]
 
 def build_results_graph(results, names, thresh):
 
@@ -245,7 +275,9 @@ def build_results_graph(results, names, thresh):
     tfig.marker.color = treat_color
     nfig.marker.color = ntreat_color
 
-    should_treat = [t - thresh > n for t, n in zip(tfig.y, nfig.y)]
+    thresh = int(thresh)
+    print("THREA IS", thresh / 100)
+    should_treat = [(t - n) / n <= -(thresh / 100) for t, n in zip(tfig.y, nfig.y)]
 
     tfig.text = ["<b>Treat</b>" if x else "" for x in should_treat]
     nfig.text = ["<b>Skip</b>" if not x else "" for x in should_treat]

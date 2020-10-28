@@ -5,7 +5,7 @@ import dash_core_components as dcc
 from navbar import Navbar
 from footer import Footer
 from risk_calculator.visuals import get_lang
-from treatment_calculator.utils import treatments
+from treatment_calculator.utils import treatments, get_jumbo_text
 
 
 def build_row_header(name):
@@ -28,7 +28,7 @@ def TreatmentCalc():
     body = dbc.Container(
         className="page-body",
         children=
-        get_lang("treatments-calc-language") +
+        #get_lang("treatments-calc-language") +
         [
             dbc.Row(
                 children=[
@@ -39,16 +39,7 @@ def TreatmentCalc():
                             children=dbc.Jumbotron(
                                 style={"padding": "4%"},
                                 className="elevation-3",
-                                children=[
-                                    html.H2("Evaluating ACEI / ARBS Treatments"),
-                                    html.Hr(),
-                                    dcc.Markdown(
-                                        """
-                                        This tool uses various machine learning models to evaluate a patient's risk 
-                                        on undertaking COVID-19 treatment. Based on these results... Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged
-                                        """,
-                                    ),
-                                ]
+                                children=get_jumbo_text()
                             )
                         )
                     ]),
@@ -83,8 +74,17 @@ def TreatmentCalc():
                                                 dbc.Card(
                                                     children=[
                                                         dbc.CardBody([
-                                                            html.H5("Recommend treating if it yields a", style={"color": "grey"}),
-                                                            dbc.Input(id="treatments-thresh", type="number", placeholder="1% improvement to mortality rate"),
+                                                            html.H5("Recommend treating if it yields a",
+                                                                    style={"color": "grey"}),
+                                                            dbc.Row([
+                                                                dbc.Input(id="treatments-thresh",
+                                                                    type="number",
+                                                                    style={"textAlign": "center", "maxWidth": 80},
+                                                                    value="1"),
+                                                                html.H5("% improvement",
+                                                                        style={"color": "grey", "lineHeight": "33px",
+                                                                               "marginLeft": "10px"})
+                                                            ], no_gutters=True)
                                                         ])
                                                     ]
                                                 )
@@ -120,7 +120,13 @@ def TreatmentCalc():
                                     ]
                                 )
                             ]
-                        )
+                        ),
+                        dcc.Loading(
+                            type="graph",
+                            fullscreen=True,
+                            # hacky. trigger loading whenever treamtnets-reuslts graph changes
+                            children=html.Div(id="treatments-results-graph")
+                        ),
                     ]
                 ),
                 dcc.Tab(
