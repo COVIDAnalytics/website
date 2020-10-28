@@ -125,13 +125,10 @@ def display_page(pathname):
         return Press()
     if pathname == '/collaborators':
         return Collaborators()
-<<<<<<< HEAD
     if pathname == '/treatments':
         return TreatmentCalc()
-=======
     if pathname == '/users':
         return Users()
->>>>>>> master
     else:
         return Homepage()
 
