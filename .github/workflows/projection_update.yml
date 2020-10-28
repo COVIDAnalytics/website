@@ -60,6 +60,11 @@ jobs:
                     Parameters_Global_V2_ ./data/predicted | tail -n 1`
         cp $params /tmp/Parameters_Global_V2_LATEST-staged.csv
 
+        # Match the latest Global_V2_since100 in pr branch
+        params=`python3 /tmp/deployment-scripts/ls_latest_csv.py \
+                    Global_V2_since100_ ./data/predicted | tail -n 1`
+        cp $params /tmp/Global_V2_since100_LATEST-staged.csv
+
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
       with:
@@ -74,7 +79,8 @@ jobs:
         echo "[*] Comparing Global CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
             /tmp/Global-staged.csv \
-            /tmp/Global-master.csv
+            /tmp/Global-master.csv \
+            --allow-na-country "Antigua and Barbuda"
 
         echo "[*] Comparing Parameter CSVs... (Checks 1-5)"
         python3 /tmp/deployment-scripts/check_global.py \
@@ -89,6 +95,10 @@ jobs:
         python3 /tmp/deployment-scripts/check_equal.py \
                     /tmp/Global-staged.csv \
                     /tmp/Global_V2_LATEST-staged.csv
+
+    - name: Replace latest Global_since100
+      run: |
+          mv /tmp/Global_V2_since100_LATEST-staged.csv ./data/predicted/Global_since100.csv
 
   automerge:
 

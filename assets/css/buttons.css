@@ -30,3 +30,13 @@
     font-size: 25px;
     font-weight: 200;
 }
+
+.proj-expand-btn {
+    border-radius: 0px !important;
+    max-width: 170px !important;
+    margin-bottom: 1rem !important;
+    display: flex !important;
+    background-color: #A31F34 !important;
+    border: none !important;
+    justify-content: space-evenly !important;
+}

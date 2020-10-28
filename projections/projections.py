@@ -1,3 +1,5 @@
+import urllib
+
 import dash_core_components as dcc
 import dash_html_components as html
 import dash_bootstrap_components as dbc
@@ -5,74 +7,122 @@ import dash_bootstrap_components as dbc
 from navbar import Navbar
 from footer import Footer
 
-from projections.map import get_top_visual
+from projections.map import get_top_visual, build_death_cards
 from projections.timeline import get_bottom_visual
+from projections.utils import build_notes_content, get_df_projections, build_hist_content
 
-def ProjectState():
+
+def ProjectState(show_history=False):
     nav = Navbar()
     footer = Footer()
 
+    df_projections = get_df_projections()
+
+    with open("data/predicted/Global.csv", "r") as raw:
+        data_csv_string = "data:text/csv;charset=utf-8," + urllib.parse.quote('\n'.join(raw.readlines()))
+
     body = dbc.Container(
-        [
-           dbc.Row(
-            [
-                dbc.Col(
-                [
-                    html.H2("DELPHI Epidemiological Case Predictions"),
-                    dcc.Markdown("""\
-                            A critical tool for COVID-19 planning is charting out the progression \
-                            of the pandemic across the United States and the world. \
-                            We've developed a new epidemiological model called DELPHI, which \
-                            forecasts infections, hospitalizations, and deaths. \
-                            You can think of our model as a standard \
-                            [SEIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SEIR_model) \
-                            with additional \
-                            features specific to the COVID-19 pandemic, like under-detection and \
-                            differentiated government intervention.
-                           """),
-                    dcc.Markdown('''If you want to learn more, check out the \
-                                 [documentation](/projections_documentation) or \
-                                 [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
-                    dcc.Markdown('''**Note: The model has been updated on 7/4/2020 to better reflect the resurgence of \
-                                 cases in various locations. The projections could differ significantly from previous results in certain areas.** '''),
-                    dbc.Card(
-                        [
-                            dbc.CardBody(
-                                [
-                                html.H5("Note: what do we mean by \"active cases\"?"),
-                                dcc.Markdown("We define a COVID-19 case as **active** \
-                                             if it has not yet resulted in recovery \
-                                             or death. You may notice a discrepancy \
-                                             between the number of active cases here \
-                                             and on the \
-                                             [JHU map](https://coronavirus.jhu.edu/map.html). \
-                                             The JHU map is very good at keeping track of new cases, \
-                                             but does not always publish data on recovered cases, \
-                                             which can lead to overestimating currently active \
-                                             cases."),
-                                dcc.Markdown("**Disclaimer:** Our total counts only account for \
-                                             countries in which we have sufficient data and where \
-                                             the pandemic is currently active. In particular, it \
-                                             excludes some East Asian countries where the pandemic \
-                                             has largely passed.\n \
-                                             \nCountry-level projections are modelled based on all \
-                                             historical data to increase the accuracy of future \
-                                             predictions. As such, daily counts extracted from \
-                                             the model may not exactly correspond with reports."),
-                                ]
-                            ),
-                        ],
-                        className='projections-general-card'
+        className="page-body projections-body",
+        children=[
+             dcc.Store(id='sync', data='US'),
+             dbc.Row([
+                 dbc.Col(
+                     lg=12,
+                     style={"marginBottom": "20px"},
+                     children=[html.H2("DELPHI Epidemiological Case Predictions", className="projections-headline")],
+                 ),
+                 dbc.Col(
+                     lg=12,
+                     children=build_notes_content(),
+                 ),
+                 dbc.Col(
+                     lg=12,
+                     children=build_hist_content(),
+                 ),
+                 dbc.Col(
+                     xs=12,
+                     sm=12,
+                     md=12,
+                     xl=6,
+                     lg=5,
+                     style={"marginBottom": "30px"},
+                     children=[
+                         html.Div(
+                             **{"data-aos": "fade-up"},
+                             className="aos-refresh-onload-strict",
+                             children=dbc.Card(
+                                 className="elevation-3",
+                                 style={
+                                     "padding": "30px",
+                                     "border": "none",
+                                     "height": "100%",
+                                     "backgroundColor": "#e9ecef"
+                                 },
+                                 children=[
+                                     dcc.Markdown(
+                                         """\
+                                       A critical tool for COVID-19 planning is charting out the progression \
+                                       of the pandemic across the United States and the world. \
+                                       We've developed a new epidemiological model called DELPHI, which \
+                                       forecasts infections, hospitalizations, and deaths. \
+                                       You can think of our model as a standard \
+                                       [SEIR model](https://en.wikipedia.org/wiki/Compartmental_models_in_epidemiology#The_SEIR_model) \
+                                       with additional \
+                                       features specific to the COVID-19 pandemic, like under-detection and \
+                                       differentiated government intervention.
+                                        """,
+                                         style={"marginTop": "auto"}
+                                     ),
+                                     dbc.Row(
+                                         style={"margin": 0},
+                                         children=[
+                                             dbc.Button(
+                                                 id="projection-show-notes-btn",
+                                                 color="dark",
+                                                 className="proj-expand-btn",
+                                                 style={"marginRight": 20},
+                                             ),
+                                             dbc.Button(
+                                                 id="projection-show-hist-btn",
+                                                 color="dark",
+                                                 n_clicks=1 if show_history else 0,
+                                                 className="proj-expand-btn",
+                                             ),
+                                         ]
+                                     ),
+                                     dcc.Markdown('''If you want to learn more, view our \
+                            [documentation](/projections_documentation) or \
+                            [source code](https://github.com/COVIDAnalytics/epidemic-model).'''),
+                                 ]
+                             ),
+                         )
+                     ],
+                 ),
+                 dbc.Col(
+                     lg=7,
+                     xl=6,
+                     style={"marginTop": "auto"},
+                     children=build_death_cards(df_projections)),
+
+             ])
+        ]
+        + get_bottom_visual()
+        + get_top_visual()
+        + [dbc.Row([
+            dbc.Col(
+                html.Div(
+                    style={'textAlign': "center", "margin": "30px", "marginTop": "40px"},
+                    children=html.A(
+                        "Download Most Recent Predictions",
+                        id="download-link",
+                        download="covid_analytics_projections.csv",
+                        href=data_csv_string,
+                        target="_blank"
                     ),
-                ]
-                ),
-            ],
-            )
-        ] + \
-            get_top_visual() + \
-            get_bottom_visual(),
-       className="page-body"
+                )
+            ),
+        ])]
     )
 
-    layout = html.Div([nav, body, footer],className="site")
+    layout = html.Div([nav, body, footer], className="site")
     return layout

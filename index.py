@@ -1,9 +1,11 @@
 import json
 import urllib.parse
+import sys
 
 from flask import Flask
 from flask_restful import Resource, Api
 
+from about_us.users import Users
 from api.rest_interface import MortalityCalcNoLabsEndpoint, MortalityCalcLabsEndpoint, InfectionCalcLabsEndpoint,\
     InfectionCalcNoLabsEndpoint
 
@@ -99,6 +101,8 @@ def display_page(pathname):
         return Dataset_documentation()
     if pathname == '/interactive-graph':
         return InteractiveGraph()
+    if pathname == '/projections-history':
+        return ProjectState(True)
     if pathname == '/projections':
         return ProjectState()
     if pathname == '/projections_documentation':
@@ -121,8 +125,13 @@ def display_page(pathname):
         return Press()
     if pathname == '/collaborators':
         return Collaborators()
+<<<<<<< HEAD
     if pathname == '/treatments':
         return TreatmentCalc()
+=======
+    if pathname == '/users':
+        return Users()
+>>>>>>> master
     else:
         return Homepage()
 
@@ -138,4 +147,7 @@ def toggle_navbar_collapse(n, is_open):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    if len(sys.argv) == 1:
+        app.run_server(debug=True)
+    else: 
+        app.run_server(debug=True, host=sys.argv[1])

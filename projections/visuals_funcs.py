@@ -3,11 +3,11 @@ import numpy as np
 import plotly.graph_objects as go
 from textwrap import wrap
 
+import pandas as pd
 import dash_core_components as dcc
-import dash_html_components as html
-import dash_bootstrap_components as dbc
 
 from assets.mappings import get_states, get_colors
+from projections.map import build_card_content
 from projections.utils import get_cols, add_cases
 
 def build_continent_map(df_continent,PopInfo,map_date,val='Active', continent = 'World', pop = 1):
@@ -194,21 +194,26 @@ def build_us_map(df_projections,PopInfo,map_date,val='Active', pop = 1):
         return graph
     return
 
+
 def find_smallest_scope(state, country, continent):
     location = state
     if state in 'None':
-        if country is 'None':
+        if country in 'None':
             location = continent
         else:
             location = country
     return location
 
+
 def build_state_projection(df_projections, state, country, continent, vals):
     location = find_smallest_scope(state, country, continent)
-    df_projections_sub = df_projections.loc[ (df_projections.Province == state) & (df_projections.Country == country)]
-    if continent not in ['US', 'World']:
+    df_projections_sub = df_projections.loc[(df_projections.Province == state) & (df_projections.Country == country)]
+    if country != 'US' and continent == 'US':
+        continent = 'World'
+
+    if continent not in ['World']:
         df_projections_sub = df_projections_sub.loc[(df_projections_sub.Continent == continent)]
-    if continent == 'US':
+    if country == 'US':
         df_projections_sub = df_projections.loc[(df_projections.Country == 'US') & (df_projections.Province == state)]
     if continent == 'World':
         if country =='None':
@@ -220,14 +225,51 @@ def build_state_projection(df_projections, state, country, continent, vals):
         colors = get_colors()
         for val in vals:
             i = cols[val]
+
+            today = pd.Timestamp('today')
+            predicted = df_projections_sub.loc[df_projections['Day'] >= today]
+            historic = df_projections_sub.loc[df_projections['Day'] <= today]
+
+            # disable CIs
+            if (val == "Total Detected" or val == "Total Detected Deaths") and False:
+                fig.add_trace(go.Scatter(
+                    name=val,
+                    showlegend=False,
+                    x=predicted['Day'],
+                    y=predicted[val + " LB"].values,
+                    mode="lines",
+                    marker=dict(color=colors[i]),
+                    line=dict(width=0),
+                ))
+                fig.add_trace(go.Scatter(
+                    name=val,
+                    showlegend=False,
+                    x=predicted['Day'],
+                    y=predicted[val + " UB"].values,
+                    mode="lines",
+                    marker=dict(color=colors[i]),
+                    line=dict(width=0),
+                    fillcolor="rgba(100, 0, 0, 0.3)",
+                    fill="tonexty"
+                ))
+
             fig.add_trace(go.Scatter(
                 name=val,
                 showlegend=True,
-                x=df_projections_sub['Day'],
-                y=df_projections_sub[val].values,
-                mode="lines+markers",
+                x=predicted['Day'],
+                y=predicted[val].values,
+                mode="lines",
                 marker=dict(color=colors[i]),
                 line=dict(color=colors[i])
+            ))
+            fig.add_trace(go.Scatter(
+                name="Actual " + val,
+                showlegend=False,
+                x=historic['Day'],
+                y=historic[val].values,
+                mode="lines",
+                marker=dict(color="#a0a0a0"),
+                line=dict(color="#a0a0a0")
             ))
 
     title = '<br>'.join(wrap('<b> Projections for {} </b>'.format(location), width=26))
@@ -242,7 +284,7 @@ def build_state_projection(df_projections, state, country, continent, vals):
                 title_font_size=25,
                 xaxis={'title': "Date",'linecolor': 'lightgrey'},
                 yaxis={'title': "Count",'linecolor': 'lightgrey'},
-                legend_title='<b> Values Predicted </b>',
+                legend_title='<b> Predicted Values: </b>',
                 margin={'l': 40, 'b': 40, 't': 40, 'r': 10},
                 hovermode='closest',
                 paper_bgcolor='rgba(0,0,0,0)',
@@ -267,7 +309,8 @@ def build_state_projection(df_projections, state, country, continent, vals):
     )
     return graph
 
-def get_stat(df_projections,d, val, scope):
+
+def get_stat(df_projections, d, val, scope):
     if d is None:
         return None
     if isinstance(d, str):
@@ -284,15 +327,8 @@ def get_stat(df_projections,d, val, scope):
     if df_projections_sub.empty:
         return None
 
-    card_content = [
-        dbc.CardHeader(
-            f'{df_projections_sub.iloc[0][val]:,}',
-            style={"textAlign":"center","fontSize":30,"fontWeight": "bold","color":'#1E74F0'}
-        ),
-        dbc.CardBody(
-            [
-                html.H5(add_cases(val),id='us-stats-cards'),
-            ]
-        ),
-    ]
-    return card_content
+    if val != "Active Hospitalized":
+        t = add_cases(val)
+    else:
+        t = val
+    return build_card_content(f'{df_projections_sub.iloc[0][val]:,}', t)
