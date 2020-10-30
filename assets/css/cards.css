@@ -181,15 +181,113 @@ input[type="number"] {
   width:100%;
 }
 
-.projections-general-card{
-  border-color: #800020 !important;
-}
-
 #us-stats-cards{
-  color: white;
-  text-align: center;
+  text-align: left;
   font-size: 20px;
   font-weight: bold;
+}
+
+.statSubCard h3 {
+    font-size: 40px;
+    font-weight: light;
+}
+
+.statSubCard h4 {
+    font-size: 18px;
+    height: 20px;
+    opacity: 0.7
+}
+
+.statCard {
+    padding: 10px 20px;
+    font-family: Ubuntu;
+}
+
+.tr {
+    border: 0.5px solid lightgrey;
+    border-right-width: 0px !important;
+    border-top-width: 0px !important;
+}
+
+.tl {
+    border: 0.5px solid lightgrey;
+    border-top-width: 0px;
+    border-left-width: 0px;
+}
+
+.br {
+    border: 0.5px solid lightgrey;
+    border-bottom-width: 0px;
+    border-right-width: 0px;
+}
+
+.bl {
+    border: 0.5px solid lightgrey;
+    border-bottom-width: 0px;
+    border-left-width: 0px;
+}
+
+.statConfig {
+    background-color: black;
+    padding: 10px;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 15px;
+}
+
+.statConfig::before {
+    content: "hello";
+    color: black;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    /*transform: rotateZ(45deg);*/
+    position: absolute;
+    transform: translate(-25px, 0px) rotateZ(45deg);
+    top: -15px;
+    z-index: 10;
+}
+
+
+.statConfig::after {
+    content: "hello";
+    color: black;
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    /*transform: rotateZ(45deg);*/
+    position: absolute;
+    transform: translate(-25px, 0px) rotateZ(45deg);
+    bottom: -15px;
+    z-index: 10;
+}
+
+.statConfig h4 {
+    color: white !important;
+    position: relative;
+    left: 28px;
+    top: 20px;
+    z-index: 1;
+    font-family: Ubuntu;
+}
+@media only screen and (max-width: 600px) {
+    .statConfig .buffer {
+        display: none;
+    }
+    #state_projection_graph {
+        padding: 20px 0px !important;
+    }
+    .projections-body {
+        padding: 0px !important;
+        overflow: hidden;
+    }
+    .projections-headline {
+        margin-left: 30px !important;
+    }
+}
+
+#state_projection_graph {
+    padding: 20px;
 }
 
 .press-card{
@@ -199,3 +297,28 @@ input[type="number"] {
 .press-card:hover{
   border-color: #0000A0 !important;
 }
+
+.projections-general-card{
+  border-color: #800020 !important;
+}
+
+.projections-notes {
+    transition: all 1s;
+    max-height: 800px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: none;
+    opacity: 0.0;
+    background-color: white;
+}
+
+.country-control-card {
+    background-color: black !important;
+    border-radius: 0px !important;
+    padding: 0px 0px;
+    padding-bottom: 7px;
+    height: 100%;
+}
+
+
+

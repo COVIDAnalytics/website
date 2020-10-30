@@ -248,6 +248,9 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 "expanded": {
                     "comorbid": 3
                 },
+                "vertical_expanded": {
+                    "comorb": 2
+                }
             }
         },
         {

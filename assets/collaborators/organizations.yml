@@ -32,9 +32,14 @@
   photo: "mgb2.png"
   text: "Mass General Brigham is an integrated health care system jointly founded by Brigham and Women's Hospital and Massachusetts General Hospital. It offers patients a continuum of coordinated and high-quality care through its 16 member institutions and additional community health centers. It is one of most renowned health systems for medical research in the United States."
   website: "https://www.massgeneralbrigham.org/"
-  padding: 40
+  padding: 62
 - name: "HOPE PROJECT"
   photo: "logo_hope.png"
   text: "The HOPE project is an international collaborative study that includes more than 50 independent clinical centers from multiple countries. It aims at the creation of a comprehensive registry that carefully characterizes the clinical profile of patients infected with COVID-19."
   website: "https://hopeprojectmd.com/en/"
   padding: 50
+- name: "Janssen"
+  photo: "jj.png"
+  text: "Janssen is the Pharmaceutical Companies of Johnson & Johnson. It operates in more than 150 countries and is an industry-leading innovator. It is currently developing one of the leading candidates for a potential vaccine against COVID-19 and is collaborating with the COVIDanalytics team regarding site selection, distribution, and more."
+  website: "https://www.janssen.com/"
+  padding: 31

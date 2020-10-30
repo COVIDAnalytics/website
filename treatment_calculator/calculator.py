@@ -5,7 +5,7 @@ import dash_core_components as dcc
 from navbar import Navbar
 from footer import Footer
 from risk_calculator.visuals import get_lang
-from treatment_calculator.utils import treatments
+from treatment_calculator.utils import treatments, get_jumbo_text
 
 
 def build_row_header(name):
@@ -28,71 +28,112 @@ def TreatmentCalc():
     body = dbc.Container(
         className="page-body",
         children=
-        get_lang("treatments-calc-language") +
+        #get_lang("treatments-calc-language") +
+        [
+            dbc.Row(
+                children=[
+                    dbc.Col([
+                        html.Div(
+                            **{"data-aos": "fade-up"},
+                            className="aos-refresh-onload",
+                            children=dbc.Jumbotron(
+                                style={"padding": "4%"},
+                                className="elevation-3",
+                                children=get_jumbo_text()
+                            )
+                        )
+                    ]),
+                ]
+            )
+        ] +
         [dcc.Tabs(
             id="treatments-calc-tabs",
             children=[
                 dcc.Tab(
-                    label='Inputs',
+                    label='Patient Information',
                     value='tab-1',
-                    className='custom-tab',
-                    selected_className='custom-tab--selected',
+                    className='treatments-tab',
+                    selected_className='treatments-tab--selected',
                     children=[
                         html.Div(
                             style={"min-height": "550px"},
-                            children=
-                                build_row_header("Treatment Selection") + [
-                                    dbc.Row(
-                                        justify="center",
-                                        style={"marginBottom": "40px", "marginTop": "40px"},
-                                        children=dbc.Col(
-                                        xs=12,
-                                        sm=12,
-                                        md=8,
-                                        lg=6,
-                                        children=
-                                            dcc.Dropdown(
-                                                id="treatments-sel",
-                                                value=0,
-                                                options=[{"label": treatments[x], "value": x}
-                                                         for x in range(len(treatments))]),
-                                    ))
-                                ] +
-                                build_row_header("Patient Information") + [
+                            children=[
                                 dbc.Row(
                                     id="treatments-calc-feature-cards",
                                     justify="center"
                                 ),
                                 dbc.Row(
                                     justify="center",
-                                    children=dbc.Col(
-                                        xl=4,
-                                        lg=4,
-                                        md=8,
-                                        sm=12,
-                                        children=[
-                                            dbc.Button(
-                                                id="submit-treatments-calc",
-                                                style={"width": "100%", "height": 120},
-                                                color="danger",
-                                                children=[
-                                                html.H5("Submit", style={
-                                                    "color": "white",
-                                                    "fontSize": 35
-                                                }),
-                                            ])
-                                        ]
-                                    )
+                                    children=[
+                                        dbc.Col(
+                                            xl=4,
+                                            lg=4,
+                                            md=8,
+                                            sm=12,
+                                            children=[
+                                                dbc.Card(
+                                                    children=[
+                                                        dbc.CardBody([
+                                                            html.H5("Recommend treating if it yields a",
+                                                                    style={"color": "grey"}),
+                                                            dbc.Row([
+                                                                dbc.Input(id="treatments-thresh",
+                                                                    type="number",
+                                                                    style={"textAlign": "center", "maxWidth": 80},
+                                                                    value="1"),
+                                                                html.H5("% improvement",
+                                                                        style={"color": "grey", "lineHeight": "33px",
+                                                                               "marginLeft": "10px"})
+                                                            ], no_gutters=True)
+                                                        ])
+                                                    ]
+                                                )
+                                            ]
+                                        ),
+                                        dbc.Col(
+                                            xl=4,
+                                            lg=4,
+                                            md=8,
+                                            sm=12,
+                                            children=[
+                                                dbc.Button(
+                                                    id="submit-treatments-calc",
+                                                    style={"width": "100%", "height": "100%"},
+                                                    color="danger",
+                                                    children=[
+                                                    html.H5("Submit", style={
+                                                        "display": "inline",
+                                                        "color": "white",
+                                                        "fontSize": 35,
+                                                        "verticalAlign": "top"
+                                                    }),
+                                                    html.H5("", className="material-icons", style={
+                                                        "display": "inline",
+                                                        "color": "white",
+                                                        "fontSize": 40,
+                                                        "fontWeight": "800",
+                                                        "verticalAlign": "bottom"
+                                                    })
+                                                ])
+                                            ]
+                                        )
+                                    ]
                                 )
                             ]
-                        )
+                        ),
+                        dcc.Loading(
+                            type="graph",
+                            fullscreen=True,
+                            # hacky. trigger loading whenever treamtnets-reuslts graph changes
+                            children=html.Div(id="treatments-results-graph")
+                        ),
                     ]
                 ),
                 dcc.Tab(
                     label='Results',
                     value='tab-2',
-                    className='custom-tab',
-                    selected_className='custom-tab--selected',
+                    className='treatments-tab',
+                    selected_className='treatments-tab--selected',
                     children=[
                         html.Div(id="treatments-results-graph"),
                     ]

@@ -43,11 +43,13 @@ def Navbar():
                     color="link",
                     label="About Us",
                     children=[
-                      dbc.DropdownMenuItem("The Team", href="/team"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Collaborators", href="/collaborators"),
-                      dbc.DropdownMenuItem(divider=True),
-                      dbc.DropdownMenuItem("Contact Us", href="/contact"),
+                        dbc.DropdownMenuItem("The Team", href="/team"),
+                        dbc.DropdownMenuItem(divider=True),
+                        dbc.DropdownMenuItem("Collaborators", href="/collaborators"),
+                        dbc.DropdownMenuItem(divider=True),
+                        dbc.DropdownMenuItem("Model Users", href="/users"),
+                        dbc.DropdownMenuItem(divider=True),
+                        dbc.DropdownMenuItem("Contact Us", href="/contact"),
                     ],
                 ),
                 dbc.Button(

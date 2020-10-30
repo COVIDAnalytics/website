@@ -141,3 +141,292 @@
   justify-content: flex-end;
   background-color: white;
 }
+
+.flat-date-picker {
+    color: white;
+}
+
+.flat-date-picker .SingleDatePickerInput {
+    background-color: black;
+}
+
+.flat-date-picker .SingleDatePicker_picker {
+    z-index: 3 !important;
+}
+
+.flat-date-picker input {
+    background-color: black;
+    color: white;
+    border: none;
+    text-align: center;
+    padding: 10.5px 0;
+    padding-left: 20px;
+    padding-bottom: 10px;
+    padding-top: 16px;
+    font-size: 25px;
+}
+
+.flat-date-picker .DateInput {
+    width: 215px !important;
+}
+
+.flat-date-picker input::placeholder {
+    opacity: 1;
+}
+
+.flat-date-picker .SingleDatePickerInput {
+    border-width: 0px;
+    border-bottom-width: 2px;
+}
+
+.flat-date-picker::before {
+    content: "For";
+    color: lightgrey;
+    font-size: 20px;
+    bottom: 10px;
+    left: 5px;
+    position: absolute;
+    z-index: 1
+}
+
+.flat-location-picker {
+    position: relative;
+    width: 215px;
+    height: 100%;
+    min-height: 57px;
+}
+
+.flat-location-picker .Select-arrow-zone {
+    background-color: black;
+}
+
+.flat-location-picker .Select-arrow-zone span {
+    vertical-align: middle;
+}
+
+.flat-location-picker .Select-control {
+    background-color: black !important;
+    border-width: 0px;
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    height: 100%;
+    text-align: center !important;
+}
+
+.flat-location-picker .Select-value {
+    text-align: center;
+    padding-right: 30px !important;
+}
+
+.flat-location-picker .Select-value span {
+    position: relative;
+    display: inline-block;
+    padding-top: 13.5px;
+    margin-left: 15px;
+    paddin-left: 25px;
+    background-color: black;
+}
+
+.flat-location-picker span {
+    font-family: "Ubuntu" !important;
+    color: white !important;
+    background-color: black;
+    font-size: 25px;
+    position: relative;
+}
+
+.flat-location-picker input {
+    color: white;
+}
+
+.flat-location-picker::before {
+    content: "In";
+    font-family: "Ubuntu" !important;
+    color: lightgrey;
+    font-size: 20px;
+    bottom: 10px;
+    left: 5px;
+    position: absolute;
+    z-index: 1
+}
+
+.flat-map-drop {
+    width: 100% !important;
+}
+
+.flat-map-drop {
+    font-size: 20px;
+    height: 55px;
+}
+
+.flat-map-drop .Select-value span {
+    margin-left: 80px !important;
+    margin-right: auto !important;
+    margin-top: 3px;
+    padding-top: 10.5px !important;
+}
+
+.flat-map-drop .Select-menu-outer {
+    z-index: 2;
+}
+
+.flat-map-drop::before {
+    content: "Showing"
+}
+
+.flat-radio-label {
+    color: white !important;
+}
+
+.flat-map-scale::before {
+    content: "With scale" !important;
+}
+
+.flat-map-scale .Select-value span {
+    margin-left: 95px !important;
+    margin-right: auto !important;
+    margin-top: 3px;
+}
+
+.flat-location-picker .Select-input {
+    margin-left: 30px !important;
+    margin-right: auto !important;
+    margin-top: 13px !important;
+}
+
+.flat-map-drop .Select-input {
+    margin-left: 95px !important;
+    margin-right: auto !important;
+    margin-top: 13px !important;
+}
+
+.flat-map-multi {
+    background-color: black;
+    width: 100%;
+}
+
+.loc-sel-drop {
+    width: 100%;
+    background-color: black !important;
+    padding: 0 20px;
+}
+
+.loc-sel-slash::after {
+    content: "/";
+    color: white;
+    position: absolute;
+    right: -10px;
+    top: 0px;
+    font-size: 30px;
+    font-family: "Ubuntu";
+    z-index: 1
+}
+
+.no-sel-slash::after {
+    content: "" !important;
+}
+
+.loc-sel-drop .Select-control {
+    background-color: black !important;
+    border: none !important;
+    border-bottom: 2px solid white !important;
+    width: 100% !important;
+}
+
+.loc-sel-drop .Select-placeholder {
+    color: grey;
+    font-family: "Ubuntu";
+    font-size: 25px;
+}
+
+.loc-sel-drop .Select-control {
+    text-align: center;
+    padding-bottom: 3px;
+}
+
+.loc-sel-drop .Select-value span {
+    color: white !important;
+    font-family: "Ubuntu";
+    font-size: 25px;
+    margin-right: 20px !important;
+    padding-left: 20px !important;
+}
+
+.loc-sel-drop input {
+    color: white;
+}
+
+@media only screen and (max-width: 1200px) {
+    #continent_dropdown {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    .loc-sel-slash::after {
+        content: '' !important;
+    }
+    #country_dropdown {
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    #continent_dropdown .Select {
+        padding: 0px !important;
+    }
+    #country_dropdown .Select {
+        padding: 0px !important;
+    }
+    #province_dropdown .Select {
+        padding: 0px !important;
+    }
+    #province_dropdown {
+        width: 100% !important;
+    }
+}
+
+#continent_dropdown {
+    width: 100%;
+}
+
+#continent_dropdown span {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+#country_dropdown {
+    width: 25%;
+}
+
+#province_dropdown {
+    width: 25%;
+}
+
+.flat-map-multi .Select-control {
+    border: none;
+    background-color: black;
+    border-bottom: 2px solid white;
+}
+
+.flat-map-multi span {
+    color: white !important;
+    font-family: "Ubuntu" !important;
+    font-size: 25px;
+}
+
+.flat-map-multi-small span {
+    font-size: 16px;
+}
+
+.flat-map-multi .Select-value {
+    border: none !important;
+}
+
+.flat-map-multi .Select-value-icon {
+    border: none !important;
+}
+
+.no-left-padding {
+    padding-left: 0px !important;
+}
+
+.flat-map-multi input {
+    color: white;
+}
