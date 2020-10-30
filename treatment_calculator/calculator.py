@@ -140,6 +140,8 @@ def TreatmentCalc():
                 ),
             ]
         )] +
+        [html.Div(style={"height": "50px"})] +
+        [html.Div(id="missing-treatment-vals")] +
         [html.Div(style={"height": "100px"})]
     )
     layout = html.Div([nav, body, footer], className="site")

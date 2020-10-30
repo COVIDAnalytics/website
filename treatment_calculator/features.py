@@ -27,7 +27,7 @@ def build_dropdown_card(_id, m, content_dict, language, feature_name, readable_n
                             'index': 'calc-categorical-{}'.format(_id),
                             'f_idx': content_dict["index"],
                             'feature': feature_name,
-                            'f_def': content_dict["default"]
+                            'f_rng': repr((None, content_dict["default"], None))
                         },
                         options=[{'label': map_feat_vals(x, readable_name, language), 'value': x}
                                  for x in content_dict['vals']],
@@ -57,7 +57,7 @@ def build_input_card(_id, m, content_dict, feature_name, readable_name):
     is_temp = content_dict["name"] == "Body Temperature"
     insert_data = [
         dbc.Col([
-            html.H5(readable_name, className="input-label"),
+            html.H5(readable_name + " (" + content_dict["units"] + ")", className="input-label"),
             html.Div(
                 id="calc-numeric-{}-wrapper".format(_id),
                 children=dbc.Input(
@@ -65,13 +65,15 @@ def build_input_card(_id, m, content_dict, feature_name, readable_name):
                         'type': 'treatments',
                         'index': "calc-numeric-{}".format(_id),
                         'f_idx': content_dict["index"],
-                        'feature': feature_name,
-                        'f_def': content_dict["default"]
+                        'feature': readable_name,
+                        'f_rng': str((content_dict["min_val"], content_dict["default"], content_dict["max_val"])),
                     },
                     type="number",
                     placeholder="e.g. {}".format(int(content_dict['default'])),
                     className="numeric-input " + "temp-input" if is_temp else "",
-                    bs_size="lg"
+                    bs_size="lg",
+                    min=content_dict["min_val"],
+                    max=content_dict["max_val"],
                 ),
             ),
         ], align="stretch"
@@ -106,14 +108,14 @@ def build_input_card(_id, m, content_dict, feature_name, readable_name):
     return card
 
 
-def build_checkbox_card(_id, feature_name, feature_index, readable_name):
+def build_checkbox_card(_id, feature_name, feature_index, readable_name, explanation):
     item = dbc.Row(
         no_gutters=True,
         style={"width": "100%"},
         children=[
             html.H5(readable_name.split("(")[0], className="input-label", style={"max-width": "100%"}),
             html.Div(
-                id='calc-categorical-{}-wrapper'.format(_id),
+                id='bin-{}-wrapper'.format(feature_index),
                 style={"width": "100%", "display": "flex", "paddingLeft": "10px"},
                 children=[
                     dbc.Checkbox(
@@ -130,8 +132,11 @@ def build_checkbox_card(_id, feature_name, feature_index, readable_name):
                                    "color": "#495057", "fontSize": "15px", "opacity": "1"}),
                 ]
             ),
-        ]
-    )
+            dbc.Tooltip(
+                explanation,
+                target="bin-{}-wrapper".format(feature_index)
+            )
+        ])
     return item
 
 
@@ -147,7 +152,7 @@ def build_multidrop_card(_id, show_name, content_dict, language, feature_name):
                 style={"display": "inline-block" if show_name else "none"}),
         dcc.Dropdown(
             options=options,
-            value=[],
+            value=[] if feature_name != "Race" else None,
             id={
                 'type': 'treatments-multi',
                 'index': "calc-multidrop-{}".format(_id),
@@ -156,7 +161,8 @@ def build_multidrop_card(_id, show_name, content_dict, language, feature_name):
             # Classname needed for tooltip target
             className="dcc_dropdown feature-dropown calc-multidrop-{}".format(_id),
             style={"width": "100%"},
-            multi=True,
+            multi=True if feature_name != "Race" else False,
+            placeholder="Default: Other" if feature_name == "Race" else "Select..."
         ),
         dbc.Tooltip(
             content_dict['explanation'],
@@ -204,7 +210,7 @@ def build_feature_cards(features, m=True, labs=False, language=0):
             }
         },
         {
-            "group": "Abnormalities",
+            "group": "Abnormal Labs and Vitals",
             "features": [],
             "mortality": {
                 "layout": "2x3",
@@ -300,7 +306,8 @@ def build_feature_cards(features, m=True, labs=False, language=0):
                 build_checkbox_card(str(_id),
                                     title_mapping[language][content_dict["vals"][i]],
                                     content_dict["index"][i],
-                                    title_mapping[language][content_dict["vals"][i]]
+                                    title_mapping[language][content_dict["vals"][i]],
+                                    content_dict["explanation"]
                 )
             )
 

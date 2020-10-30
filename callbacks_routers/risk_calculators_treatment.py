@@ -4,7 +4,7 @@ import pickle
 
 import dash
 import dash_html_components as html
-from dash.dependencies import Input, Output, State, ALL
+from dash.dependencies import Input, Output, State, ALL, MATCH
 import dash_bootstrap_components as dbc
 from dash.exceptions import PreventUpdate
 
@@ -14,6 +14,7 @@ import numpy as np
 
 from treatment_calculator.utils import build_results_graph
 import pandas as pd
+from ast import literal_eval as make_tuple
 
 once = False
 
@@ -28,7 +29,6 @@ def register_callbacks(app):
     treatment_features = cd_corti["json"]
     print(cd_corti)
 
-
     @app.callback(
         Output('treatments-calc-feature-cards', 'children'),
         [Input("treatments-calc-tabs", "value"),
@@ -41,11 +41,12 @@ def register_callbacks(app):
 
     @app.callback(
         [Output('treatments-calc-tabs', 'value'),
-         Output('treatments-results-graph', 'children')],
+         Output('treatments-results-graph', 'children'),
+         Output('missing-treatment-vals', 'children'),],
         [#Input('treatments-calc-language', 'value'),
          Input('submit-treatments-calc', 'n_clicks')],
         [State({'type': 'treatments-checkbox', 'feature': ALL, 'index': ALL, 'f_idx': ALL}, 'checked'),
-         State({'type': 'treatments', 'feature': ALL, 'index': ALL, 'f_idx': ALL, 'f_def': ALL}, 'value'),
+         State({'type': 'treatments', 'feature': ALL, 'index': ALL, 'f_idx': ALL, 'f_rng': ALL}, 'value'),
          State({'type': 'treatments-multi', 'feature': ALL, 'index': ALL, }, 'value'),
          State("treatments-thresh", "value")]
     )
@@ -64,7 +65,7 @@ def register_callbacks(app):
         if submit is None:
             # raise PreventUpdate()
             print("Submitting tabs-1")
-            return ["tab-1", []]
+            return ["tab-1", [], []]
         checkbox_features = dash.callback_context.states_list[0]
         other_features = dash.callback_context.states_list[1]
         multi_features = dash.callback_context.states_list[2]
@@ -81,16 +82,32 @@ def register_callbacks(app):
                 X[feat["id"]["f_idx"]] = 1
 
         no_inputs = 0
+        missing = []
         for feat in other_features:
+            _min, _def, _max = make_tuple(feat["id"]["f_rng"])
+            print(feat)
             if "value" in feat:
+                print("FEATURE DEFID", _min, _def, _max, feat["id"]["f_rng"])
+                if _min is not None and _max is not None:
+                    print("Feature ", feat["id"], _min, _max)
+                    if not (_min <= feat["value"] <= _max):
+                        return ["tab-1", []]
                 # user gave input
                 X[feat["id"]["f_idx"]] = feat["value"]
             else:
+                missing.append(str(feat["id"]["feature"]))
                 # user gave no input
-                X[feat["id"]["f_idx"]] = feat["id"]["f_def"]
+                X[feat["id"]["f_idx"]] = _def
                 no_inputs += 1
 
+        if len(missing) != 0:
+            ret = [html.H4("Please check these missing or invalid features:", style={"color": "red"})]
+            ret.append(html.H5(", ".join(missing)))
+            return ["tab-1", [], ret]
+
         for feat in multi_features:
+            if feat["value"] is None:
+                continue
             for idx in feat["value"]:
                 X[idx] = 1
 
@@ -168,4 +185,4 @@ def register_callbacks(app):
             ]
         )
 
-        return ["tab-2", [graph]]
+        return ["tab-2", [graph], []]

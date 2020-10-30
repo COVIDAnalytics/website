@@ -177,7 +177,7 @@ def switch_oxygen(vec, ind):
 treat_color = "#4141ff"
 treat_high = "#8fc7ff"
 ntreat_high = "#ff4141"
-ntreat_color = "#d02532"
+ntreat_color = "#A31F34"
 
 def build_vote_bar(should_treat, should_ntreat):
     nfig = go.Bar()
@@ -251,35 +251,34 @@ def build_results_graph(results, names, thresh):
     traces = []
 
     model_map = {
-        "rf": "Random Forest Class.",
-        "cart": "Decision Tree Class.",
-        "xgboost": "XGBoost Class.",
+        "rf": "Random Forest",
+        "cart": "Decision Tree",
+        "xgboost": "XGBoost",
         "qda": "QuadDiscr. Analysis",
         "gb": "Gaussian NB"
     }
     #model_map = {x: "Treatment vs No Treatment<br>" + y for x, y in model_map.items()}
 
     xs = [model_map[name] for name in names]
-    tfig = go.Bar()
+    tfig = go.Bar(showlegend=False)
     tfig.x = xs
     tfig.y = [results["treat"][name] * 100 for name in names]
-    tfig.name = "Treat"
+    tfig.name = "Prescribe"
     tfig.textposition = "outside"
     #tfig.marker_color = "green"
-    nfig = go.Bar()
+    nfig = go.Bar(showlegend=False)
     nfig.x = xs
     nfig.y = [results["ntreat"][name] * 100 for name in names]
-    nfig.name = "Skip (Don't Treat)"
+    nfig.name = "Skip (Don't Prescribe)"
     nfig.textposition = "outside"
 
     tfig.marker.color = treat_color
     nfig.marker.color = ntreat_color
 
     thresh = int(thresh)
-    print("THREA IS", thresh / 100)
     should_treat = [(t - n) / n <= -(thresh / 100) for t, n in zip(tfig.y, nfig.y)]
 
-    tfig.text = ["<b>Treat</b>" if x else "" for x in should_treat]
+    tfig.text = ["<b>Prescribe</b>" if x else "" for x in should_treat]
     nfig.text = ["<b>Skip</b>" if not x else "" for x in should_treat]
 
     traces.append(tfig)
@@ -288,13 +287,13 @@ def build_results_graph(results, names, thresh):
     tfig.marker.line.color = treat_high
     nfig.marker.line.color = ntreat_high
     tfig.marker.line.width = [8 if x else 0 for x in should_treat]
-    nfig.marker.line.width = [8 if not x else 0 for x in should_treat]
+    nfig.marker.line.width = [8 if not x else 0 for x in should_treat] + [0]
 
 
     bargap = 0.2
     layout = go.Layout(
         title="Recommendation per Model",
-        yaxis_title="Mortality Rate in %",
+        yaxis_title="Predicted Mortality/Morbidity %",
         xaxis_title="Model Used",
         barmode='group',
         bargap=bargap,
@@ -305,6 +304,12 @@ def build_results_graph(results, names, thresh):
         ),
         #  showlegend=False,
     )
+    traces.append(go.Scatter(x=[None], y=[None], mode='markers',
+                           marker=dict(size=20, color=treat_color),
+                           showlegend=True, name='Prescribe'))
+    traces.append(go.Scatter(x=[None], y=[None], mode='markers',
+                           marker=dict(size=20, color=ntreat_color),
+                           name='Skip (Don\'t Prescribe)', showlegend=True))
     figure = go.Figure(
         data=traces, layout=layout)
 
