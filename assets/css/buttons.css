@@ -19,6 +19,18 @@
     font-size: 22px;
 }
 
+.treatments-tab {
+    background-color: white !important;
+    color: lightgrey;
+    font-size: 25px;
+}
+
+.treatments-tab--selected {
+    background-color: rgba(0, 0, 0, 0.03) !important;
+    font-size: 25px;
+    font-weight: 200;
+}
+
 .proj-expand-btn {
     border-radius: 0px !important;
     max-width: 170px !important;
