@@ -239,7 +239,7 @@ def get_jumbo_text():
             a necessary percent improvement with ACEI / ARBs that is required to vote for prescribing the drugs; 
             this is intended to limit unnecessary prescriptions. The final recommendation is based on the majority 
             vote of the individual methods. More details on the methodology and clinical insights are available 
-            here, and the source code is available here.
+            [here](https://doi.org/10.1101/2020.10.30.20223594), and the source code is available [here](https://github.com/COVIDAnalytics/website).
             """
         )
     ]

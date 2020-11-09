@@ -27,7 +27,6 @@ def register_callbacks(app):
     treatment_models = cd_corti["treatment-models"]
     no_treatment_models = cd_corti["no-treatment-models"]
     treatment_features = cd_corti["json"]
-    print(cd_corti)
 
     @app.callback(
         Output('treatments-calc-feature-cards', 'children'),
@@ -59,21 +58,11 @@ def register_callbacks(app):
         else:
             thresh = 1
 
-        # hello
-        print("THRESH", thresh)
-        print("SUBMIT: " + str(submit))
         if submit is None:
-            # raise PreventUpdate()
-            print("Submitting tabs-1")
             return ["tab-1", [], []]
         checkbox_features = dash.callback_context.states_list[0]
         other_features = dash.callback_context.states_list[1]
         multi_features = dash.callback_context.states_list[2]
-        print("GOAT")
-        print(argv)
-        print(checkbox_features)
-        print(other_features)
-        print(multi_features)
 
         X = [0] * 100
 
@@ -85,11 +74,8 @@ def register_callbacks(app):
         missing = []
         for feat in other_features:
             _min, _def, _max = make_tuple(feat["id"]["f_rng"])
-            print(feat)
             if "value" in feat:
-                print("FEATURE DEFID", _min, _def, _max, feat["id"]["f_rng"])
                 if _min is not None and _max is not None:
-                    print("Feature ", feat["id"], _min, _max)
                     if not (_min <= feat["value"] <= _max):
                         return ["tab-1", []]
                 # user gave input
@@ -108,40 +94,25 @@ def register_callbacks(app):
         for feat in multi_features:
             if feat["value"] is None:
                 continue
-            for idx in feat["value"]:
-                X[idx] = 1
+            # exception for single dropdown race
+            if type(feat["value"]) == int:
+                X[feat["value"]] = 1
+            else:
+                for idx in feat["value"]:
+                    X[idx] = 1
 
         num_features = 0
         for name in model_names:
             model = treatment_models[name]["model"]
             try:
-                print("Getting n_freatuers")
-                print("FEATURES" + str(model.coef_.shape[-1]))
-                print(model.n_features_)
                 num_features = model.n_features_
             except:
                 pass
 
+        # for now just hardcode
         num_features = 31
-        print("N features is ", num_features)
         X = X[0:num_features]
-        print(X)
-        # X = np.array(X).reshape(1, -1)
         X = pd.DataFrame(np.array(X)).transpose()
-        print(X)
-        print(X.columns)
-        '''
-        X.columns = np.array(['AGE', 'DIABETES', 'HYPERTENSION', 'DISLIPIDEMIA', 'OBESITY',
-                              'RENALINSUF', 'ANYLUNGDISEASE', 'AF', 'VIH', 'ANYHEARTDISEASE',
-                              'ANYCEREBROVASCULARDISEASE', 'CONECTIVEDISEASE', 'LIVER_DISEASE',
-                              'CANCER', 'MAXTEMPERATURE_ADMISSION', 'SAT02_BELOW92',
-                              'BLOOD_PRESSURE_ABNORMAL_B', 'DDDIMER_B', 'PCR_B', 'TRANSAMINASES_B',
-                              'LDL_B', 'CREATININE', 'SODIUM', 'LEUCOCYTES', 'LYMPHOCYTES',
-                              'HEMOGLOBIN', 'PLATELETS', 'CLOROQUINE', 'ANTIVIRAL', 'ANTICOAGULANTS',
-                              'INTERFERONOR', 'TOCILIZUMAB', 'ANTIBIOTICS', 'ACEI_ARBS',
-                              'GENDER_MALE', 'RACE_CAUC', 'RACE_LATIN', 'RACE_ORIENTAL',
-                              'RACE_OTHER'])
-        '''
 
         X.columns = np.array(['AGE', 'DIABETES', 'DISLIPIDEMIA', 'OBESITY',
                               'RENALINSUF', 'ANYLUNGDISEASE', 'AF', 'VIH', 'ANYHEARTDISEASE',
@@ -152,9 +123,6 @@ def register_callbacks(app):
                               'HEMOGLOBIN', 'PLATELETS',
                               'GENDER_MALE', 'RACE_BLACK', 'RACE_CAUC', 'RACE_LATIN', 'RACE_ORIENTAL'])
 
-        print("X = ")
-        print(X)
-
         results = {"treat": {}, "ntreat": {}, "avgtreat": 0.0, "avgntreat": 0.0}
         for name in model_names:
             tmodel = treatment_models[name]["model"]
@@ -164,8 +132,8 @@ def register_callbacks(app):
             results["avgtreat"] += results["treat"][name]
             results["avgntreat"] += results["ntreat"][name]
 
-            print("predict_proba(X) for " + name)
-            print(str(ntmodel.predict_proba(X)) + ", " + str(tmodel.predict_proba(X)))
+            # print("predict_proba(X) for " + name)
+            # print(str(ntmodel.predict_proba(X)) + ", " + str(tmodel.predict_proba(X)))
 
         results["avgtreat"] /= len(model_names)
         results["avgntreat"] /= len(model_names)
@@ -180,8 +148,7 @@ def register_callbacks(app):
             children=[
                 dbc.CardHeader("Generated Treatment Recommendation",
                                style={"fontWeight": "bold"}),
-                dbc.CardBody(children=graph
-                             )
+                dbc.CardBody(children=graph)
             ]
         )
 

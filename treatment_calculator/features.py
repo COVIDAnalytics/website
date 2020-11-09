@@ -291,7 +291,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
     add_feature.count = 0
 
     for _id, content_dict in enumerate(dropdowns):
-        print("Examinign dropdown: " + str(_id))
         add_feature(
             content_dict['name'],
             build_dropdown_card(str(_id), m, content_dict, language, content_dict['name'],
@@ -299,7 +298,6 @@ def build_feature_cards(features, m=True, labs=False, language=0):
         )
 
     for _id, content_dict in enumerate(checkboxes):
-        print("Examinign checkbo: " + str(_id))
         for i in range(len(content_dict["vals"])):
             add_feature(
                 "checkboxes",
