@@ -74,9 +74,9 @@ def build_notes_content():
         id="projection-notes-card",
         className='elevation-3 projections-notes',
         children=[dbc.CardBody([
-            dcc.Markdown('''**Note: The model has been updated on 7/4/2020 to better reflect the resurgence of \
-                   cases in various locations. The projections could differ significantly from previous results in \
-                   certain areas.** '''),
+            dcc.Markdown('''**Note: The model has been updated on 11/19/2020 to better reflect \
+			 the continual waves of infections. The projections could differ significantly \
+			 from previous results in certain areas.**'''),
             html.H5("Note: what do we mean by \"active cases\"?"),
             dcc.Markdown("We define a COVID-19 case as **active** \
                     if it has not yet resulted in recovery \
