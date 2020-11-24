@@ -35,7 +35,7 @@ def Navbar():
                         dbc.DropdownMenuItem(divider=True),
                         dbc.DropdownMenuItem("Infection Risk Calculator", href="/infection_calculator"),
                         dbc.DropdownMenuItem(divider=True),
-                        dbc.DropdownMenuItem("Treatment Risk Calculator", href="/treatments")
+                        dbc.DropdownMenuItem("Treatments Calculator", href="/treatments")
                        ]
                 ),
                 dbc.DropdownMenu(

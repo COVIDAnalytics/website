@@ -93,8 +93,8 @@ def Homepage():
           Personalized calculator predicting mortality upon hospitalization.
           '''
 
-    infection_calculator_text = '''
-        Personalized calculator predicting results of COVID test.
+    treatments_calculator_text = '''
+        Personalized recommendations of ACEI/ARB prescriptions for hypertensive patients.
         '''
 
     financial_text =  '''
@@ -110,10 +110,10 @@ def Homepage():
                 "links": ["/dataset","/interactive-graph"]
             },
             {
-                "titles": ["Infection risk calculator","Mortality risk calculator"],
-                "text": [infection_calculator_text,mortality_calculator_text],
+                "titles": ["Treatment prescriptions","Mortality risk calculator"],
+                "text": [treatments_calculator_text,mortality_calculator_text],
                 "image": "assets/images/infection_logo.jpg",
-                "links": ["/infection_calculator","/mortality_calculator"]
+                "links": ["/treatments","/mortality_calculator"]
             },
             {
                 "titles": ["Case predictions","Policy evaluations"],
