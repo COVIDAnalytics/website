@@ -11,10 +11,11 @@ def Collaborators():
 
     with open("assets/collaborators/organizations.yml") as f:
         collaborators = yaml.load(f, Loader=yaml.FullLoader)
+        collaborators = list(sorted(collaborators, key=lambda i: i["name"]))
 
     def get_card(collab):
         return dbc.Col(
-            style={"margin-bottom": "32px"},
+            style={"marginBottom": "32px"},
             xs=12, sm=6, md=4, xl=4,
             children=dbc.Card(
                 style={"borderColor": "#800020"},

@@ -1,14 +1,16 @@
-import os
 import base64
 from io import BytesIO
 import pickle
 
+import dash
+import dash_bootstrap_components as dbc
 import dash_html_components as html
 from dash.dependencies import Input, Output, State, ALL
 
 from risk_calculator.mortality.calculator import predict_risk_mort, get_languages
 from risk_calculator.features import build_feature_cards, build_feature_importance_graph, oxygen_options
-from risk_calculator.utils import build_lab_ques_card, labs_ques, valid_input, switch_oxygen, get_oxygen_info
+from risk_calculator.utils import build_lab_ques_card, labs_ques, valid_input, switch_oxygen, get_oxygen_info, \
+    cvt_temp_c2f
 
 
 def register_callbacks(app):
@@ -74,7 +76,7 @@ def register_callbacks(app):
         Output('features-mortality-text', 'children'),
         [Input('language-calc-mortality', 'value')])
     def mortality_labs_card_text(language):
-        return html.H5(languages["insert_feat_text"][language])
+        return languages["insert_feat_text"][language]
 
     @app.callback(
         Output('mortality-model-desc', 'children'),
@@ -109,9 +111,8 @@ def register_callbacks(app):
         [Input('lab_values_indicator', 'value'),
          Input('language-calc-mortality', 'value')])
     def get_mortality_model_feat_cards(labs, language):
-        if labs:
-            return build_feature_cards(labs_features, True, labs, language)
-        return build_feature_cards(no_labs_features, True, labs, language)
+        labs_to_use = labs_features if labs else no_labs_features
+        return build_feature_cards(labs_to_use, True, labs, language)
 
     @app.callback(
         Output('submit-features-calc', 'n_clicks'),
@@ -123,10 +124,21 @@ def register_callbacks(app):
         Output('submit-features-calc', 'children'),
         [Input('language-calc-mortality', 'value')])
     def set_submit_button_mortality(language):
-        return languages["submit"][language],
+        return html.Div(children=[
+            html.Div(className="material-icons",
+                     children=["send"],
+                     style={"display": "inline",
+                            "verticalAlign": "middle"}
+            ),
+            html.Div(languages["submit"][language],
+                     style={"fontSize": "24px",
+                            "display": "inline",
+                            "paddingLeft": "10px",
+                            "verticalAlign": "middle"})
+        ])
 
     @app.callback(
-        [Output('score-calculator-card-body', 'children'),
+        [Output('score-calculator-card', 'children'),
          Output('calc-input-error', 'children'),
          Output('imputed-text-mortality', 'children'),
          Output('visual-1-mortality', 'src'),
@@ -135,40 +147,54 @@ def register_callbacks(app):
         [Input('language-calc-mortality', 'value'),
          Input('submit-features-calc', 'n_clicks'),
          Input('lab_values_indicator', 'value')],
-        [State({'type': 'mortality', 'index': ALL}, 'value'),
+        [State({'type': 'mortality', 'feature': ALL, 'index': ALL}, 'value'),
          State({'type': 'temperature', 'index': ALL}, 'value')]
     )
-    def calc_risk_score(*argv):
+    def calc_risk_score_mortality(*argv):
         language = argv[0]
-        default = html.H4(languages["results_card_mortality"][language], className="score-calculator-card-content"),
+        default = dbc.Card(
+            color="dark",
+            inverse=True,
+            style={"height": "110px"},
+            className="results-card elevation-3",
+            children=[dbc.CardBody(
+                html.H4(languages["results_card_default"][language],
+                        style={"opacity": "0.5", "line-height": "65px"},
+                        className="score-calculator-card-content"),
+            )]
+        )
         submit = argv[1]
         labs = argv[2]
         feats = argv[3:-1]
+        user_features = dash.callback_context.states_list[0]
+
         temp_unit = argv[-1]
+        if len(temp_unit) > 0 and temp_unit[0] == "°C":
+            temp = [f for f in user_features if f["id"]["feature"] == "Body Temperature"][0]
+            if temp is not None and "value" in temp:
+                temp["value"] = cvt_temp_c2f(temp["value"])
+
         if not labs and oxygen_in_mort:
             feats = switch_oxygen(feats, oxygen_mort_ind)
+
         # if submit button was clicked
         if submit > 0:
-            x = feats
-            if labs:
-                valid, err, x = valid_input(labs_features["numeric"], x[0], len(labs_features["numeric"]), language)
-            else:
-                valid, err, x = valid_input(no_labs_features["numeric"], x[0], len(no_labs_features["numeric"]),
-                                            language)
+            numeric_features = labs_features["numeric"] if labs else no_labs_features["numeric"]
+            valid, err = valid_input(numeric_features, user_features, language)
+
             if valid:
                 if labs:
                     score_card, imputed, fig = predict_risk_mort(
-                        labs_cols, labs_model, labs_features, labs_imputer, labs_explainer, x, temp_unit,
-                        languages["results_card_mortality"][language], language)
+                        labs_cols, labs_model, labs_features, labs_imputer, labs_explainer,
+                        user_features, languages["results_card_mortality"][language], language)
                 else:
                     score_card, imputed, fig = predict_risk_mort(
-                        no_labs_cols, no_labs_model, no_labs_features, no_labs_imputer, no_labs_explainer, x, temp_unit,
-                        languages["results_card_mortality"][language], language)
-                if fig:
-                    image = display_fig_mort(fig)
-                else:
-                    image = ''
-                return score_card, '', imputed, image, {"height": 200}, languages["visual_1"][language]
+                        no_labs_cols, no_labs_model, no_labs_features, no_labs_imputer, no_labs_explainer,
+                        user_features, languages["results_card_mortality"][language], language)
+                image = display_fig_mort(fig) if fig else ''
+                default.children[0].children = score_card
+                default.id = argv[1]
+                return default, '', imputed, image, {"height": 200}, languages["visual_1"][language]
             else:
                 return default, err, '', '', {}, ''
         # user has not clicked submit

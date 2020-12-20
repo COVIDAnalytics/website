@@ -1,3 +1,14 @@
+import json
+import urllib.parse
+import sys
+
+from flask import Flask
+from flask_restful import Resource, Api
+
+from about_us.users import Users
+from api.rest_interface import MortalityCalcNoLabsEndpoint, MortalityCalcLabsEndpoint, InfectionCalcLabsEndpoint,\
+    InfectionCalcNoLabsEndpoint
+
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
@@ -29,36 +40,54 @@ import callbacks_routers.risk_calculators_mortality as risk_calculators_mortalit
 import callbacks_routers.risk_calculators_infection as risk_calculators_infection
 import callbacks_routers.policies as policies
 
+external_stylesheets = [
+    dbc.themes.UNITED,
+    {
+        'href': "https://fonts.googleapis.com/icon?family=Material+Icons",
+        'rel': 'stylesheet',
+        'crossorigin': 'anonymous'
+    }
+]
+server = Flask('covidanalytics')
 app = dash.Dash(
         __name__,
-        external_stylesheets=[dbc.themes.UNITED],
+        external_stylesheets=external_stylesheets,
         meta_tags=[
             {"name": "viewport", "content": "width=device-width, initial-scale=1"}
-            ]
-        )
+        ],
+        server=server
+    )
 
-server = app.server
+api = Api(server)
+api.add_resource(MortalityCalcNoLabsEndpoint, "/api/mortality_calc_no_labs")
+api.add_resource(MortalityCalcLabsEndpoint, "/api/mortality_calc_labs")
+api.add_resource(InfectionCalcNoLabsEndpoint, "/api/infection_calc_no_labs")
+api.add_resource(InfectionCalcLabsEndpoint, "/api/infection_calc_labs")
+
 app.title = "COVIDAnalytics"
 app.config.suppress_callback_exceptions = True
-external_stylesheets=[dbc.themes.BOOTSTRAP]
 
 app.layout = html.Div([
-    dcc.Location(id = 'url', refresh = False),
-    html.Div(id = 'page-content')
+    dcc.Location(id='url', refresh=False),
+    html.Div(id='page-content')
 ])
-app.scripts.append_script({'external_url':'https://covidanalytics.io/assets/gtag.js'})
+app.scripts.append_script({'external_url': 'https://covidanalytics.io/assets/gtag.js'})
+app.scripts.append_script({'external_url': 'https://localhost:8085/assets/js/aos.js'})
+app.scripts.append_script({'external_url': 'https://localhost:8085/assets/js/index.js'})
 
 ventilators.register_callbacks(app)
 insights.register_callbacks(app)
 projections.register_callbacks(app)
-risk_calculators_infection.register_callbacks(app)
 risk_calculators_mortality.register_callbacks(app)
+risk_calculators_infection.register_callbacks(app)
 policies.register_callbacks(app)
+
 
 @app.server.route('/favicon.ico')
 def favicon():
     return flask.send_from_directory(os.path.join(app.server.root_path, 'static'),
                                      'favicon.ico', mimetype='image/x-icon')
+
 
 # redirects to different pages
 @app.callback(Output('page-content', 'children'),[Input('url', 'pathname')])
@@ -91,10 +120,11 @@ def display_page(pathname):
         return Press()
     if pathname == '/collaborators':
         return Collaborators()
+    if pathname == '/users':
+        return Users()
     else:
         return Homepage()
 
-#Callbacks for navbar
 @app.callback(
     Output("navbar-collapse", "is_open"),
     [Input("navbar-toggler", "n_clicks")],
@@ -105,5 +135,9 @@ def toggle_navbar_collapse(n, is_open):
         return not is_open
     return is_open
 
+
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    if len(sys.argv) == 1:
+        app.run_server(debug=True)
+    else: 
+        app.run_server(debug=True, host=sys.argv[1])
