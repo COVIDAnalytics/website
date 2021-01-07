@@ -89,7 +89,7 @@ jobs:
             --date-col "Data Start Date" \
             --skip-checks 4 \
             --mape-tolerance 0.1 \
-            --allow-neg "Median Day of Action" "Jump Time"
+            --allow-neg "Median Day of Action" "Jump Time" "Rate of Mortality Rate Decay"
 
         echo "[*] Checking historic CSV... (Extra Check)"
         python3 /tmp/deployment-scripts/check_equal.py \
