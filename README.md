@@ -31,7 +31,6 @@ Once you are done and have checked your changes locally, make a pull request.
 For easy integration, we provide a RESTful HTTP API. 
 
 ### Functionality
-As of now, we only expose our models to calculate patient risk. The base path for this API is `https://covidanalytics.io/api/` and we provide the following functionality:
 
 As of now, we only expose our models to calculate patient risk. The base path for this API is `https://covidanalytics.io/api/` with these endpoints:
 
